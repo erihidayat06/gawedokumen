@@ -25,7 +25,7 @@
 
         <div class="hidden w-full md:block md:w-auto" id="navbar-menu">
             <ul
-                class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-slate-100 rounded-2xl bg-white md:space-x-4 lg:space-x-8 md:flex-row md:mt-0 md:border-0 md:bg-transparent items-center">
+                class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-slate-100 dark:border-slate-800 rounded-2xl bg-white dark:bg-slate-900 md:space-x-4 lg:space-x-8 md:flex-row md:mt-0 md:border-0 md:bg-transparent items-center">
 
                 <li><a href="/" class="block py-2 px-3 text-blue-600 font-semibold md:p-0">Beranda</a></li>
 
