@@ -1,0 +1,4 @@
+.jarak-paragraf{
+    margin-bottom: 16px; /* Lebih standar untuk surat resmi */
+    line-height: 1.5;    /* Agar teks perihal tidak terlalu rapat jika lebih dari 1 baris */
+}
