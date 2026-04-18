@@ -51,17 +51,16 @@ class AdminBlogController extends Controller
             $file = $request->file('gambar');
             $nama_gambar = time() . '.webp';
 
-            // 2. Tentukan folder path
-            $folderPath = public_path('uploads/blog');
+            // 1. Arahkan ke folder storage/app/public/...
+            $folderPath = storage_path('app/public/uploads/blog');
 
-            // 3. CEK FOLDER: Jika belum ada, buat foldernya (penting buat hosting baru)
+            // 2. Buat folder jika belum ada di storage
             if (!file_exists($folderPath)) {
                 mkdir($folderPath, 0777, true);
             }
 
             $fullPath = $folderPath . '/' . $nama_gambar;
 
-            // 4. Eksekusi konversi
             try {
                 $this->convertToWebp($file, $fullPath, 80);
                 $data['gambar'] = $nama_gambar;
@@ -115,18 +114,36 @@ class AdminBlogController extends Controller
         $data['slug'] = \Illuminate\Support\Str::slug($request->judul);
 
         if ($request->hasFile('gambar')) {
-            // 1. Hapus gambar lama jika ada
-            if ($blog->gambar && file_exists(public_path('uploads/blog/' . $blog->gambar))) {
-                unlink(public_path('uploads/blog/' . $blog->gambar));
+            // 1. Definisikan folder path
+            $folderPath = public_path('uploads/blog');
+
+            // 2. CEK & BUAT FOLDER (Jaga-jaga kalau folder hilang/belum ada)
+            if (!file_exists($folderPath)) {
+                mkdir($folderPath, 0777, true);
             }
 
-            // 2. Proses gambar baru ke WebP
+            // 3. HAPUS GAMBAR LAMA
+            // Gunakan @ sebelum unlink agar tidak error jika file fisik sudah hilang duluan
+            if ($blog->gambar) {
+                $oldPath = $folderPath . '/' . $blog->gambar;
+                if (file_exists($oldPath)) {
+                    @unlink($oldPath);
+                }
+            }
+
+            // 4. PROSES GAMBAR BARU
             $file = $request->file('gambar');
             $nama_gambar = time() . '.webp';
-            $path = public_path('uploads/blog/' . $nama_gambar);
+            $fullPath = $folderPath . '/' . $nama_gambar;
 
-            $this->convertToWebp($file, $path, 80);
-            $data['gambar'] = $nama_gambar;
+            try {
+                // Konversi ke WebP menggunakan helper yang sudah kita buat
+                $this->convertToWebp($file, $fullPath, 80);
+                $data['gambar'] = $nama_gambar;
+            } catch (\Exception $e) {
+                // Jika gagal konversi, kembalikan error agar data database tidak ikut rusak
+                return back()->with('error', 'Gagal memproses gambar baru: ' . $e->getMessage());
+            }
         }
 
         $blog->update($data);
