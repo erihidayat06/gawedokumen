@@ -115,7 +115,7 @@
 
                     <div class="aspect-video overflow-hidden">
                         {{-- Tambah efek zoom saat hover pakai group-hover --}}
-                        <img src="{{ asset('uploads/blog/' . $blog->gambar) }}"
+                        <img src="{{ asset('storage/uploads/blog/' . $blog->gambar) }}"
                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
                     </div>
 

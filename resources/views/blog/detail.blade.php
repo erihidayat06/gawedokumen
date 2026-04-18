@@ -44,7 +44,7 @@
                     {{-- FEATURED IMAGE --}}
                     @if ($blog->gambar)
                         <div class="rounded-[2.5rem] overflow-hidden mb-12 shadow-2xl shadow-blue-500/10">
-                            <img src="{{ asset('uploads/blog/' . $blog->gambar) }}" alt="{{ $blog->judul }}"
+                            <img src="{{ asset('storage/uploads/blog/' . $blog->gambar) }}" alt="{{ $blog->judul }}"
                                 class="w-full object-cover">
                         </div>
                     @endif

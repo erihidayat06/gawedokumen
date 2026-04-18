@@ -51,7 +51,7 @@
                                     <div
                                         class="aspect-[16/10] bg-slate-100 dark:bg-slate-900 rounded-[2rem] overflow-hidden mb-5 border border-slate-100 dark:border-slate-800">
                                         @if ($blog->gambar)
-                                            <img src="{{ asset('uploads/blog/' . $blog->gambar) }}"
+                                            <img src="{{ asset('storage/uploads/blog/' . $blog->gambar) }}"
                                                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                                                 alt="{{ $blog->judul }}">
                                         @else
