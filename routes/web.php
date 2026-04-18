@@ -59,7 +59,7 @@ Route::middleware('auth')->group(function () {
 });
 
 
-
+Route::get('/sitemap.xml', [App\Http\Controllers\SitemapController::class, 'index']);
 
 Route::get('/generate-pdf', [DocumentController::class, 'generate'])->name('pdf.generate');
 
