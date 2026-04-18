@@ -49,8 +49,33 @@
                         </div>
                     @endif
 
+                    <style>
+                        /* Tambahkan ini di file CSS kamu */
+                        .konten-blog ul {
+                            list-style-type: disc;
+                            margin-left: 1.5rem;
+                            margin-bottom: 1rem;
+                        }
+
+                        .konten-blog ol {
+                            list-style-type: decimal;
+                            margin-left: 1.5rem;
+                            margin-bottom: 1rem;
+                        }
+
+                        .konten-blog li {
+                            margin-bottom: 0.5rem;
+                        }
+                    </style>
+
                     {{-- BODY CONTENT --}}
-                    <div class="[&_ol]:list-decimal [&_ul]:list-disc [&_ol]:ml-6 [&_ul]:ml-6 [&_li]:mb-2">
+                    <div
+                        class="konten-blog prose prose-lg prose-slate dark:prose-invert max-w-none
+                        prose-headings:font-black prose-headings:tracking-tight
+                        prose-a:text-blue-600 prose-img:rounded-[2rem]
+                        prose-strong:text-slate-900 dark:text-slate-300">
+
+                        {{-- Menggunakan {!! !!} karena konten berasal dari CKEditor (HTML) --}}
                         {!! $blog->konten !!}
                     </div>
 
