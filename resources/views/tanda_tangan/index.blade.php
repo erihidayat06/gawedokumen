@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="py-24 bg-white dark:bg-slate-950 min-h-screen">
-        <div class="max-w-xl mx-auto px-6">
+        <div class="max-w-xl mx-auto px-2">
 
             <div class="text-center mb-10">
                 <h1 class="text-3xl font-black text-slate-900 dark:text-white mb-2">Tanda Tangan Digital</h1>
@@ -10,7 +10,7 @@
             </div>
 
             <div
-                class="bg-white dark:bg-slate-900 rounded-[2.5rem] p-8 border border-slate-100 dark:border-slate-800 shadow-2xl shadow-blue-500/5">
+                class="bg-white dark:bg-slate-900 rounded-[2.5rem] p-5 border border-slate-100 dark:border-slate-800 shadow-2xl shadow-blue-500/5">
 
                 {{-- Toolbar Kontrol --}}
                 <div
@@ -41,16 +41,16 @@
                 {{-- Tombol Aksi --}}
                 <div class="grid grid-cols-2 gap-4">
                     <button id="clear"
-                        class="py-4 px-6 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold rounded-2xl hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-900/20 dark:hover:text-red-400 transition-all">
+                        class="py-4 px-6 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold rounded-2xl hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-900/20 dark:hover:text-red-400 text-sm md:text-xl transition-all">
                         Hapus
                     </button>
                     <button id="save"
-                        class="py-4 px-6 bg-blue-600 text-white font-bold rounded-2xl shadow-lg shadow-blue-600/20 hover:bg-blue-700 transition-all flex items-center justify-center gap-2">
+                        class="py-4 px-6 bg-blue-600 text-white font-bold rounded-2xl shadow-lg shadow-blue-600/20 hover:bg-blue-700 transition-all flex items-center justify-center gap-2 text-sm md:text-xl">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
                         </svg>
-                        Download PNG
+                        Download
                     </button>
                 </div>
             </div>
@@ -64,7 +64,7 @@
 
 
         </div>
-        <article class="mt-12 border-t border-slate-100 dark:border-slate-800 pt-10">
+        <article class="mt-12 border-t border-slate-100 dark:border-slate-800 pt-10 px-5">
             <div class="max-w-3xl mx-auto">
                 <h2 class="text-2xl md:text-3xl font-black text-slate-900 dark:text-white mb-8 leading-tight text-center">
                     Bagaimana Cara Membuat Tanda Tangan Digital di GaweDokumen?
@@ -133,7 +133,7 @@
         </article>
 
         {{-- SECTION FAQ SIGNATURE GENERATOR --}}
-        <section class="mt-20 border-t border-slate-100 dark:border-slate-800 pt-16 mb-20">
+        <section class="mt-20 border-t border-slate-100 dark:border-slate-800 pt-16 mb-20 px-5">
             <div class="max-w-3xl mx-auto">
                 <h2 class="text-2xl font-black text-slate-900 dark:text-white mb-8 text-center">
                     Pertanyaan yang Sering <span class="text-blue-600">Diajukan</span>

@@ -54,13 +54,30 @@
                         </ul>
                     </div>
                 </li>
+                <li class="relative w-full md:w-auto">
+                    <button
+                        class="dropdown-button flex items-center justify-between w-full py-2.5 px-4 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors md:p-0">
+                        Tools
+                        <svg class="w-4 h-4 ms-1 transition-transform duration-200" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                            </path>
+                        </svg>
+                    </button>
 
-                <li class="w-full md:w-auto">
-                    <a href="{{ route('tool.signature') }}"
-                        class="block py-2.5 px-4 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 md:p-0 transition-colors">
-                        Tanda Tangan Digital
-                    </a>
+                    <div
+                        class="dropdown-content hidden w-full md:absolute md:w-44 mt-1 md:mt-4 bg-white dark:bg-slate-800 md:rounded-xl md:shadow-xl border-l-2 border-blue-600 md:border-l-0 md:border md:border-slate-200 md:dark:border-slate-700 overflow-hidden">
+                        <ul class="py-1 text-sm">
+                            <li>
+                                <a href="{{ route('tool.signature') }}"
+                                    class="block px-6 md:px-4 py-2 text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 transition-colors">
+                                    Tanda Tangan Digital
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
+
 
                 <li class="w-full md:w-auto">
                     <a href="/blog"

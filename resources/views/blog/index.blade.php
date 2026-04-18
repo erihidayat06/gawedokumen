@@ -9,7 +9,7 @@
                 <div
                     class="relative mb-16 rounded-[2.5rem] overflow-hidden bg-slate-900 h-[400px] md:h-[500px] group shadow-2xl">
                     <div class="absolute inset-0">
-                        <img src="{{ asset('uploads/blog/' . $featuredBlog->gambar) }}"
+                        <img src="{{ asset('storage/uploads/blog/' . $featuredBlog->gambar) }}"
                             class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700"
                             alt="{{ $featuredBlog->judul }}">
                         <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
@@ -107,7 +107,7 @@
                                 <a href="{{ route('blog.show', [$rec->kategori, $rec->slug]) }}" class="flex gap-4 group">
                                     <div
                                         class="w-20 h-20 bg-slate-200 dark:bg-slate-800 rounded-2xl flex-shrink-0 overflow-hidden">
-                                        <img src="{{ asset('uploads/blog/' . $rec->gambar) }}"
+                                        <img src="{{ asset('storage/uploads/blog/' . $rec->gambar) }}"
                                             class="w-full h-full object-cover">
                                     </div>
                                     <div class="flex flex-col justify-center">

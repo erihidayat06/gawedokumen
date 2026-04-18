@@ -61,6 +61,6 @@ Route::middleware('auth')->group(function () {
 
 
 
-Route::post('/generate-pdf', [DocumentController::class, 'generate'])->name('pdf.generate');
+Route::get('/generate-pdf', [DocumentController::class, 'generate'])->name('pdf.generate');
 
 require __DIR__ . '/auth.php';
