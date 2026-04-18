@@ -34,30 +34,45 @@ class AdminBlogController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'judul' => 'required',
+            'judul' => 'required|max:255',
             'kategori' => 'required',
             'konten' => 'required',
             'gambar' => 'image|mimes:jpeg,png,jpg,webp|max:2048'
         ]);
 
         $data = $request->only(['judul', 'kategori', 'konten']);
-        $data['slug'] = \Illuminate\Support\Str::slug($request->judul);
+
+        // 1. Buat slug yang unik agar tidak bentrok jika judul sama
+        $slug = \Illuminate\Support\Str::slug($request->judul);
+        $count = \App\Models\Blog::where('slug', 'LIKE', "$slug%")->count();
+        $data['slug'] = $count ? "{$slug}-{$count}" : $slug;
 
         if ($request->hasFile('gambar')) {
             $file = $request->file('gambar');
-            $nama_gambar = time() . '.webp'; // Paksa ekstensi jadi .webp
-            $path = public_path('uploads/blog/' . $nama_gambar);
+            $nama_gambar = time() . '.webp';
 
-            // Panggil fungsi helper kompres (kita buat di bawah)
-            $this->convertToWebp($file, $path, 80);
+            // 2. Tentukan folder path
+            $folderPath = public_path('uploads/blog');
 
-            $data['gambar'] = $nama_gambar;
+            // 3. CEK FOLDER: Jika belum ada, buat foldernya (penting buat hosting baru)
+            if (!file_exists($folderPath)) {
+                mkdir($folderPath, 0777, true);
+            }
+
+            $fullPath = $folderPath . '/' . $nama_gambar;
+
+            // 4. Eksekusi konversi
+            try {
+                $this->convertToWebp($file, $fullPath, 80);
+                $data['gambar'] = $nama_gambar;
+            } catch (\Exception $e) {
+                return back()->with('error', 'Gagal memproses gambar: ' . $e->getMessage());
+            }
         }
 
         \App\Models\Blog::create($data);
-        return redirect()->route('admin.blog.index')->with('success', 'Artikel berhasil!');
+        return redirect()->route('admin.blog.index')->with('success', 'Artikel berhasil diterbitkan!');
     }
-
 
 
     /**
