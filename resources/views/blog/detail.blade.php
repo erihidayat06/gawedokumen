@@ -73,7 +73,13 @@
                         class="konten-blog prose prose-lg prose-slate dark:prose-invert max-w-none
                         prose-headings:font-black prose-headings:tracking-tight
                         prose-a:text-blue-600 prose-img:rounded-[2rem]
-                        prose-strong:text-slate-900 dark:text-slate-300">
+                        prose-strong:text-slate-900 dark:text-slate-300 [&_p]:mb-4
+            [&_ul]:mb-4 [&_ol]:mb-4
+            [&_ul]:list-disc [&_ol]:list-decimal
+            [&_ul]:ml-6 [&_ol]:ml-6
+            [&_li]:mb-2
+            [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:mt-6 [&_h2]:mb-4
+            [&_h3]:text-xl [&_h3]:font-bold [&_h3]:mt-4 [&_h3]:mb-2">
 
                         {{-- Menggunakan {!! !!} karena konten berasal dari CKEditor (HTML) --}}
                         {!! $blog->konten !!}
