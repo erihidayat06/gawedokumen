@@ -50,13 +50,7 @@
                     @endif
 
                     {{-- BODY CONTENT --}}
-                    <div
-                        class="prose prose-lg prose-slate dark:prose-invert max-w-none
-                        prose-headings:font-black prose-headings:tracking-tight
-                        prose-a:text-blue-600 prose-img:rounded-[2rem]
-                        prose-strong:text-slate-900 dark:text-slate-300">
-
-                        {{-- Menggunakan {!! !!} karena konten berasal dari CKEditor (HTML) --}}
+                    <div class="[&_ol]:list-decimal [&_ul]:list-disc [&_ol]:ml-6 [&_ul]:ml-6 [&_li]:mb-2">
                         {!! $blog->konten !!}
                     </div>
 
