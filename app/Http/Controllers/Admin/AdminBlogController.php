@@ -115,7 +115,7 @@ class AdminBlogController extends Controller
 
         if ($request->hasFile('gambar')) {
             // 1. Definisikan folder path
-            $folderPath = public_path('app/public/uploads/blog');
+            $folderPath = storage_path('app/public/uploads/blog');
 
             // 2. CEK & BUAT FOLDER (Jaga-jaga kalau folder hilang/belum ada)
             if (!file_exists($folderPath)) {
