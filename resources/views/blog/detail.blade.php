@@ -122,7 +122,7 @@
                                         class="flex gap-4 group">
                                         <div
                                             class="w-16 h-16 bg-slate-200 dark:bg-slate-800 rounded-2xl flex-shrink-0 overflow-hidden">
-                                            <img src="{{ asset('uploads/blog/' . $related->gambar) }}"
+                                            <img src="{{ asset('storage/uploads/blog/' . $related->gambar) }}"
                                                 class="w-full h-full object-cover group-hover:scale-110 transition-transform">
                                         </div>
                                         <div class="flex flex-col justify-center">
