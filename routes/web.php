@@ -21,7 +21,7 @@ Route::get('/tool/tanda-tangan-digital', function () {
 
 
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
-Route::get('/blog/{ketegori}/{blog:slug}', [BlogController::class, 'detail'])->name('blog.show');
+Route::get('/blog/{ketegori}/{id}/{slug}', [BlogController::class, 'detail'])->name('blog.show');
 
 
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {

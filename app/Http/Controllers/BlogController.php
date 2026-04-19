@@ -28,11 +28,12 @@ class BlogController extends Controller
 
         return view('blog.index', compact('blogs', 'featuredBlog', 'recommendations'));
     }
-    public function detail($kategori, Blog $blog)
+    public function detail($kategori, $id, $slug = null)
     {
+        $blog = Blog::findOrFail($id);
         // Ambil artikel lain dengan kategori yang sama, tapi bukan artikel yang sedang dibuka
-        $relatedBlogs = Blog::where('kategori', $blog->kategori)
-            ->where('id', '!=', $blog->id)
+        $relatedBlogs = Blog::where('kategori', $kategori)
+            ->where('id', '!=', $id)
             ->latest()
             ->limit(3)
             ->get();
