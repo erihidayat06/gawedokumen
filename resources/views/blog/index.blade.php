@@ -27,7 +27,7 @@
                             {!! Str::limit(strip_tags($featuredBlog->konten), 160) !!}
                         </div>
                         {{-- LINK DENGAN 2 PARAMETER: KATEGORI & SLUG --}}
-                        <a href="{{ route('blog.show', [$featuredBlog->kategori, $featuresBlog->id, $featuredBlog->slug]) }}"
+                        <a href="{{ route('blog.show', [$featuredBlog->kategori, $featuredBlog->id, $featuredBlog->slug]) }}"
                             class="inline-flex items-center gap-2 text-white font-bold hover:gap-4 transition-all">
                             Baca Selengkapnya <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
