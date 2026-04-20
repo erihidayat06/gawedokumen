@@ -6,6 +6,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\Pekerja\CvController;
 use App\Http\Controllers\Pekerja\SuratLamaranController;
 use App\Http\Controllers\ProfileController;
 use GuzzleHttp\Middleware;
@@ -38,6 +39,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 
 Route::prefix('pekerja')->name('pekerja.')->group(function () {
     Route::get('/surat-lamaran', [SuratLamaranController::class, 'index'])->name('surat.lamaran');
+    Route::get('/generate-cv', [CvController::class, 'index'])->name('generate-cv');
 });
 
 

@@ -42,6 +42,12 @@ class HomeController extends Controller
                     'deskripsi' => 'Buat surat lamaran (Cover Letter) profesional standar HRD 2026.',
                     'route_path' => '/pekerja/surat-lamaran'
                 ],
+                (object)[
+                    'gambar' => '/img/lamaran_kerja.png',
+                    'nama_tool' => 'CV',
+                    'deskripsi' => 'Buat CV (Curriculum Vitae) profesional dengan format ATS-friendly agar mudah dilirik HRD.',
+                    'route_path' => '/pekerja/generate-cv'
+                ],
 
             ],
             // 'masyarakat' => [

@@ -172,15 +172,25 @@ class AdminBlogController extends Controller
         if ($request->hasFile('upload')) {
             $file = $request->file('upload');
             $fileName = time() . '_' . uniqid() . '.webp';
-            $path = public_path('uploads/blog_content/' . $fileName);
 
-            // Kompres konten gambar (kualitas 70 agar ringan)
-            $this->convertToWebp($file, $path, 70);
+            // Gunakan storage_path untuk proses simpan
+            $folderPath = storage_path('app/public/uploads/blog_content/');
+            $fullPath = $folderPath . $fileName;
+
+            // Validasi: Buat folder jika belum ada
+            if (!file_exists($folderPath)) {
+                mkdir($folderPath, 0775, true);
+            }
+
+            // Pastikan fungsi convertToWebp kamu menerima FULL PATH (termasuk nama file)
+            // Dan pastikan fungsi tersebut menggunakan imagewebp($image, $fullPath, $quality)
+            $this->convertToWebp($file, $fullPath, 70);
 
             return response()->json([
                 'uploaded' => 1,
                 'fileName' => $fileName,
-                'url' => asset('uploads/blog_content/' . $fileName)
+                // Asset() akan mengarah ke folder public/storage/ jika sudah php artisan storage:link
+                'url' => asset('storage/uploads/blog_content/' . $fileName)
             ]);
         }
     }
