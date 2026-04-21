@@ -28,7 +28,7 @@
     {{-- 4. Looping Kabeh Artikel Blog --}}
     @foreach ($posts as $post)
         <url>
-            <loc>{{ url('/blog/' . $post->slug) }}</loc>
+            <loc>{{ url('/blog/' . $post->kategori . '/' . $post->id . '/' . $post->slug) }}</loc>
             <lastmod>{{ $post->updated_at->tz('UTC')->toAtomString() }}</lastmod>
             <changefreq>weekly</changefreq>
             <priority>0.7</priority>
