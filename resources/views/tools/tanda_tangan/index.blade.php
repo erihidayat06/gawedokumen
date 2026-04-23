@@ -34,7 +34,7 @@
 
                 {{-- Area Canvas --}}
                 <div
-                    class="relative bg-slate-50 dark:bg-slate-800 rounded-3xl border-2 border-dashed border-slate-200 dark:border-slate-700 overflow-hidden mb-8">
+                    class="relative bg-slate-50 rounded-3xl border-2 border-dashed border-slate-200 dark:border-slate-700 overflow-hidden mb-8">
                     <canvas id="signature-pad" class="w-full h-72 cursor-crosshair touch-none"></canvas>
                 </div>
 

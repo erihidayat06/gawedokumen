@@ -36,10 +36,32 @@
         selectedTemplate: 'ats-classic',
         baseUrl: '/img/cv/',
         open: false,
-        templates: [
-            { id: 'ats-classic', nama: 'ATS Classic (Standard)', gambar: '/img/cv/cv1.jpg' },
-            { id: 'modern-blod', nama: 'Modern Blod', gambar: '/img/cv/cv2.jpg' }
-        ]
+        templates: [{
+                id: 'ats-classic',
+                nama: 'ATS Classic (Standard)',
+                gambar: '/img/cv/cv1.jpg',
+                config: {
+                    primary: '#1d8bbe', // Biru
+                    textMain: '#1e293b', // Slate 800
+                    sidebarText: '#ffffff', // Slate 100
+                    bgText: '#f1f5f9' // Slate 100
+                }
+            },
+            {
+                id: 'modern-bold',
+                nama: 'Modern Bold',
+                gambar: '/img/cv/cv2.jpg',
+                config: {
+                    primary: '#ffffff', // Merah (contoh)
+                    textMain: '#0f172a', // Slate 900
+                    sidebarText: '#1e293b',
+                    bgText: '#187db0' // Slate 100
+                }
+            }
+        ],
+        getActiveConfig() {
+            return this.templates.find(t => t.id === this.selectedTemplateId).config;
+        }
     }">
 
         <div class="order-1 md:order-2 p-5 bg-white border rounded-xl flex flex-col h-[700px]">
@@ -97,6 +119,19 @@
                                         selectedTemplate = template.id;
                                         open = false;
                                         document.getElementById('panzoom-element').style.backgroundImage = 'url(' + template.gambar + ')';
+                                        const primaryTexts = document.querySelectorAll('.text-primary-dynamic');
+                                            primaryTexts.forEach(el => {
+                                                el.style.color = template.config.primary;
+                                            });
+                                        const sidebarTexts = document.querySelectorAll('.text-sidebar-dynamic');
+                                            sidebarTexts.forEach(el => {
+                                                el.style.color = template.config.sidebarText;
+                                            });
+                                       const bgTexts = document.querySelectorAll('.bg-text');
+                                        bgTexts.forEach(el => {
+                                            // Gunakan backgroundColor
+                                            el.style.backgroundColor = template.config.bgText;
+                                        });
                                     ">
                                     <div class="flex items-center space-x-4">
                                         <img :src="template.gambar"
@@ -162,89 +197,150 @@
                 </button>
             </div>
 
-            <div id="panzoom-element"
-                class="bg-white shadow-2xl p-10 origin-top flex-shrink-0 text-justify transition-all duration-300"
-                style="width: 210mm; height: 297mm; min-width: 210mm; min-height: 297mm; font-size: 12pt; background-size: cover; background-position: center; background-image: url('/img/cv/cv1.jpg');">
 
-                <div class="jarak-paragraf text-left">
-                    <span id="kota-text"></span>, <span id="tanggal-text"></span>
-                </div>
+            <div id="panzoom-element" class="bg-white shadow-2xl origin-top flex flex-row"
+                style="width: 210mm; height: 297mm; min-width: 210mm; min-height: 297mm; font-size: 12pt;
+           background-image: url('/img/cv/cv1.jpg'); background-size: cover; background-repeat: no-repeat;">
 
-                <div class="jarak-paragraf text-left">Perihal: Lamaran Pekerjaan</div>
+                <div class="w-[85mm] flex-shrink-0" style="padding: 10mm 0mm 10mm 10mm;">
 
-                <div class="jarak-paragraf text-left">
-                    Kepada,<br>
-                    HRD <span id="pt-text"></span> <br>
-                    <span id="alamat-perusahaan-text"></span> <br>
-                    <span id="kota-perusahaan-text"></span> <br>
-                </div>
+                    <div class="flex justify-center pr-[5mm] pt-[5mm]">
+                        <img src="/img/cv/765-default-avatar.png" alt="Avatar"
+                            class="rounded-full object-cover border-4 border-slate-100 shadow-md" width="220"
+                            height="220">
+                    </div>
 
-                <div class="jarak-paragraf text-left">Dengan Hormat,</div>
+                    <div style="margin-top: 10mm; margin-left: -10mm;"
+                        class="rounded-r-xl bg-slate-100 w-[75mm] px-6 py-2 bg-text">
+                        <span class="text-[16pt] font-bold tracking-wide uppercase text-primary-dynamic text-[#1d8bbe]">
+                            Data Diri
+                        </span>
+                    </div>
 
-                <div class="jarak-paragraf text-justify">
-                    Sehubungan dengan informasi lowongan kerja yang saya dapatkan di <span id="media-text"></span>,
-                    saya mengetahui bahwa perusahaan <span id="pt2-text"></span> sedang mencari posisi <span
-                        id="posisi-text"></span>.
-                    Untuk itu, saya yang bertanda tangan di bawah ini:
-                </div>
+                    <div class="space-y-5 " style="margin-top: 6mm;">
+                        <div>
+                            <h3 class="text-[13pt] font-bold text-slate-100 text-sidebar-dynamic leading-tight">
+                                Tempat/Tanggal Lahir</h3>
+                            <p class="text-[12pt] text-slate-100 text-sidebar-dynamic">Tegal, 17 Mei 2004</p>
+                        </div>
+                        <div>
+                            <h3 class="text-[13pt] font-bold text-slate-100 text-sidebar-dynamic leading-tight">Jenis
+                                Kelamin</h3>
+                            <p class="text-[12pt] text-slate-100 text-sidebar-dynamic">Laki-Laki</p>
+                        </div>
+                        <div>
+                            <h3 class="text-[13pt] font-bold text-slate-100 leading-tight text-sidebar-dynamic">
+                                Kewarganegaraan</h3>
+                            <p class="text-[12pt] text-slate-100 text-sidebar-dynamic">Indonesia</p>
+                        </div>
+                    </div>
 
-                <div class="jarak-paragraf">
-                    <table class="text-left">
-                        <tr>
-                            <td>Nama</td>
-                            <td>&nbsp;:&nbsp;</td>
-                            <td><span id="nama-text"></span></td>
-                        </tr>
-                        <tr>
-                            <td>Jenis Kelamin</td>
-                            <td>&nbsp;:&nbsp;</td>
-                            <td><span id="jenis-kelamin-text"></span></td>
-                        </tr>
-                        <tr>
-                            <td>Tempat/Tanggal lahir</td>
-                            <td>&nbsp;:&nbsp;</td>
-                            <td><span id="tempat-lahir-text"></span>, <span id="tanggal-lahir-text"></span></td>
-                        </tr>
-                        <tr>
-                            <td>Alamat</td>
-                            <td>&nbsp;:&nbsp;</td>
-                            <td><span id="alamat-diri-text"></span></td>
-                        </tr>
-                        <tr>
-                            <td>Nomor telepon</td>
-                            <td>&nbsp;:&nbsp;</td>
-                            <td><span id="no-tlp-text"></span></td>
-                        </tr>
-                    </table>
-                </div>
+                    <div style="margin-top: 10mm; margin-left: -10mm;"
+                        class="rounded-r-xl bg-slate-100 w-[75mm] px-6 py-2 bg-text">
+                        <span class="text-[16pt] font-bold text-[#1d8bbe] tracking-wide uppercase text-primary-dynamic">
+                            KONTAK
+                        </span>
+                    </div>
 
-                <div class="jarak-paragraf text-justify">
-                    Dengan ini bermaksud untuk melamar posisi <span id="posisi2-text"></span> di <span
-                        id="pt3-text"></span>.
-                    Sebagai bahan pertimbangan, saya sertakan beberapa dokumen berikut:
-                </div>
-
-                <div class="jarak-paragraf " style="list-style-type: disc; margin-left: 20px;">
-                    <ol id="dokumen-text" class="list-decimal ml-5 text-red-500"></ol>
-                </div>
-
-                <div class="jarak-paragraf text-justify">
-                    Demikian surat lamaran kerja ini, saya ucapkan terima kasih atas perhatian Bapak/Ibu HRD.
-                </div>
-
-                <div class="jarak-paragraf mt-10 px-5">
-                    <div id="ttd-container" class="flex flex-col items-end">
-                        <div class="text-center">
-                            <span class="block mb-2">Hormat saya,</span>
-                            <div class="w-32 h-32 flex justify-center items-center mx-auto">
-                                <img id="preview-foto" src=""
-                                    class="hidden max-w-full max-h-full object-contain">
+                    <div class="space-y-5" style="margin-top: 6mm;">
+                        <div class="flex items-center space-x-3">
+                            <div class="flex-shrink-0 w-6 text-slate-100 text-sidebar-dynamic">
+                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path
+                                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z">
+                                    </path>
+                                </svg>
                             </div>
-                            <div class="mt-2 font-bold underline">
-                                <span id="nama2-text"></span>
+                            <div>
+                                <h3 class="text-[11pt] font-bold text-slate-100 text-sidebar-dynamic">Telepon</h3>
+                                <p class="text-[10pt] text-slate-100 text-sidebar-dynamic">0812-3456-7890</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="flex-shrink-0 w-6 text-slate-100 text-sidebar-dynamic">
+                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path
+                                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-[11pt] font-bold text-slate-100 text-sidebar-dynamic">Email</h3>
+                                <p class="text-[10pt] text-slate-100 text-sidebar-dynamic">eri@email.com</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="flex-shrink-0 w-6 text-slate-100 text-sidebar-dynamic">
+                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path
+                                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
+                                    </path>
+                                    <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-[11pt] font-bold text-slate-100 text-sidebar-dynamic">Alamat</h3>
+                                <p class="text-[10pt] text-slate-100 text-sidebar-dynamic">Kota Tegal, Jawa Tengah</p>
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <div class="flex-1" style="padding: 15mm 15mm 10mm 15mm;">
+
+                    <div class="border-b-4 border-[#1d8bbe] pb-4">
+                        <h1 class="text-[32pt] font-extrabold text-slate-800 leading-none">ERI SUKIRNO</h1>
+                        <h2 class="text-[18pt] font-medium text-[#1d8bbe] tracking-[0.2em] uppercase mt-2">Web Developer
+                        </h2>
+                    </div>
+
+                    <div class="mt-10">
+                        <h3 class="text-[16pt] font-bold text-slate-800 border-l-4 border-[#1d8bbe] pl-3 uppercase">Profil
+                        </h3>
+                        <p class="mt-4 text-[12pt] text-slate-600 leading-relaxed">
+                            Saya adalah seorang Full-stack Programmer yang berpengalaman mengelola lebih dari 20 proyek web.
+                            Ahli dalam penggunaan Laravel dan React JS, serta memiliki minat tinggi dalam digital content
+                            creation
+                            dan optimasi performa website.
+                        </p>
+                    </div>
+
+                    <div class="mt-10">
+                        <h3 class="text-[16pt] font-bold text-slate-800 border-l-4 border-[#1d8bbe] pl-3 uppercase">
+                            Pengalaman Kerja</h3>
+                        <div class="mt-6 space-y-8">
+                            <div>
+                                <div class="flex justify-between items-baseline">
+                                    <span class="font-bold text-[14pt] text-slate-800">Web Developer - Freelance</span>
+                                    <span class="text-[11pt] italic text-slate-500">2024 - Sekarang</span>
+                                </div>
+                                <p class="text-[12pt] text-slate-600 mt-2">Mengembangkan aplikasi manajemen keuangan (BATI)
+                                    untuk UMKM dan membangun platform GaweDokumen dengan optimasi SEO tinggi.</p>
+                            </div>
+                            <div>
+                                <div class="flex justify-between items-baseline">
+                                    <span class="font-bold text-[14pt] text-slate-800">Culinary Entrepreneur</span>
+                                    <span class="text-[11pt] italic text-slate-500">2026</span>
+                                </div>
+                                <p class="text-[12pt] text-slate-600 mt-2">Membangun brand Tahu Bakso Goreng K.E.S,
+                                    mengelola strategi branding digital, serta operasional harian.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-10">
+                        <h3 class="text-[16pt] font-bold text-slate-800 border-l-4 border-[#1d8bbe] pl-3 uppercase">
+                            Pendidikan</h3>
+                        <div class="mt-6">
+                            <div class="flex justify-between items-baseline">
+                                <span class="font-bold text-[14pt] text-slate-800">Teknik Informatika</span>
+                                <span class="text-[11pt] text-slate-500">2022 - 2026</span>
+                            </div>
+                            <p class="text-[12pt] text-slate-600 mt-1">Fokus pada pengembangan web dan sistem informasi.
+                            </p>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>

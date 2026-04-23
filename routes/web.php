@@ -9,16 +9,22 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\Pekerja\CvController;
 use App\Http\Controllers\Pekerja\SuratLamaranController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Tools\KompresPdfController;
+use App\Http\Controllers\Tools\SignatureController;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/kategori/{kategori}', [HomeController::class, 'show']);
 Route::get('/', [HomeController::class, 'index']);
 
-// Route untuk halaman tool tanda tangan
-Route::get('/tool/tanda-tangan-digital', function () {
-    return view('tanda_tangan.index');
-})->name('tool.signature');
+
+Route::prefix('tool')->name('tool.')->group(function () {
+    Route::get('tanda-tangan-digital', [SignatureController::class, 'index'])->name('signature');
+    Route::get('kompres-pdf', [KompresPdfController::class, 'index'])->name('kompres.pdf.index');
+    Route::post('kompres-pdf', [KompresPdfController::class, 'compress'])->name('kompres.pdf');
+});
+
+
 
 
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
