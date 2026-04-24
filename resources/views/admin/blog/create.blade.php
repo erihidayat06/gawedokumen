@@ -44,7 +44,24 @@
                 @csrf
                 <div class="form-group">
                     <label class="font-weight-bold">Judul Artikel</label>
-                    <input type="text" name="judul" class="form-control" placeholder="Masukkan judul..." required>
+                    {{-- Tambahkan id="judul" --}}
+                    <input type="text" name="judul" id="judul" class="form-control" placeholder="Masukkan judul..."
+                        required>
+                </div>
+
+                {{-- INPUT SLUG BARU --}}
+                <div class="form-group">
+                    <label class="font-weight-bold">Slug URL (SEO)</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-light text-muted"
+                                style="font-size: 0.8rem;">gawedokumen.com/blog/</span>
+                        </div>
+                        <input type="text" name="slug" id="slug" class="form-control"
+                            placeholder="nama-slug-artikel" required>
+                    </div>
+                    <small class="form-text text-muted">Gunakan huruf kecil, angka, dan tanda hubung (-). Contoh:
+                        outfit-wawancara-kerja</small>
                 </div>
 
                 <div class="row">
@@ -105,6 +122,31 @@
                 }
             }
         </script>
+
+        <script>
+            const judul = document.querySelector('#judul');
+            const slug = document.querySelector('#slug');
+
+            judul.addEventListener('keyup', function() {
+                // Hanya auto-generate jika slug masih kosong atau belum pernah diedit manual
+                // Jika ingin selalu sinkron, hapus pengecekan kondisi ini
+                let text = judul.value;
+                text = text.toLowerCase()
+                    .replace(/[^a-z0-9 -]/g, '') // hapus karakter aneh
+                    .replace(/\s+/g, '-') // ganti spasi jadi -
+                    .replace(/-+/g, '-'); // hapus - yang dobel
+
+                slug.value = text;
+            });
+
+            // Validasi saat input slug manual (mencegah spasi dan karakter aneh)
+            slug.addEventListener('input', function() {
+                this.value = this.value.toLowerCase()
+                    .replace(/[^a-z0-9 -]/g, '')
+                    .replace(/\s+/g, '-');
+            });
+        </script>
+
         {{-- Copy script CKEditor yang sama dengan create.blade.php --}}
         <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
         <script>

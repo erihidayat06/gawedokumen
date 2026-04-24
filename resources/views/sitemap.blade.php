@@ -40,9 +40,11 @@
     </url>
 
     {{-- 4. Looping Kabeh Artikel Blog --}}
+    {{-- 4. Looping Semua Artikel Blog dengan URL Baru --}}
     @foreach ($posts as $post)
         <url>
-            <loc>{{ url('/blog/' . $post->kategori . '/' . $post->id . '/' . $post->slug) }}</loc>
+            {{-- Sesuaikan dengan rute baru: domain.com/blog/slug-artikel --}}
+            <loc>{{ url('/blog/' . $post->slug) }}</loc>
             <lastmod>{{ $post->updated_at->tz('UTC')->toAtomString() }}</lastmod>
             <changefreq>weekly</changefreq>
             <priority>0.7</priority>

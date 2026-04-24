@@ -30,7 +30,24 @@
 
                 <div class="form-group">
                     <label class="font-weight-bold">Judul Artikel</label>
-                    <input type="text" name="judul" class="form-control" value="{{ $blog->judul }}" required>
+                    <input type="text" name="judul" id="judul" class="form-control" value="{{ $blog->judul }}"
+                        required>
+                </div>
+
+                {{-- INPUT SLUG UNTUK EDIT --}}
+                <div class="form-group">
+                    <label class="font-weight-bold">Slug URL (SEO)</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-light text-muted"
+                                style="font-size: 0.8rem;">gawedokumen.com/blog/</span>
+                        </div>
+                        <input type="text" name="slug" id="slug" class="form-control" value="{{ $blog->slug }}"
+                            required>
+                    </div>
+                    <small class="text-info">
+                        <i class="fas fa-exclamation-triangle"></i> Hati-hati: Mengubah slug akan mengubah URL artikel.
+                    </small>
                 </div>
 
                 <div class="row">
@@ -83,6 +100,29 @@
 @endsection
 
 @push('scripts')
+    <script>
+        const judul = document.querySelector('#judul');
+        const slug = document.querySelector('#slug');
+
+        // Kita hanya aktifkan auto-slug jika user mengosongkan input slug
+        judul.addEventListener('keyup', function() {
+            // Hapus baris if di bawah ini jika ingin slug SELALU mengikuti judul
+            if (slug.value == '') {
+                let text = judul.value;
+                text = text.toLowerCase()
+                    .replace(/[^a-z0-9 -]/g, '')
+                    .replace(/\s+/g, '-')
+                    .replace(/-+/g, '-');
+                slug.value = text;
+            }
+        });
+
+        slug.addEventListener('input', function() {
+            this.value = this.value.toLowerCase()
+                .replace(/[^a-z0-9 -]/g, '')
+                .replace(/\s+/g, '-');
+        });
+    </script>
     <script>
         function previewImage() {
             const image = document.querySelector('#gambarInput');

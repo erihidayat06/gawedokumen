@@ -110,7 +110,7 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             @foreach ($latestBlogs as $blog)
                 {{-- Ubah article jadi <a> agar seluruh kotak bisa diklik --}}
-                <a href="{{ route('blog.show', [$blog->kategori, $blog->id, $blog->slug]) }}"
+                <a href="{{ route('blog.show', [$blog->slug]) }}"
                     class="group bg-white dark:bg-slate-900 rounded-[2rem] overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100 dark:border-slate-800">
 
                     <div class="aspect-video overflow-hidden">

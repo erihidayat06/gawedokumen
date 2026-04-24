@@ -28,12 +28,25 @@ class BlogController extends Controller
 
         return view('blog.index', compact('blogs', 'featuredBlog', 'recommendations'));
     }
+
+
     public function detail($kategori, $id, $slug = null)
     {
+        // Cari datanya dulu berdasarkan ID
         $blog = Blog::findOrFail($id);
-        // Ambil artikel lain dengan kategori yang sama, tapi bukan artikel yang sedang dibuka
-        $relatedBlogs = Blog::where('kategori', $kategori)
-            ->where('id', '!=', $id)
+
+        // Lempar ke rute baru secara permanen (301)
+        // Ini akan mengubah URL di browser user secara otomatis
+        return redirect()->route('blog.show', ['slug' => $blog->slug], 301);
+    }
+    public function show($slug)
+    {
+        // Cari artikel berdasarkan slug
+        $blog = Blog::where('slug', $slug)->firstOrFail();
+
+        // Related blogs tetap pakai kategori dari data yang ditemukan
+        $relatedBlogs = Blog::where('kategori', $blog->kategori)
+            ->where('id', '!=', $blog->id)
             ->latest()
             ->limit(3)
             ->get();

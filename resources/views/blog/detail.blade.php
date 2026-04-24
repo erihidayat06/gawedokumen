@@ -118,8 +118,7 @@
                                     class="text-blue-600">Terkait</span></h3>
                             <div class="space-y-6">
                                 @forelse ($relatedBlogs as $related)
-                                    <a href="{{ route('blog.show', [$related->kategori, $related->id, $related->slug]) }}"
-                                        class="flex gap-4 group">
+                                    <a href="{{ route('blog.show', [$related->slug]) }}" class="flex gap-4 group">
                                         <div
                                             class="w-16 h-16 bg-slate-200 dark:bg-slate-800 rounded-2xl flex-shrink-0 overflow-hidden">
                                             <img src="{{ asset('storage/uploads/blog/' . $related->gambar) }}"

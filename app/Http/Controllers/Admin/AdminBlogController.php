@@ -35,17 +35,16 @@ class AdminBlogController extends Controller
     {
         $request->validate([
             'judul' => 'required|max:255',
+            'slug'     => 'required|unique:blogs,slug',
             'kategori' => 'required',
             'konten' => 'required',
             'gambar' => 'image|mimes:jpeg,png,jpg,webp|max:2048'
         ]);
 
-        $data = $request->only(['judul', 'kategori', 'konten']);
+        $data = $request->only(['judul', 'kategori', 'konten', 'slug']);
 
-        // 1. Buat slug yang unik agar tidak bentrok jika judul sama
-        $slug = \Illuminate\Support\Str::slug($request->judul);
-        $count = \App\Models\Blog::where('slug', 'LIKE', "$slug%")->count();
-        $data['slug'] = $count ? "{$slug}-{$count}" : $slug;
+
+
 
         if ($request->hasFile('gambar')) {
             $file = $request->file('gambar');
@@ -106,12 +105,13 @@ class AdminBlogController extends Controller
         $request->validate([
             'judul' => 'required',
             'kategori' => 'required',
+            'slug'     => 'required|unique:blogs,slug,' . $blog->id,
             'konten' => 'required',
             'gambar' => 'image|mimes:jpeg,png,jpg,webp|max:2048'
         ]);
 
-        $data = $request->only(['judul', 'kategori', 'konten']);
-        $data['slug'] = \Illuminate\Support\Str::slug($request->judul);
+        $data = $request->only(['judul', 'kategori', 'konten', 'slug']);
+
 
         if ($request->hasFile('gambar')) {
             // 1. Definisikan folder path

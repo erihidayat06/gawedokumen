@@ -27,7 +27,7 @@
                             {!! Str::limit(strip_tags($featuredBlog->konten), 160) !!}
                         </div>
                         {{-- LINK DENGAN 2 PARAMETER: KATEGORI & SLUG --}}
-                        <a href="{{ route('blog.show', [$featuredBlog->kategori, $featuredBlog->id, $featuredBlog->slug]) }}"
+                        <a href="{{ route('blog.show', [$featuredBlog->slug]) }}"
                             class="inline-flex items-center gap-2 text-white font-bold hover:gap-4 transition-all">
                             Baca Selengkapnya <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -47,7 +47,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         @forelse ($blogs as $blog)
                             <article class="group">
-                                <a href="{{ route('blog.show', [$blog->kategori, $blog->id, $blog->slug]) }}">
+                                <a href="{{ route('blog.show', [$blog->slug]) }}">
                                     <div
                                         class="aspect-[16/10] bg-slate-100 dark:bg-slate-900 rounded-[2rem] overflow-hidden mb-5 border border-slate-100 dark:border-slate-800">
                                         @if ($blog->gambar)
@@ -63,7 +63,7 @@
                                 </a>
                                 <span
                                     class="text-blue-600 text-xs font-bold uppercase tracking-widest">{{ $blog->kategori }}</span>
-                                <a href="{{ route('blog.show', [$blog->kategori, $blog->id, $blog->slug]) }}">
+                                <a href="{{ route('blog.show', [$blog->slug]) }}">
                                     <h4
                                         class="text-xl font-bold mt-2 dark:text-white group-hover:text-blue-600 transition-colors">
                                         {{ $blog->judul }}
@@ -104,8 +104,7 @@
 
                         <div class="space-y-6">
                             @foreach ($recommendations as $rec)
-                                <a href="{{ route('blog.show', [$rec->kategori, $rec->id, $rec->slug]) }}"
-                                    class="flex gap-4 group">
+                                <a href="{{ route('blog.show', [$rec->slug]) }}" class="flex gap-4 group">
                                     <div
                                         class="w-20 h-20 bg-slate-200 dark:bg-slate-800 rounded-2xl flex-shrink-0 overflow-hidden">
                                         <img src="{{ asset('storage/uploads/blog/' . $rec->gambar) }}"
