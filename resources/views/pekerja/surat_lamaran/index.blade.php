@@ -634,8 +634,10 @@
             line-height: 1.6;
         }
     </style>
+@endsection
 
-
+@push('scripts')
+    <script src="/js/gawedokumen.js"></script>
     <script>
         let printTimer = null;
         let preparedData = {};
@@ -1091,4 +1093,4 @@
             return dateObj.toISOString().split('T')[0];
         }
     </script>
-@endsection
+@endpush

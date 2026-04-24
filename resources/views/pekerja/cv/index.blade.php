@@ -347,3 +347,8 @@
 
     </div>
 @endsection
+
+
+@push('scripts')
+    <script src="/js/gawedokumen.js"></script>
+@endpush
