@@ -33,7 +33,7 @@ Route::prefix('blog')->name('blog.')->group(function () {
 
     // 2. Rute Lama (domain.com/blog/tutorial/8/slug)
     // Tetap ditaruh di atas rute slug baru untuk menghindari bentrok jika ada kategori yang namanya mirip
-    Route::get('/{kategori}/{id}/{slug}', [BlogController::class, 'detailOld']);
+    Route::get('/{kategori}/{id}/{slug}', [BlogController::class, 'detail']);
 
     // 3. Rute Baru (domain.com/blog/slug-bersih)
     Route::get('/{slug}', [BlogController::class, 'show'])->name('show');

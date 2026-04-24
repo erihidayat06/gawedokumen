@@ -39,6 +39,8 @@ class BlogController extends Controller
         // Ini akan mengubah URL di browser user secara otomatis
         return redirect()->route('blog.show', ['slug' => $blog->slug], 301);
     }
+
+
     public function show($slug)
     {
         // Cari artikel berdasarkan slug
