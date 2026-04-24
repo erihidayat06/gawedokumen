@@ -55,7 +55,7 @@
     @include('layouts.footer')
 
     @stack('scripts')
-    <script src="/js/gawedokumen.js"></script>
+
     <script defer src="https://unpkg.com/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
