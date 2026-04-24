@@ -9,8 +9,10 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // Ambil 3 artikel terbaru untuk ditampilkan di landing page
-        $latestBlogs = Blog::latest()->limit(3)->get();
+        $latestBlogs = Blog::select('judul', 'slug', 'gambar', 'kategori')
+            ->latest()
+            ->limit(3)
+            ->get();
 
         return view('index', compact('latestBlogs'));
     }

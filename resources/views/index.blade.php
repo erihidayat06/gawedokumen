@@ -88,13 +88,20 @@
         </div>
 
         {{-- BACKGROUND DECORATION --}}
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full -z-0 pointer-events-none">
-            <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-500/5 rounded-full blur-[120px]"></div>
-            <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-indigo-500/5 rounded-full blur-[120px]">
-            </div>
-        </div>
-    </section>
 
+    </section>
+    {{-- BACKGROUND DECORATION - OPTIMIZED --}}
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full -z-0 pointer-events-none overflow-hidden">
+        {{-- Glow Kiri Atas --}}
+        <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] opacity-20"
+            style="background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0) 70%);">
+        </div>
+
+        {{-- Glow Kanan Bawah --}}
+        <div class="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] opacity-20"
+            style="background: radial-gradient(circle, rgba(79, 70, 229, 0.15) 0%, rgba(79, 70, 229, 0) 70%);">
+        </div>
+    </div>
     {{-- LATEST BLOG SECTION --}}
 
     <div class="max-w-7xl mx-auto px-6">
@@ -115,8 +122,8 @@
 
                     <div class="aspect-video overflow-hidden">
                         {{-- Tambah efek zoom saat hover pakai group-hover --}}
-                        <img src="{{ asset('storage/uploads/blog/' . $blog->gambar) }}"
-                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <img src="{{ asset('storage/uploads/blog/' . $blog->gambar) }}" loading="lazy"
+                            {{-- Tambahkan ini --}} class="w-full h-full object-cover ...">
                     </div>
 
                     <div class="p-6">
