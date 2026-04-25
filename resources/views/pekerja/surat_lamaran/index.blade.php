@@ -651,6 +651,8 @@
             const btnPrint = document.getElementById('btnRealPrint');
             const loading = document.getElementById('loadingState');
             const ready = document.getElementById('readyState');
+            const rawTTD = document.getElementById('preview-foto').classList.contains('hidden') ? null : document
+                .getElementById('preview-foto').src;
 
             // --- RESET STATE (PENTING BIAR GAK BUG) ---
             if (printTimer) clearInterval(printTimer);
@@ -694,9 +696,14 @@
                 ttd_align: document.getElementById('ttd-align-selector').value,
                 font_style: document.getElementById('font-selector').value,
                 lampiran: JSON.stringify(lampiranFinal),
-                ttd_base64: document.getElementById('preview-foto').classList.contains('hidden') ? null :
-                    document.getElementById('preview-foto').src
+                ttd_base64: rawTTD // Biarkan dulu raw, nanti kita timpa
             };
+            if (rawTTD) {
+                compressSignature(rawTTD).then(compressed => {
+                    preparedData.ttd_base64 = compressed;
+                    console.log("TTD berhasil dikompres!");
+                });
+            }
 
             // --- JALANKAN COUNTDOWN ---
             printTimer = setInterval(() => {
@@ -726,6 +733,32 @@
                 }
             }, 1000);
         });
+
+        // Fungsi untuk mengecilkan ukuran string Base64 gambar
+        function compressSignature(base64Str) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.src = base64Str;
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+
+                    // Set ukuran canvas lebih kecil (misal max lebar 400px)
+                    const maxWidth = 400;
+                    const scale = maxWidth / img.width;
+                    canvas.width = maxWidth;
+                    canvas.height = img.height * scale;
+
+                    // Gambar ulang dengan kualitas rendah
+                    ctx.fillStyle = "#FFFFFF"; // Beri background putih karena JPEG gak support transparan
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+                    // Export ke JPEG dengan kualitas 0.2 (Sangat kecil!)
+                    resolve(canvas.toDataURL("image/jpeg", 0.2));
+                };
+            });
+        }
 
         // 2. FUNGSI KIRIM DATA KE SERVER (FORM BAYANGAN)
         function finalExecutePrint() {
