@@ -37,6 +37,18 @@
         gtag('config', 'G-DGR0WR4BKB');
     </script>
 
+    {{-- Meta Title Dinamis --}}
+    <title>@yield('title', 'Gawe Dokumen - Solusi Dokumen Digital Gratis')</title>
+
+    {{-- Meta Description Dinamis --}}
+    <meta name="description" content="@yield('meta_description', 'Bikin surat lamaran, label, dan dokumen administrasi otomatis dalam hitungan menit.')">
+
+    {{-- Open Graph untuk Facebook/WhatsApp agar gambar muncul saat di-share --}}
+    <meta property="og:title" content="@yield('title', 'Gawe Dokumen')">
+    <meta property="og:description" content="@yield('meta_description')">
+    <meta property="og:image" content="@yield('og_image', asset('/img/default-og-image.jpg'))">
+    <meta property="og:type" content="article">
+
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])

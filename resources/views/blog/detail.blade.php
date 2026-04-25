@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title', $blog->judul . ' - Gawe Dokumen')
+@section('meta_description', Str::limit(strip_tags($blog->konten), 160))
+@section('og_image', asset('storage/uploads/blog/' . $blog->gambar))
+
 @section('content')
     <div class="bg-white dark:bg-slate-950 min-h-screen pt-24 pb-20">
         <div class="max-w-7xl mx-auto px-6">
