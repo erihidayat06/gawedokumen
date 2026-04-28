@@ -50,9 +50,13 @@
 
        <!-- Heading -->
        <div class="sidebar-heading">
-           Addons
+           Template
        </div>
-
+       <li class="nav-item">
+           <a class="nav-link" href="{{ route('admin.cv.index') }}">
+               <i class="fas fa-fw fa-table"></i>
+               <span>CV</span></a>
+       </li>
 
        <!-- Divider -->
        <hr class="sidebar-divider d-none d-md-block">

@@ -42,14 +42,17 @@
         <div class="card-body">
             <form id="blogForm" action="{{ route('admin.blog.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
+
                 <div class="form-group">
                     <label class="font-weight-bold">Judul Artikel</label>
-                    {{-- Tambahkan id="judul" --}}
-                    <input type="text" name="judul" id="judul" class="form-control" placeholder="Masukkan judul..."
-                        required>
+                    <input type="text" name="judul" id="judul"
+                        class="form-control @error('judul') is-invalid @enderror" value="{{ old('judul') }}"
+                        placeholder="Masukkan judul..." required>
+                    @error('judul')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
 
-                {{-- INPUT SLUG BARU --}}
                 <div class="form-group">
                     <label class="font-weight-bold">Slug URL (SEO)</label>
                     <div class="input-group">
@@ -57,29 +60,39 @@
                             <span class="input-group-text bg-light text-muted"
                                 style="font-size: 0.8rem;">gawedokumen.com/blog/</span>
                         </div>
-                        <input type="text" name="slug" id="slug" class="form-control"
+                        <input type="text" name="slug" id="slug"
+                            class="form-control @error('slug') is-invalid @enderror" value="{{ old('slug') }}"
                             placeholder="nama-slug-artikel" required>
+                        @error('slug')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
-                    <small class="form-text text-muted">Gunakan huruf kecil, angka, dan tanda hubung (-). Contoh:
-                        outfit-wawancara-kerja</small>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="font-weight-bold">Kategori</label>
-                            <select name="kategori" class="form-control">
-                                <option value="Tips Karir">Tips Karir</option>
-                                <option value="Tutorial">Tutorial</option>
-                                <option value="Update">Update</option>
+                            <select name="kategori" class="form-control @error('kategori') is-invalid @enderror">
+                                <option value="Tips Karir" {{ old('kategori') == 'Tips Karir' ? 'selected' : '' }}>Tips
+                                    Karir</option>
+                                <option value="Tutorial" {{ old('kategori') == 'Tutorial' ? 'selected' : '' }}>Tutorial
+                                </option>
+                                <option value="Update" {{ old('kategori') == 'Update' ? 'selected' : '' }}>Update</option>
                             </select>
+                            @error('kategori')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="font-weight-bold">Thumbnail Gambar</label>
-                            <input type="file" name="gambar" class="form-control-file" id="gambarInput"
-                                onchange="previewImage()">
+                            <input type="file" name="gambar" id="gambarInput"
+                                class="form-control-file @error('gambar') is-invalid @enderror" onchange="previewImage()">
+                            @error('gambar')
+                                <div class="text-danger small mt-1">{{ $message }}</div>
+                            @enderror
 
                             <div class="mt-3">
                                 <img id="imgPreview" src="#" alt="Preview Gambar"
@@ -91,13 +104,12 @@
 
                 <div class="form-group">
                     <label class="font-weight-bold">Isi Konten</label>
-                    <textarea name="konten" id="editor"></textarea>
+                    <textarea name="konten" id="editor" class="@error('konten') is-invalid @enderror">{{ old('konten') }}</textarea>
+                    @error('konten')
+                        <div class="text-danger small mt-1">{{ $message }}</div>
+                    @enderror
                 </div>
 
-                <div class="mt-4 mb-5">
-                    <button type="submit" class="btn btn-primary">Terbitkan Artikel</button>
-                    <a href="{{ route('admin.blog.index') }}" class="btn btn-secondary">Batal</a>
-                </div>
             </form>
         </div>
     </div>

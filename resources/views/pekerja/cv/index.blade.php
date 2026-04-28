@@ -33,36 +33,43 @@
         <div class="mt-6 w-24 h-1 bg-blue-600 mx-auto rounded-full opacity-20"></div>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 m-5" x-data="{
-        selectedTemplate: 'ats-classic',
-        baseUrl: '/img/cv/',
+        selectedTemplate: '',
+        templates: JSON.parse('{{ addslashes($templates) }}'),
         open: false,
-        templates: [{
-                id: 'ats-classic',
-                nama: 'ATS Classic (Standard)',
-                gambar: '/img/cv/cv1.jpg',
-                config: {
-                    primary: '#1d8bbe', // Biru
-                    textMain: '#1e293b', // Slate 800
-                    sidebarText: '#ffffff', // Slate 100
-                    bgText: '#f1f5f9' // Slate 100
-                }
-            },
-            {
-                id: 'modern-bold',
-                nama: 'Modern Bold',
-                gambar: '/img/cv/cv2.jpg',
-                config: {
-                    primary: '#ffffff', // Merah (contoh)
-                    textMain: '#0f172a', // Slate 900
-                    sidebarText: '#1e293b',
-                    bgText: '#187db0' // Slate 100
-                }
+    
+        init() {
+            // 1. Cek apakah ada pilihan sebelumnya di localStorage
+            const savedTemplate = localStorage.getItem('selected_cv_template');
+    
+            if (savedTemplate && this.templates.find(t => t.id === savedTemplate)) {
+                this.selectedTemplate = savedTemplate;
+            } else if (this.templates.length > 0) {
+                // Default ke template pertama jika belum ada simpanan
+                this.selectedTemplate = this.templates[0].id;
             }
-        ],
-        getActiveConfig() {
-            return this.templates.find(t => t.id === this.selectedTemplateId).config;
+    
+            this.$nextTick(() => {
+                this.updateStyles();
+            });
+        },
+    
+        updateStyles() {
+            const template = this.templates.find(t => t.id === this.selectedTemplate);
+            if (!template) return;
+    
+            // 2. Simpan pilihan terbaru ke localStorage setiap kali ganti
+            localStorage.setItem('selected_cv_template', this.selectedTemplate);
+    
+            // --- Logic Update Styles Tetap Sama ---
+            const panzoom = document.getElementById('panzoom-element');
+            if (panzoom) panzoom.style.backgroundImage = 'url(' + template.gambar + ')';
+    
+            document.querySelectorAll('.text-primary-dynamic').forEach(el => el.style.color = template.config.primary);
+            document.querySelectorAll('.text-sidebar-dynamic').forEach(el => el.style.color = template.config.sidebarText);
+            document.querySelectorAll('.bg-text').forEach(el => el.style.backgroundColor = template.config.bgText);
         }
     }">
+
 
         <div class="order-1 md:order-2 p-5 bg-white border rounded-xl flex flex-col h-[700px]">
             <h3 class="font-bold border-b pb-2 text-gray-700">Form Input</h3>
@@ -87,6 +94,7 @@
                     </select>
                     <p class="text-[10px] text-gray-500 mt-1">*Berpengaruh pada tampilan cetak dokumen.</p>
                 </div>
+
 
                 <hr class="border-slate-200 dark:border-slate-700">
 
@@ -118,6 +126,7 @@
                                     @click="
                                         selectedTemplate = template.id;
                                         open = false;
+                                        updateStyles();
                                         document.getElementById('panzoom-element').style.backgroundImage = 'url(' + template.gambar + ')';
                                         const primaryTexts = document.querySelectorAll('.text-primary-dynamic');
                                             primaryTexts.forEach(el => {

@@ -38,7 +38,7 @@ class AdminBlogController extends Controller
             'slug'     => 'required|unique:blogs,slug',
             'kategori' => 'required',
             'konten' => 'required',
-            'gambar' => 'image|mimes:jpeg,png,jpg,webp|max:2048'
+            'gambar' => 'image|mimes:jpeg,png,jpg,webp'
         ]);
 
         $data = $request->only(['judul', 'kategori', 'konten', 'slug']);
