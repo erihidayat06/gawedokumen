@@ -109,7 +109,10 @@
                         <div class="text-danger small mt-1">{{ $message }}</div>
                     @enderror
                 </div>
-
+                <div class="mt-4 mb-5">
+                    <button type="submit" class="btn btn-primary">Terbitkan</button>
+                    <a href="{{ route('admin.blog.index') }}" class="btn btn-secondary">Batal</a>
+                </div>
             </form>
         </div>
     </div>
