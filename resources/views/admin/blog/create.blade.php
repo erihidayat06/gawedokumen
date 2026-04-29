@@ -30,6 +30,14 @@
         .ck-editor__editable_inline {
             min-height: 400px;
         }
+
+        /* Memaksa tabel mengambil ruang penuh dan memberi jarak bawah */
+        .cke_editable table {
+            display: table !important;
+            width: 100% !important;
+            margin-bottom: 20px !important;
+            clear: both;
+        }
     </style>
     <div class="card shadow fixed-height-card">
         <div class="card-header py-3 d-flex justify-content-between align-items-center">
