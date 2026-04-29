@@ -21,27 +21,54 @@
 
                 {{-- ARTIKEL CONTENT --}}
                 <article class="lg:col-span-8">
-                    <header class="mb-10">
+                    <header class="mb-10 px-4 sm:px-0">
+                        <!-- Kategori: Badge tetap kecil & rapi -->
                         <span
-                            class="px-3 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-xs font-bold rounded-full uppercase tracking-widest">
+                            class="inline-block px-3 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-[10px] sm:text-xs font-bold rounded-full uppercase tracking-widest">
                             {{ $blog->kategori }}
                         </span>
-                        <h1 class="text-3xl md:text-5xl font-black text-slate-900 dark:text-white mt-6 mb-6 leading-tight">
+
+                        <!-- Judul: Responsif (Mobile: text-3xl, Desktop: text-5xl) -->
+                        <h1
+                            class="text-3xl md:text-5xl font-black text-slate-900 dark:text-white mt-4 mb-6 leading-[1.15] tracking-tight">
                             {{ $blog->judul }}
                         </h1>
 
-                        <div class="flex items-center gap-4 text-slate-500 dark:text-slate-400 text-sm">
+                        <!-- Meta Info: Flex-wrap agar tidak terpotong di HP kecil -->
+                        <div
+                            class="flex flex-wrap items-center gap-y-3 gap-x-4 text-slate-500 dark:text-slate-400 text-xs sm:text-sm border-t border-slate-100 dark:border-slate-800 pt-6">
+
+                            <!-- Author -->
                             <div class="flex items-center gap-2">
                                 <div
-                                    class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-[10px] text-white font-bold">
+                                    class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-[10px] text-white font-bold ring-2 ring-white dark:ring-slate-900 shadow-sm">
                                     {{ substr($blog->author ?? 'EH', 0, 2) }}
                                 </div>
-                                <span>{{ $blog->author ?? 'Admin GaweDokumen' }}</span>
+                                <span class="font-semibold text-slate-700 dark:text-slate-200">
+                                    {{ $blog->author ?? 'Admin GaweDokumen' }}
+                                </span>
                             </div>
-                            <span>•</span>
-                            <span>{{ $blog->created_at->translatedFormat('d F Y') }}</span>
-                            <span>•</span>
-                            <span>{{ $blog->reading_time ?? '5' }} Menit Baca</span>
+
+                            <!-- Divider & Date (Hidden di layar sangat kecil jika perlu, atau tetap ada dengan flex-wrap) -->
+                            <div class="flex items-center gap-3">
+                                <span class="hidden sm:inline text-slate-300 dark:text-slate-700">•</span>
+                                <time datetime="{{ $blog->created_at->format('Y-m-d') }}">
+                                    {{ $blog->created_at->translatedFormat('d F Y') }}
+                                </time>
+                            </div>
+
+                            <!-- Divider & Reading Time -->
+                            <div class="flex items-center gap-3">
+                                <span class="text-slate-300 dark:text-slate-700">•</span>
+                                <span class="flex items-center">
+                                    <svg class="w-3.5 h-3.5 mr-1.5 opacity-60" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    {{ $blog->reading_time ?? '5' }} Menit Baca
+                                </span>
+                            </div>
                         </div>
                     </header>
 

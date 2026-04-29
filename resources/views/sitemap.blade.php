@@ -25,6 +25,13 @@
     </url>
 
     <url>
+        <loc>{{ url('/tool/kompres-gambar') }}</loc>
+        <lastmod>2026-04-29T00:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <url>
         <loc>{{ url('/tool/tanda-tangan-digital') }}</loc>
         <lastmod>2026-04-23T00:00:00+00:00</lastmod>
         <changefreq>weekly</changefreq>

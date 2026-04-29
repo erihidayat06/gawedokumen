@@ -21,7 +21,7 @@ class KompresPdfController extends Controller
         $file = $request->file('pdf_file');
         $inputPath = $file->getRealPath();
         $fileName = 'compressed_' . time() . '.pdf';
-        $outputPath = storage_path('app/public/' . $fileName);
+        $outputPath = storage_path('app/public/temp/' . $fileName);
 
         // Cek OS (Windows/Linux)
         $gsPath = (PHP_OS_FAMILY === 'Windows') ? 'gswin64c' : 'gs';
@@ -42,7 +42,7 @@ class KompresPdfController extends Controller
 
             return response()->json([
                 'success' => true,
-                'download_url' => asset('storage/' . $fileName),
+                'download_url' => asset('storage/temp/' . $fileName),
                 'new_size' => number_format($newSizeInBytes / 1024 / 1024, 2) . ' MB',
                 'new_size_bytes' => $newSizeInBytes // <--- Tambahkan ini agar JS bisa hitung %
             ]);

@@ -10,6 +10,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\Pekerja\CvController;
 use App\Http\Controllers\Pekerja\SuratLamaranController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Tools\KompresGambarController;
 use App\Http\Controllers\Tools\KompresPdfController;
 use App\Http\Controllers\Tools\SignatureController;
 use GuzzleHttp\Middleware;
@@ -23,6 +24,8 @@ Route::prefix('tool')->name('tool.')->group(function () {
     Route::get('tanda-tangan-digital', [SignatureController::class, 'index'])->name('signature');
     Route::get('kompres-pdf', [KompresPdfController::class, 'index'])->name('kompres.pdf.index');
     Route::post('kompres-pdf', [KompresPdfController::class, 'compress'])->name('kompres.pdf');
+    Route::get('kompres-gambar', [KompresGambarController::class, 'index'])->name('kompres.gambar.index');
+    Route::post('kompres-gambar', [KompresGambarController::class, 'store'])->name('kompres.gambar');
 });
 
 

@@ -10,16 +10,23 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 Schedule::call(function () {
-    // Ambil semua file di disk 'public'
-    $files = Storage::disk('public')->files();
+    $folder = 'temp'; // Fokus hanya ke folder temp hasil kompresi
 
-    foreach ($files as $file) {
-        // Abaikan file .gitignore agar folder storage tidak hilang strukturnya
-        if ($file === '.gitignore') continue;
+    // Pastikan folder ada sebelum diproses
+    if (Storage::disk('public')->exists($folder)) {
+        $files = Storage::disk('public')->files($folder);
 
-        // Cek umur file: jika lebih dari 60 menit, hapus!
-        if (Storage::disk('public')->lastModified($file) < now()->subMinutes(60)->getTimestamp()) {
-            Storage::disk('public')->delete($file);
+        foreach ($files as $file) {
+            // Abaikan .gitignore
+            if (str_contains($file, '.gitignore')) continue;
+
+            // Cek umur file: hapus jika lebih dari 60 menit
+            $lastModified = Storage::disk('public')->lastModified($file);
+            $expiredTime = now()->subMinutes(60)->getTimestamp();
+
+            if ($lastModified < $expiredTime) {
+                Storage::disk('public')->delete($file);
+            }
         }
     }
-})->hourly(); // Jalankan pengecekan setiap jam
+})->everyMinute(); // Jalankan pengecekan setiap jam

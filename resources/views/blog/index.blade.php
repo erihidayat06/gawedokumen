@@ -7,7 +7,7 @@
             {{-- HEADER / FEATURED BLOG --}}
             @if ($featuredBlog)
                 <div
-                    class="relative mb-16 rounded-[2.5rem] overflow-hidden bg-slate-900 h-[400px] md:h-[500px] group shadow-2xl">
+                    class="relative mb-16 rounded-[2.5rem] overflow-hidden bg-slate-900 h-[250px] md:h-[500px] group shadow-2xl">
                     <div class="absolute inset-0">
                         <img src="{{ asset('storage/uploads/blog/' . $featuredBlog->gambar) }}"
                             class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700"
@@ -20,10 +20,10 @@
                             class="px-3 py-1 bg-blue-600 text-white text-xs font-bold rounded-full uppercase tracking-widest mb-4 inline-block">
                             {{ $featuredBlog->kategori }}
                         </span>
-                        <h2 class="text-3xl md:text-5xl font-black text-white mb-4 leading-tight">
+                        <h2 class="text-xl md:text-5xl font-black text-white mb-4 leading-tight">
                             {{ $featuredBlog->judul }}
                         </h2>
-                        <div class="text-slate-300 text-lg mb-6 line-clamp-2">
+                        <div class="text-slate-300 text-sm md:text-lg mb-6 line-clamp-2">
                             {!! Str::limit(strip_tags($featuredBlog->konten), 160) !!}
                         </div>
                         {{-- LINK DENGAN 2 PARAMETER: KATEGORI & SLUG --}}

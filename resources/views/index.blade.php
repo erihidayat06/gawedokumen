@@ -105,13 +105,31 @@
     {{-- LATEST BLOG SECTION --}}
 
     <div class="max-w-7xl mx-auto px-6">
-        <div class="flex justify-between items-end mb-12">
-            <div>
-                <h2 class="text-3xl font-black dark:text-white mb-2">Panduan Terbaru</h2>
-                <p class="text-slate-500 dark:text-slate-400">Tips dan trik mengelola dokumen Anda.</p>
+        <!-- Container Header: Responsive Flex -->
+        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-end space-y-4 sm:space-y-0 mb-10 px-4 sm:px-0">
+
+            <!-- Teks Judul & Deskripsi -->
+            <div class="max-w-md">
+                <h2 class="text-2xl md:text-3xl font-black text-slate-900 dark:text-white mb-2 tracking-tight">
+                    Panduan Terbaru
+                </h2>
+                <p class="text-sm md:text-base text-slate-500 dark:text-slate-400">
+                    Tips dan trik cerdas untuk mengelola dokumen digital Anda dengan lebih efisien.
+                </p>
             </div>
-            <a href="{{ route('blog.index') }}" class="text-blue-600 font-bold hover:underline">Lihat Semua Artikel
-                →</a>
+
+            <!-- Link CTA (Call to Action) -->
+            <div class="shrink-0">
+                <a href="{{ route('blog.index') }}"
+                    class="inline-flex items-center text-sm md:text-base text-blue-600 dark:text-blue-400 font-bold hover:text-blue-700 dark:hover:text-blue-300 transition-colors group">
+                    Lihat Semua Artikel
+                    <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3">
+                        </path>
+                    </svg>
+                </a>
+            </div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
