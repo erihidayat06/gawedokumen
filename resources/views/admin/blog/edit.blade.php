@@ -2,18 +2,33 @@
 
 @section('content')
     <style>
-        /* Paksa alignment gambar jika Tailwind prose belum menghandle */
-        .prose .image-style-side {
-            float: right;
-            margin-left: 1.5rem;
-            max-width: 50%;
+        /* 1. Pastikan area konten dashboard tidak scroll keluar layar */
+        .container-fluid {
+            height: calc(100vh - 100px);
+            /* Sesuaikan dengan tinggi header dashboard */
+            display: flex;
+            flex-direction: column;
         }
 
-        .prose .image {
-            display: table;
-            clear: both;
-            text-align: center;
-            margin: 1em auto;
+        /* 2. Card dibuat setinggi sisa layar */
+        .card.fixed-height-card {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            /* Mencegah card nembus keluar */
+            margin-bottom: 0 !important;
+        }
+
+        /* 3. Hanya body yang boleh scroll */
+        .card.fixed-height-card .card-body {
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        /* 4. Fix untuk CKEditor agar tidak melebar sembarangan */
+        .ck-editor__editable_inline {
+            min-height: 400px;
         }
 
         /* Memaksa tabel mengambil ruang penuh dan memberi jarak bawah */
