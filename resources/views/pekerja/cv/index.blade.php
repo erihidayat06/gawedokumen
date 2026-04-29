@@ -74,56 +74,65 @@
         <div class="order-1 md:order-2 p-5 bg-white border rounded-xl flex flex-col h-[700px]">
             <h3 class="font-bold border-b pb-2 text-gray-700">Form Input</h3>
 
+            <!-- Navigasi Tab -->
             <div class="flex border-b border-gray-200 overflow-x-auto whitespace-nowrap scrollbar-hide mb-4">
-                <button onclick="openTab(event, 'Head')"
+                <button onclick="openTab(event, 'sidebar')"
                     class="tab-link py-2 px-4 text-sm font-medium border-b-2 border-blue-500 text-blue-600 focus:outline-none flex-shrink-0">
                     Sidebar
                 </button>
-
+                <button onclick="openTab(event, 'data-diri')"
+                    class="tab-link py-2 px-4 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 focus:outline-none flex-shrink-0">
+                    Data Diri
+                </button>
+                <button onclick="openTab(event, 'kontak')"
+                    class="tab-link py-2 px-4 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 focus:outline-none flex-shrink-0">
+                    Kontak
+                </button>
             </div>
+            <div class="flex-1 overflow-hidden flex flex-col">
+                <!-- Area Konten Tab (Ditambahkan scroll di sini) -->
+                <div id="sidebar" class="tab-content space-y-4 overflow-y-auto pr-2 scrollbar-thin">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 ">Gaya Tulisan Dokumen</label>
+                        <select id="font-selector" onchange="changeDocFont(this.value)"
+                            class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white  transition-all">
+                            <option value="font-serif">Times New Roman / Serif (Sangat Formal)</option>
+                            <option value="font-sans" selected>Arial / Figtree (Modern & Bersih)</option>
+                            <option value="font-mono">Courier / Mono (Teknis/Laporan)</option>
+                            <option value="font-georgia">Georgia (Elegan & Mudah Dibaca)</option>
+                        </select>
+                        <p class="text-[10px] text-gray-500 mt-1">*Berpengaruh pada tampilan cetak dokumen.</p>
+                    </div>
 
-            <div id="Head" class="tab-content space-y-4 ">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 ">Gaya Tulisan Dokumen</label>
-                    <select id="font-selector" onchange="changeDocFont(this.value)"
-                        class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white  transition-all">
-                        <option value="font-serif">Times New Roman / Serif (Sangat Formal)</option>
-                        <option value="font-sans" selected>Arial / Figtree (Modern & Bersih)</option>
-                        <option value="font-mono">Courier / Mono (Teknis/Laporan)</option>
-                        <option value="font-georgia">Georgia (Elegan & Mudah Dibaca)</option>
-                    </select>
-                    <p class="text-[10px] text-gray-500 mt-1">*Berpengaruh pada tampilan cetak dokumen.</p>
-                </div>
 
+                    <hr class="border-slate-200 dark:border-slate-700">
 
-                <hr class="border-slate-200 dark:border-slate-700">
+                    <div class="space-y-3">
+                        <label class="block text-sm font-medium text-gray-700">Pilih Desain CV (Template)</label>
+                        <div class="relative">
+                            <button type="button" @click="open = !open" @click.away="open = false"
+                                class="relative w-full cursor-default rounded-md bg-white py-3 pl-4 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600 sm:text-sm">
+                                <span class="flex items-center">
+                                    <img :src="templates.find(t => t.id === selectedTemplate)?.gambar"
+                                        class="h-6 w-6 flex-shrink-0 rounded-full object-cover border">
+                                    <span x-text="templates.find(t => t.id === selectedTemplate)?.nama"
+                                        class="ml-3 block truncate font-medium"></span>
+                                </span>
+                                <span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                                    <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M10 3a.75.75 0 01.55.24l3.25 3.5a.75.75 0 11-1.1 1.02L10 4.852 7.3 7.76a.75.75 0 01-1.1-1.02l3.25-3.5A.75.75 0 0110 3zm-3.76 9.2a.75.75 0 011.06.04l2.7 2.908 2.7-2.908a.75.75 0 111.1 1.02l-3.25 3.5a.75.75 0 01-1.1 0l-3.25-3.5a.75.75 0 01.04-1.06z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </span>
+                            </button>
 
-                <div class="space-y-3">
-                    <label class="block text-sm font-medium text-gray-700">Pilih Desain CV (Template)</label>
-                    <div class="relative">
-                        <button type="button" @click="open = !open" @click.away="open = false"
-                            class="relative w-full cursor-default rounded-md bg-white py-3 pl-4 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600 sm:text-sm">
-                            <span class="flex items-center">
-                                <img :src="templates.find(t => t.id === selectedTemplate)?.gambar"
-                                    class="h-6 w-6 flex-shrink-0 rounded-full object-cover border">
-                                <span x-text="templates.find(t => t.id === selectedTemplate)?.nama"
-                                    class="ml-3 block truncate font-medium"></span>
-                            </span>
-                            <span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                                <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd"
-                                        d="M10 3a.75.75 0 01.55.24l3.25 3.5a.75.75 0 11-1.1 1.02L10 4.852 7.3 7.76a.75.75 0 01-1.1-1.02l3.25-3.5A.75.75 0 0110 3zm-3.76 9.2a.75.75 0 011.06.04l2.7 2.908 2.7-2.908a.75.75 0 111.1 1.02l-3.25 3.5a.75.75 0 01-1.1 0l-3.25-3.5a.75.75 0 01.04-1.06z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            </span>
-                        </button>
-
-                        <ul x-show="open" x-transition
-                            class="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 sm:text-sm">
-                            <template x-for="template in templates" :key="template.id">
-                                <li class="text-gray-900 relative cursor-pointer select-none py-3 pl-3 pr-9 hover:bg-blue-50"
-                                    role="option"
-                                    @click="
+                            <ul x-show="open" x-transition
+                                class="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 sm:text-sm">
+                                <template x-for="template in templates" :key="template.id">
+                                    <li class="text-gray-900 relative cursor-pointer select-none py-3 pl-3 pr-9 hover:bg-blue-50"
+                                        role="option"
+                                        @click="
                                         selectedTemplate = template.id;
                                         open = false;
                                         updateStyles();
@@ -142,24 +151,142 @@
                                             el.style.backgroundColor = template.config.bgText;
                                         });
                                     ">
-                                    <div class="flex items-center space-x-4">
-                                        <img :src="template.gambar"
-                                            class="h-10 w-10 flex-shrink-0 rounded object-cover border">
-                                        <div>
-                                            <span x-text="template.nama" class="block font-medium truncate"></span>
-                                            <span class="text-xs text-gray-500">Klik untuk memilih</span>
+                                        <div class="flex items-center space-x-4">
+                                            <img :src="template.gambar"
+                                                class="h-10 w-10 flex-shrink-0 rounded object-cover border">
+                                            <div>
+                                                <span x-text="template.nama" class="block font-medium truncate"></span>
+                                                <span class="text-xs text-gray-500">Klik untuk memilih</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                </li>
-                            </template>
-                        </ul>
+                                    </li>
+                                </template>
+                            </ul>
+                        </div>
+                        <input type="hidden" name="template_id" :value="selectedTemplate">
                     </div>
-                    <input type="hidden" name="template_id" :value="selectedTemplate">
+
+
+
+                </div>
+                <!-- Tab Data Diri (Sembunyi) -->
+                <div id="data-diri" class="tab-content hidden space-y-4 overflow-y-auto pr-2 scrollbar-thin">
+                    @php
+                        $dataInputan = [
+                            [
+                                'inputId' => 'nama',
+                                'targetId' => 'nama-text',
+                                'label' => 'Nama Lengkap',
+                                'defaultText' => '[Nama Lengkap]',
+                                'type' => 'text',
+                            ],
+                            [
+                                'inputId' => 'profesi',
+                                'targetId' => 'profesi-text',
+                                'label' => 'Profesi',
+                                'defaultText' => '[Nama Profesi]',
+                                'type' => 'text',
+                            ],
+                            [
+                                'inputId' => 'tempat_lahir',
+                                'targetId' => 'tempat-lahir-text',
+                                'label' => 'Tempat Lahir',
+                                'defaultText' => 'Jakarta',
+                                'type' => 'text',
+                            ],
+                            [
+                                'inputId' => 'tanggal_lahir',
+                                'targetId' => 'tanggal-lahir-text',
+                                'label' => 'Tanggal Lahir',
+                                'defaultText' => '01 Januari 2000',
+                                'type' => 'date',
+                            ],
+                            [
+                                'inputId' => 'jk', // name untuk radio
+                                'targetId' => 'jenis-kelamin-text',
+                                'label' => 'Jenis Kelamin',
+                                'defaultText' => 'Laki-Laki',
+                                'type' => 'radio',
+                                'options' => ['Laki-Laki', 'Perempuan'],
+                            ],
+                            [
+                                'inputId' => 'kewarganegaraan',
+                                'targetId' => 'kewarganegaraan-text',
+                                'label' => 'Kewarganegaraan',
+                                'defaultText' => 'Indonesia',
+                                'type' => 'text',
+                            ],
+                            [
+                                'inputId' => 'telp',
+                                'targetId' => 'telp-text',
+                                'label' => 'telp',
+                                'defaultText' => '08xxxxxxxxx',
+                                'type' => 'text',
+                            ],
+                            [
+                                'inputId' => 'email',
+                                'targetId' => 'email-text',
+                                'label' => 'email',
+                                'defaultText' => 'nama@example.com',
+                                'type' => 'text',
+                            ],
+                            [
+                                'inputId' => 'alamat',
+                                'targetId' => 'alamat-text',
+                                'label' => 'alamat',
+                                'defaultText' => 'Jl xxxxxxxxx',
+                                'type' => 'text',
+                            ],
+                        ];
+                    @endphp
+
+                    @foreach (array_slice($dataInputan, 0, 6) as $item)
+                        <div class="mb-3">
+                            <label class="block text-sm font-medium mb-1">{{ $item['label'] }}</label>
+
+                            {{-- JIKA INPUT TEXT ATAU DATE --}}
+                            @if ($item['type'] == 'text' || $item['type'] == 'date')
+                                <input type="{{ $item['type'] }}" id="{{ $item['inputId'] }}"
+                                    placeholder="{{ 'Contoh: ' . $item['defaultText'] }}"
+                                    oninput="updatePreview('{{ $item['inputId'] }}', '{{ $item['targetId'] }}', '{{ $item['defaultText'] }}')"
+                                    class="w-full border p-2 rounded">
+
+                                {{-- JIKA RADIO BUTTON --}}
+                            @elseif($item['type'] == 'radio')
+                                <div class="flex gap-4 p-2 border rounded">
+                                    @foreach ($item['options'] as $opt)
+                                        <label class="inline-flex items-center">
+                                            <input type="radio" name="{{ $item['inputId'] }}" value="{{ $opt }}"
+                                                onchange="updatePreviewRadio(this, '{{ $item['targetId'] }}')"
+                                                class="mr-2">
+                                            <span class="text-sm">{{ $opt }}</span>
+                                        </label>
+                                    @endforeach
+                                </div>
+                            @endif
+                        </div>
+                    @endforeach
                 </div>
 
+                <!-- Tab Kontak (Sembunyi) -->
+                <div id="kontak" class="tab-content hidden space-y-4 overflow-y-auto pr-2 scrollbar-thin">
+                    @foreach (array_slice($dataInputan, 6, 8) as $item)
+                        <div class="mb-3">
+                            <label class="block text-sm font-medium mb-1">{{ $item['label'] }}</label>
+
+
+
+                            <input type="{{ $item['type'] }}" id="{{ $item['inputId'] }}"
+                                placeholder="{{ 'Contoh: ' . $item['defaultText'] }}"
+                                oninput="updatePreview('{{ $item['inputId'] }}', '{{ $item['targetId'] }}', '{{ $item['defaultText'] }}')"
+                                class="w-full border p-2 rounded">
+
+                            {{-- JIKA RADIO BUTTON --}}
+
+                        </div>
+                    @endforeach
+                </div>
             </div>
-
-
         </div>
 
         <div
@@ -169,8 +296,8 @@
 
                 <button id="zoom-in" title="Perbesar"
                     class="p-1.5 sm:p-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all shadow-sm active:scale-95">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 sm:w-5 sm:h-5" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
                     </svg>
@@ -178,8 +305,8 @@
 
                 <button id="zoom-out" title="Perkecil"
                     class="p-1.5 sm:p-2 bg-slate-600 hover:bg-slate-700 text-white rounded-lg transition-all shadow-sm active:scale-95">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 sm:w-5 sm:h-5" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM13 10H7" />
                     </svg>
@@ -187,8 +314,8 @@
 
                 <button id="reset" title="Reset Tampilan"
                     class="p-1.5 sm:p-2 bg-amber-500 hover:bg-amber-600 text-white rounded-lg transition-all shadow-sm active:scale-95">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 sm:w-5 sm:h-5" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                     </svg>
@@ -230,17 +357,18 @@
                         <div>
                             <h3 class="text-[13pt] font-bold text-slate-100 text-sidebar-dynamic leading-tight">
                                 Tempat/Tanggal Lahir</h3>
-                            <p class="text-[12pt] text-slate-100 text-sidebar-dynamic">Tegal, 17 Mei 2004</p>
+                            <p class="text-[12pt] text-slate-100 text-sidebar-dynamic" id="tempat-lahir-text"></p>
                         </div>
                         <div>
                             <h3 class="text-[13pt] font-bold text-slate-100 text-sidebar-dynamic leading-tight">Jenis
                                 Kelamin</h3>
-                            <p class="text-[12pt] text-slate-100 text-sidebar-dynamic">Laki-Laki</p>
+                            <p class="text-[12pt] text-slate-100 text-sidebar-dynamic" id="jenis-kelamin-text"></p>
                         </div>
                         <div>
                             <h3 class="text-[13pt] font-bold text-slate-100 leading-tight text-sidebar-dynamic">
                                 Kewarganegaraan</h3>
-                            <p class="text-[12pt] text-slate-100 text-sidebar-dynamic">Indonesia</p>
+                            <p class="text-[12pt] text-slate-100 text-sidebar-dynamic" id="kewarganegaraan-text">
+                            </p>
                         </div>
                     </div>
 
@@ -262,7 +390,7 @@
                             </div>
                             <div>
                                 <h3 class="text-[11pt] font-bold text-slate-100 text-sidebar-dynamic">Telepon</h3>
-                                <p class="text-[10pt] text-slate-100 text-sidebar-dynamic">0812-3456-7890</p>
+                                <p class="text-[10pt] text-slate-100 text-sidebar-dynamic" id="telp-text"></p>
                             </div>
                         </div>
                         <div class="flex items-center space-x-3">
@@ -275,7 +403,7 @@
                             </div>
                             <div>
                                 <h3 class="text-[11pt] font-bold text-slate-100 text-sidebar-dynamic">Email</h3>
-                                <p class="text-[10pt] text-slate-100 text-sidebar-dynamic">eri@email.com</p>
+                                <p class="text-[10pt] text-slate-100 text-sidebar-dynamic" id="email-text"></p>
                             </div>
                         </div>
                         <div class="flex items-center space-x-3">
@@ -289,7 +417,7 @@
                             </div>
                             <div>
                                 <h3 class="text-[11pt] font-bold text-slate-100 text-sidebar-dynamic">Alamat</h3>
-                                <p class="text-[10pt] text-slate-100 text-sidebar-dynamic">Kota Tegal, Jawa Tengah</p>
+                                <p class="text-[10pt] text-slate-100 text-sidebar-dynamic" id="alamat-text"></p>
                             </div>
                         </div>
                     </div>
@@ -298,8 +426,9 @@
                 <div class="flex-1" style="padding: 15mm 15mm 10mm 15mm;">
 
                     <div class="border-b-4 border-[#1d8bbe] pb-4">
-                        <h1 class="text-[32pt] font-extrabold text-slate-800 leading-none">ERI SUKIRNO</h1>
-                        <h2 class="text-[18pt] font-medium text-[#1d8bbe] tracking-[0.2em] uppercase mt-2">Web Developer
+                        <h1 class="text-[32pt] font-extrabold text-slate-800 leading-none" id="nama-text"></h1>
+                        <h2 class="text-[18pt] font-medium text-[#1d8bbe] tracking-[0.2em] uppercase mt-2"
+                            id="profesi-text">Web Developer
                         </h2>
                     </div>
 
@@ -360,4 +489,108 @@
 
 @push('scripts')
     <script src="/js/gawedokumen.js"></script>
+    <script>
+        function updatePreview(inputId, targetId, defaultText) {
+            const input = document.getElementById(inputId);
+            const target = document.getElementById(targetId);
+            if (!input || !target) return;
+
+            let nilaiInput = input.value;
+
+            // Fungsi pembantu untuk update teks & warna
+            const updateElement = (tglId, val, def) => {
+                const el = document.getElementById(tglId);
+                if (!el) return;
+
+                if (val.trim() !== "") {
+                    el.classList.remove('text-red-500');
+                    el.textContent = (input.type === 'date') ? getTanggalIndo(new Date(val)) : val;
+                    localStorage.setItem("storage_" + tglId, val);
+                } else {
+                    el.textContent = def;
+                    el.classList.add('text-red-500');
+                    localStorage.removeItem("storage_" + tglId);
+                }
+            };
+
+            // Logika Khusus untuk Input yang muncul di banyak tempat
+            if (inputId === 'nama') {
+                updateElement('nama-text', nilaiInput, 'Nama Lengkap');
+                updateElement('nama2-text', nilaiInput, 'Nama Lengkap');
+            } else {
+                // Logika Default
+                updateElement(targetId, nilaiInput, defaultText);
+            }
+        }
+
+        // 3. Eksekusi Saat Halaman Dimuat
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mengambil data dari PHP dan mengubahnya jadi Array JavaScript
+            const fields = @json($dataInputan);
+
+
+            fields.forEach(field => {
+                const targetElem = document.getElementById(field.targetId);
+                if (!targetElem) return;
+
+                const savedValue = localStorage.getItem("storage_" + field.targetId);
+
+                if (field.type === 'radio') {
+                    // LOGIKA KHUSUS RADIO
+                    const valueToUse = savedValue || field.defaultText;
+
+                    // 1. Pilih radio button yang sesuai
+                    const radioToSelect = document.querySelector(
+                        `input[name="${field.inputId}"][value="${valueToUse}"]`);
+                    if (radioToSelect) radioToSelect.checked = true;
+
+                    // 2. Tampilkan di preview
+                    targetElem.textContent = valueToUse;
+                    targetElem.classList.remove('text-red-500');
+
+                } else {
+                    // LOGIKA UNTUK TEXT & DATE (Tetap seperti sebelumnya)
+                    const inputElem = document.getElementById(field.inputId);
+                    if (savedValue) {
+                        if (inputElem) inputElem.value = savedValue;
+                        targetElem.textContent = (inputElem && inputElem.type === 'date') ?
+                            getTanggalIndo(new Date(savedValue)) :
+                            savedValue;
+                        targetElem.classList.remove('text-red-500');
+                    } else {
+                        targetElem.textContent = field.defaultText;
+                        targetElem.classList.add('text-red-500');
+                    }
+                }
+            });
+
+            // Load Radio Button Jenis Kelamin
+            const savedJK = localStorage.getItem("storage_jenis-kelamin-text");
+            const targetJK = document.getElementById('jenis-kelamin-text');
+            if (savedJK && targetJK) {
+                const radioToSelect = document.querySelector(`input[name="jk"][value="${savedJK}"]`);
+                if (radioToSelect) radioToSelect.checked = true;
+                targetJK.textContent = savedJK;
+                targetJK.classList.remove('text-red-500');
+            }
+
+            // Load Foto/Tanda Tangan
+            const savedFoto = localStorage.getItem("storage_foto");
+            if (savedFoto) tampilkanGambar(savedFoto);
+
+            // Load & Render Lampiran
+            renderInputs();
+        });
+
+        // Fungsi untuk Radio Button
+        function updatePreviewRadio(el, targetId) {
+            const target = document.getElementById(targetId);
+            if (target) {
+                target.textContent = el.value;
+                target.classList.remove('text-red-500');
+                // Simpan ke localStorage dengan format yang sama dengan fungsi updatePreview Anda
+                localStorage.setItem("storage_" + targetId, el.value);
+            }
+        }
+    </script>
 @endpush

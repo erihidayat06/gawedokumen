@@ -7,9 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const isDesktop = window.innerWidth >= 768;
 
         // Angka dari temuan kamu (Desktop)
-        const desktopScale = 0.9;
+        const desktopScale = 0.6;
         const desktopX = 0;
-        const desktopY = 0;
+        const desktopY = -300;
 
         // Angka perkiraan untuk Mobile (Silakan sesuaikan jika sudah nemu yang pas)
         const mobileScale = 0.4;
