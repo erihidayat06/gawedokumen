@@ -211,6 +211,24 @@
                     wrapper.appendChild(table);
                 }
             });
+
+            const kontenBlog = document.querySelector('.konten-blog');
+
+            if (kontenBlog) {
+                // Cari semua tag paragraf di dalamnya
+                const paragraphs = kontenBlog.querySelectorAll('p');
+
+                paragraphs.forEach(p => {
+                    // Hapus paragraf jika:
+                    // 1. Benar-benar kosong (p.innerHTML === "")
+                    // 2. Hanya berisi spasi HTML (p.innerHTML === "&nbsp;")
+                    // 3. Hanya berisi spasi biasa setelah di-trim
+                    if (p.innerHTML.trim() === '' || p.innerHTML === '&nbsp;') {
+                        p.remove();
+                    }
+                });
+            }
+
         });
     </script>
 @endpush
