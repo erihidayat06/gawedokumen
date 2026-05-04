@@ -141,7 +141,7 @@
                     <div class="aspect-video overflow-hidden">
                         {{-- Tambah efek zoom saat hover pakai group-hover --}}
                         <img src="{{ asset('storage/uploads/blog/' . $blog->gambar) }}" loading="lazy"
-                            {{-- Tambahkan ini --}} class="w-full h-full object-cover ...">
+                            alt="{{ $blog->judul }}" {{-- Tambahkan ini --}} class="w-full h-full object-cover ...">
                     </div>
 
                     <div class="p-6">

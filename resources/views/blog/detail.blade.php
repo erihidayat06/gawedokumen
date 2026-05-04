@@ -163,6 +163,7 @@
                                         <div
                                             class="w-16 h-16 bg-slate-200 dark:bg-slate-800 rounded-2xl flex-shrink-0 overflow-hidden">
                                             <img src="{{ asset('storage/uploads/blog/' . $related->gambar) }}"
+                                                alt="{{ $related->judul }}"
                                                 class="w-full h-full object-cover group-hover:scale-110 transition-transform">
                                         </div>
                                         <div class="flex flex-col justify-center">

@@ -65,6 +65,8 @@ Route::prefix('pekerja')->name('pekerja.')->group(function () {
     Route::get('/generate-cv', [CvController::class, 'index'])->name('generate.cv');
 });
 
+Route::get('/generate-pdf-cv', [CvController::class, 'generatePdf'])->name('cv.pdf.generate');
+
 
 Route::get('/tentang-kami', [PageController::class, 'about'])->name('about');
 Route::get('/kebijakan-privasi', [PageController::class, 'privacy'])->name('privacy');
