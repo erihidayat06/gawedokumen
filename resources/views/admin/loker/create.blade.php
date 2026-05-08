@@ -21,7 +21,8 @@
                             </div>
                         </div>
 
-                        <form action="{{ route('admin.loker.store') }}" method="POST" enctype="multipart/form-data">
+                        <form id="lokerForm" action="{{ route('admin.loker.store') }}" method="POST"
+                            enctype="multipart/form-data">
                             @csrf
 
                             <div class="row g-3">
@@ -223,10 +224,15 @@
                                         <option value="Arsip">Simpan Draft</option>
                                     </select>
                                 </div>
-                                <div class="col-12">
-                                    <label class="form-label fw-semibold">URL Artikel Blog Terkait (Opsional)</label>
-                                    <input type="url" name="url_blog" class="form-control"
-                                        placeholder="https://gawedokumen.com/blog/tips-posisi-ini">
+                                <div class="col-12 mt-3">
+                                    <label class="form-label fw-semibold">Pilih Artikel Blog Terkait (Opsional)</label>
+                                    <select name="blog_ids[]" class="form-control select2-multiple" multiple="multiple">
+                                        @foreach ($blogs as $blog)
+                                            <option value="{{ $blog->id }}">{{ $blog->judul }}</option>
+                                        @endforeach
+                                    </select>
+                                    <small class="text-muted">Kamu bisa memilih lebih dari satu artikel tips yang
+                                        relevan.</small>
                                 </div>
                                 <div class="col-12 mt-5">
                                     <button type="submit"
@@ -341,47 +347,150 @@
                     });
             }
         });
+    </script>
 
-
+    <script>
         $(document).ready(function() {
-            /**
-             * Fungsi Universal untuk Tambah Baris
-             * @param {string} containerId - ID elemen pembungkus
-             * @param {string} name - Nama atribut name untuk input (tanpa [])
-             * @param {string} placeholder - Teks placeholder
-             * @param {string} icon - Ikon Bootstrap (opsional)
-             */
-            function addRow(containerId, name, placeholder, icon = '') {
-                const iconHtml = icon ?
-                    `<span class="input-group-text bg-light"><i class="bi ${icon} text-primary"></i></span>` : '';
-                const html = `
-            <div class="input-group mb-2 animate__animated animate__fadeIn">
-                ${iconHtml}
-                <input type="text" name="${name}[]" class="form-control" placeholder="${placeholder}" required>
-                <button class="btn btn-outline-danger remove-row" type="button" data-container="#${containerId}">
-                    <i class="bi bi-trash"></i>
-                </button>
-            </div>
-        `;
+            const formId = 'lokerForm';
+            const storageKey = 'draft_loker_data';
+
+            // 1. Inisialisasi Select2
+            $('.select2-multiple').select2({
+                placeholder: "Cari judul blog...",
+                allowClear: true,
+                width: '100%'
+            }).on('change', function() {
+                saveAllData(); // Simpan saat pilihan blog berubah
+            });
+
+            $('.select2-init').select2({
+                width: '100%'
+            }).on('change', function() {
+                saveAllData();
+            });
+
+            // 2. Fungsi Pembantu: Tambah Baris Dinamis
+            function createDynamicRow(containerId, name, value = '') {
+                let html = '';
+                if (containerId === 'benefit-container') {
+                    html = `
+                <div class="input-group mb-2">
+                    <span class="input-group-text bg-light"><i class="bi bi-gift text-primary"></i></span>
+                    <input type="text" name="benefit[]" class="form-control" value="${value}" required>
+                    <button class="btn btn-outline-danger remove-benefit" type="button"><i class="bi bi-trash"></i></button>
+                </div>`;
+                } else if (containerId === 'tugas-container') {
+                    html = `
+                <div class="input-group mb-2">
+                    <input type="text" name="tugas[]" class="form-control" value="${value}" required>
+                    <button class="btn btn-outline-danger remove-item" type="button"><i class="bi bi-trash"></i></button>
+                </div>`;
+                } else if (containerId === 'persyaratan-container') {
+                    html = `
+                <div class="input-group mb-2">
+                    <input type="text" name="persyaratan[]" class="form-control" value="${value}" required>
+                    <button class="btn btn-outline-danger remove-item" type="button"><i class="bi bi-trash"></i></button>
+                </div>`;
+                }
                 $(`#${containerId}`).append(html);
             }
 
-            // Event Listener Klik Tambah (Delegasi ke ID masing-masing tombol)
-            $('#add-benefit').on('click', () => addRow('benefit-container', 'benefit', 'Benefit lainnya...',
-                'bi-gift'));
-            $('#add-tugas').on('click', () => addRow('tugas-container', 'tugas', 'Tugas lainnya...'));
-            $('#add-persyaratan').on('click', () => addRow('persyaratan-container', 'persyaratan',
-                'Syarat lainnya...'));
+            // 3. Fungsi Utama: Simpan Data ke LocalStorage
+            function saveAllData() {
+                const formData = {};
+                const rawData = $('#' + formId).serializeArray();
 
-            // Fungsi Hapus Universal
-            $(document).on('click', '.remove-row', function() {
-                const container = $($(this).data('container'));
-                if (container.find('.input-group').length > 1) {
-                    $(this).closest('.input-group').remove();
-                } else {
-                    alert("Minimal harus ada satu data yang terisi.");
+                rawData.forEach(item => {
+                    if (item.name === '_token') return;
+
+                    if (item.name.includes('[]')) {
+                        if (!formData[item.name]) formData[item.name] = [];
+                        formData[item.name].push(item.value);
+                    } else {
+                        formData[item.name] = item.value;
+                    }
+                });
+
+                localStorage.setItem(storageKey, JSON.stringify(formData));
+            }
+
+            // 4. Fungsi Utama: Muat Data dari LocalStorage
+            function loadFormData() {
+                const savedData = localStorage.getItem(storageKey);
+                if (!savedData) return;
+
+                const data = JSON.parse(savedData);
+
+                // Reset kontainer dinamis agar tidak double saat load
+                $('#benefit-container, #tugas-container, #persyaratan-container').empty();
+
+                Object.keys(data).forEach(key => {
+                    // A. Logika untuk Select2 Multiple (blog_ids[])
+                    if (key === 'blog_ids[]' && Array.isArray(data[key])) {
+                        $('.select2-multiple').val(data[key]).trigger('change.select2');
+                    }
+                    // B. Logika untuk Input Dinamis (Array)
+                    else if (key.includes('[]') && Array.isArray(data[key])) {
+                        const containerMap = {
+                            'benefit[]': 'benefit-container',
+                            'tugas[]': 'tugas-container',
+                            'persyaratan[]': 'persyaratan-container'
+                        };
+                        if (containerMap[key]) {
+                            data[key].forEach(val => createDynamicRow(containerMap[key], key, val));
+                        }
+                    }
+                    // C. Logika untuk Input Biasa & Select2 Single
+                    else {
+                        const input = $(`[name="${key}"]`);
+                        if (input.length) {
+                            if (input.hasClass('select2-init')) {
+                                input.val(data[key]).trigger('change.select2');
+                            } else {
+                                input.val(data[key]);
+                            }
+                        }
+                    }
+                });
+            }
+
+            // --- EVENT LISTENERS ---
+
+            // Deteksi ketikan dan perubahan input
+            $('#' + formId).on('input change', function(e) {
+                // Jangan simpan jika yang berubah adalah file upload (opsional)
+                if (e.target.type !== 'file') {
+                    saveAllData();
                 }
             });
+
+            // Hapus draft saat berhasil submit
+            $('#' + formId).on('submit', function() {
+                localStorage.removeItem(storageKey);
+            });
+
+            // Tombol Tambah Baris
+            $('#add-benefit').click(function() {
+                createDynamicRow('benefit-container', 'benefit[]');
+                saveAllData();
+            });
+            $('#add-tugas').click(function() {
+                createDynamicRow('tugas-container', 'tugas[]');
+                saveAllData();
+            });
+            $('#add-persyaratan').click(function() {
+                createDynamicRow('persyaratan-container', 'persyaratan[]');
+                saveAllData();
+            });
+
+            // Tombol Hapus Baris
+            $(document).on('click', '.remove-benefit, .remove-item', function() {
+                $(this).closest('.input-group').remove();
+                saveAllData();
+            });
+
+            // Jalankan Load Data saat halaman siap
+            loadFormData();
         });
     </script>
 @endpush

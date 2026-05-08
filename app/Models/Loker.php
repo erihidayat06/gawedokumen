@@ -13,4 +13,11 @@ class Loker extends Model
         'benefit' => 'array',
         'deadline' => 'date',
     ];
+
+
+    public function blogs()
+    {
+        // Parameter kedua adalah nama tabel pivot yang kita buat tadi
+        return $this->belongsToMany(Blog::class, 'blog_loker');
+    }
 }

@@ -94,14 +94,13 @@
     </div>
 
 
-    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+
     <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
-
-    <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
 
     @stack('scripts')
 

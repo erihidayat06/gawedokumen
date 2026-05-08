@@ -38,7 +38,7 @@ return new class extends Migration
             // Kontak & Eksternal
             $table->string('no_wa')->nullable();
             $table->string('email')->nullable();
-            $table->string('url_blog')->nullable(); // Link ke tips terkait di blog sendiri
+            $table->text('url_blog')->nullable(); // Link ke tips terkait di blog sendiri
 
             // Sistem & SEO
             $table->string('slug')->unique(); // admin-gudang-adiwerna-tegal-mei-2026
