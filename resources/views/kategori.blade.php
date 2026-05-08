@@ -84,62 +84,58 @@
                     </h2>
 
                     <div class="max-w-3xl mx-auto space-y-6">
-                        {{-- Item 1 --}}
-                        <div
-                            class="p-8 bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 rounded-[2rem] transition-all hover:bg-white dark:hover:bg-slate-900 hover:shadow-xl hover:shadow-blue-500/5">
-                            <p class="font-bold text-lg text-slate-900 dark:text-white mb-3 flex items-center gap-2">
-                                <span class="w-2 h-2 bg-blue-600 rounded-full"></span>
-                                Apa itu Surat Lamaran Kerja standar ATS?
-                            </p>
-                            <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
-                                ATS (Applicant Tracking System) adalah software yang digunakan HRD untuk menyaring ribuan CV
-                                secara otomatis. Surat lamaran standar ATS biasanya menggunakan format teks yang bersih,
-                                tanpa terlalu banyak elemen desain atau tabel yang rumit, agar sistem mudah membaca
-                                kualifikasi Anda.
-                            </p>
-                        </div>
+                        @php
+                            $faqs = [
+                                [
+                                    'q' => 'Apa itu Surat Lamaran Kerja standar ATS?',
+                                    'a' =>
+                                        'ATS (Applicant Tracking System) adalah software yang digunakan HRD untuk menyaring ribuan CV secara otomatis. Surat lamaran standar ATS biasanya menggunakan format teks yang bersih, tanpa terlalu banyak elemen desain atau tabel yang rumit, agar sistem mudah membaca kualifikasi Anda.',
+                                ],
+                                [
+                                    'q' => 'Kapan waktu terbaik mengirim lamaran kerja via Email?',
+                                    'a' =>
+                                        'Disarankan mengirim lamaran pada hari kerja (Senin - Kamis) antara pukul <strong>08:00 hingga 10:00 pagi</strong>. Ini adalah waktu di mana HRD baru mulai membuka email, sehingga posisi lamaran Anda berada di urutan paling atas.',
+                                ],
+                                [
+                                    'q' => 'Berapa ukuran file PDF yang disarankan?',
+                                    'a' =>
+                                        'Usahakan total ukuran file (Surat Lamaran + CV + Lampiran) tidak lebih dari <strong>2MB</strong>. File yang terlalu besar berisiko ditolak oleh sistem email perusahaan atau lambat saat diunduh oleh rekruter.',
+                                ],
+                                [
+                                    'q' => 'Apakah surat pengunduran diri wajib dibuat?',
+                                    'a' =>
+                                        'Sangat wajib jika Anda ingin menjaga profesionalisme dan "pintu" silaturahmi tetap terbuka. Surat resign formal membantu proses serah terima pekerjaan (handover) menjadi lebih jelas dan legal secara administrasi perusahaan.',
+                                ],
+                            ];
+                        @endphp
 
-                        {{-- Item 2 --}}
-                        <div
-                            class="p-8 bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 rounded-[2rem] transition-all hover:bg-white dark:hover:bg-slate-900 hover:shadow-xl hover:shadow-blue-500/5">
-                            <p class="font-bold text-lg text-slate-900 dark:text-white mb-3 flex items-center gap-2">
-                                <span class="w-2 h-2 bg-blue-600 rounded-full"></span>
-                                Kapan waktu terbaik mengirim lamaran kerja via Email?
-                            </p>
-                            <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
-                                Disarankan mengirim lamaran pada hari kerja (Senin - Kamis) antara pukul <strong>08:00
-                                    hingga 10:00 pagi</strong>. Ini adalah waktu di mana HRD baru mulai membuka email,
-                                sehingga posisi lamaran Anda berada di urutan paling atas.
-                            </p>
-                        </div>
+                        @foreach ($faqs as $index => $item)
+                            <div class="faq-item group p-8 bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 rounded-[2rem] transition-all hover:bg-white dark:hover:bg-slate-900 cursor-pointer"
+                                onclick="toggleFaq({{ $index }})">
 
-                        {{-- Item 3 --}}
-                        <div
-                            class="p-8 bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 rounded-[2rem] transition-all hover:bg-white dark:hover:bg-slate-900 hover:shadow-xl hover:shadow-blue-500/5">
-                            <p class="font-bold text-lg text-slate-900 dark:text-white mb-3 flex items-center gap-2">
-                                <span class="w-2 h-2 bg-blue-600 rounded-full"></span>
-                                Berapa ukuran file PDF yang disarankan?
-                            </p>
-                            <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
-                                Usahakan total ukuran file (Surat Lamaran + CV + Lampiran) tidak lebih dari
-                                <strong>2MB</strong>. File yang terlalu besar berisiko ditolak oleh sistem email perusahaan
-                                atau lambat saat diunduh oleh rekruter.
-                            </p>
-                        </div>
+                                <div class="flex items-center justify-between gap-2">
+                                    <p class="font-bold text-lg text-slate-900 dark:text-white flex items-center gap-2">
+                                        <span class="w-2 h-2 bg-blue-600 rounded-full"></span>
+                                        {{ $item['q'] }}
+                                    </p>
+                                    {{-- Icon Panah --}}
+                                    <svg id="icon-{{ $index }}"
+                                        class="w-5 h-5 text-slate-400 transition-transform duration-300" fill="none"
+                                        stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 9l-7 7-7-7"></path>
+                                    </svg>
+                                </div>
 
-                        {{-- Item 4 --}}
-                        <div
-                            class="p-8 bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 rounded-[2rem] transition-all hover:bg-white dark:hover:bg-slate-900 hover:shadow-xl hover:shadow-blue-500/5">
-                            <p class="font-bold text-lg text-slate-900 dark:text-white mb-3 flex items-center gap-2">
-                                <span class="w-2 h-2 bg-blue-600 rounded-full"></span>
-                                Apakah surat pengunduran diri wajib dibuat?
-                            </p>
-                            <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
-                                Sangat wajib jika Anda ingin menjaga profesionalisme dan "pintu" silaturahmi tetap terbuka.
-                                Surat resign formal membantu proses serah terima pekerjaan (handover) menjadi lebih jelas
-                                dan legal secara administrasi perusahaan.
-                            </p>
-                        </div>
+                                <div id="ans-{{ $index }}"
+                                    class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                                    <p
+                                        class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mt-4 border-t border-slate-200 dark:border-slate-800 pt-4">
+                                        {!! $item['a'] !!}
+                                    </p>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
                 </section>
             @endif
@@ -156,3 +152,30 @@
         </div>
     </div>
 @endsection
+
+
+@push('scripts')
+    <script>
+        function toggleFaq(index) {
+            const content = document.getElementById(`ans-${index}`);
+            const icon = document.getElementById(`icon-${index}`);
+
+            // Tutup semua yang lain (Opsional, hapus loop ini jika ingin bisa buka banyak sekaligus)
+            document.querySelectorAll('[id^="ans-"]').forEach((el, idx) => {
+                if (idx !== index) {
+                    el.style.maxHeight = null;
+                    document.getElementById(`icon-${idx}`).style.transform = "rotate(0deg)";
+                }
+            });
+
+            // Toggle item yang diklik
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+                icon.style.transform = "rotate(0deg)";
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+                icon.style.transform = "rotate(180deg)";
+            }
+        }
+    </script>
+@endpush

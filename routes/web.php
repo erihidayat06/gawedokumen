@@ -6,6 +6,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LokerController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\Pekerja\CvController;
 use App\Http\Controllers\Pekerja\SuratLamaranController;
@@ -43,6 +44,17 @@ Route::prefix('blog')->name('blog.')->group(function () {
     Route::get('/{slug}', [BlogController::class, 'show'])->name('show');
 });
 
+Route::prefix('loker')->group(function () {
+    // Halaman Utama Loker (Daftar semua loker)
+    Route::get('/', [LokerController::class, 'index'])->name('loker.index');
+
+    // Halaman Detail Loker (Menggunakan Slug untuk SEO)
+    Route::get('/{slug}', [LokerController::class, 'show'])->name('loker.show');
+
+    // Opsional: Filter berdasarkan wilayah/kecamatan
+    Route::get('/wilayah/{kecamatan}', [LokerController::class, 'wilayah'])->name('loker.wilayah');
+});
+
 
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/blog', [AdminBlogController::class, 'index'])->name('blog.index');
@@ -53,9 +65,6 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/blog/{blog:slug}', [AdminBlogController::class, 'show'])->name('blog.show');
     Route::put('/blog/{blog:id}/update', [AdminBlogController::class, 'update'])->name('blog.update');
     Route::delete('/blog/{blog:id}/delete', [AdminBlogController::class, 'destroy'])->name('blog.destroy');
-
-
-
     Route::resource('cv', AdminCvController::class);
 });
 

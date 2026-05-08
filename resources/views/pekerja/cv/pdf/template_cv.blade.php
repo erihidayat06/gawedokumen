@@ -22,33 +22,35 @@
 
 
         .wrapper {
-            width: 210mm;
+            width: 205mm;
             height: 297mm;
             border-collapse: collapse;
             table-layout: fixed;
-            /* Penting agar kolom tidak melar */
-            /* Menggunakan public_path agar dompdf bisa membaca file lokal */
             background: url('{{ public_path('img/cv/cv1.jpg') }}') no-repeat;
             background-size: cover;
         }
 
         /* Sidebar (Kolom Kiri) */
-        .sidebar {
-            width: 80mm;
 
+        .sidebar {
+            width: 48%;
         }
+
 
         /* Konten Utama (Kolom Kanan) */
         .main-content {
-            width: 130mm;
             vertical-align: top;
-            padding: 15mm 15mm 10mm 10mm;
+            padding: 15mm 15mm 10mm 0;
+
+            position: relative;
+            left: -15mm;
+            /* Tarik paksa ke kiri */
         }
 
         /* Perbaikan Gambar Avatar agar Bulat Sempurna */
         .avatar-container {
             text-align: center;
-            margin-right: 56px;
+            margin-right: 40px;
             margin-top: 58px;
         }
 
@@ -78,7 +80,6 @@
         }
 
         .sidebar-item {
-            width: 67mm;
             padding-left: 35px;
             margin-top: 8px;
             color: #f8fafc;
@@ -96,24 +97,35 @@
         }
 
         /* Konten Kanan */
+
         .header-name {
-            border-bottom: 4px solid #1d8bbe;
-            padding-bottom: 15px;
-        }
-
-        .header-name h1 {
-            font-size: 30pt;
-            font-weight: 900;
+            /* Hapus border-bottom di sini */
             margin: 0;
-            color: #1e293b;
+            padding: 0;
+            width: 100%;
+            border-bottom: 4px solid #1d8bbe;
         }
 
-        .header-name h2 {
+        .header-name .nama {
+            font-size: 32px;
+            margin: 0px;
+            font-weight: bold;
+        }
+
+        .header-name .posisi {
             font-size: 16pt;
             color: #1d8bbe;
             letter-spacing: 3px;
             text-transform: uppercase;
-            margin: 5px 0 0 0;
+
+            /* Pindahkan ke sini */
+
+            margin: 0;
+            /* Hilangkan margin bawaan agar tidak ada jarak */
+            padding-bottom: 10px;
+            /* Gunakan padding untuk mengatur jarak garis ke teks secara presisi */
+            display: inline-block;
+            /* Agar garis hanya sepanjang teks, bukan selebar halaman */
         }
 
         .section-title {
@@ -133,25 +145,85 @@
             text-align: justify;
         }
 
-        /* List Items */
         .list-item {
-            margin-top: 15px;
+            margin-bottom: 10px;
+            /* Jarak antar riwayat pendidikan */
         }
 
         .list-item-title {
+            text-align: left;
             font-weight: bold;
             font-size: 12pt;
-            color: #1e293b;
+            width: 100%;
+        }
+
+        .list-item-year {
+            text-align: right;
+            color: #666;
+            font-size: 10pt;
+            width: 5%;
+            vertical-align: top;
         }
 
         .list-item-sub {
-            color: #1d8bbe;
-            font-size: 10pt;
+            font-size: 11pt;
+            color: #333;
+            margin-top: 2px;
         }
 
         .list-item-desc {
             font-size: 10pt;
-            color: #64748b;
+            text-align: justify;
+            margin-top: 5px;
+            line-height: 1.4;
+        }
+
+        /* Container utama per item */
+        .list-item {
+            margin-bottom: 12px;
+            margin-top: 1rem;
+            width: 100%;
+        }
+
+        /* Tabel untuk Header (Judul & Tahun) */
+        .item-header-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2px;
+        }
+
+        /* Judul (Jabatan / Instansi) */
+        .item-title {
+            text-align: left;
+            font-weight: bold;
+            font-size: 12pt;
+            vertical-align: top;
+            width: 70%;
+        }
+
+        /* Tahun di sebelah kanan */
+        .item-year {
+            text-align: right;
+            color: #666666;
+            font-size: 10pt;
+            vertical-align: top;
+            width: 30%;
+        }
+
+        /* Deskripsi pengalaman */
+        .list-item-desc {
+            font-size: 10.5pt;
+            color: #333333;
+            text-align: justify;
+            line-height: 1.4;
+        }
+
+        /* Sub-judul (Gelar atau Nama Perusahaan) */
+        .list-item-sub {
+            font-size: 11pt;
+            font-style: italic;
+            color: #444444;
+            margin-bottom: 3px;
         }
     </style>
 
@@ -171,10 +243,11 @@
         .icon-box {
             width: 25px;
             font-family: 'DejaVu Sans', sans-serif;
-            font-size: 13pt;
+            font-size: 16pt;
             color: #f1f5f9;
             /* Ganti kode HEX ini untuk ubah warna ikon */
             padding-top: 2px;
+            padding-right: 5px;
         }
 
         .contact-info h3 {
@@ -205,11 +278,11 @@
         }
 
         .check-icon {
-            width: 20px;
+            width: 1rem;
             font-family: 'DejaVu Sans', sans-serif;
             color: #ffffff;
             /* Warna hijau, silakan ganti sesuai tema */
-            font-size: 10pt;
+            font-size: 12pt;
         }
 
         .skill-text {
@@ -294,10 +367,18 @@
 
             <!-- MAIN CONTENT -->
             <td class="main-content">
-                <div class="header-name">
-                    <h3>{{ $nama }}</h1>
-                        <h2>{{ $posisi }}</h2>
-                </div>
+
+                <table class="header-name">
+                    <tr>
+                        <span class="nama">{{ $nama }}</h1>
+                    </tr>
+                    <tr>
+                        <span class="posisi">{{ $posisi }}</span>
+                    </tr>
+                </table>
+
+
+
 
                 <div class="section-title">Profil</div>
                 <p class="profile-text">{{ $profil }}</p>
@@ -305,8 +386,12 @@
                 <div class="section-title">Pengalaman Kerja</div>
                 @foreach ($experience as $exp)
                     <div class="list-item">
-                        <div class="list-item-title">{{ $exp['jabatan'] }}</div>
-                        <div class="list-item-sub">{{ $exp['tahun'] }}</div>
+                        <table class="item-header-table">
+                            <tr>
+                                <td class="item-title">{{ $exp['jabatan'] }}</td>
+                                <td class="item-year">{{ $exp['tahun'] }}</td>
+                            </tr>
+                        </table>
                         <div class="list-item-desc">{{ $exp['deskripsi'] }}</div>
                     </div>
                 @endforeach
@@ -314,8 +399,13 @@
                 <div class="section-title">Pendidikan</div>
                 @foreach ($pendidikan as $edu)
                     <div class="list-item">
-                        <div class="list-item-title">{{ $edu['instansi'] }}</div>
-                        <div class="list-item-sub">{{ $edu['tahun'] }} | {{ $edu['gelar'] }}</div>
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <tr>
+                                <td class="list-item-title">{{ $edu['instansi'] }}</td>
+                                <td class="list-item-year">{{ $edu['tahun'] }} </td>
+                            </tr>
+                        </table>
+                        <div class="list-item-sub">{{ $edu['gelar'] }}</div>
                     </div>
                 @endforeach
             </td>

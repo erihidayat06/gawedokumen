@@ -7,6 +7,7 @@ use App\Models\Cv;
 use Illuminate\Http\Request;
 use Nette\Utils\Json;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 
 class CvController extends Controller
 {
@@ -34,44 +35,39 @@ class CvController extends Controller
 
     public function generatePdf(Request $request)
     {
+        // Mengeset locale ke Indonesia agar nama bulan otomatis bahasa Indonesia
+        app()->setLocale('id');
 
-        // Mengambil semua data dari request dan menyusunnya untuk View PDF
         $data = [
-            // Data Diri Dasar
             'nama'            => $request->nama,
-            'posisi'         => $request->profesi,
-
-            // Data Personal Tambahan
+            'posisi'          => $request->profesi,
             'tempat_lahir'    => $request->tempat_lahir,
-            'tanggal_lahir'   => $request->tanggal_lahir,
+
+            // Memproses Tanggal Lahir langsung di sini menggunakan Carbon
+            'tanggal_lahir'   => $request->tanggal_lahir ?
+                Carbon::parse($request->tanggal_lahir)->translatedFormat('d F Y') :
+                '',
+
             'jk'              => $request->jk,
             'kewarganegaraan' => $request->kewarganegaraan,
-
-            // Kontak & Alamat
             'email'           => $request->email,
-            'no_tlp'         => $request->telepon,
-            'alamat_diri'          => $request->alamat,
+            'no_tlp'          => $request->telepon,
+            'alamat_diri'     => $request->alamat,
+            'profil'          => $request->profil_singkat,
 
-            // Profil Singkat
-            'profil'  => $request->profil_singkat,
-
-            // Data Dinamis (Dekode dari JSON String menjadi Array PHP)
             'experience'      => json_decode($request->pengalaman, true) ?? [],
             'pendidikan'      => json_decode($request->pendidikan, true) ?? [],
             'keahlian'        => json_decode($request->keahlian, true) ?? [],
 
-            // Pengaturan Tampilan
             'warna_tema'      => $request->warna_tema ?? '#000000',
             'template_id'     => $request->template_id ?? '1',
-            'avatar'          => $request->foto_base64, // Mapping dari JS foto_base64 ke variabel avatar di Blade
+            'avatar'          => $request->foto_base64,
         ];
 
-        // Opsional: Log data untuk memastikan semua masuk saat proses testing
-        // \Log::info($data);
+
 
         $pdf = PDF::loadView('pekerja.cv.pdf.template_cv', $data);
 
-        // Stream PDF ke browser dengan nama file yang rapi
         $filename = 'CV_' . str_replace(' ', '_', $request->nama ?? 'Dokumen') . '.pdf';
         return $pdf->stream($filename);
     }

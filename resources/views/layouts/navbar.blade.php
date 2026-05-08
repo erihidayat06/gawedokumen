@@ -99,6 +99,12 @@
 
 
                 <li class="w-full md:w-auto">
+                    <a href="{{ route('loker.index') }}"
+                        class="block py-2.5 px-4 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 md:p-0 transition-colors">
+                        Loker
+                    </a>
+                </li>
+                <li class="w-full md:w-auto">
                     <a href="/blog"
                         class="block py-2.5 px-4 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 md:p-0 transition-colors">
                         Blog

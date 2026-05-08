@@ -87,3 +87,15 @@ function setHariIni() {
     evt.currentTarget.classList.remove('border-transparent', 'text-gray-500');
     evt.currentTarget.classList.add('border-blue-500', 'text-blue-600');
 }
+
+
+function getTanggalIndo(dateString) {
+    if (!dateString) return "";
+    const date = new Date(dateString);
+
+    // Cek apakah tanggal valid
+    if (isNaN(date.getTime())) return dateString;
+
+    const options = { day: 'numeric', month: 'long', year: 'numeric' };
+    return date.toLocaleDateString('id-ID', options);
+}

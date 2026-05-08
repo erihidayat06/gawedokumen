@@ -1114,13 +1114,7 @@
             if (imgPreview) imgPreview.classList.add('hidden');
         }
 
-        // --- UTILS TANGGAL ---
-        function getTanggalIndo(dateObj = new Date()) {
-            const bulanIndo = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September",
-                "Oktober", "November", "Desember"
-            ];
-            return `${String(dateObj.getDate()).padStart(2, '0')} ${bulanIndo[dateObj.getMonth()]} ${dateObj.getFullYear()}`;
-        }
+
 
         function getTanggalInput(dateObj = new Date()) {
             return dateObj.toISOString().split('T')[0];

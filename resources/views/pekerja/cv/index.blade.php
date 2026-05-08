@@ -207,14 +207,14 @@
                                     'type' => 'text',
                                 ],
                                 [
-                                    'inputId' => 'tempat_lahir',
+                                    'inputId' => 'tempat-lahir',
                                     'targetId' => 'tempat-lahir-text',
                                     'label' => 'Tempat Lahir',
                                     'defaultText' => 'Jakarta',
                                     'type' => 'text',
                                 ],
                                 [
-                                    'inputId' => 'tanggal_lahir',
+                                    'inputId' => 'tanggal-lahir',
                                     'targetId' => 'tanggal-lahir-text',
                                     'label' => 'Tanggal Lahir',
                                     'defaultText' => '01 Januari 2000',
@@ -238,21 +238,21 @@
                                 [
                                     'inputId' => 'telp',
                                     'targetId' => 'telp-text',
-                                    'label' => 'telp',
+                                    'label' => 'Telephon/WA (Aktif)',
                                     'defaultText' => '08xxxxxxxxx',
                                     'type' => 'text',
                                 ],
                                 [
                                     'inputId' => 'email',
                                     'targetId' => 'email-text',
-                                    'label' => 'email',
+                                    'label' => 'Email',
                                     'defaultText' => 'nama@example.com',
                                     'type' => 'text',
                                 ],
                                 [
                                     'inputId' => 'alamat',
                                     'targetId' => 'alamat-text',
-                                    'label' => 'alamat',
+                                    'label' => 'Alamat',
                                     'defaultText' => 'Jl xxxxxxxxx',
                                     'type' => 'text',
                                 ],
@@ -263,13 +263,6 @@
                                     'defaultText' =>
                                         'Saya seorang [Pekerjaan] yang ahli dalam [Keahlian]. Berpengalaman selama [Jumlah] tahun dalam membangun solusi digital yang efisien dan skalabel.',
                                     'type' => 'textarea',
-                                ],
-                                [
-                                    'inputId' => 'pengalaman',
-                                    'targetId' => 'pengalaman-text',
-                                    'label' => 'Pengalaman Kerja',
-                                    'defaultText' => 'Web Developer',
-                                    'type' => 'text',
                                 ],
                             ];
                         @endphp
@@ -469,10 +462,8 @@
                         </div>
                     </template>
 
-                    <!-- Input ini untuk menampung data yang akan di-decode di Controller -->
-                    <input type="hidden" name="pengalaman" id="pengalaman">
-                    <input type="hidden" name="pendidikan" id="pendidikan">
-                    <input type="hidden" name="keahlian" id="keahlian">
+
+
                     <input type="hidden" name="warna_tema" id="warna_tema" value="#3b82f6">
 
 
@@ -575,12 +566,8 @@
 
                     <div class="space-y-5" style="margin-top: 3mm;">
                         <div class="flex items-center space-x-3">
-                            <div class="flex-shrink-0 w-6 text-slate-100 text-sidebar-dynamic">
-                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                    <path
-                                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z">
-                                    </path>
-                                </svg>
+                            <div class="flex-shrink-0 w-6 text-[16pt] text-slate-100 text-sidebar-dynamic">
+                                &#9743;
                             </div>
                             <div>
                                 <h3 class="text-[11pt] font-bold text-slate-100 text-sidebar-dynamic">Telepon</h3>
@@ -588,12 +575,8 @@
                             </div>
                         </div>
                         <div class="flex items-center space-x-3">
-                            <div class="flex-shrink-0 w-6 text-slate-100 text-sidebar-dynamic">
-                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                    <path
-                                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
-                                    </path>
-                                </svg>
+                            <div class="flex-shrink-0 w-6 text-[16pt] text-slate-100 text-sidebar-dynamic">
+                                &#9993;
                             </div>
                             <div>
                                 <h3 class="text-[11pt] font-bold text-slate-100 text-sidebar-dynamic">Email</h3>
@@ -601,13 +584,8 @@
                             </div>
                         </div>
                         <div class="flex items-center space-x-3">
-                            <div class="flex-shrink-0 w-6 text-slate-100 text-sidebar-dynamic">
-                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                    <path
-                                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
-                                    </path>
-                                    <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                </svg>
+                            <div class="flex-shrink-0 w-6 text-[16pt] text-slate-100 text-sidebar-dynamic">
+                                &#10148;
                             </div>
                             <div>
                                 <h3 class="text-[11pt] font-bold text-slate-100 text-sidebar-dynamic">Alamat</h3>
@@ -628,10 +606,10 @@
                     </div>
                 </div>
 
-                <div class="flex-1" style="padding: 15mm 15mm 10mm 15mm;">
+                <div class="flex-1" style="padding: 15mm 15mm 10mm 15mm; text-align: justify;">
 
                     <div class="border-b-4 border-[#1d8bbe] pb-4">
-                        <h1 class="text-[32pt] font-extrabold text-slate-800 leading-none" id="nama-text"></h1>
+                        <h1 class="text-[32pt] font-bold text-slate-800 leading-none" id="nama-text"></h1>
                         <h2 class="text-[18pt] font-medium text-[#1d8bbe] tracking-[0.2em] uppercase mt-2"
                             id="profesi-text">
                         </h2>
@@ -767,14 +745,14 @@
                     _token: "{{ csrf_token() }}",
                     nama: document.getElementById('nama')?.value || "Nama Lengkap",
                     profesi: document.getElementById('profesi')?.value || "Profesi",
-                    tempat_lahir: document.getElementById('tempat_lahir')?.value || "",
-                    tanggal_lahir: document.getElementById('tanggal_lahir')?.value || "",
+                    tempat_lahir: document.getElementById('tempat-lahir')?.value || "",
+                    tanggal_lahir: document.getElementById('tanggal-lahir')?.value || "",
                     jk: document.querySelector('input[name="jk"]:checked')?.value || "Laki-Laki",
                     kewarganegaraan: document.getElementById('kewarganegaraan')?.value || "Indonesia",
                     email: document.getElementById('email')?.value || "email@contoh.com",
-                    telepon: document.getElementById('telepon')?.value || "08xxxx",
+                    telepon: document.getElementById('telp')?.value || "08xxxx",
                     alamat: document.getElementById('alamat')?.value || "Alamat Lengkap",
-                    profil_singkat: document.getElementById('profil_singkat')?.value || "",
+                    profil_singkat: document.getElementById('profile')?.value || "",
 
                     // Ambil data yang sudah di-stringifikasi oleh handleSubmit
                     pengalaman: document.getElementById('pengalaman').value,
@@ -824,17 +802,17 @@
                 try {
                     // 1. Sinkronisasi Data Dinamis ke Hidden Input
                     const pengalaman = Array.from(document.querySelectorAll('.experience-item')).map(el => ({
-                        jabatan: el.querySelector('.input-jabatan')?.value || '',
-                        perusahaan: el.querySelector('.input-perusahaan')?.value || '',
-                        tahun: el.querySelector('.input-tahun')?.value || '',
-                        deskripsi: el.querySelector('.input-deskripsi')?.value || ''
+                        jabatan: el.querySelector('.exp-title')?.value || '',
+                        perusahaan: el.querySelector('.exp-company')?.value || '',
+                        tahun: el.querySelector('.exp-year')?.value || '',
+                        deskripsi: el.querySelector('.exp-desc')?.value || ''
                     }));
                     document.getElementById('pengalaman').value = JSON.stringify(pengalaman);
 
                     const pendidikan = Array.from(document.querySelectorAll('.education-item')).map(el => ({
-                        instansi: el.querySelector('.input-instansi')?.value || '',
-                        tahun: el.querySelector('.input-tahun-edu')?.value || '',
-                        gelar: el.querySelector('.input-gelar')?.value || ''
+                        instansi: el.querySelector('.edu-school')?.value || '',
+                        tahun: el.querySelector('.edu-year')?.value || '',
+                        gelar: el.querySelector('.edu-degree')?.value || ''
                     }));
                     document.getElementById('pendidikan').value = JSON.stringify(pendidikan);
 
@@ -1078,9 +1056,9 @@
                     const degree = item.querySelector('.edu-degree').value || 'Gelar';
                     html = `
                     <div class="mb-4">
-                        <div class="flex justify-between font-bold text-slate-800 text-[12pt]">
+                        <div class="flex justify-between font-bold text-slate-800 text-[12pt] ">
                             <span>${school}</span>
-                            <span class="italic text-slate-500">${year}</span>
+                            <span class="italic text-slate-500 w-[30%] text-end">${year}</span>
                         </div>
                         <div class="text-slate-700 text-[11pt]">${degree}</div>
                     </div>`;
@@ -1089,11 +1067,9 @@
                     html = `
                         <div class="flex items-start space-x-3 mb-2">
                             <!-- items-start: Memaksa ikon tetap di atas meskipun teks memanjang ke bawah -->
-                            <div class="flex-shrink-0 w-4 text-slate-100 text-sidebar-dynamic mt-1.5">
+                            <div class="flex-shrink-0 w-2 text-[12pt] text-slate-100 text-sidebar-dynamic mt-1.5">
                                 <!-- mt-1.5: Menyesuaikan posisi ikon agar pas di tengah baris pertama teks -->
-                                <svg fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                                </svg>
+                                ✔
                             </div>
                             <p class="text-[11pt] text-slate-100 font-medium text-sidebar-dynamic leading-tight break-words">
                                 ${skillName}
@@ -1107,41 +1083,56 @@
         }
 
         function handleImageUpload(input) {
-            if (input.files && input.files[0]) {
-                const file = input.files[0];
-                const reader = new FileReader();
+            const file = input.files[0];
+            if (!file) return;
 
-                reader.onload = function(e) {
-                    const img = new Image();
-                    img.src = e.target.result;
+            const reader = new FileReader();
 
-                    img.onload = function() {
-                        // Tentukan ukuran maksimal (misal 400px agar tetap tajam tapi ringan)
-                        const MAX_WIDTH = 400;
-                        const scaleSize = MAX_WIDTH / img.width;
+            reader.onload = function(event) {
+                const img = new Image();
+                img.src = event.target.result;
 
-                        const canvas = document.createElement('canvas');
-                        canvas.width = MAX_WIDTH;
-                        canvas.height = img.height * scaleSize;
+                img.onload = function() {
+                    const canvas = document.createElement("canvas");
 
-                        const ctx = canvas.getContext('2d');
-                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                    // 1. Naikkan sedikit MAX_WIDTH agar lebih tajam (misal 600px atau 800px)
+                    // 800px sudah sangat jernih untuk ukuran pas foto di CV
+                    const MAX_WIDTH = 500;
+                    const scaleSize = MAX_WIDTH / img.width;
 
-                        // Konversi ke WebP dengan kualitas 0.7
-                        const webpDataUrl = canvas.toDataURL('image/webp', 0.7);
+                    canvas.width = MAX_WIDTH;
+                    canvas.height = img.height * scaleSize;
 
-                        // Update Preview
-                        document.getElementById('preview-avatar').src = webpDataUrl;
+                    const ctx = canvas.getContext("2d");
 
-                        // Simpan ke LocalStorage
-                        saveToLocal();
-                    };
+                    // 2. Gunakan Image Smoothing agar hasil resize tidak "pecah"
+                    ctx.imageSmoothingEnabled = true;
+                    ctx.imageSmoothingQuality = 'high';
+
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+                    // 3. Gunakan image/webp dengan kualitas 0.8 atau 0.9
+                    // 0.8 (80%) adalah sweet spot: Jernih seperti asli tapi ukuran file WebP tetap kecil.
+                    const compressedBase64 = canvas.toDataURL("image/webp", 0.8);
+
+                    const sizeInMB = (compressedBase64.length / (1024 * 1024)).toFixed(2);
+                    console.log(`📏 Ukuran WebP (Jernih): ${sizeInMB} MB`);
+
+                    try {
+                        localStorage.setItem("storage_foto_profil", compressedBase64);
+                        tampilkanGambar(compressedBase64);
+                        console.log("✅ Foto WebP jernih berhasil disimpan.");
+                    } catch (e) {
+                        console.error("❌ Storage penuh!", e);
+                        // Jika masih penuh, baru turunkan kualitas secara otomatis sebagai fallback
+                        const fallback = canvas.toDataURL("image/webp", 0.6);
+                        localStorage.setItem("storage_foto_profil", fallback);
+                    }
                 };
+            };
 
-                reader.readAsDataURL(file);
-            }
+            reader.readAsDataURL(file);
         }
-
 
         function tampilkanGambar(base64) {
             const imgPreview = document.getElementById('preview-avatar');
@@ -1151,40 +1142,10 @@
             }
         }
 
-        // --- 2. FUNGSI KHUSUS FOTO DENGAN LOG DETEKSI UKURAN ---
-        function simpanFotoProfil(input) {
-            const file = input.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onloadend = () => {
-                    const base64String = reader.result;
-
-                    // Log ukuran string untuk memantau kapasitas LocalStorage (Limit 5MB)
-                    const sizeInMB = (base64String.length / (1024 * 1024)).toFixed(2);
-                    console.log(`📏 Ukuran foto profil: ${sizeInMB} MB`);
-
-                    try {
-                        localStorage.setItem("storage_foto_profil", base64String);
-                        tampilkanGambar(base64String);
-                        console.log("✅ Foto berhasil disimpan ke LocalStorage.");
-                    } catch (e) {
-                        console.error("❌ Gagal menyimpan gambar: Storage penuh!", e);
-                        alert("Ukuran gambar terlalu besar, coba kompres atau gunakan foto lain.");
-                    }
-                };
-                reader.readAsDataURL(file);
-            }
-        }
 
         // --- 3. FUNGSI SIMPAN DATA TEKS ---
         function saveToLocal() {
             const cvData = {
-                nama: document.getElementById('nama')?.value || '',
-                profesi: document.getElementById('profesi')?.value || '',
-                email: document.getElementById('email')?.value || '',
-                telepon: document.getElementById('telepon')?.value || '',
-                alamat: document.getElementById('alamat')?.value || '',
-                profil_singkat: document.getElementById('profil_singkat')?.value || '',
                 experience: [],
                 education: [],
                 skill: []
@@ -1243,12 +1204,6 @@
                     if (el) el.value = val || '';
                 };
 
-                setVal('nama', data.nama);
-                setVal('profesi', data.profesi);
-                setVal('email', data.email);
-                setVal('telepon', data.telepon);
-                setVal('alamat', data.alamat);
-                setVal('profil_singkat', data.profil_singkat);
 
                 // Render Data Dinamis (Pastikan fungsi addItem tersedia)
                 if (data.experience?.length) data.experience.forEach(exp => addItem('experience', exp));
