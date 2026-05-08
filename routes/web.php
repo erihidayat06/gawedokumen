@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminBlogController;
 use App\Http\Controllers\Admin\AdminCvController;
+use App\Http\Controllers\Admin\AdminLokerController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DocumentController;
@@ -66,6 +67,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::put('/blog/{blog:id}/update', [AdminBlogController::class, 'update'])->name('blog.update');
     Route::delete('/blog/{blog:id}/delete', [AdminBlogController::class, 'destroy'])->name('blog.destroy');
     Route::resource('cv', AdminCvController::class);
+    Route::resource('loker', AdminLokerController::class);
 });
 
 

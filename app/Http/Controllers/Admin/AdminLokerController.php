@@ -6,15 +6,24 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Loker;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class AdminLokerController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Loker $loker)
+    // Di LokerController untuk admin
+    public function index(Request $request)
     {
-        //
+        $query = Loker::query();
+
+        // Logika filter tetap sama seperti sebelumnya...
+
+        $lokers = $query->latest()->paginate(20);
+        $bulanSekarang = \Carbon\Carbon::now()->translatedFormat('F Y');
+
+        return view('admin.loker.index', compact('lokers', 'bulanSekarang'));
     }
 
     /**
@@ -22,7 +31,7 @@ class AdminLokerController extends Controller
      */
     public function create(Loker $loker)
     {
-        //
+        return view('admin.loker.create');
     }
 
     /**
@@ -30,7 +39,22 @@ class AdminLokerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        // Pecah teks persyaratan per baris menjadi array
+        if ($request->persyaratan) {
+            $data['persyaratan'] = array_filter(explode("\n", str_replace("\r", "", $request->persyaratan)));
+        }
+
+        // Generate Slug SEO otomatis
+        app()->setLocale('id');
+        $bulan = \Carbon\Carbon::now()->translatedFormat('F Y');
+        $data['slug'] = \Illuminate\Support\Str::slug($request->posisi . ' ' . $request->kecamatan . ' ' . $request->kota . ' ' . $bulan);
+
+        // Simpan ke Database
+        \App\Models\Loker::create($data);
+
+        return redirect()->route('loker.index')->with('success', 'Loker berhasil ditayangkan!');
     }
 
     /**
