@@ -61,30 +61,28 @@
             </div>
         </div>
     </div>
-
-
-    @push('scripts')
-        <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
-
-        <script>
-            $(document).ready(function() {
-                $('#dataTableBlog').DataTable({
-                    "language": {
-                        "search": "Cari Artikel:",
-                        "lengthMenu": "Tampilkan _MENU_ baris per halaman",
-                        "zeroRecords": "Data tidak ditemukan",
-                        "info": "Menampilkan halaman _PAGE_ dari _PAGES_",
-                        "infoEmpty": "Tidak ada data tersedia",
-                        "infoFiltered": "(difilter dari _MAX_ total data)",
-                        "paginate": {
-                            "first": "Pertama",
-                            "last": "Terakhir",
-                            "next": "Lanjut",
-                            "previous": "Kembali"
-                        },
-                    }
-                });
-            });
-        </script>
-    @endpush
 @endsection
+@push('scripts')
+    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#dataTableBlog').DataTable({
+                "language": {
+                    "search": "Cari Artikel:",
+                    "lengthMenu": "Tampilkan _MENU_ baris per halaman",
+                    "zeroRecords": "Data tidak ditemukan",
+                    "info": "Menampilkan halaman _PAGE_ dari _PAGES_",
+                    "infoEmpty": "Tidak ada data tersedia",
+                    "infoFiltered": "(difilter dari _MAX_ total data)",
+                    "paginate": {
+                        "first": "Pertama",
+                        "last": "Terakhir",
+                        "next": "Lanjut",
+                        "previous": "Kembali"
+                    },
+                }
+            });
+        });
+    </script>
+@endpush
