@@ -14,9 +14,19 @@ class AdminBlogController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $blogs = Blog::latest()->get();
+        $query = Blog::query();
+
+        // Filter Pencarian
+        if ($request->has('search')) {
+            $search = $request->get('search');
+            $query->where('judul', 'like', "%{$search}%")
+                ->orWhere('kategori', 'like', "%{$search}%");
+        }
+
+        $blogs = $query->latest()->paginate(10)->withQueryString();
+
         return view('admin.blog.index', compact('blogs'));
     }
 

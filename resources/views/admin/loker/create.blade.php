@@ -119,10 +119,7 @@
                                         Lowongan</h6>
                                     <hr class="mt-0 mb-3 opacity-10">
                                 </div>
-                                <div class="col-md-4">
-                                    <label class="form-label fw-semibold">Deadline</label>
-                                    <input type="date" name="deadline" class="form-control" required>
-                                </div>
+
                                 <div class="col-md-4">
                                     <label class="form-label fw-semibold">Gaji (Range)</label>
                                     <input type="text" name="gaji" class="form-control"
@@ -160,6 +157,30 @@
                                     <h6 class="text-primary fw-bold text-uppercase small tracking-wider mb-2">4. Isi
                                         Lowongan</h6>
                                     <hr class="mt-0 mb-3 opacity-10">
+                                </div>
+                                {{-- Tambahan Minimal Pendidikan & Pengalaman --}}
+                                <div class="col-md-6 mt-3">
+                                    <label class="form-label fw-semibold">Minimal Pendidikan</label>
+                                    <select name="minimal_pendidikan" class="form-select select2-init">
+                                        <option value="">Pilih Pendidikan...</option>
+                                        <option value="SMP">SMP</option>
+                                        <option value="SMA/SMK">SMA/SMK (Sederajat)</option>
+                                        <option value="D3">D3</option>
+                                        <option value="S1/S2">S1/S2</option>
+                                        <option value="Semua Jenjang">Semua Jenjang (Tanpa Minimal)</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6 mt-3">
+                                    <label class="form-label fw-semibold">Pengalaman Kerja</label>
+                                    <select name="pengalaman" class="form-select select2-init">
+                                        <option value="">Pilih Kategori...</option>
+                                        <option value="Fresh Graduate">Fresh Graduate</option>
+                                        <option value="Minimal 1 Tahun">Minimal 1 Tahun</option>
+                                        <option value="Minimal 2 Tahun">Minimal 2 Tahun</option>
+                                        <option value="Minimal 3 Tahun">Minimal 3 Tahun</option>
+                                        <option value="Lebih dari 5 Tahun">Lebih dari 5 Tahun</option>
+                                    </select>
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label fw-semibold">Ringkasan / Deskripsi Pekerjaan</label>

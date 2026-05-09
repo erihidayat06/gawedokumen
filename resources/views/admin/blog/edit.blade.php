@@ -94,7 +94,7 @@
 
                             <div class="mt-3">
                                 @if ($blog->gambar)
-                                    <img id="imgPreview" src="{{ asset('uploads/blog/' . $blog->gambar) }}"
+                                    <img id="imgPreview" src="{{ asset('storage/uploads/blog/' . $blog->gambar) }}"
                                         alt="Preview Gambar" class="img-fluid img-thumbnail shadow-sm"
                                         style="max-height: 200px; display: block;">
                                     <small class="text-muted d-block mt-1" id="fileOldName">Gambar saat ini:

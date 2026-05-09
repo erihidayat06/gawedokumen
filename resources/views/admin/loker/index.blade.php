@@ -135,18 +135,57 @@
                                                                     {{ $loker->kecamatan }}, {{ $loker->kota }}</p>
                                                             </div>
 
+                                                            {{-- TAMBAHAN: Card Info Utama (Pendidikan & Pengalaman) --}}
+                                                            <div class="row g-3 mb-4">
+                                                                <div class="col-md-6">
+                                                                    <div
+                                                                        class="p-3 border rounded-3 bg-white shadow-sm d-flex align-items-center">
+                                                                        <div class="bg-soft-primary p-2 rounded-2 me-3">
+                                                                            <i
+                                                                                class="bi bi-mortarboard-fill text-primary fs-5"></i>
+                                                                        </div>
+                                                                        <div>
+                                                                            <small
+                                                                                class="text-muted d-block text-uppercase fw-bold"
+                                                                                style="font-size: 10px;">Min.
+                                                                                Pendidikan</small>
+                                                                            <span
+                                                                                class="fw-bold text-dark">{{ $loker->minimal_pendidikan ?? 'Semua Jenjang' }}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div
+                                                                        class="p-3 border rounded-3 bg-white shadow-sm d-flex align-items-center">
+                                                                        <div class="bg-soft-info p-2 rounded-2 me-3">
+                                                                            <i
+                                                                                class="bi bi-briefcase-fill text-info fs-5"></i>
+                                                                        </div>
+                                                                        <div>
+                                                                            <small
+                                                                                class="text-muted d-block text-uppercase fw-bold"
+                                                                                style="font-size: 10px;">Pengalaman</small>
+                                                                            <span
+                                                                                class="fw-bold text-dark">{{ $loker->pengalaman ?? 'Fresh Graduate' }}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
                                                             <div class="mb-4">
                                                                 <label
                                                                     class="fw-bold text-dark border-bottom pb-2 d-block mb-2">Deskripsi
                                                                     & Ringkasan</label>
                                                                 <div class="bg-light p-3 rounded-3"
                                                                     style="white-space: pre-line;">
-                                                                    {{ $loker->deskripsi ?? 'Tidak ada deskripsi.' }}</div>
+                                                                    {{ $loker->deskripsi ?? 'Tidak ada deskripsi.' }}
+                                                                </div>
                                                             </div>
 
                                                             <div class="row g-3">
                                                                 <div class="col-md-6">
-                                                                    <div class="card card-body border-0 bg-light rounded-3">
+                                                                    <div
+                                                                        class="card card-body border-0 bg-light rounded-3">
                                                                         <small
                                                                             class="text-muted fw-bold text-uppercase">Range
                                                                             Gaji</small>
@@ -171,13 +210,25 @@
                                                         <div class="col-lg-4 border-start">
                                                             <div class="mb-3">
                                                                 <h6 class="fw-bold text-dark mb-2"><i
-                                                                        class="bi bi-check2-circle text-primary me-2"></i>Kualifikasi
-                                                                </h6>
+                                                                        class="bi bi-check2-circle text-primary me-2"></i>Persyaratan
+                                                                    Khusus</h6>
                                                                 <ul class="list-unstyled small ps-1">
                                                                     @foreach ($loker->persyaratan as $syarat)
                                                                         <li class="mb-2 d-flex"><i
                                                                                 class="bi bi-dot text-primary fs-4 mt-n2"></i>
                                                                             {{ $syarat }}</li>
+                                                                    @endforeach
+                                                                </ul>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <h6 class="fw-bold text-dark mb-2"><i
+                                                                        class="bi bi-gift text-primary me-2"></i>Benefit
+                                                                </h6>
+                                                                <ul class="list-unstyled small ps-1">
+                                                                    @foreach ($loker->benefit as $b)
+                                                                        <li class="mb-2 d-flex"><i
+                                                                                class="bi bi-dot text-primary fs-4 mt-n2"></i>
+                                                                            {{ $b }}</li>
                                                                     @endforeach
                                                                 </ul>
                                                             </div>
@@ -193,7 +244,7 @@
                                                                     </a>
                                                                 @empty
                                                                     <p class="text-muted small italic">Belum ada artikel
-                                                                        blog yang dihubungkan.</p>
+                                                                        blog.</p>
                                                                 @endforelse
                                                             </div>
                                                             <div class="card card-body bg-soft-primary border-0 small">

@@ -15,40 +15,43 @@ return new class extends Migration
             $table->id();
 
             // Branding & Identitas
-            $table->string('logo')->nullable(); // Nama file foto/logo perusahaan
-            $table->string('posisi'); // Contoh: Admin Gudang
-            $table->string('perusahaan'); // Contoh: PT. Logistik Maju Jaya
+            $table->string('logo')->nullable();
+            $table->string('posisi');
+            $table->string('perusahaan');
 
             // Lokasi (Untuk SEO Lokal)
-            $table->string('kecamatan'); // Contoh: Adiwerna
-            $table->string('kota'); // Contoh: Tegal
-            $table->text('alamat'); // Alamat lengkap untuk teks
-            $table->text('map')->nullable(); // Untuk link iframe atau koordinat
+            $table->string('kecamatan');
+            $table->string('kota');
+            $table->text('alamat');
+            $table->text('map')->nullable();
+
+            // Kualifikasi Utama (TAMBAHAN BARU)
+            $table->string('minimal_pendidikan')->nullable(); // Contoh: SMA/SMK, D3, S1
+            $table->string('pengalaman')->nullable(); // Contoh: Minimal 1 Tahun, Fresh Graduate
 
             // Konten Utama
             $table->text('deskripsi');
-            $table->json('persyaratan')->nullable(); // Disimpan sebagai JSON agar bisa di-foreach di Blade
-            $table->json('tugas')->nullable(); // Disimpan sebagai JSON
-            $table->json('benefit')->nullable(); // Disimpan sebagai JSON (Gaji, BPJS, dll)
+            $table->json('persyaratan')->nullable();
+            $table->json('tugas')->nullable();
+            $table->json('benefit')->nullable();
 
             // Informasi Tambahan
-            $table->string('gaji')->nullable(); // Contoh: Rp 2.100.000 atau Kompetitif
-            $table->date('deadline'); // Tanggal batas lamaran
+            $table->string('gaji')->nullable();
+            $table->date('deadline');
 
             // Kontak & Eksternal
             $table->string('no_wa')->nullable();
             $table->string('email')->nullable();
-            $table->text('url_blog')->nullable(); // Link ke tips terkait di blog sendiri
+            $table->text('url_blog')->nullable();
 
             // Sistem & SEO
-            $table->string('slug')->unique(); // admin-gudang-adiwerna-tegal-mei-2026
+            $table->string('slug')->unique();
             $table->enum('status', ['Aktif', 'Tutup', 'Arsip'])->default('Aktif');
-            $table->string('tipe_pekerjaan')->default('Full Time'); // Full Time, Kontrak, Freelance
+            $table->string('tipe_pekerjaan')->default('Full Time');
 
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      */
