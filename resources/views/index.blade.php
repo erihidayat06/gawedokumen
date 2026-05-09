@@ -90,6 +90,33 @@
         {{-- BACKGROUND DECORATION --}}
 
     </section>
+
+    {{-- BANNER IKLAN LOKER - COMPACT VERSION --}}
+    <section class="max-w-7xl mx-auto px-6 mb-20">
+        <div class="relative overflow-hidden bg-blue-600 rounded-[2rem] p-8 md:p-12 shadow-xl shadow-blue-500/20">
+            {{-- Dekorasi Glow Lebih Halus --}}
+            <div class="absolute top-0 right-0 w-48 h-48 bg-white/10 rounded-full -mr-24 -mt-24 blur-3xl"></div>
+
+            <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="text-center md:text-left max-w-xl">
+                    <h2 class="text-2xl md:text-3xl font-black text-white mb-2 leading-tight">
+                        Mau cari <span class="text-blue-200">Lowongan Kerja?</span>
+                    </h2>
+                    <p class="text-blue-100 text-sm md:text-base font-medium opacity-90">
+                        Temukan peluang kerja terbaru di Tegal & sekitarnya yang diperbarui setiap hari.
+                    </p>
+                </div>
+
+                <div class="shrink-0">
+                    <a href="{{ route('loker.index') }}"
+                        class="inline-flex items-center px-6 py-3.5 bg-white text-blue-600 hover:bg-blue-50 transition-all duration-300 rounded-xl font-bold text-sm md:text-base shadow-lg hover:scale-105 active:scale-95 group">
+                        Cari Loker Sekarang
+                        <i class="bi bi-arrow-right ml-2 transition-transform group-hover:translate-x-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
     {{-- BACKGROUND DECORATION - OPTIMIZED --}}
     <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full -z-0 pointer-events-none overflow-hidden">
         {{-- Glow Kiri Atas --}}
@@ -230,8 +257,9 @@
                             class="flex items-center justify-between w-full p-6 md:p-8 text-left transition-all"
                             :class="active === 3 ? 'bg-blue-600 text-white' : 'text-slate-900 dark:text-white'">
                             <span class="font-bold md:text-lg text-sm">Apakah data saya aman di GaweDokumen?</span>
-                            <svg class="w-5 h-5 transition-transform duration-300" :class="active === 3 ? 'rotate-180' : ''"
-                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-5 h-5 transition-transform duration-300"
+                                :class="active === 3 ? 'rotate-180' : ''" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
                                 </path>
                             </svg>
