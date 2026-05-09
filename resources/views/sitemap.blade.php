@@ -9,7 +9,7 @@
         <priority>1.0</priority>
     </url>
 
-    {{-- 2. Halaman Index Loker (PENTING) --}}
+    {{-- 2. Halaman Index Loker --}}
     <url>
         <loc>{{ url('/loker') }}</loc>
         <lastmod>{{ now()->tz('UTC')->toAtomString() }}</lastmod>
@@ -17,7 +17,17 @@
         <priority>0.9</priority>
     </url>
 
-    {{-- 3. Looping Semua Loker Aktif --}}
+    {{-- 3. URL CANTIK WILAYAH (Baru ditambahkan agar terindeks Google) --}}
+    @foreach (['kabupaten-tegal', 'kota-tegal', 'brebes', 'pemalang', 'slawi'] as $w)
+        <url>
+            <loc>{{ url('/loker/wilayah/' . $w) }}</loc>
+            <lastmod>{{ now()->tz('UTC')->toAtomString() }}</lastmod>
+            <changefreq>daily</changefreq>
+            <priority>0.8</priority>
+        </url>
+    @endforeach
+
+    {{-- 4. Looping Semua Loker Aktif --}}
     @foreach ($lokers as $loker)
         <url>
             <loc>{{ url('/loker/' . $loker->slug) }}</loc>
@@ -27,7 +37,7 @@
         </url>
     @endforeach
 
-    {{-- 4. Tools Generator & Pekerja --}}
+    {{-- 5. Tools Generator & Pekerja --}}
     <url>
         <loc>{{ url('/pekerja/surat-lamaran') }}</loc>
         <lastmod>2026-04-18T00:00:00+00:00</lastmod>
@@ -56,7 +66,7 @@
         <priority>0.9</priority>
     </url>
 
-    {{-- 5. Halaman Index Blog --}}
+    {{-- 6. Halaman Index Blog --}}
     <url>
         <loc>{{ url('/blog') }}</loc>
         <lastmod>{{ now()->tz('UTC')->toAtomString() }}</lastmod>
@@ -64,7 +74,7 @@
         <priority>0.8</priority>
     </url>
 
-    {{-- 6. Looping Semua Artikel Blog --}}
+    {{-- 7. Looping Semua Artikel Blog --}}
     @foreach ($posts as $post)
         <url>
             <loc>{{ url('/blog/' . $post->slug) }}</loc>

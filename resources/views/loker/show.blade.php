@@ -1,5 +1,12 @@
 @extends('layouts.app')
 
+@section('title', $loker->posisi . ' di ' . $loker->perusahaan . ' - ' . $loker->kota)
+
+@section('meta_description')
+    Lowongan kerja {{ $loker->posisi }} di {{ $loker->perusahaan }} ({{ $loker->kecamatan }}, {{ $loker->kota }}).
+    Pendidikan min. {{ $loker->minimal_pendidikan }}. Update {{ \Carbon\Carbon::now()->translatedFormat('F Y') }}.
+@endsection
+
 @section('content')
     <div class="bg-slate-50 dark:bg-slate-950 min-h-screen pt-24 pb-20">
         <div class="max-w-6xl mx-auto px-6">

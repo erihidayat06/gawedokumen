@@ -195,7 +195,7 @@
         </div>
         {{-- FAQ SECTION --}}
         <section class="py-24 bg-white dark:bg-slate-950">
-            <div class="max-w-4xl mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
                 <div class="text-center mb-16">
                     <h2 class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-4">
                         Pertanyaan yang <span class="text-blue-600">Sering Diajukan</span>

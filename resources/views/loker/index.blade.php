@@ -1,20 +1,40 @@
 @extends('layouts.app')
 
+@section('title')
+    @if (isset($currentWilayah))
+        Lowongan Kerja Terbaru di {{ $currentWilayah }} - Mei 2026
+    @else
+        Portal Lowongan Kerja Tegal, Brebes, Pemalang Terbaru 2026
+    @endif
+@endsection
+
+@section('meta_description')
+    Cari loker {{ isset($currentWilayah) ? "di $currentWilayah" : 'se-Tegal Raya' }} terlengkap.
+    Tersedia lowongan {{ $lokers->take(3)->pluck('posisi')->implode(', ') }}.
+@endsection
+
+
+
 @section('content')
+    @php
+        // Cek apakah variabel $currentSlug dikirim dari controller (halaman wilayah)
+        // Jika ada, gunakan route wilayah. Jika tidak, gunakan route index biasa.
+        $formAction = isset($currentSlug) ? route('loker.wilayah', $currentSlug) : route('loker.index');
+    @endphp
     <div class="bg-slate-50 dark:bg-slate-950 min-h-screen pt-20 pb-20">
         <div class="max-w-7xl mx-auto px-4 md:px-6">
 
+
             {{-- SECTION FILTER & SEARCH --}}
             <div class="mb-10">
-                <form action="{{ route('loker.index') }}" method="GET"
+                <form id="lokerForm" action="{{ $formAction }}" method="GET"
                     class="bg-white dark:bg-slate-900 p-4 md:p-2 rounded-[2rem] md:rounded-full shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-800">
 
                     <div class="flex flex-col md:flex-row items-center gap-1">
-
-                        {{-- Keyword Search --}}
+                        {{-- Search Keyword --}}
                         <div class="relative w-full md:flex-[1.5]">
                             <i class="bi bi-search absolute left-5 top-1/2 -translate-y-1/2 text-blue-600"></i>
-                            <input type="text" name="search" value="{{ request('search') }}"
+                            <input type="text" name="search" id="searchInput" value="{{ request('search') }}"
                                 placeholder="Posisi atau Perusahaan..."
                                 class="w-full pl-12 pr-4 py-4 bg-transparent border-none focus:ring-0 dark:text-white text-sm font-medium">
                         </div>
@@ -23,12 +43,18 @@
 
                         {{-- Filter Wilayah --}}
                         <div class="w-full md:flex-1 group">
-                            <select name="wilayah"
+                            <select name="wilayah" id="wilayahSelect"
                                 class="w-full px-4 py-4 bg-transparent border-none focus:ring-0 dark:text-white text-sm font-medium appearance-none cursor-pointer">
                                 <option value="">Semua Wilayah</option>
-                                @foreach (['Kabupaten Tegal', 'Kota Tegal', 'Brebes', 'Pemalang', 'Slawi'] as $w)
-                                    <option value="{{ $w }}" {{ request('wilayah') == $w ? 'selected' : '' }}>
-                                        {{ $w }}</option>
+                                @foreach (['Kabupaten Tegal', 'Kota Tegal', 'Brebes', 'Pemalang'] as $w)
+                                    @php
+                                        $slugW = str_replace(' ', '-', strtolower($w));
+                                        $isSelected =
+                                            request('wilayah') == $w || (isset($currentSlug) && $currentSlug == $slugW);
+                                    @endphp
+                                    <option value="{{ $slugW }}" {{ $isSelected ? 'selected' : '' }}>
+                                        {{ $w }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
@@ -37,7 +63,7 @@
 
                         {{-- Filter Pendidikan --}}
                         <div class="w-full md:flex-1">
-                            <select name="pendidikan"
+                            <select name="pendidikan" id="pendidikanSelect"
                                 class="w-full px-4 py-4 bg-transparent border-none focus:ring-0 dark:text-white text-sm font-medium appearance-none cursor-pointer">
                                 <option value="">Pendidikan...</option>
                                 @foreach (['SMP', 'SMA/SMK', 'D3', 'S1/S2'] as $p)
@@ -49,18 +75,15 @@
 
                         <div class="h-8 w-[1px] bg-slate-200 dark:bg-slate-800 hidden md:block"></div>
 
-                        {{-- Filter Tipe --}}
+                        {{-- Filter Tipe Pekerjaan --}}
                         <div class="w-full md:flex-1">
-                            <select name="tipe"
+                            <select name="tipe" id="tipeSelect"
                                 class="w-full px-4 py-4 bg-transparent border-none focus:ring-0 dark:text-white text-sm font-medium appearance-none cursor-pointer">
                                 <option value="">Tipe Kerja...</option>
-                                <option value="Full Time" {{ request('tipe') == 'Full Time' ? 'selected' : '' }}>Full Time
-                                </option>
-                                <option value="Part Time" {{ request('tipe') == 'Part Time' ? 'selected' : '' }}>Part Time
-                                </option>
-                                <option value="Kontrak" {{ request('tipe') == 'Kontrak' ? 'selected' : '' }}>Kontrak
-                                </option>
-                                <option value="Magang" {{ request('tipe') == 'Magang' ? 'selected' : '' }}>Magang</option>
+                                @foreach (['Full Time', 'Part Time', 'Kontrak', 'Magang'] as $t)
+                                    <option value="{{ $t }}" {{ request('tipe') == $t ? 'selected' : '' }}>
+                                        {{ $t }}</option>
+                                @endforeach
                             </select>
                         </div>
 
@@ -73,19 +96,27 @@
                         </div>
                     </div>
                 </form>
-
-                {{-- Pencarian Populer (Opsional untuk mempercantik) --}}
-                <div class="mt-4 flex flex-wrap gap-2 px-6">
-                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mr-2 py-1">Populer:</span>
-                    @foreach (['Admin', 'Sales', 'Driver', 'Operator'] as $tag)
-                        <a href="?search={{ $tag }}"
-                            class="text-[10px] font-bold text-slate-500 hover:text-blue-600 bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full transition-colors border border-transparent hover:border-blue-200">
-                            #{{ $tag }}
-                        </a>
-                    @endforeach
-                </div>
             </div>
-
+            {{-- JUDUL DINAMIS --}}
+            <div class="mb-8">
+                <h2 class="text-2xl md:text-3xl font-black text-slate-900 dark:text-white leading-tight">
+                    @if (isset($currentWilayah))
+                        Lowongan Kerja di {{ $currentWilayah }}
+                    @else
+                        Lowongan Kerja Terbaru
+                    @endif
+                    <span class="text-blue-600">
+                        {{ \Carbon\Carbon::now()->translatedFormat('F Y') }}
+                    </span>
+                </h2>
+                <p class="text-sm md:text-base text-slate-500 dark:text-slate-400 mt-2">
+                    @if (isset($currentWilayah))
+                        Menampilkan peluang karir terbaik yang tersedia di wilayah {{ $currentWilayah }} dan sekitarnya.
+                    @else
+                        Temukan pekerjaan impian Anda dari berbagai perusahaan terpercaya di Tegal, Brebes, dan Pemalang.
+                    @endif
+                </p>
+            </div>
             {{-- GRID LOKER --}}
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                 @forelse ($lokers as $loker)
@@ -201,3 +232,34 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        document.getElementById('lokerForm').addEventListener('submit', function(e) {
+            const wilayah = document.getElementById('wilayahSelect').value;
+            const search = document.getElementById('searchInput').value;
+            const pendidikan = document.getElementById('pendidikanSelect').value;
+            const tipe = document.getElementById('tipeSelect').value;
+
+            // Jika ada input pencarian (text), biarkan form submit biasa ke /loker (standard query string)
+            if (search) {
+                return;
+            }
+
+            // Jika user memilih wilayah, kita arahkan ke URL cantik
+            if (wilayah) {
+                e.preventDefault();
+
+                // Bangun Query String untuk filter lainnya agar tidak hilang
+                let params = new URLSearchParams();
+                if (pendidikan) params.append('pendidikan', pendidikan);
+                if (tipe) params.append('tipe', tipe);
+
+                let queryString = params.toString() ? '?' + params.toString() : '';
+
+                // Redirect ke URL cantik wilayah + query string filter
+                window.location.href = "{{ url('/loker/wilayah') }}/" + wilayah + queryString;
+            }
+        });
+    </script>
+@endpush

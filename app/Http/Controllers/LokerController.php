@@ -10,30 +10,52 @@ class LokerController extends Controller
 {
     public function index(Request $request)
     {
-        // 1. Inisialisasi query dengan relasi blog (Eager Loading)
-        $query = \App\Models\Loker::with('blogs')->where('status', 'Aktif');
-
-        // 2. Logic Pencarian (Posisi)
-        if ($request->has('search') && $request->search != '') {
-            $query->where('posisi', 'like', '%' . $request->search . '%');
-        }
-
-        // 3. Logic Filter Wilayah (Kota/Kabupaten)
-        if ($request->has('wilayah') && $request->wilayah != '') {
-            $query->where('kota', $request->wilayah);
-        }
-
-        // 4. Ambil data dengan Paginate (9 data per halaman cocok untuk grid 3 kolom)
-        // withQueryString() penting agar saat pindah halaman, filter search tidak hilang
-        $lokers = $query->latest()->paginate(9)->withQueryString();
-
-        // 5. Setting bahasa & waktu
-        app()->setLocale('id');
-        $bulanSekarang = \Carbon\Carbon::now()->translatedFormat('F Y');
-
-        return view('loker.index', compact('lokers', 'bulanSekarang'));
+        return $this->performFilter($request);
     }
 
+    public function wilayah(Request $request, $wilayah)
+    {
+        // 1. Ambil nama wilayah dari URL (misal: kota-tegal -> Kota Tegal)
+        $formattedWilayah = ucwords(str_replace('-', ' ', $wilayah));
+
+        // 2. Gabungkan data wilayah dari URL ke dalam data Request (pendidikan, search, dll)
+        // Ini teknik "merge" agar filter lain tidak hilang
+        $request->merge([
+            'wilayah' => $formattedWilayah,
+            'current_slug' => $wilayah
+        ]);
+
+        // 3. Panggil performFilter dengan request yang sudah lengkap
+        return $this->performFilter($request);
+    }
+
+    private function performFilter(Request $request)
+    {
+        $lokers = \App\Models\Loker::where('status', 'Aktif')
+            ->when($request->search, function ($query, $search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('posisi', 'like', "%{$search}%")
+                        ->orWhere('perusahaan', 'like', "%{$search}%");
+                });
+            })
+            ->when($request->wilayah, function ($query, $wilayah) {
+                $query->where('kota', $wilayah);
+            })
+            ->when($request->pendidikan, function ($query, $pendidikan) {
+                $query->where('minimal_pendidikan', $pendidikan);
+            })
+            ->when($request->tipe, function ($query, $tipe) {
+                $query->where('tipe_pekerjaan', $tipe);
+            })
+            ->latest()
+            ->paginate(12);
+
+        // Kirim balik label wilayah untuk SEO
+        $currentWilayah = $request->wilayah;
+        $currentSlug = $request->current_slug;
+
+        return view('loker.index', compact('lokers', 'currentWilayah', 'currentSlug'));
+    }
     public function show($slug)
     {
         // 1. Cari loker berdasarkan slug dan pastikan statusnya Aktif
