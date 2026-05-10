@@ -181,8 +181,7 @@
                                         @php
                                             $pesanWA = "Halo HRD {$loker->perusahaan}, saya tertarik melamar posisi {$loker->posisi} via GaweDokumen.";
                                         @endphp
-                                        <a href="https://wa.me/{{ $loker->no_wa }}?text={{ urlencode($pesanWA) }}"
-                                            target="_blank"
+                                        <a href="https://wa.me/{{ $loker->no_wa }}" target="_blank"
                                             class="flex flex-col items-center justify-center gap-1 py-3 bg-green-600 text-white rounded-xl font-bold shadow-lg shadow-green-600/20 hover:bg-green-700 transition-all active:scale-95">
                                             <i class="bi bi-whatsapp text-lg"></i>
                                             <span class="text-[12px]">WhatsApp</span>
@@ -190,7 +189,7 @@
                                     @endif
 
                                     @if ($loker->email)
-                                        <a href="mailto:{{ $loker->email }}?subject=Lamaran Kerja - {{ $loker->posisi }}"
+                                        <a href="mailto:{{ $loker->email }}"
                                             class="flex flex-col items-center justify-center gap-1 py-3 bg-slate-900 dark:bg-slate-700 text-white rounded-xl font-bold shadow-lg transition-all active:scale-95 text-center">
                                             <i class="bi bi-envelope text-lg"></i>
                                             <span class="text-[12px]">Kirim Email</span>
@@ -202,7 +201,8 @@
 
                         {{-- Content Detail --}}
                         <div class="p-6 md:p-12 space-y-12 border-t border-slate-50 dark:border-slate-800">
-                            {{-- Deskripsi --}}
+
+                            {{-- 1. Deskripsi --}}
                             <section>
                                 <h3
                                     class="text-lg md:text-2xl font-black dark:text-white mb-5 md:mb-6 flex items-center gap-3">
@@ -214,9 +214,9 @@
                                 </div>
                             </section>
 
-                            {{-- Grid Tugas & Syarat --}}
+                            {{-- 2. Grid Tugas & Syarat (Tetap Berdampingan) --}}
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
-                                @if ($loker->tugas)
+                                @if ($loker->tugas && count($loker->tugas) > 0)
                                     <section>
                                         <h3
                                             class="text-lg md:text-2xl font-black dark:text-white mb-5 md:mb-6 flex items-center gap-3">
@@ -252,16 +252,91 @@
                                 </section>
                             </div>
 
-                            {{-- Alamat --}}
+                            {{-- 3. Benefit (Sekarang Full Width / Tidak di-jejerin) --}}
+                            @if ($loker->benefit && count($loker->benefit) > 0)
+                                <section class="pt-8 border-t border-slate-50 dark:border-slate-800">
+                                    <h3
+                                        class="text-lg md:text-2xl font-black dark:text-white mb-5 md:mb-6 flex items-center gap-3">
+                                        <span class="w-1.5 h-6 md:h-8 bg-blue-600 rounded-full"></span> Benefit & Fasilitas
+                                    </h3>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        @foreach ($loker->benefit as $b)
+                                            <div
+                                                class="flex items-center gap-3 p-4 rounded-xl dark:border-slate-700 text-sm md:text-base text-slate-600 dark:text-slate-400 font-bold">
+                                                <i class="bi bi-gift text-blue-600"></i>
+                                                {{ $b }}
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </section>
+                            @endif
+
+                            {{-- 4. Kotak Informasi Kontak (Sekarang Full Width & Bisa Copy) --}}
+                            @if ($loker->no_wa || $loker->email || $loker->link_pendaftaran)
+                                <section class="pt-8 border-t border-slate-50 dark:border-slate-800">
+                                    <h3
+                                        class="text-lg md:text-2xl font-black dark:text-white mb-5 md:mb-6 flex items-center gap-3">
+                                        <span class="w-1.5 h-6 md:h-8 bg-blue-600 rounded-full"></span> Salin Informasi
+                                        Kontak
+                                    </h3>
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+                                        @if ($loker->no_wa)
+                                            <button onclick="copyToClipboard('{{ $loker->no_wa }}', 'Nomor WA')"
+                                                class="p-4 bg-green-50 dark:bg-green-900/10 rounded-2xl border border-green-100 dark:border-green-900/20 flex flex-col gap-1 text-left hover:scale-[1.02] transition-transform">
+                                                <div class="flex items-center justify-between">
+                                                    <span
+                                                        class="text-[10px] font-black text-green-700/60 uppercase tracking-widest">WhatsApp
+                                                        (Klik Copy)</span>
+                                                    <i class="bi bi-whatsapp text-green-600"></i>
+                                                </div>
+                                                <span
+                                                    class="text-sm font-black text-green-700 dark:text-green-400">{{ $loker->no_wa }}</span>
+                                            </button>
+                                        @endif
+
+                                        @if ($loker->email)
+                                            <button onclick="copyToClipboard('{{ $loker->email }}', 'Email')"
+                                                class="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-700 flex flex-col gap-1 text-left hover:scale-[1.02] transition-transform">
+                                                <div class="flex items-center justify-between">
+                                                    <span
+                                                        class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Email
+                                                        HRD (Klik Copy)</span>
+                                                    <i class="bi bi-envelope-fill text-slate-400"></i>
+                                                </div>
+                                                <span
+                                                    class="text-sm font-black text-slate-700 dark:text-slate-200 truncate">{{ $loker->email }}</span>
+                                            </button>
+                                        @endif
+
+                                        @if ($loker->link_pendaftaran)
+                                            <button
+                                                onclick="copyToClipboard('{{ $loker->link_pendaftaran }}', 'Link Pendaftaran')"
+                                                class="p-4 bg-blue-50 dark:bg-blue-900/10 rounded-2xl border border-blue-100 dark:border-blue-900/20 flex flex-col gap-1 text-left hover:scale-[1.02] transition-transform">
+                                                <div class="flex items-center justify-between">
+                                                    <span
+                                                        class="text-[10px] font-black text-blue-700/60 uppercase tracking-widest">Link
+                                                        (Klik Copy)</span>
+                                                    <i class="bi bi-link-45deg text-blue-600"></i>
+                                                </div>
+                                                <span
+                                                    class="text-sm font-black text-blue-700 dark:text-blue-400 truncate">{{ $loker->link_pendaftaran }}</span>
+                                            </button>
+                                        @endif
+                                    </div>
+                                </section>
+                            @endif
+                            {{-- Alamat & Map --}}
                             <section class="pt-8 border-t border-slate-50 dark:border-slate-800">
                                 <h3 class="text-lg md:text-2xl font-black dark:text-white mb-4">Lokasi & Alamat</h3>
                                 <p class="text-sm md:text-lg text-slate-500 mb-6 flex items-center gap-2">
-                                    <i class="bi bi-geo-alt-fill text-blue-600"></i> {{ $loker->alamat }}
+                                    <i class="bi bi-geo-alt-fill text-blue-600"></i> {{ $loker->alamat }},
+                                    {{ $loker->kecamatan }}
                                 </p>
                                 <div
                                     class="w-full h-64 md:h-[400px] bg-slate-100 rounded-[2rem] overflow-hidden border border-slate-100 shadow-inner">
                                     <iframe width="100%" height="100%" frameborder="0" style="border:0"
-                                        src="https://maps.google.com/maps?q={{ urlencode($loker->alamat . ' ' . $loker->kecamatan) }}&output=embed"
+                                        src="https://maps.google.com/maps?q={{ urlencode($loker->alamat . ' ' . $loker->kecamatan . ' ' . $loker->kota) }}&t=&z=13&ie=UTF8&iwloc=&output=embed"
                                         allowfullscreen>
                                     </iframe>
                                 </div>
@@ -317,8 +392,7 @@
                                                 $loker->posisi .
                                                 ' via GaweDokumen.';
                                         @endphp
-                                        <a href="https://wa.me/{{ $loker->no_wa }}?text={{ urlencode($pesanWA) }}"
-                                            target="_blank"
+                                        <a href="https://wa.me/{{ $loker->no_wa }}" target="_blank"
                                             class="flex flex-col items-center justify-center gap-2 py-4 bg-green-600 text-white rounded-xl font-bold shadow-lg shadow-green-600/20 hover:bg-green-700 transition-all active:scale-95">
                                             <i class="bi bi-whatsapp text-xl md:text-2xl"></i>
                                             <span class="text-[11px] md:text-sm">WhatsApp</span>
@@ -326,7 +400,7 @@
                                     @endif
 
                                     @if ($loker->email)
-                                        <a href="mailto:{{ $loker->email }}?subject=Lamaran Kerja - {{ $loker->posisi }}&body=Halo HRD {{ $loker->perusahaan }}, saya bermaksud melamar posisi {{ $loker->posisi }}..."
+                                        <a href="mailto:{{ $loker->email }}"
                                             class="flex flex-col items-center justify-center gap-2 py-4 bg-slate-900 dark:bg-slate-700 text-white rounded-xl font-bold shadow-lg transition-all active:scale-95 text-center">
                                             <i class="bi bi-envelope text-xl md:text-2xl"></i>
                                             <span class="text-[11px] md:text-sm">Kirim Email</span>
@@ -420,3 +494,17 @@
         </div>
     </div>
 @endsection
+
+
+@push('scripts')
+    {{-- SCRIPT COPY TO CLIPBOARD --}}
+    <script>
+        function copyToClipboard(text, label) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert(label + ' berhasil disalin!');
+            }).catch(err => {
+                console.error('Gagal menyalin: ', err);
+            });
+        }
+    </script>
+@endpush

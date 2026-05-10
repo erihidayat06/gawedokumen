@@ -91,7 +91,9 @@
                                 <div class="col-md-4">
                                     <label class="form-label fw-semibold">Batas Pendaftaran</label>
                                     <input type="date" name="deadline" class="form-control"
-                                        value="{{ old('deadline', \Carbon\Carbon::parse($loker->deadline)->format('Y-m-d')) }}">
+                                        value="{{ old('deadline', $loker->deadline ? \Carbon\Carbon::parse($loker->deadline)->format('Y-m-d') : '') }}">
+                                    <small class="text-muted">Kosongkan jika pendaftaran dibuka sampai kuota
+                                        terpenuhi.</small>
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label fw-semibold">Status Tayang</label>

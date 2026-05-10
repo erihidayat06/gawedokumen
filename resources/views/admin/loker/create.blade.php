@@ -104,6 +104,8 @@
                                     <label class="form-label fw-semibold">Batas Pendaftaran (Deadline)</label>
                                     <input type="date" name="deadline" class="form-control"
                                         value="{{ old('deadline') }}">
+                                    <small class="text-muted">Biarkan kosong jika pendaftaran hingga kuota
+                                        terpenuhi.</small>
                                 </div>
 
                                 {{-- Section Benefit dengan Re-populate --}}
