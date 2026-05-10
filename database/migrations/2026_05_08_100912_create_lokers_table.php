@@ -30,18 +30,19 @@ return new class extends Migration
             $table->string('pengalaman')->nullable(); // Contoh: Minimal 1 Tahun, Fresh Graduate
 
             // Konten Utama
-            $table->text('deskripsi');
+            $table->text('deskripsi')->nullable();
             $table->json('persyaratan')->nullable();
             $table->json('tugas')->nullable();
             $table->json('benefit')->nullable();
 
             // Informasi Tambahan
             $table->string('gaji')->nullable();
-            $table->date('deadline');
+            $table->date('deadline')->nullable();
 
             // Kontak & Eksternal
             $table->string('no_wa')->nullable();
             $table->string('email')->nullable();
+            $table->string('link_pendaftaran')->nullable();
             $table->text('url_blog')->nullable();
 
             // Sistem & SEO

@@ -70,6 +70,7 @@ class AdminLokerController extends Controller
         ]);
 
         $data = $request->all();
+        $data['deadline'] = $request->filled('deadline') ? $request->deadline : null;
 
         // 2. Karena persyaratan, tugas, dan benefit sudah berbentuk array dari form,
         // kita cukup pastikan tidak ada inputan kosong (array_filter)
@@ -138,6 +139,7 @@ class AdminLokerController extends Controller
         ]);
 
         $data = $request->all();
+        $data['deadline'] = $request->filled('deadline') ? $request->deadline : null;
 
         // 2. Olah data array (Benefit, Tugas, Persyaratan)
         // Gunakan array_values + array_filter agar index-nya rapi (0,1,2...)

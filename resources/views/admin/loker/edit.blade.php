@@ -91,8 +91,7 @@
                                 <div class="col-md-4">
                                     <label class="form-label fw-semibold">Batas Pendaftaran</label>
                                     <input type="date" name="deadline" class="form-control"
-                                        value="{{ old('deadline', \Carbon\Carbon::parse($loker->deadline)->format('Y-m-d')) }}"
-                                        required>
+                                        value="{{ old('deadline', \Carbon\Carbon::parse($loker->deadline)->format('Y-m-d')) }}">
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label fw-semibold">Status Tayang</label>
@@ -230,6 +229,13 @@
                                     <label class="form-label fw-semibold">Email HRD</label>
                                     <input type="email" name="email" class="form-control"
                                         placeholder="hrd@perusahaan.com" value="{{ old('email', $loker->email) }}">
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label fw-semibold">WhatsApp (Format: 628xxx)</label>
+                                    <input type="text" name="link_pendaftaran" class="form-control"
+                                        placeholder="62857xxxx"
+                                        value="{{ old('link_pendaftaran', $loker->link_pendaftaran) }}">
                                 </div>
 
                                 {{-- Blog --}}

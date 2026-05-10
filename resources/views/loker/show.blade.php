@@ -147,40 +147,56 @@
 
                             {{-- Deadline Horizontal --}}
                             <div
-                                class="p-3 bg-red-50 dark:bg-red-900/10 rounded-2xl border border-red-100 dark:border-red-900/20 flex items-center justify-between">
+                                class="{{ $loker->deadline ? 'bg-red-50 dark:bg-red-900/10 border-red-100 dark:border-red-900/20' : 'bg-blue-50 dark:bg-blue-900/10 border-blue-100 dark:border-blue-900/20' }} mb-6 p-4 rounded-2xl border flex items-center justify-between">
+
                                 <span
-                                    class="text-[12px] font-black text-red-400 uppercase tracking-widest ml-2">Deadline</span>
-                                <p class=" font-black text-red-600 dark:text-red-500 mr-2">
-                                    {{ \Carbon\Carbon::parse($loker->deadline)->translatedFormat('d M Y') }}
+                                    class="{{ $loker->deadline ? 'text-red-400' : 'text-blue-400' }} text-[11px] md:text-xs font-black uppercase tracking-widest ml-1">
+                                    Deadline
+                                </span>
+
+                                <p
+                                    class="{{ $loker->deadline ? 'text-red-600 dark:text-red-500' : 'text-blue-600 dark:text-blue-500' }} text-sm md:text-base font-black mr-1">
+                                    @if ($loker->deadline)
+                                        {{ \Carbon\Carbon::parse($loker->deadline)->translatedFormat('d M Y') }}
+                                    @else
+                                        Sampai Kuota Terpenuhi
+                                    @endif
                                 </p>
                             </div>
 
                             {{-- Tombol Kontak Sejajar --}}
-                            <div class="grid grid-cols-2 gap-3">
-                                @if ($loker->no_wa)
-                                    @php
-                                        $pesanWA =
-                                            'Halo HRD ' .
-                                            $loker->perusahaan .
-                                            ', saya tertarik melamar posisi ' .
-                                            $loker->posisi .
-                                            ' via GaweDokumen.';
-                                    @endphp
-                                    <a href="https://wa.me/{{ $loker->no_wa }}?text={{ urlencode($pesanWA) }}"
-                                        target="_blank"
-                                        class="flex flex-col items-center justify-center gap-1 py-3 bg-green-600 text-white rounded-xl font-bold shadow-lg shadow-green-600/20 hover:bg-green-700 transition-all active:scale-95">
-
-                                        <span class="text-[12px]">WhatsApp</span>
+                            <div class="space-y-3">
+                                {{-- Tombol Link Pendaftaran (Utama) --}}
+                                @if ($loker->link_pendaftaran)
+                                    <a href="{{ $loker->link_pendaftaran }}" target="_blank" rel="nofollow noreferrer"
+                                        class="flex items-center justify-center gap-2 w-full py-4 bg-blue-600 text-white rounded-xl font-bold shadow-lg shadow-blue-600/20 hover:bg-blue-700 transition-all active:scale-95">
+                                        <i class="bi bi-box-arrow-up-right"></i>
+                                        <span>Daftar Online / Isi Formulir</span>
                                     </a>
                                 @endif
 
-                                @if ($loker->email)
-                                    <a href="mailto:{{ $loker->email }}?subject=Lamaran Kerja - {{ $loker->posisi }}"
-                                        class="flex flex-col items-center justify-center gap-1 py-3 bg-slate-900 dark:bg-slate-700 text-white rounded-xl font-bold shadow-lg transition-all active:scale-95 text-center">
+                                {{-- Grid Tombol Kontak (WhatsApp & Email) --}}
+                                <div class="grid grid-cols-2 gap-3">
+                                    @if ($loker->no_wa)
+                                        @php
+                                            $pesanWA = "Halo HRD {$loker->perusahaan}, saya tertarik melamar posisi {$loker->posisi} via GaweDokumen.";
+                                        @endphp
+                                        <a href="https://wa.me/{{ $loker->no_wa }}?text={{ urlencode($pesanWA) }}"
+                                            target="_blank"
+                                            class="flex flex-col items-center justify-center gap-1 py-3 bg-green-600 text-white rounded-xl font-bold shadow-lg shadow-green-600/20 hover:bg-green-700 transition-all active:scale-95">
+                                            <i class="bi bi-whatsapp text-lg"></i>
+                                            <span class="text-[12px]">WhatsApp</span>
+                                        </a>
+                                    @endif
 
-                                        <span class="text-[12px]">Kirim Email</span>
-                                    </a>
-                                @endif
+                                    @if ($loker->email)
+                                        <a href="mailto:{{ $loker->email }}?subject=Lamaran Kerja - {{ $loker->posisi }}"
+                                            class="flex flex-col items-center justify-center gap-1 py-3 bg-slate-900 dark:bg-slate-700 text-white rounded-xl font-bold shadow-lg transition-all active:scale-95 text-center">
+                                            <i class="bi bi-envelope text-lg"></i>
+                                            <span class="text-[12px]">Kirim Email</span>
+                                        </a>
+                                    @endif
+                                </div>
                             </div>
                         </div>
 
@@ -260,42 +276,76 @@
 
                         {{-- Deadline Horizontal - Teks diperbesar di Desktop --}}
                         <div
-                            class="mb-6 p-4 bg-red-50 dark:bg-red-900/10 rounded-2xl border border-red-100 dark:border-red-900/20 flex items-center justify-between">
+                            class="{{ $loker->deadline ? 'bg-red-50 dark:bg-red-900/10 border-red-100 dark:border-red-900/20' : 'bg-blue-50 dark:bg-blue-900/10 border-blue-100 dark:border-blue-900/20' }} mb-6 p-3 rounded-2xl border flex items-center justify-between">
+
                             <span
-                                class="text-[11px] md:text-xs font-black text-red-400 uppercase tracking-widest ml-1">Deadline</span>
-                            <p class="text-sm md:text-base font-black text-red-600 dark:text-red-500 mr-1">
-                                {{ \Carbon\Carbon::parse($loker->deadline)->translatedFormat('d M Y') }}
+                                class="{{ $loker->deadline ? 'text-red-400' : 'text-blue-400' }} text-[10px] font-black uppercase tracking-widest ml-1">
+                                Deadline
+                            </span>
+
+                            <p
+                                class="{{ $loker->deadline ? 'text-red-600 dark:text-red-500' : 'text-blue-600 dark:text-blue-500' }} text-[12px] font-black mr-1">
+                                @if ($loker->deadline)
+                                    {{ \Carbon\Carbon::parse($loker->deadline)->translatedFormat('d M Y') }}
+                                @else
+                                    Sampai Kuota Terpenuhi
+                                @endif
                             </p>
                         </div>
 
                         <div class="space-y-5">
                             {{-- Tombol Kontak - Teks diperbesar di Desktop --}}
-                            <div class="grid grid-cols-2 gap-3">
-                                @if ($loker->no_wa)
-                                    @php
-                                        $pesanWA =
-                                            'Halo HRD ' .
-                                            $loker->perusahaan .
-                                            ', saya tertarik melamar posisi ' .
-                                            $loker->posisi .
-                                            ' via GaweDokumen.';
-                                    @endphp
-                                    <a href="https://wa.me/{{ $loker->no_wa }}" target="_blank"
-                                        class="flex flex-col items-center justify-center gap-2 py-4 bg-green-600 text-white rounded-xl font-bold shadow-lg shadow-green-600/20 hover:bg-green-700 transition-all active:scale-95">
-                                        <i class="bi bi-whatsapp text-xl md:text-2xl"></i>
-                                        <span class="text-[11px] md:text-sm">WhatsApp</span>
+                            <div class="flex flex-col gap-3">
+                                {{-- Tombol Link Pendaftaran (Utama - Lebar Penuh) --}}
+                                @if ($loker->link_pendaftaran)
+                                    <a href="{{ $loker->link_pendaftaran }}" target="_blank" rel="nofollow noreferrer"
+                                        class="flex items-center justify-center gap-3 py-4 bg-blue-600 text-white rounded-xl font-bold shadow-lg shadow-blue-600/20 hover:bg-blue-700 transition-all active:scale-95 group">
+                                        <i
+                                            class="bi bi-box-arrow-up-right text-xl group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
+                                        <span class="text-sm md:text-base">Daftar Online / Isi Formulir</span>
                                     </a>
                                 @endif
 
-                                @if ($loker->email)
-                                    <a href="mailto:{{ $loker->email }}?subject=Lamaran Kerja - {{ $loker->posisi }}"
-                                        class="flex flex-col items-center justify-center gap-2 py-4 bg-slate-900 dark:bg-slate-700 text-white rounded-xl font-bold shadow-lg transition-all active:scale-95 text-center">
-                                        <i class="bi bi-envelope text-xl md:text-2xl"></i>
-                                        <span class="text-[11px] md:text-sm">Kirim Email</span>
-                                    </a>
-                                @endif
+                                {{-- Grid Tombol Kontak (WhatsApp & Email) --}}
+                                <div class="grid grid-cols-2 gap-3">
+                                    @if ($loker->no_wa)
+                                        @php
+                                            $pesanWA =
+                                                'Halo HRD ' .
+                                                $loker->perusahaan .
+                                                ', saya tertarik melamar posisi ' .
+                                                $loker->posisi .
+                                                ' via GaweDokumen.';
+                                        @endphp
+                                        <a href="https://wa.me/{{ $loker->no_wa }}?text={{ urlencode($pesanWA) }}"
+                                            target="_blank"
+                                            class="flex flex-col items-center justify-center gap-2 py-4 bg-green-600 text-white rounded-xl font-bold shadow-lg shadow-green-600/20 hover:bg-green-700 transition-all active:scale-95">
+                                            <i class="bi bi-whatsapp text-xl md:text-2xl"></i>
+                                            <span class="text-[11px] md:text-sm">WhatsApp</span>
+                                        </a>
+                                    @endif
+
+                                    @if ($loker->email)
+                                        <a href="mailto:{{ $loker->email }}?subject=Lamaran Kerja - {{ $loker->posisi }}&body=Halo HRD {{ $loker->perusahaan }}, saya bermaksud melamar posisi {{ $loker->posisi }}..."
+                                            class="flex flex-col items-center justify-center gap-2 py-4 bg-slate-900 dark:bg-slate-700 text-white rounded-xl font-bold shadow-lg transition-all active:scale-95 text-center">
+                                            <i class="bi bi-envelope text-xl md:text-2xl"></i>
+                                            <span class="text-[11px] md:text-sm">Kirim Email</span>
+                                        </a>
+                                    @endif
+                                </div>
                             </div>
-
+                            {{-- Pembatas dengan Teks --}}
+                            <div class="relative my-8">
+                                <div class="absolute inset-0 flex items-center" aria-hidden="true">
+                                    <div class="w-full border-t border-slate-200 dark:border-slate-800"></div>
+                                </div>
+                                <div class="relative flex justify-center">
+                                    <span
+                                        class="bg-white dark:bg-slate-900 px-3 text-xs font-bold text-slate-400 uppercase tracking-widest">
+                                        Bantuan Tools
+                                    </span>
+                                </div>
+                            </div>
                             {{-- Banner Tools - Padding & Teks lebih besar --}}
                             <div class="p-5 bg-blue-600 rounded-2xl text-white relative overflow-hidden group">
                                 <p class="text-[11px] md:text-xs font-bold text-blue-100 mb-3 relative z-10 text-center">

@@ -199,8 +199,16 @@
                                                                         <small
                                                                             class="text-muted fw-bold text-uppercase">Batas
                                                                             Pendaftaran</small>
-                                                                        <span
-                                                                            class="fs-5 fw-bold text-danger">{{ \Carbon\Carbon::parse($loker->deadline)->translatedFormat('d F Y') }}</span>
+                                                                        @if ($loker->deadline)
+                                                                            <span class="fs-5 fw-bold text-danger d-block">
+                                                                                {{ \Carbon\Carbon::parse($loker->deadline)->translatedFormat('d F Y') }}
+                                                                            </span>
+                                                                        @else
+                                                                            <span
+                                                                                class="fs-5 fw-bold text-primary d-block">
+                                                                                Sampai Kuota Terpenuhi
+                                                                            </span>
+                                                                        @endif
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -252,6 +260,8 @@
                                                                     {{ $loker->no_wa ?? '-' }}</p>
                                                                 <p class="mb-0"><strong>Email:</strong>
                                                                     {{ $loker->email ?? '-' }}</p>
+                                                                <p class="mb-0"><strong>Link Pendaftaran:</strong>
+                                                                    {{ $loker->link_pendaftaran ?? '-' }}</p>
                                                             </div>
                                                         </div>
                                                     </div>

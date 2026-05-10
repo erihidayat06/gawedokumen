@@ -154,13 +154,26 @@
                                     @endphp
                                 </div>
 
-                                @if ($loker->deadline)
-                                    @php $isExpired = \Carbon\Carbon::parse($loker->deadline)->isPast(); @endphp
-                                    <span
-                                        class="text-[9px] font-bold px-2.5 py-1 rounded-lg uppercase tracking-wider {{ $isExpired ? 'bg-red-50 text-red-500' : 'bg-green-50 text-green-600' }} dark:bg-slate-800">
-                                        {{ $isExpired ? 'Tutup' : 'Hingga ' . \Carbon\Carbon::parse($loker->deadline)->translatedFormat('d M') }}
-                                    </span>
-                                @endif
+                                @php
+                                    $deadline = $loker->deadline;
+                                    $isExpired = $deadline ? \Carbon\Carbon::parse($deadline)->isPast() : false;
+                                @endphp
+
+                                <span
+                                    class="text-[9px] font-bold px-2.5 py-1 rounded-lg uppercase tracking-wider dark:bg-slate-800
+                                    {{ !$deadline ? 'bg-blue-50 text-blue-600' : ($isExpired ? 'bg-red-50 text-red-500' : 'bg-green-50 text-green-600') }}">
+
+                                    @if (!$deadline)
+                                        {{-- Jika Null --}}
+                                        <i class="bi bi-clock-history me-1"></i> Terbuka
+                                    @elseif($isExpired)
+                                        {{-- Jika Sudah Lewat --}}
+                                        Tutup
+                                    @else
+                                        {{-- Jika Masih Aktif --}}
+                                        Hingga {{ \Carbon\Carbon::parse($deadline)->translatedFormat('d M') }}
+                                    @endif
+                                </span>
                             </div>
 
                             {{-- Info Utama --}}
