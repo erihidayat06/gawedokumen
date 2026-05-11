@@ -51,14 +51,19 @@
                                 <div class="flex-1 min-w-0">
                                     <h1
                                         class="text-xl lg:text-3xl font-black md:text-2xl dark:text-white leading-tight mb-3 break-words">
-                                        {{ $loker->posisi }} - <span
-                                            class="capitalize">{{ Str::lower($loker->kecamatan) }}</span>
+                                        {{ $loker->posisi }} -
+                                        <span class="capitalize">
+                                            {{ Str::lower($loker->kecamatan) }}, {{ Str::title($loker->kota) }}
+                                        </span>
+
                                         <span class="text-blue-600 block md:inline-block">
-                                            @if (\Carbon\Carbon::parse($loker->deadline)->isFuture())
-                                                {{ \Carbon\Carbon::now()->translatedFormat('F Y') }}
-                                            @else
-                                                {{ \Carbon\Carbon::parse($loker->deadline)->translatedFormat('F Y') }}
-                                            @endif
+                                            @php
+                                                $date = \Carbon\Carbon::parse($loker->deadline)->isFuture()
+                                                    ? \Carbon\Carbon::now()
+                                                    : \Carbon\Carbon::parse($loker->deadline);
+                                            @endphp
+
+                                            {{ $date->locale('id')->translatedFormat('F Y') }}
                                         </span>
                                     </h1>
                                     <p class="text-base md:text-xl font-bold text-blue-600 flex items-center gap-2">
