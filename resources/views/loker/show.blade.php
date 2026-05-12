@@ -34,18 +34,23 @@
                                 <div
                                     class="hidden md:flex w-16 h-16 md:w-24 md:h-24 bg-blue-600 rounded-2xl md:rounded-[2rem] items-center justify-center text-white text-xl md:text-4xl font-black uppercase shrink-0 shadow-xl shadow-blue-500/20">
                                     @php
+                                        // Filter kata yang tidak diinginkan
+                                        $exclude = ['PT', 'CV', 'UD', 'FIRMA'];
                                         $words = explode(' ', $loker->perusahaan);
-                                        $initials = '';
-                                        foreach ($words as $w) {
-                                            if (in_array(strtoupper(trim($w, '.')), ['PT', 'CV', 'UD', 'FIRMA'])) {
-                                                continue;
-                                            }
-                                            $initials .= substr($w, 0, 1);
-                                        }
+
+                                        // Ambil huruf pertama dari setiap kata yang bukan kata exclude
+                                        $initials = collect($words)
+                                            ->map(fn($w) => strtoupper(trim($w, '., ')))
+                                            ->filter(fn($w) => !in_array($w, $exclude))
+                                            ->map(fn($w) => substr($w, 0, 1))
+                                            ->join('');
+
+                                        // Fallback jika kosong
                                         if (empty($initials)) {
-                                            $initials = substr($loker->perusahaan, 0, 2);
+                                            $initials = substr(strtoupper($loker->perusahaan), 0, 2);
                                         }
-                                        echo substr(strtoupper($initials), 0, 2);
+
+                                        echo substr($initials, 0, 2);
                                     @endphp
                                 </div>
 
@@ -342,7 +347,7 @@
                                 <div
                                     class="w-full h-64 md:h-[400px] bg-slate-100 rounded-[2rem] overflow-hidden border border-slate-100 shadow-inner">
                                     <iframe width="100%" height="100%" frameborder="0" style="border:0"
-                                        src="https://maps.google.com/maps?q={{ urlencode($loker->alamat . ' ' . $loker->kecamatan . ' ' . $loker->kota) }}&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                                        src="https://maps.google.com/maps?q={{ urlencode($loker->alamat . ' ' . $loker->kecamatan . ' ' . $loker->kota) }}&t=&z=13&ie=UTF8&iwloc=&output=embed&hl=id"
                                         allowfullscreen>
                                     </iframe>
                                 </div>
@@ -513,4 +518,40 @@
             });
         }
     </script>
+
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "JobPosting",
+  "title": "{{ $loker->posisi }}",
+  "description": {!! json_encode(strip_tags($loker->deskripsi)) !!},
+  "hiringOrganization" : {
+    "@type": "Organization",
+    "name": "{{ $loker->perusahaan }}"
+  },
+  "datePosted": "{{ $loker->created_at->toIso8601String() }}",
+  "validThrough": "{{ $loker->deadline ? \Carbon\Carbon::parse($loker->deadline)->toIso8601String() : $loker->created_at->addDays(30)->toIso8601String() }}",
+  "jobLocation": {
+    "@type": "Place",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": {!! json_encode($loker->alamat) !!},
+      "addressLocality": "{{ $loker->kecamatan }}",
+      "addressRegion": "{{ $loker->kota }}",
+      "addressCountry": "ID"
+    }
+  }
+  @if($loker->gaji && is_numeric($loker->gaji))
+  ,"baseSalary": {
+    "@type": "MonetaryAmount",
+    "currency": "IDR",
+    "value": {
+      "@type": "QuantitativeValue",
+      "value": {{ $loker->gaji }},
+      "unitText": "MONTH"
+    }
+  }
+  @endif
+}
+</script>
 @endpush
