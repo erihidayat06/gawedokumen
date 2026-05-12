@@ -1,4 +1,6 @@
 @extends('layouts.app')
+@section('title', 'Membuat Cv Online Otomatis Gratis')
+
 
 @section('content')
     <div class="mb-8 text-center px-4 mt-28">

@@ -1,4 +1,7 @@
 @extends('layouts.app')
+
+@section('title', 'Membuat Surat Lamaran Online Gratis')
+
 @section('content')
     <link rel="stylesheet" href="/css/lamaranPekerjaan.css">
 

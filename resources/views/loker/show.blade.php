@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
-@section('title', $loker->posisi . ' di ' . $loker->perusahaan . ' - ' . $loker->kota)
+@section('title', 'Lowongan Kerja ' . $loker->posisi . ' di ' . $loker->perusahaan . ' - ' . $loker->kecamatan . ', ' .
+    $loker->kota)
 
 @section('meta_description')
     Lowongan kerja {{ $loker->posisi }} di {{ $loker->perusahaan }} ({{ $loker->kecamatan }}, {{ $loker->kota }}).

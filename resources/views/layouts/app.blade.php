@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    {{-- Meta Title Dinamis --}}
+    <title>@yield('title', 'Gawe Dokumen - Solusi Dokumen Digital Gratis')</title>
 
     <link rel="icon" type="image/png" href="{{ asset('img/icon.png') }}">
     <link rel="apple-touch-icon" href="{{ asset('img/icon.png') }}">
@@ -38,8 +38,6 @@
         gtag('config', 'G-DGR0WR4BKB');
     </script>
 
-    {{-- Meta Title Dinamis --}}
-    <title>@yield('title', 'Gawe Dokumen - Solusi Dokumen Digital Gratis')</title>
 
     {{-- Meta Description Dinamis --}}
     <meta name="description" content="@yield('meta_description', 'Bikin surat lamaran, label, dan dokumen administrasi otomatis dalam hitungan menit.')">
