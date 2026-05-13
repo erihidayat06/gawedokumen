@@ -335,4 +335,10 @@
             font-weight: 900;
         }
     </style>
+
+    <style>
+        span .relative {
+            display: none !important;
+        }
+    </style>
 @endsection

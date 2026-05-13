@@ -47,19 +47,32 @@
             /* Tarik paksa ke kiri */
         }
 
-        /* Perbaikan Gambar Avatar agar Bulat Sempurna */
         .avatar-container {
-            text-align: center;
-            margin-right: 40px;
-            margin-top: 58px;
+            width: 210px;
+            height: auto;
+            margin-top: 15.5mm;
+            margin-left: 16mm;
         }
 
         .avatar {
             width: 210px;
             height: 210px;
-            border-radius: 100%;
-            /* Dompdf butuh angka spesifik (setengah lebar) */
+
+            /* Pengganti object-fit: cover */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+
+            /* Agar jadi lingkaran sempurna */
+            border-radius: 105px;
+            /* Setengah dari width/height */
             border: 4px solid #f8fafc;
+        }
+
+        img,
+        .avatar {
+            image-rendering: optimizeQuality;
+            -ms-interpolation-mode: bicubic;
         }
 
         /* Sisanya biarkan seperti kode Anda sebelumnya */
@@ -300,7 +313,7 @@
             <!-- SIDEBAR -->
             <td class="sidebar">
                 <div class="avatar-container">
-                    <img src="{{ $avatar }}" class="avatar">
+                    <div class="avatar" style="background-image: url('{{ $avatar }}');"></div>
                 </div>
 
                 <div class="sidebar-header">

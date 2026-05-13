@@ -115,6 +115,12 @@
                             </table>
                         </div>
 
+                        <style>
+                            span .relative {
+                                display: none !important;
+                            }
+                        </style>
+
                         {{-- Pagination --}}
                         <div class="mt-4 d-flex justify-content-center">
                             {{ $blogs->links() }}

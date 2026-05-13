@@ -466,6 +466,7 @@
 
 
 
+                    <input type="hidden" id="foto_base64">
                     <input type="hidden" name="warna_tema" id="warna_tema" value="#3b82f6">
 
 
@@ -764,7 +765,7 @@
                     template_id: document.getElementById('template-selector')?.value || "1",
                     warna_tema: document.getElementById('warna_tema').value,
                     // INI KRUSIAL: Ambil value terbaru dari input hidden
-                    foto_base64: fotoData || null
+                    foto_base64: document.getElementById('foto_base64').value || null
                 };
 
                 // Log untuk debugging foto
@@ -785,7 +786,7 @@
                 btnText.innerText = "Tunggu";
                 adTimerSpan.classList.remove('hidden');
 
-                let timeLeft = 0;
+                let timeLeft = 5;
                 adTimerText.innerText = timeLeft;
 
                 if (countdown) clearInterval(countdown);
@@ -855,7 +856,7 @@
 
             btnRealPrint.addEventListener('click', function() {
                 const form = document.createElement('form');
-                form.method = 'GET';
+                form.method = 'POST';
                 form.action = "{{ route('cv.pdf.generate') }}";
                 form.target = '_blank';
 
@@ -968,10 +969,6 @@
                 targetJK.textContent = savedJK;
                 targetJK.classList.remove('text-red-500');
             }
-
-            // Load Foto/Tanda Tangan
-            const savedFoto = localStorage.getItem("storage_foto");
-            if (savedFoto) tampilkanGambar(savedFoto);
 
             // Load & Render Lampiran
             renderInputs();
@@ -1091,46 +1088,59 @@
             const reader = new FileReader();
 
             reader.onload = function(event) {
+
                 const img = new Image();
-                img.src = event.target.result;
 
                 img.onload = function() {
+
                     const canvas = document.createElement("canvas");
-
-                    // 1. Naikkan sedikit MAX_WIDTH agar lebih tajam (misal 600px atau 800px)
-                    // 800px sudah sangat jernih untuk ukuran pas foto di CV
-                    const MAX_WIDTH = 500;
-                    const scaleSize = MAX_WIDTH / img.width;
-
-                    canvas.width = MAX_WIDTH;
-                    canvas.height = img.height * scaleSize;
-
                     const ctx = canvas.getContext("2d");
 
-                    // 2. Gunakan Image Smoothing agar hasil resize tidak "pecah"
-                    ctx.imageSmoothingEnabled = true;
-                    ctx.imageSmoothingQuality = 'high';
+                    // Lebih besar = lebih jernih
+                    const MAX_WIDTH = 1200;
 
-                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                    let width = img.width;
+                    let height = img.height;
 
-                    // 3. Gunakan image/webp dengan kualitas 0.8 atau 0.9
-                    // 0.8 (80%) adalah sweet spot: Jernih seperti asli tapi ukuran file WebP tetap kecil.
-                    const compressedBase64 = canvas.toDataURL("image/webp", 0.8);
-
-                    const sizeInMB = (compressedBase64.length / (1024 * 1024)).toFixed(2);
-                    console.log(`📏 Ukuran WebP (Jernih): ${sizeInMB} MB`);
-
-                    try {
-                        localStorage.setItem("storage_foto_profil", compressedBase64);
-                        tampilkanGambar(compressedBase64);
-                        console.log("✅ Foto WebP jernih berhasil disimpan.");
-                    } catch (e) {
-                        console.error("❌ Storage penuh!", e);
-                        // Jika masih penuh, baru turunkan kualitas secara otomatis sebagai fallback
-                        const fallback = canvas.toDataURL("image/webp", 0.6);
-                        localStorage.setItem("storage_foto_profil", fallback);
+                    // Resize hanya kalau gambar terlalu besar
+                    if (width > MAX_WIDTH) {
+                        const scale = MAX_WIDTH / width;
+                        width *= scale;
+                        height *= scale;
                     }
+
+                    canvas.width = width;
+                    canvas.height = height;
+
+                    ctx.imageSmoothingEnabled = true;
+                    ctx.imageSmoothingQuality = "high";
+
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    // JPEG lebih stabil di DomPDF
+                    const compressedBase64 = canvas.toDataURL(
+                        "image/jpeg",
+                        0.92
+                    );
+
+                    console.log(
+                        "Ukuran:",
+                        (compressedBase64.length / 1024 / 1024).toFixed(2),
+                        "MB"
+                    );
+
+                    localStorage.setItem(
+                        "storage_foto_profil",
+                        compressedBase64
+                    );
+
+                    // document.getElementById('foto_base64').value = compressedBase64;
+
+
+                    tampilkanGambar(compressedBase64);
                 };
+
+                img.src = event.target.result;
             };
 
             reader.readAsDataURL(file);
@@ -1140,6 +1150,7 @@
             const imgPreview = document.getElementById('preview-avatar');
             if (imgPreview) {
                 imgPreview.src = base64;
+                document.getElementById('foto_base64').value = base64;
                 console.log("📸 Preview gambar diperbarui dari storage.");
             }
         }

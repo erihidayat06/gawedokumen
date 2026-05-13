@@ -17,6 +17,7 @@ use App\Http\Controllers\Tools\KompresPdfController;
 use App\Http\Controllers\Tools\SignatureController;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
+use App\Services\GoogleIndexingService;
 
 Route::get('/kategori/{kategori}', [HomeController::class, 'show']);
 Route::get('/', [HomeController::class, 'index']);
@@ -53,7 +54,7 @@ Route::prefix('loker')->group(function () {
     Route::get('/{slug}', [LokerController::class, 'show'])->name('loker.show');
 
     // Opsional: Filter berdasarkan wilayah/kecamatan
-    Route::get('/wilayah/{kecamatan}', [LokerController::class, 'wilayah'])->name('loker.wilayah');
+    Route::get('/wilayah/{kota}', [LokerController::class, 'wilayah'])->name('loker.wilayah');
 });
 
 
@@ -76,7 +77,19 @@ Route::prefix('pekerja')->name('pekerja.')->group(function () {
     Route::get('/generate-cv', [CvController::class, 'index'])->name('generate.cv');
 });
 
-Route::get('/generate-pdf-cv', [CvController::class, 'generatePdf'])->name('cv.pdf.generate');
+// POST untuk menerima form
+Route::post('/generate-pdf-cv', [CvController::class, 'generatePdf'])->name('cv.pdf.generate');
+
+// GET untuk preview / hasil
+Route::get('/preview-pdf-cv', [CvController::class, 'previewPdf'])
+    ->name('cv.pdf.preview');
+
+
+Route::post('/generate-pdf', [DocumentController::class, 'generate'])
+    ->name('pdf.generate');
+
+Route::get('/preview-pdf', [DocumentController::class, 'preview'])
+    ->name('pdf.preview');
 
 
 Route::get('/tentang-kami', [PageController::class, 'about'])->name('about');
@@ -99,6 +112,18 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/sitemap.xml', [App\Http\Controllers\SitemapController::class, 'index']);
 
-Route::get('/generate-pdf', [DocumentController::class, 'generate'])->name('pdf.generate');
+
+
+
+Route::get('/test-indexing', function () {
+    try {
+        $service = new GoogleIndexingService();
+        // Coba pakai URL publik sembarang untuk tes format
+        $response = $service->updateUrl('https://gawedokumen.com');
+        return response()->json(['status' => 'Sukses!', 'data' => $response]);
+    } catch (\Exception $e) {
+        return response()->json(['status' => 'Gagal', 'error' => $e->getMessage()], 500);
+    }
+});
 
 require __DIR__ . '/auth.php';

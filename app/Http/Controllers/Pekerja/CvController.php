@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Nette\Utils\Json;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class CvController extends Controller
 {
@@ -30,12 +31,13 @@ class CvController extends Controller
         // Tetap kirim sebagai string JSON
         $templates = json_encode($dbTemplates);
 
+
+
         return view('pekerja.cv.index', compact('templates'));
     }
 
     public function generatePdf(Request $request)
     {
-        // Mengeset locale ke Indonesia agar nama bulan otomatis bahasa Indonesia
         app()->setLocale('id');
 
         $data = [
@@ -43,10 +45,9 @@ class CvController extends Controller
             'posisi'          => $request->profesi,
             'tempat_lahir'    => $request->tempat_lahir,
 
-            // Memproses Tanggal Lahir langsung di sini menggunakan Carbon
-            'tanggal_lahir'   => $request->tanggal_lahir ?
-                Carbon::parse($request->tanggal_lahir)->translatedFormat('d F Y') :
-                '',
+            'tanggal_lahir'   => $request->tanggal_lahir
+                ? Carbon::parse($request->tanggal_lahir)->translatedFormat('d F Y')
+                : '',
 
             'jk'              => $request->jk,
             'kewarganegaraan' => $request->kewarganegaraan,
@@ -64,11 +65,50 @@ class CvController extends Controller
             'avatar'          => $request->foto_base64,
         ];
 
+        // if ($request->foto_base64) {
+
+        //     $image = $request->foto_base64;
+
+        //     $image = preg_replace(
+        //         '/^data:image\/\w+;base64,/',
+        //         '',
+        //         $image
+        //     );
+
+        //     $image = str_replace(' ', '+', $image);
+
+        //     $fileName = 'avatar_' . time() . '.jpg';
+
+        //     Storage::disk('public')->put(
+        //         'temp/' . $fileName,
+        //         base64_decode($image)
+        //     );
+
+        //     $data['avatar'] =
+        //         public_path('storage/temp/' . $fileName);
+        // }
+
+        // simpan ke session
+        session(['cv_data' => $data]);
+
+        // redirect ke GET
+        return redirect()->route('cv.pdf.preview');
+    }
+
+    public function previewPdf()
+    {
+        $data = session('cv_data');
+
+        if (!$data) {
+            return redirect()->back()->with('error', 'Data CV tidak ditemukan');
+        }
+
+        $pdf = Pdf::loadView('pekerja.cv.pdf.template_cv', $data);
 
 
-        $pdf = PDF::loadView('pekerja.cv.pdf.template_cv', $data);
 
-        $filename = 'CV_' . str_replace(' ', '_', $request->nama ?? 'Dokumen') . '.pdf';
+        $filename = 'CV_' . str_replace(' ', '_', $data['nama'] ?? 'Dokumen') . '.pdf';
+
         return $pdf->stream($filename);
     }
 }

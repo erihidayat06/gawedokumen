@@ -768,7 +768,7 @@
             closeAdModal();
 
             const form = document.createElement('form');
-            form.method = 'GET';
+            form.method = 'POST';
             form.action = "{{ route('pdf.generate') }}";
             form.target = '_blank';
 
