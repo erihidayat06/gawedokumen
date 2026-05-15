@@ -56,25 +56,36 @@
 
                                 <div class="flex-1 min-w-0">
                                     <h1
-                                        class="text-xl lg:text-3xl font-black md:text-2xl dark:text-white leading-tight mb-3 break-words">
-                                        {{ $loker->posisi }} -
-                                        <span class="capitalize">
-                                            {{ Str::lower($loker->kecamatan) }}, {{ Str::title($loker->kota) }}
-                                        </span>
+                                        class="text-2xl lg:text-4xl font-black text-slate-800 dark:text-white leading-tight mb-2 break-words">
+                                        {{ Str::title($loker->posisi) }}
+                                    </h1>
 
-                                        <span class="text-blue-600 block md:inline-block">
+                                    <p
+                                        class="text-lg md:text-xl font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-1">
+                                        <i class="bi bi-building text-blue-600"></i> {{ $loker->perusahaan }}
+                                    </p>
+
+                                    <div
+                                        class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm md:text-base text-slate-500 dark:text-slate-400 font-medium">
+                                        <p class="flex items-center gap-1">
+                                            <i class="bi bi-geo-alt"></i>
+                                            <span class="capitalize">
+                                                {{ Str::lower($loker->kecamatan) }}, {{ Str::title($loker->kota) }}
+                                            </span>
+                                        </p>
+
+                                        <span class="hidden md:block text-slate-300">•</span>
+
+                                        <p class="flex items-center gap-1 text-blue-600 font-bold">
+                                            <i class="bi bi-calendar3"></i>
                                             @php
                                                 $date = \Carbon\Carbon::parse($loker->deadline)->isFuture()
                                                     ? \Carbon\Carbon::now()
                                                     : \Carbon\Carbon::parse($loker->deadline);
                                             @endphp
-
                                             {{ $date->locale('id')->translatedFormat('F Y') }}
-                                        </span>
-                                    </h1>
-                                    <p class="text-base md:text-xl font-bold text-blue-600 flex items-center gap-2">
-                                        <i class="bi bi-building"></i> {{ $loker->perusahaan }}
-                                    </p>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
 

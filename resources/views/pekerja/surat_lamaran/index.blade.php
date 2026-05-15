@@ -38,215 +38,251 @@
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 m-5">
 
+        @php
+            // Konfigurasi Tab
+            $tabs = [
+                ['id' => 'Head', 'label' => 'Head'],
+                ['id' => 'pengawalan', 'label' => 'Pengawalan'],
+                ['id' => 'data-diri', 'label' => 'Data Diri'],
+                ['id' => 'dokumen', 'label' => 'Lampiran'],
+                ['id' => 'tanda-tangan', 'label' => 'Tanda Tangan'],
+            ];
+
+            // Definisi Field (Gabungan untuk HTML & JS)
+            // Format: 'id' (input id), 'label' (tampilan form), 'targets' (id preview teks), 'default' (teks awal)
+            $allFields = [
+                'head' => [
+                    ['id' => 'kota', 'label' => 'Kota', 'targets' => ['kota-text'], 'default' => 'Kota'],
+                    [
+                        'id' => 'pt',
+                        'label' => 'Nama Perusahaan',
+                        'targets' => ['pt-text', 'pt2-text', 'pt3-text'],
+                        'default' => 'PT. xxxxxxxx',
+                    ],
+                    [
+                        'id' => 'alamat-perusahaan',
+                        'label' => 'Alamat Perusahaan',
+                        'targets' => ['alamat-perusahaan-text'],
+                        'default' => 'Jl. xxxxxxxx',
+                    ],
+                    [
+                        'id' => 'kota-perusahaan',
+                        'label' => 'Kota Perusahaan',
+                        'targets' => ['kota-perusahaan-text'],
+                        'default' => 'Kota Perusahaan',
+                    ],
+                ],
+                'pengawalan' => [
+                    [
+                        'id' => 'media',
+                        'label' => 'Media Informasi',
+                        'targets' => ['media-text'],
+                        'default' => 'Media Sosial',
+                    ],
+                    [
+                        'id' => 'posisi',
+                        'label' => 'Posisi Kerja',
+                        'targets' => ['posisi-text', 'posisi2-text'],
+                        'default' => 'Posisi Kerja',
+                    ],
+                ],
+                'dataDiri' => [
+                    [
+                        'id' => 'nama',
+                        'label' => 'Nama Lengkap',
+                        'targets' => ['nama-text', 'nama2-text'],
+                        'default' => 'Nama Lengkap',
+                    ],
+                    [
+                        'id' => 'tempat-lahir',
+                        'label' => 'Tempat Lahir',
+                        'targets' => ['tempat-lahir-text'],
+                        'default' => 'Tempat Lahir',
+                    ],
+                    [
+                        'id' => 'alamat-diri',
+                        'label' => 'Alamat diri',
+                        'targets' => ['alamat-diri-text'],
+                        'default' => 'Alamat Sekarang',
+                    ],
+                    [
+                        'id' => 'no-tlp',
+                        'label' => 'Nomor Telepon',
+                        'targets' => ['no-tlp-text'],
+                        'default' => '08xxxxxxxxxx',
+                    ],
+                ],
+            ];
+
+            // Khusus untuk JS (Flatten array agar mudah di-loop)
+            $jsConfig = [];
+            foreach ($allFields as $section) {
+                foreach ($section as $f) {
+                    $jsConfig[] = [
+                        'inputId' => $f['id'],
+                        'targets' => $f['targets'],
+                        'default' => $f['default'],
+                    ];
+                }
+            }
+            // Tambahkan field manual yang pakai logic khusus (seperti Date)
+            $jsConfig[] = [
+                'inputId' => 'tanggal',
+                'targets' => ['tanggal-text'],
+                'default' => 'DATE_NOW',
+                'isDate' => true,
+            ];
+            $jsConfig[] = [
+                'inputId' => 'tanggal-lahir',
+                'targets' => ['tanggal-lahir-text'],
+                'default' => 'DATE_NOW',
+                'isDate' => true,
+            ];
+        @endphp
         <div class="order-1 md:order-2 p-5 bg-white border rounded-xl flex flex-col h-[700px]">
             <h3 class="font-bold border-b pb-2 text-gray-700">Form Input</h3>
 
             <div class="flex border-b border-gray-200 overflow-x-auto whitespace-nowrap scrollbar-hide mb-4">
-                <button onclick="openTab(event, 'Head')"
-                    class="tab-link py-2 px-4 text-sm font-medium border-b-2 border-blue-500 text-blue-600 focus:outline-none flex-shrink-0">
-                    Head
-                </button>
-                <button onclick="openTab(event, 'pengawalan')"
-                    class="tab-link py-2 px-4 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none flex-shrink-0">
-                    Pengawalan
-                </button>
-                <button onclick="openTab(event, 'data-diri')"
-                    class="tab-link py-2 px-4 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none flex-shrink-0">
-                    Data Diri
-                </button>
-                <button onclick="openTab(event, 'dokumen')"
-                    class="tab-link py-2 px-4 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none flex-shrink-0">
-                    Lampiran
-                </button>
-                <button onclick="openTab(event, 'tanda-tangan')"
-                    class="tab-link py-2 px-4 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none flex-shrink-0">
-                    Tanda Tangan
-                </button>
+                @foreach ($tabs as $index => $tab)
+                    <button onclick="openTab(event, '{{ $tab['id'] }}')"
+                        class="tab-link py-2 px-4 text-sm font-medium border-b-2 {{ $index == 0 ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500' }} hover:text-gray-700 hover:border-gray-300 focus:outline-none flex-shrink-0">
+                        {{ $tab['label'] }}
+                    </button>
+                @endforeach
             </div>
 
-            <div id="Head" class="tab-content space-y-4 ">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 ">Gaya Tulisan Dokumen</label>
-                    <select id="font-selector" onchange="changeDocFont(this.value)"
-                        class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white  transition-all">
-                        <option value="font-serif">Times New Roman / Serif (Sangat Formal)</option>
-                        <option value="font-sans" selected>Arial / Figtree (Modern & Bersih)</option>
-                        <option value="font-mono">Courier / Mono (Teknis/Laporan)</option>
-                        <option value="font-georgia">Georgia (Elegan & Mudah Dibaca)</option>
-                    </select>
-                    <p class="text-[10px] text-gray-500 mt-1">*Berpengaruh pada tampilan cetak dokumen.</p>
+            <div class="flex-1 overflow-y-auto pr-1 scrollbar-thin">
+                <div id="Head" class="tab-content space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Gaya Tulisan Dokumen</label>
+                        <select id="font-selector" onchange="changeDocFont(this.value)"
+                            class="w-full px-4 py-2 border border-slate-300 rounded-lg outline-none bg-white transition-all">
+                            <option value="font-serif">Times New Roman / Serif (Sangat Formal)</option>
+                            <option value="font-sans" selected>Arial / Figtree (Modern & Bersih)</option>
+                            <option value="font-mono">Courier / Mono (Teknis/Laporan)</option>
+                            <option value="font-georgia">Georgia (Elegan & Mudah Dibaca)</option>
+                        </select>
+                    </div>
+                    <hr class="border-slate-200">
+                    @foreach ($allFields['head'] as $field)
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">{{ $field['label'] }}</label>
+                            <input type="text" id="{{ $field['id'] }}"
+                                class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                                oninput="myFunction('{{ $field['id'] }}', '{{ $field['targets'][0] }}', '{{ $field['default'] }}')">
+                        </div>
+                    @endforeach
+                    <div>
+                        <div class="flex justify-between items-center"><label
+                                class="block text-sm font-medium text-gray-700">Tanggal dibuat</label>
+                            <button type="button" onclick="setHariIni()"
+                                class="text-xs text-blue-600 hover:underline">Gunakan hari ini</button>
+                        </div>
+                        <input type="date" id="tanggal"
+                            class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                            oninput="myFunction('tanggal', 'tanggal-text', getTanggalIndo())">
+                    </div>
                 </div>
 
-                <hr class="border-slate-200 dark:border-slate-700">
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Kota</label>
-                    <input type="text" id="kota"
-                        class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
-                        oninput="myFunction('kota', 'kota-text','Kota')">
+                <div id="pengawalan" class="tab-content hidden space-y-4">
+                    @foreach ($allFields['pengawalan'] as $field)
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">{{ $field['label'] }}</label>
+                            <input type="text" id="{{ $field['id'] }}"
+                                class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                                oninput="myFunction('{{ $field['id'] }}', '{{ $field['targets'][0] }}', '{{ $field['default'] }}')">
+                        </div>
+                    @endforeach
                 </div>
 
-                <div>
-                    <div class="flex justify-between items-center">
-                        <label class="block text-sm font-medium text-gray-700">Tanggal dibuat</label>
-                        <button type="button" onclick="setHariIni()"
-                            class="text-xs text-blue-600 hover:text-blue-800 hover:underline focus:outline-none">
-                            Gunakan hari ini
+                <div id="data-diri" class="tab-content hidden space-y-4">
+                    @foreach ($allFields['dataDiri'] as $field)
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">{{ $field['label'] }}</label>
+                            <input type="text" id="{{ $field['id'] }}"
+                                class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                                oninput="myFunction('{{ $field['id'] }}', '{{ $field['targets'][0] }}', '{{ $field['default'] }}')">
+                        </div>
+                    @endforeach
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Jenis Kelamin</label>
+                        <div class="flex gap-4">
+                            @foreach (['Laki-laki', 'Perempuan'] as $jk)
+                                <label class="flex items-center cursor-pointer group">
+                                    <input type="radio" name="jk" value="{{ $jk }}" class="hidden peer"
+                                        onclick="myFunctionRadio('jk', 'jenis-kelamin-text', 'Jenis Kelamin')">
+                                    <div
+                                        class="px-4 py-2 border border-slate-300 rounded-lg peer-checked:bg-blue-500 peer-checked:text-white transition-all">
+                                        {{ $jk }}</div>
+                                </label>
+                            @endforeach
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Tanggal Lahir</label>
+                        <input type="date" id="tanggal-lahir"
+                            class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                            oninput="myFunction('tanggal-lahir', 'tanggal-lahir-text', getTanggalIndo())">
+                    </div>
+                </div>
+
+                <div id="dokumen" class="tab-content hidden space-y-4">
+                    <div class="flex justify-between items-center mt-2">
+                        <label class="block text-sm font-medium text-gray-700">Daftar Lampiran</label>
+                        <button onclick="tambahBarisInput()"
+                            class="text-xs bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition-all">
+                            + Tambah Baris
                         </button>
                     </div>
-                    <input type="date" id="tanggal"
-                        class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
-                        oninput="myFunction('tanggal', 'tanggal-text', getTanggalIndo())">
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Nama Perusahaan</label>
-                    <input type="text" id="pt"
-                        class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
-                        oninput="myFunction('pt', 'pt-text','PT. xxxxxxxx')">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Alamat Perusahaan</label>
-                    <input type="text" id="alamat-perusahaan"
-                        class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
-                        oninput="myFunction('alamat-perusahaan', 'alamat-perusahaan-text','Jl. xxxxxxxx')">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Kota Perusahaan</label>
-                    <input type="text" id="kota-perusahaan"
-                        class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
-                        oninput="myFunction('kota-perusahaan', 'kota-perusahaan-text','Kota Perusahaan')">
-                </div>
-            </div>
-
-            <div id="pengawalan" class="tab-content hidden space-y-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Media Informasi</label>
-                    <input type="text" id="media"
-                        class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
-                        oninput="myFunction('media', 'media-text','Sosial Media')">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Posisi Kerja</label>
-                    <input type="text" id="posisi"
-                        class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
-                        oninput="myFunction('posisi', 'posisi-text','Posisi Kerja')">
-                </div>
-            </div>
-            <div id="data-diri" class="tab-content hidden space-y-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Nama Lengkap</label>
-                    <input type="text" id="nama"
-                        class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
-                        oninput="myFunction('nama', 'nama-text','Nama Lengkap')">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Jenis Kelamin</label>
-                    <div class="flex gap-4">
-                        <label class="flex items-center cursor-pointer group">
-                            <input type="radio" name="jk" value="Laki-laki" class="hidden peer"
-                                onclick="myFunctionRadio('jk', 'jenis-kelamin-text', 'Jenis Kelamin')">
-                            <div
-                                class="px-4 py-2 border border-slate-300 rounded-lg peer-checked:bg-blue-500 peer-checked:text-white peer-checked:border-blue-500 transition-all">
-                                Laki-laki
-                            </div>
-                        </label>
-
-                        <label class="flex items-center cursor-pointer group">
-                            <input type="radio" name="jk" value="Perempuan" class="hidden peer"
-                                onclick="myFunctionRadio('jk', 'jenis-kelamin-text', 'Jenis Kelamin')">
-                            <div
-                                class="px-4 py-2 border border-slate-300 rounded-lg peer-checked:bg-blue-500 peer-checked:text-white peer-checked:border-blue-500 transition-all">
-                                Perempuan
-                            </div>
-                        </label>
+                    <div id="container-input-dokumen" class="space-y-2 pb-4">
                     </div>
                 </div>
 
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Tempat Lahir</label>
-                    <input type="text" id="tempat-lahir"
-                        class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
-                        oninput="myFunction('tempat-lahir', 'tempat-lahir-text','Tempat Lahir')">
-                </div>
+                <div id="tanda-tangan" class="tab-content hidden space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Foto / Tanda Tangan</label>
 
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Tanggal Lahir</label>
-                    <input type="date" id="tanggal-lahir"
-                        class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
-                        oninput="myFunction('tanggal-lahir', 'tanggal-lahir-text', getTanggalIndo())">
-                </div>
+                        <a href="{{ route('tool.signature') }}" target="_blank"
+                            class="flex items-center justify-center gap-2 w-full px-4 py-3 mb-3 bg-blue-50 border border-blue-200 text-blue-700 rounded-xl font-bold text-sm hover:bg-blue-100 transition-all">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z">
+                                </path>
+                            </svg>
+                            Bikin Tanda Tangan Digital Baru
+                        </a>
 
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Alamat diri</label>
-                    <input type="text" id="alamat-diri"
-                        class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
-                        oninput="myFunction('alamat-diri', 'alamat-diri-text','Sekarang')">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Nomor Telepon</label>
-                    <input type="text" id="no-tlp"
-                        class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
-                        oninput="myFunction('no-tlp', 'no-tlp-text','08xxxxxxxxxx')">
-                </div>
-            </div>
-            <div id="dokumen" class="tab-content hidden space-y-4 flex-1 overflow-y-auto scrollbar-thin">
-                <div class="flex justify-between items-center mt-4">
-                    <label class="block text-sm font-medium text-gray-700">Daftar Lampiran</label>
-                    <button onclick="tambahBarisInput()"
-                        class="text-xs bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition-all">
-                        + Tambah Baris
-                    </button>
-                </div>
+                        <div class="relative flex items-center py-2 mb-3">
+                            <div class="flex-grow border-t border-slate-200"></div>
+                            <span
+                                class="flex-shrink mx-4 text-slate-400 text-[10px] font-bold uppercase tracking-widest">Atau
+                                Upload</span>
+                            <div class="flex-grow border-t border-slate-200"></div>
+                        </div>
 
-                <div id="container-input-dokumen" class="space-y-2">
-                </div>
-            </div>
-            <div id="tanda-tangan" class="tab-content hidden space-y-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Foto / Tanda Tangan</label>
+                        <input type="file" id="input-foto" accept="image/*"
+                            class="w-full px-4 py-2 border border-slate-300 rounded-lg outline-none text-sm file:mr-4 file:py-1 file:px-2 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                            onchange="simpanGambar(this)">
 
-                    {{-- Tombol ke Halaman Tanda Tangan Digital --}}
-                    <a href="{{ route('tool.signature') }}" target="_blank"
-                        class="flex items-center justify-center gap-2 w-full px-4 py-3 mb-3 bg-blue-50 border border-blue-200 text-blue-700 rounded-xl font-bold text-sm hover:bg-blue-100 transition-all">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z">
-                            </path>
-                        </svg>
-                        Bikin Tanda Tangan Digital Baru
-                    </a>
+                        <button onclick="hapusGambar()"
+                            class="text-[10px] font-bold text-red-500 mt-2 uppercase tracking-tight hover:underline">
+                            Hapus Gambar Terpilih
+                        </button>
 
-                    {{-- Pemisah --}}
-                    <div class="relative flex items-center py-2 mb-3">
-                        <div class="flex-grow border-t border-slate-200"></div>
-                        <span class="flex-shrink mx-4 text-slate-400 text-[10px] font-bold uppercase tracking-widest">Atau
-                            Upload</span>
-                        <div class="flex-grow border-t border-slate-200"></div>
+                        <hr class="my-4 border-slate-100">
+
+                        <label class="block text-sm font-medium text-gray-700 mt-3 mb-1">Posisi Tanda Tangan</label>
+                        <select id="ttd-align-selector" onchange="changeTTDAlign(this.value)"
+                            class="w-full px-4 py-2 border border-slate-300 rounded-lg outline-none bg-white text-sm shadow-sm focus:ring-2 focus:ring-blue-500">
+                            <option value="items-start">Kiri</option>
+                            <option value="items-center">Tengah</option>
+                            <option value="items-end" selected>Kanan (Standar)</option>
+                        </select>
                     </div>
-
-                    {{-- Input File --}}
-                    <input type="file" id="input-foto" accept="image/*"
-                        class="w-full px-4 py-2 border border-slate-300 rounded-lg outline-none text-sm file:mr-4 file:py-1 file:px-2 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-                        onchange="simpanGambar(this)">
-
-                    <button onclick="hapusGambar()"
-                        class="text-[10px] font-bold text-red-500 mt-2 uppercase tracking-tight hover:underline">
-                        Hapus Gambar Terpilih
-                    </button>
-
-                    <hr class="my-4 border-slate-100">
-
-                    <label class="block text-sm font-medium text-gray-700 mt-3 mb-1">Posisi Tanda Tangan</label>
-                    <select id="ttd-align-selector" onchange="changeTTDAlign(this.value)"
-                        class="w-full px-4 py-2 border border-slate-300 rounded-lg outline-none bg-white text-sm shadow-sm focus:ring-2 focus:ring-blue-500">
-                        <option value="items-start">Kiri</option>
-                        <option value="items-center">Tengah</option>
-                        <option value="items-end" selected>Kanan (Standar)</option>
-                    </select>
                 </div>
             </div>
         </div>
+
 
         <div
             class="order-2 md:order-1 w-full h-[500px] md:h-[700px] border bg-gray-300 overflow-hidden relative touch-none flex justify-center items-start rounded-xl">
@@ -909,112 +945,41 @@
 
         // 3. Eksekusi Saat Halaman Dimuat
         document.addEventListener('DOMContentLoaded', () => {
-            // Daftar semua field yang perlu di-load
-            const fields = [{
-                    inputId: 'kota',
-                    targetId: 'kota-text',
-                    defaultText: 'Kota'
-                },
-                {
-                    inputId: 'tanggal',
-                    targetId: 'tanggal-text',
-                    defaultText: getTanggalIndo()
-                },
-                {
-                    inputId: 'pt',
-                    targetId: 'pt-text',
-                    defaultText: 'PT. xxxxxxxx'
-                },
-                {
-                    inputId: 'pt',
-                    targetId: 'pt2-text',
-                    defaultText: 'PT. xxxxxxxx'
-                },
-                {
-                    inputId: 'pt',
-                    targetId: 'pt3-text',
-                    defaultText: 'PT. xxxxxxxx'
-                },
-                {
-                    inputId: 'alamat-perusahaan',
-                    targetId: 'alamat-perusahaan-text',
-                    defaultText: 'Jl. xxxxxxxx'
-                },
-                {
-                    inputId: 'kota-perusahaan',
-                    targetId: 'kota-perusahaan-text',
-                    defaultText: 'Kota Perusahaan'
-                },
-                {
-                    inputId: 'media',
-                    targetId: 'media-text',
-                    defaultText: 'Media Sosial'
-                },
-                {
-                    inputId: 'posisi',
-                    targetId: 'posisi-text',
-                    defaultText: 'Posisi Kerja'
-                },
-                {
-                    inputId: 'posisi',
-                    targetId: 'posisi2-text',
-                    defaultText: 'Posisi Kerja'
-                },
-                {
-                    inputId: 'nama',
-                    targetId: 'nama-text',
-                    defaultText: 'Nama Lengkap'
-                },
-                {
-                    inputId: 'nama',
-                    targetId: 'nama2-text',
-                    defaultText: 'Nama Lengkap'
-                },
-                {
-                    inputId: 'tempat-lahir',
-                    targetId: 'tempat-lahir-text',
-                    defaultText: 'Tempat Lahir'
-                },
-                {
-                    inputId: 'tanggal-lahir',
-                    targetId: 'tanggal-lahir-text',
-                    defaultText: getTanggalIndo()
-                },
-                {
-                    inputId: 'alamat-diri',
-                    targetId: 'alamat-diri-text',
-                    defaultText: "Alamat Sekarang"
-                },
-                {
-                    inputId: 'no-tlp',
-                    targetId: 'no-tlp-text',
-                    defaultText: "08xxxxxxxxxx"
-                }
-            ];
+            // Ambil config dari PHP secara otomatis
+            const fields = @json($jsConfig);
 
             fields.forEach(field => {
                 const inputElem = document.getElementById(field.inputId);
-                const targetElem = document.getElementById(field.targetId);
-                const savedValue = localStorage.getItem("storage_" + field.targetId);
 
-                if (savedValue) {
-                    if (inputElem) inputElem.value = savedValue;
-                    targetElem.textContent = (inputElem && inputElem.type === 'date') ? getTanggalIndo(
-                        new Date(savedValue)) : savedValue;
-                    targetElem.classList.remove('text-red-500');
-                } else {
-                    targetElem.textContent = field.defaultText;
-                    targetElem.classList.add('text-red-500');
-                    // Set default tanggal hari ini jika input tanggal kosong
-                    if (inputElem && field.inputId === 'tanggal' && !savedValue) {
-                        inputElem.value = getTanggalInput();
-                        targetElem.textContent = getTanggalIndo();
+                // Loop setiap target yang terdaftar untuk input ini
+                field.targets.forEach(targetId => {
+                    const targetElem = document.getElementById(targetId);
+                    if (!targetElem) return;
+
+                    const savedValue = localStorage.getItem("storage_" + targetId);
+                    const defaultText = (field.default === 'DATE_NOW') ? getTanggalIndo() : field
+                        .default;
+
+                    if (savedValue) {
+                        if (inputElem) inputElem.value = savedValue;
+                        targetElem.textContent = (field.isDate) ? getTanggalIndo(new Date(
+                            savedValue)) : savedValue;
                         targetElem.classList.remove('text-red-500');
+                    } else {
+                        targetElem.textContent = defaultText;
+                        targetElem.classList.add('text-red-500');
+
+                        // Set default tanggal hari ini khusus field 'tanggal'
+                        if (inputElem && field.inputId === 'tanggal' && !savedValue) {
+                            inputElem.value = getTanggalInput();
+                            targetElem.textContent = getTanggalIndo();
+                            targetElem.classList.remove('text-red-500');
+                        }
                     }
-                }
+                });
             });
 
-            // Load Radio Button Jenis Kelamin
+            // Sisa logic (Radio JK, Foto, Render Lampiran)
             const savedJK = localStorage.getItem("storage_jenis-kelamin-text");
             const targetJK = document.getElementById('jenis-kelamin-text');
             if (savedJK && targetJK) {
@@ -1024,14 +989,11 @@
                 targetJK.classList.remove('text-red-500');
             }
 
-            // Load Foto/Tanda Tangan
             const savedFoto = localStorage.getItem("storage_foto");
             if (savedFoto) tampilkanGambar(savedFoto);
 
-            // Load & Render Lampiran
             renderInputs();
         });
-
         // --- LOGIKA LAMPIRAN DOKUMEN ---
         let daftarDokumen = JSON.parse(localStorage.getItem("storage_list_dokumen")) || [""];
 
