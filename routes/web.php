@@ -11,6 +11,7 @@ use App\Http\Controllers\LokerController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\Pekerja\CvController;
 use App\Http\Controllers\Pekerja\SuratLamaranController;
+use App\Http\Controllers\Pekerja\KirimEmailController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Tools\KompresGambarController;
 use App\Http\Controllers\Tools\KompresPdfController;
@@ -75,6 +76,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 Route::prefix('pekerja')->name('pekerja.')->group(function () {
     Route::get('/surat-lamaran', [SuratLamaranController::class, 'index'])->name('surat.lamaran');
     Route::get('/generate-cv', [CvController::class, 'index'])->name('generate.cv');
+    Route::get('/kirim-lamaran-email', [KirimEmailController::class, 'index'])->name('kirim.lamaran.email');
 });
 
 // POST untuk menerima form

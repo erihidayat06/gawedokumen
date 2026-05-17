@@ -57,6 +57,12 @@
                                     Membuat CV
                                 </a>
                             </li>
+                            <li>
+                                <a href="{{ route('pekerja.kirim.lamaran.email') }}"
+                                    class="block px-6 md:px-4 py-2 text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 transition-colors">
+                                    Kirim ke Email HRD (Otomatis)
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </li>

@@ -46,7 +46,7 @@
                             class="aspect-[4/3] rounded-[2rem] bg-slate-100 dark:bg-slate-800 mb-4 overflow-hidden relative">
                             {{-- Preview Image dengan Efek Zoom --}}
                             <img src="{{ asset($tool->gambar) }}" alt="{{ $tool->nama_tool }}"
-                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                                class="w-full h-full object-top object-cover transition-transform duration-500 group-hover:scale-110">
 
                             {{-- Overlay halus agar gambar tidak terlalu kontras --}}
                             <div
