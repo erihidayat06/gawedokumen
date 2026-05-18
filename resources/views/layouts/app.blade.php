@@ -11,9 +11,9 @@
     <link rel="icon" type="image/png" href="{{ asset('img/icon.png') }}">
     <link rel="apple-touch-icon" href="{{ asset('img/icon.png') }}">
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/css/icon.css">
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
+
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <script>
         // Cek localStorage atau preferensi sistem browser

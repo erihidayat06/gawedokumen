@@ -115,11 +115,17 @@
 
     [&_table]:w-full
     [&_table]:border [&_table]:border-slate-300
-
     [&_th]:border [&_td]:border
     [&_th]:px-4 [&_td]:px-4
     [&_th]:py-2 [&_td]:py-2
     [&_th]:bg-slate-100
+
+    [&_blockquote]:border-l-4 [&_blockquote]:border-blue-500
+    [&_blockquote]:bg-blue-50/50 dark:[&_blockquote]:bg-blue-950/20
+    [&_blockquote]:px-6 [&_blockquote]:py-4
+    [&_blockquote]:rounded-r-xl [&_blockquote]:my-6
+    [&_blockquote_p]:italic [&_blockquote_p]:text-slate-700 dark:[&_blockquote_p]:text-slate-300
+    [&_blockquote_p]:font-medium [&_blockquote_p]:leading-relaxed
 ">
 
                         {{-- Menggunakan {!! !!} karena konten berasal dari CKEditor (HTML) --}}

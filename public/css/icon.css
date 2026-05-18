@@ -1,0 +1,159 @@
+.bi {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+
+    background-color: currentColor;
+
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+
+    -webkit-mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+
+    vertical-align: middle;
+}
+
+/* Icons */
+
+.bi-plus-lg {
+    mask-image: url('/bootstrap-icons/plus-lg.svg');
+    -webkit-mask-image: url('/bootstrap-icons/plus-lg.svg');
+}
+
+.bi-search {
+    mask-image: url('/bootstrap-icons/search.svg');
+    -webkit-mask-image: url('/bootstrap-icons/search.svg');
+}
+
+.bi-file-earmark-richtext {
+    mask-image: url('/bootstrap-icons/file-earmark-richtext.svg');
+    -webkit-mask-image: url('/bootstrap-icons/file-earmark-richtext.svg');
+}
+
+.bi-eye {
+    mask-image: url('/bootstrap-icons/eye.svg');
+    -webkit-mask-image: url('/bootstrap-icons/eye.svg');
+}
+
+.bi-pencil-square {
+    mask-image: url('/bootstrap-icons/pencil-square.svg');
+    -webkit-mask-image: url('/bootstrap-icons/pencil-square.svg');
+}
+
+.bi-trash {
+    mask-image: url('/bootstrap-icons/trash.svg');
+    -webkit-mask-image: url('/bootstrap-icons/trash.svg');
+}
+
+.bi-box-arrow-up-right {
+    mask-image: url('/bootstrap-icons/box-arrow-up-right.svg');
+    -webkit-mask-image: url('/bootstrap-icons/box-arrow-up-right.svg');
+}
+
+.bi-check-circle-fill {
+    mask-image: url('/bootstrap-icons/check-circle-fill.svg');
+    -webkit-mask-image: url('/bootstrap-icons/check-circle-fill.svg');
+}
+
+.bi-image {
+    mask-image: url('/bootstrap-icons/image.svg');
+    -webkit-mask-image: url('/bootstrap-icons/image.svg');
+}
+
+.bi-briefcase-fill {
+    mask-image: url('/bootstrap-icons/briefcase-fill.svg');
+    -webkit-mask-image: url('/bootstrap-icons/briefcase-fill.svg');
+}
+
+.bi-plus-circle {
+    mask-image: url('/bootstrap-icons/plus-circle.svg');
+    -webkit-mask-image: url('/bootstrap-icons/plus-circle.svg');
+}
+
+.bi-gift {
+    mask-image: url('/bootstrap-icons/gift.svg');
+    -webkit-mask-image: url('/bootstrap-icons/gift.svg');
+}
+
+.bi-link-45deg {
+    mask-image: url('/bootstrap-icons/link-45deg.svg');
+    -webkit-mask-image: url('/bootstrap-icons/link-45deg.svg');
+}
+
+.bi-geo-alt {
+    mask-image: url('/bootstrap-icons/geo-alt.svg');
+    -webkit-mask-image: url('/bootstrap-icons/geo-alt.svg');
+}
+
+.bi-mortarboard-fill {
+    mask-image: url('/bootstrap-icons/mortarboard-fill.svg');
+    -webkit-mask-image: url('/bootstrap-icons/mortarboard-fill.svg');
+}
+
+.bi-check2-circle {
+    mask-image: url('/bootstrap-icons/check2-circle.svg');
+    -webkit-mask-image: url('/bootstrap-icons/check2-circle.svg');
+}
+
+.bi-dot {
+    mask-image: url('/bootstrap-icons/dot.svg');
+    -webkit-mask-image: url('/bootstrap-icons/dot.svg');
+}
+
+.bi-arrow-right {
+    mask-image: url('/bootstrap-icons/arrow-right.svg');
+    -webkit-mask-image: url('/bootstrap-icons/arrow-right.svg');
+}
+
+.bi-clock-history {
+    mask-image: url('/bootstrap-icons/clock-history.svg');
+    -webkit-mask-image: url('/bootstrap-icons/clock-history.svg');
+}
+
+.bi-building {
+    mask-image: url('/bootstrap-icons/building.svg');
+    -webkit-mask-image: url('/bootstrap-icons/building.svg');
+}
+
+.bi-geo-alt-fill {
+    mask-image: url('/bootstrap-icons/geo-alt-fill.svg');
+    -webkit-mask-image: url('/bootstrap-icons/geo-alt-fill.svg');
+}
+
+.bi-clock {
+    mask-image: url('/bootstrap-icons/clock.svg');
+    -webkit-mask-image: url('/bootstrap-icons/clock.svg');
+}
+
+.bi-calendar3 {
+    mask-image: url('/bootstrap-icons/calendar3.svg');
+    -webkit-mask-image: url('/bootstrap-icons/calendar3.svg');
+}
+
+.bi-wallet2 {
+    mask-image: url('/bootstrap-icons/wallet2.svg');
+    -webkit-mask-image: url('/bootstrap-icons/wallet2.svg');
+}
+
+.bi-whatsapp {
+    mask-image: url('/bootstrap-icons/whatsapp.svg');
+    -webkit-mask-image: url('/bootstrap-icons/whatsapp.svg');
+}
+
+.bi-envelope {
+    mask-image: url('/bootstrap-icons/envelope.svg');
+    -webkit-mask-image: url('/bootstrap-icons/envelope.svg');
+}
+
+.bi-envelope-fill {
+    mask-image: url('/bootstrap-icons/envelope-fill.svg');
+    -webkit-mask-image: url('/bootstrap-icons/envelope-fill.svg');
+}
+
+.bi-lightbulb-fill {
+    mask-image: url('/bootstrap-icons/lightbulb-fill.svg');
+    -webkit-mask-image: url('/bootstrap-icons/lightbulb-fill.svg');
+}

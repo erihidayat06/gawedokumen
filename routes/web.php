@@ -41,7 +41,7 @@ Route::prefix('blog')->name('blog.')->group(function () {
 
     // 2. Rute Lama (domain.com/blog/tutorial/8/slug)
     // Tetap ditaruh di atas rute slug baru untuk menghindari bentrok jika ada kategori yang namanya mirip
-    Route::get('/{kategori}/{id}/{slug}', [BlogController::class, 'detail']);
+    // Route::get('/{kategori}/{id}/{slug}', [BlogController::class, 'detail']);
 
     // 3. Rute Baru (domain.com/blog/slug-bersih)
     Route::get('/{slug}', [BlogController::class, 'show'])->name('show');
@@ -127,5 +127,7 @@ Route::get('/test-indexing', function () {
         return response()->json(['status' => 'Gagal', 'error' => $e->getMessage()], 500);
     }
 });
+
+
 
 require __DIR__ . '/auth.php';
