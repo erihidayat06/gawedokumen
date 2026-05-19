@@ -13,6 +13,7 @@ use App\Http\Controllers\Pekerja\CvController;
 use App\Http\Controllers\Pekerja\SuratLamaranController;
 use App\Http\Controllers\Pekerja\KirimEmailController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Tools\GabungPdfController;
 use App\Http\Controllers\Tools\KompresGambarController;
 use App\Http\Controllers\Tools\KompresPdfController;
 use App\Http\Controllers\Tools\SignatureController;
@@ -30,6 +31,12 @@ Route::prefix('tool')->name('tool.')->group(function () {
     Route::post('kompres-pdf', [KompresPdfController::class, 'compress'])->name('kompres.pdf');
     Route::get('kompres-gambar', [KompresGambarController::class, 'index'])->name('kompres.gambar.index');
     Route::post('kompres-gambar', [KompresGambarController::class, 'store'])->name('kompres.gambar');
+
+    // Route untuk menampilkan halaman form Gabung PDF
+    Route::get('/gabung-pdf', [GabungPdfController::class, 'index'])->name('pdf.merge.index');
+
+    // Route POST untuk memproses penggabungan dokumen PDF
+    Route::post('/gabung-pdf', [GabungPdfController::class, 'merge'])->name('pdf.merge');
 });
 
 
