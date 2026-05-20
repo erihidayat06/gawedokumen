@@ -42,8 +42,50 @@
 
                 {{-- MAIN CONTENT --}}
                 <div class="lg:col-span-8 space-y-12">
-                    <h3 class="text-2xl font-black dark:text-white border-l-4 border-blue-600 pl-4">Artikel Terbaru</h3>
 
+                    {{-- FORM PENCARIAN & JUDUL --}}
+                    <div
+                        class="flex flex-col md:flex-row md:items-center justify-between gap-6 border-l-4 border-blue-600 pl-4">
+                        <div>
+                            <h3 class="text-2xl font-black dark:text-white">
+                                {{ request('search') ? 'Hasil Pencarian' : 'Artikel Terbaru' }}
+                            </h3>
+                            @if (request('search'))
+                                <p class="text-xs text-slate-400 mt-1">
+                                    Menampilkan hasil untuk: <span
+                                        class="text-blue-600 font-bold">"{{ request('search') }}"</span>
+                                </p>
+                            @endif
+                        </div>
+
+                        {{-- Input Search --}}
+                        <form action="{{ route('blog.index') }}" method="GET" class="relative w-full md:w-72">
+                            <input type="text" name="search" value="{{ request('search') }}"
+                                placeholder="Cari artikel..."
+                                class="w-full px-4 py-2.5 text-sm bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl text-slate-700 dark:text-slate-200 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-all pr-10">
+
+                            @if (request('search'))
+                                {{-- Tombol X untuk reset pencarian --}}
+                                <a href="{{ route('blog.index') }}"
+                                    class="absolute right-10 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M6 18L18 6M6 6l12 12"></path>
+                                    </svg>
+                                </a>
+                            @endif
+
+                            <button type="submit"
+                                class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-blue-600 transition-colors">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
+
+                    {{-- LIST ARTIKEL --}}
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         @forelse ($blogs as $blog)
                             <article class="group">
@@ -74,8 +116,19 @@
                                 </p>
                             </article>
                         @empty
-                            <div class="col-span-2 py-20 text-center">
-                                <p class="text-slate-400 italic">Belum ada artikel yang diterbitkan.</p>
+                            <div class="col-span-1 md:col-span-2 py-20 text-center">
+                                <svg class="w-12 h-12 mx-auto text-slate-300 dark:text-slate-700 mb-4" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                        d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                                    </path>
+                                </svg>
+                                <p class="text-slate-400 italic">Artikel yang Anda cari tidak ditemukan.</p>
+                                @if (request('search'))
+                                    <a href="{{ route('blog.index') }}"
+                                        class="mt-4 inline-block text-sm font-bold text-blue-600 hover:underline">Lihat
+                                        Semua Artikel</a>
+                                @endif
                             </div>
                         @endforelse
                     </div>
@@ -94,7 +147,6 @@
                         </div>
                     @endif
                 </div>
-
                 {{-- SIDEBAR --}}
                 <aside class="lg:col-span-4 space-y-10">
                     <div
@@ -126,7 +178,7 @@
                         <div class="mt-10 p-6 bg-blue-600 rounded-3xl text-white shadow-xl shadow-blue-500/20">
                             <h4 class="font-bold mb-2 text-lg text-white">Butuh Dokumen Cepat?</h4>
                             <p class="text-blue-100 text-xs mb-4">Coba generator surat lamaran kerja otomatis kami.</p>
-                            <a href="/tools/lamaran"
+                            <a href="/kategori/pekerja"
                                 class="block text-center bg-white text-blue-600 py-2 rounded-xl text-sm font-bold shadow-lg hover:bg-blue-50 transition-colors">Coba
                                 Gratis</a>
                         </div>

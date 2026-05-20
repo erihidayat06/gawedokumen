@@ -228,18 +228,23 @@
                                                                     @endforeach
                                                                 </ul>
                                                             </div>
-                                                            <div class="mb-3">
-                                                                <h6 class="fw-bold text-dark mb-2"><i
-                                                                        class="bi bi-gift text-primary me-2"></i>Benefit
-                                                                </h6>
-                                                                <ul class="list-unstyled small ps-1">
-                                                                    @foreach ($loker->benefit as $b)
-                                                                        <li class="mb-2 d-flex"><i
-                                                                                class="bi bi-dot text-primary fs-4 mt-n2"></i>
-                                                                            {{ $b }}</li>
-                                                                    @endforeach
-                                                                </ul>
-                                                            </div>
+                                                            @if (!empty($loker->benefit))
+                                                                <div class="mb-3">
+                                                                    <h6 class="fw-bold text-dark mb-2">
+                                                                        <i class="bi bi-gift text-primary me-2"></i>Benefit
+                                                                    </h6>
+                                                                    <ul class="list-unstyled small ps-1">
+                                                                        @foreach ($loker->benefit as $b)
+                                                                            <li class="mb-2 d-flex">
+                                                                                <i
+                                                                                    class="bi bi-dot text-primary fs-4 mt-n2"></i>
+                                                                                {{ $b }}
+                                                                            </li>
+                                                                        @endforeach
+                                                                    </ul>
+                                                                </div>
+                                                            @endif
+
                                                             <div class="mb-4">
                                                                 <h6 class="fw-bold text-dark mb-2"><i
                                                                         class="bi bi-link-45deg text-primary me-2"></i>Artikel

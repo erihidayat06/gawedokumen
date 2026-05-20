@@ -6,10 +6,13 @@
         href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
 
     <div class="container-fluid bg-light min-vh-screen px-0 px-md-4 pt-0 pt-md-5 pb-5">
+
         <div class="row justify-content-center g-0">
+
             <div class="col-12 col-lg-10">
                 <div class="card border-0 shadow-sm rounded-0 rounded-md-4">
                     <div class="card-body p-4 p-md-5">
+
 
                         <div class="d-flex align-items-center mb-4">
                             <div class="bg-primary text-white rounded-3 p-3 me-3">
@@ -19,6 +22,22 @@
                                 <h4 class="fw-bold mb-0">Tambah Lowongan Baru</h4>
                                 <small class="text-muted">Gunakan fitur pencarian untuk wilayah Jawa Tengah.</small>
                             </div>
+                        </div>
+
+                        <div class="mb-4 p-3 bg-light-subtle border border-primary-subtle rounded-3">
+                            <label class="form-label fw-bold text-primary mb-1">
+                                <i class="bi bi-cpu-fill me-1"></i> Auto-Fill Loker Pakai AI (Scan Gambar)
+                            </label>
+                            <div class="input-group">
+                                <input type="file" id="ai-image-input" class="form-control" accept="image/*">
+                                <button class="btn btn-primary" type="button" id="btn-scan-ai">
+                                    <span class="spinner-border spinner-border-sm d-none me-1" id="loading-scan"
+                                        role="status"></span>
+                                    <i class="bi bi-magic me-1" id="icon-magic"></i> Mulai Scan Lokermu
+                                </button>
+                            </div>
+                            <small class="text-muted d-block mt-1">Upload pamflet/brosur loker, AI akan otomatis mengisi
+                                form di bawah.</small>
                         </div>
 
                         <form id="lokerForm" action="{{ route('admin.loker.store') }}" method="POST"
@@ -110,7 +129,8 @@
 
                                 {{-- Section Benefit dengan Re-populate --}}
                                 <div class="col-12 mt-4">
-                                    <label class="form-label fw-semibold d-flex justify-content-between align-items-center">
+                                    <label
+                                        class="form-label fw-semibold d-flex justify-content-between align-items-center">
                                         Benefit / Fasilitas
                                         <button type="button" class="btn btn-sm btn-outline-primary" id="add-benefit">
                                             <i class="bi bi-plus-circle me-1"></i>Tambah Baris
@@ -123,9 +143,9 @@
                                                     <span class="input-group-text bg-light"><i
                                                             class="bi bi-gift text-primary"></i></span>
                                                     <input type="text" name="benefit[]" class="form-control"
-                                                        value="{{ $val }}" required>
-                                                    <button class="btn btn-outline-danger remove-benefit" type="button"><i
-                                                            class="bi bi-trash"></i></button>
+                                                        value="{{ $val }}">
+                                                    <button class="btn btn-outline-danger remove-benefit"
+                                                        type="button"><i class="bi bi-trash"></i></button>
                                                 </div>
                                             @endforeach
                                         @else
@@ -133,7 +153,7 @@
                                                 <span class="input-group-text bg-light"><i
                                                         class="bi bi-gift text-primary"></i></span>
                                                 <input type="text" name="benefit[]" class="form-control"
-                                                    placeholder="Contoh: Gaji Pokok" required>
+                                                    placeholder="Contoh: Gaji Pokok">
                                                 <button class="btn btn-outline-danger remove-benefit" type="button"><i
                                                         class="bi bi-trash"></i></button>
                                             </div>
@@ -328,6 +348,132 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <script>
+        document.getElementById('btn-scan-ai').addEventListener('click', function() {
+            const fileInput = document.getElementById('ai-image-input');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert('Pilih gambar brosur loker terlebih dahulu, Mas!');
+                return;
+            }
+
+            const btn = this;
+            const spinner = document.getElementById('loading-scan');
+            const icon = document.getElementById('icon-magic');
+
+            btn.disabled = true;
+            spinner.classList.remove('d-none');
+            icon.classList.add('d-none');
+
+            const formData = new FormData();
+            formData.append('image', file);
+            formData.append('_token', '{{ csrf_token() }}');
+
+            fetch("{{ route('admin.loker.scan_ai') }}", {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'Accept': 'application/json' // Paksa Laravel kirim JSON kalau error validation
+                    }
+                })
+                .then(async response => {
+                    const isJson = response.headers.get('content-type')?.includes('application/json');
+                    const textData = await response.text(); // Ambil data mentah dulu mentah-mentah
+
+                    if (!response.ok) {
+                        // JIKA ERROR HTML (500/404 dll)
+                        if (!isJson) {
+                            // Ambil pesan utama dari halaman crash Laravel
+                            const match = textData.match(/<title>(.*?)<\/title>/);
+                            const errorTitle = match ? match[1] : 'Internal Server Error';
+                            throw new Error(`[Laravel Error] ${errorTitle}`);
+                        }
+                        // JIKA ERROR JSON (Validation dll)
+                        const jsonErr = JSON.parse(textData);
+                        throw new Error(jsonErr.message || 'Terjadi kesalahan validasi.');
+                    }
+
+                    return JSON.parse(textData);
+                })
+                .then(res => {
+                    if (res.success) {
+                        const data = res.data;
+
+                        // Isi input text & textarea standar
+                        document.querySelector('input[name="posisi"]').value = data.posisi || '';
+                        document.querySelector('input[name="perusahaan"]').value = data.perusahaan || '';
+                        document.querySelector('textarea[name="alamat"]').value = data.alamat || '';
+                        document.querySelector('input[name="gaji"]').value = data.gaji || '';
+                        document.querySelector('textarea[name="deskripsi"]').value = data.deskripsi || '';
+                        document.querySelector('input[name="no_wa"]').value = data.no_wa || '';
+                        document.querySelector('input[name="email"]').value = data.email || '';
+
+                        // Isi Dropdown Pendidikan & Pengalaman
+                        const selectPendidikan = document.querySelector('select[name="minimal_pendidikan"]');
+                        if (selectPendidikan) {
+                            selectPendidikan.value = data.minimal_pendidikan;
+                            selectPendidikan.dispatchEvent(new Event('change'));
+                        }
+
+                        const selectPengalaman = document.querySelector('select[name="pengalaman"]');
+                        if (selectPengalaman) {
+                            selectPengalaman.value = data.pengalaman;
+                            selectPengalaman.dispatchEvent(new Event('change'));
+                        }
+
+                        // Loop Isi Array Tugas Dinamis
+                        if (data.tugas && data.tugas.length > 0) {
+                            const container = document.getElementById('tugas-container');
+                            container.innerHTML = '';
+                            data.tugas.forEach((itemText) => {
+                                const html = `<div class="input-group mb-2">
+                        <input type="text" name="tugas[]" class="form-control" value="${itemText}" required>
+                        <button class="btn btn-outline-danger remove-item" type="button"><i class="bi bi-trash"></i></button>
+                    </div>`;
+                                container.insertAdjacentHTML('beforeend', html);
+                            });
+                        }
+
+                        // Loop Isi Array Persyaratan Dinamis
+                        if (data.persyaratan && data.persyaratan.length > 0) {
+                            const container = document.getElementById('persyaratan-container');
+                            container.innerHTML = '';
+                            data.persyaratan.forEach((itemText) => {
+                                const html = `<div class="input-group mb-2">
+                        <input type="text" name="persyaratan[]" class="form-control" value="${itemText}" required>
+                        <button class="btn btn-outline-danger remove-item" type="button"><i class="bi bi-trash"></i></button>
+                    </div>`;
+                                container.insertAdjacentHTML('beforeend', html);
+                            });
+                        }
+
+                        alert('Mantap! Form berhasil terisi otomatis oleh AI.');
+                    } else {
+                        alert('Gagal: ' + res.message);
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    // Memunculkan error asli di popup alert browser
+                    alert(err.message);
+                })
+                .finally(() => {
+                    btn.disabled = false;
+                    spinner.classList.add('d-none');
+                    icon.classList.remove('d-none');
+                });
+        });
+
+        // Listener hapus item
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.remove-item')) {
+                const group = e.target.closest('.input-group');
+                if (group) group.remove();
+            }
+        });
+    </script>
+    <script>
         $(document).ready(function() {
             // Fungsi inisialisasi Select2 agar konsisten
             function initSelect2(element, placeholder) {
@@ -426,7 +572,7 @@
                     html = `
                 <div class="input-group mb-2">
                     <span class="input-group-text bg-light"><i class="bi bi-gift text-primary"></i></span>
-                    <input type="text" name="benefit[]" class="form-control" value="${value}" required>
+                    <input type="text" name="benefit[]" class="form-control" value="${value}">
                     <button class="btn btn-outline-danger remove-benefit" type="button"><i class="bi bi-trash"></i></button>
                 </div>`;
                 } else if (containerId === 'tugas-container') {

@@ -156,21 +156,29 @@
 
                                 @php
                                     $deadline = $loker->deadline;
-                                    $isExpired = $deadline ? \Carbon\Carbon::parse($deadline)->isPast() : false;
+                                    $isExpired = false;
+
+                                    if ($deadline) {
+                                        // Skenario 1: Jika ada deadline, cek apakah sudah lewat hari ini
+                                        $isExpired = \Carbon\Carbon::parse($deadline)->endOfDay()->isPast();
+                                    } else {
+                                        // Skenario 2: Jika tidak ada deadline, cek apakah sudah lebih dari 1 bulan daricreated_at
+                                        $isExpired = \Carbon\Carbon::parse($loker->created_at)->addMonth()->isPast();
+                                    }
                                 @endphp
 
                                 <span
                                     class="text-[9px] font-bold px-2.5 py-1 rounded-lg uppercase tracking-wider dark:bg-slate-800
-                                    {{ !$deadline ? 'bg-blue-50 text-blue-600' : ($isExpired ? 'bg-red-50 text-red-500' : 'bg-green-50 text-green-600') }}">
+                                     {{ $isExpired ? 'bg-red-50 text-red-500' : (!$deadline ? 'bg-blue-50 text-blue-600' : 'bg-green-50 text-green-600') }}">
 
-                                    @if (!$deadline)
-                                        {{-- Jika Null --}}
-                                        <i class="bi bi-clock-history me-1"></i> Terbuka
-                                    @elseif($isExpired)
-                                        {{-- Jika Sudah Lewat --}}
+                                    @if ($isExpired)
+                                        {{-- Kondisi Tutup: Baik karena lewat tanggal deadline, ATAU karena sudah > 1 bulan (jika null) --}}
                                         Tutup
+                                    @elseif (!$deadline)
+                                        {{-- Kondisi Terbuka: Jika deadline null DAN umur lowongan masih di bawah 1 bulan --}}
+                                        <i class="bi bi-clock-history me-1"></i> Terbuka
                                     @else
-                                        {{-- Jika Masih Aktif --}}
+                                        {{-- Kondisi Aktif dengan Tanggal: Jika ada deadline dan belum expired --}}
                                         Hingga {{ \Carbon\Carbon::parse($deadline)->translatedFormat('d M') }}
                                     @endif
                                 </span>

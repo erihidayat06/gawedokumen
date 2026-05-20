@@ -167,24 +167,46 @@
 
                         <div class="p-8 md:p-10 space-y-6 border-t border-slate-50 dark:border-slate-800 lg:hidden">
 
-                            {{-- Deadline Horizontal --}}
-                            <div
-                                class="{{ $loker->deadline ? 'bg-red-50 dark:bg-red-900/10 border-red-100 dark:border-red-900/20' : 'bg-blue-50 dark:bg-blue-900/10 border-blue-100 dark:border-blue-900/20' }} mb-6 p-4 rounded-2xl border flex items-center justify-between">
+                            @php
+                                $isExpired = false;
 
+                                if ($loker->deadline) {
+                                    // Skenario 1: Jika melewati tanggal deadline
+                                    $isExpired = \Carbon\Carbon::now()->greaterThan(
+                                        \Carbon\Carbon::parse($loker->deadline)->endOfDay(),
+                                    );
+                                } else {
+                                    // Skenario 2: Jika tidak ada deadline, cek apakah sudah lebih dari 1 bulan dari created_at
+                                    $isExpired = \Carbon\Carbon::parse($loker->created_at)->addMonth()->isPast();
+                                }
+                            @endphp
+                            {{-- Deadline Horizontal - Teks diperbesar di Desktop --}}
+                            <div
+                                class="{{ $isExpired ? 'bg-red-50 dark:bg-red-900/10 border-red-100 dark:border-red-900/20' : 'bg-blue-50 dark:bg-blue-900/10 border-blue-100 dark:border-blue-900/20' }} mb-6 p-3 rounded-2xl border flex items-center justify-between">
+
+                                {{-- Kiri: Label Status --}}
                                 <span
-                                    class="{{ $loker->deadline ? 'text-red-400' : 'text-blue-400' }} text-[11px] md:text-xs font-black uppercase tracking-widest ml-1">
-                                    Deadline
+                                    class="{{ $isExpired ? 'text-red-400' : 'text-blue-400' }} text-[10px] font-black uppercase tracking-widest ml-1">
+                                    {{ $isExpired ? 'Lowongan Tutup' : 'Deadline' }}
                                 </span>
 
+                                {{-- Kanan: Detail Tanggal / Keterangan --}}
                                 <p
-                                    class="{{ $loker->deadline ? 'text-red-600 dark:text-red-500' : 'text-blue-600 dark:text-blue-500' }} text-sm md:text-base font-black mr-1">
+                                    class="{{ $isExpired ? 'text-red-600 dark:text-red-500' : 'text-blue-600 dark:text-blue-500' }} text-[12px] font-black mr-1">
                                     @if ($loker->deadline)
+                                        {{-- Jika ada deadline, tampilkan tanggalnya meskipun sudah lewat --}}
                                         {{ \Carbon\Carbon::parse($loker->deadline)->translatedFormat('d M Y') }}
                                     @else
-                                        Sampai Kuota Terpenuhi
+                                        {{-- Jika tidak ada deadline --}}
+                                        @if ($isExpired)
+                                            Selesai (Sudah > 1 Bulan)
+                                        @else
+                                            Sampai Kuota Terpenuhi
+                                        @endif
                                     @endif
                                 </p>
                             </div>
+
 
                             {{-- Tombol Kontak Sejajar --}}
                             <div class="space-y-3">
@@ -275,7 +297,7 @@
                             </div>
 
                             {{-- 3. Benefit (Sekarang Full Width / Tidak di-jejerin) --}}
-                            @if ($loker->benefit && count($loker->benefit) > 0)
+                            @if (!empty($loker->benefit))
                                 <section class="pt-8 border-t border-slate-50 dark:border-slate-800">
                                     <h3
                                         class="text-lg md:text-2xl font-black dark:text-white mb-5 md:mb-6 flex items-center gap-3">
@@ -371,21 +393,42 @@
                     <div
                         class="bg-white dark:bg-slate-900 rounded-[2rem] p-6 md:p-8 border border-slate-100 dark:border-slate-800 shadow-xl shadow-slate-200/50 dark:shadow-none sticky top-24">
 
+                        @php
+                            $isExpired = false;
+
+                            if ($loker->deadline) {
+                                // Skenario 1: Jika melewati tanggal deadline
+                                $isExpired = \Carbon\Carbon::now()->greaterThan(
+                                    \Carbon\Carbon::parse($loker->deadline)->endOfDay(),
+                                );
+                            } else {
+                                // Skenario 2: Jika tidak ada deadline, cek apakah sudah lebih dari 1 bulan dari created_at
+                                $isExpired = \Carbon\Carbon::parse($loker->created_at)->addMonth()->isPast();
+                            }
+                        @endphp
                         {{-- Deadline Horizontal - Teks diperbesar di Desktop --}}
                         <div
-                            class="{{ $loker->deadline ? 'bg-red-50 dark:bg-red-900/10 border-red-100 dark:border-red-900/20' : 'bg-blue-50 dark:bg-blue-900/10 border-blue-100 dark:border-blue-900/20' }} mb-6 p-3 rounded-2xl border flex items-center justify-between">
+                            class="{{ $isExpired ? 'bg-red-50 dark:bg-red-900/10 border-red-100 dark:border-red-900/20' : 'bg-blue-50 dark:bg-blue-900/10 border-blue-100 dark:border-blue-900/20' }} mb-6 p-3 rounded-2xl border flex items-center justify-between">
 
+                            {{-- Kiri: Label Status --}}
                             <span
-                                class="{{ $loker->deadline ? 'text-red-400' : 'text-blue-400' }} text-[10px] font-black uppercase tracking-widest ml-1">
-                                Deadline
+                                class="{{ $isExpired ? 'text-red-400' : 'text-blue-400' }} text-[10px] font-black uppercase tracking-widest ml-1">
+                                {{ $isExpired ? 'Lowongan Tutup' : 'Deadline' }}
                             </span>
 
+                            {{-- Kanan: Detail Tanggal / Keterangan --}}
                             <p
-                                class="{{ $loker->deadline ? 'text-red-600 dark:text-red-500' : 'text-blue-600 dark:text-blue-500' }} text-[12px] font-black mr-1">
+                                class="{{ $isExpired ? 'text-red-600 dark:text-red-500' : 'text-blue-600 dark:text-blue-500' }} text-[12px] font-black mr-1">
                                 @if ($loker->deadline)
+                                    {{-- Jika ada deadline, tampilkan tanggalnya meskipun sudah lewat --}}
                                     {{ \Carbon\Carbon::parse($loker->deadline)->translatedFormat('d M Y') }}
                                 @else
-                                    Sampai Kuota Terpenuhi
+                                    {{-- Jika tidak ada deadline --}}
+                                    @if ($isExpired)
+                                        Selesai (Sudah > 1 Bulan)
+                                    @else
+                                        Sampai Kuota Terpenuhi
+                                    @endif
                                 @endif
                             </p>
                         </div>

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminBlogController;
 use App\Http\Controllers\Admin\AdminCvController;
 use App\Http\Controllers\Admin\AdminLokerController;
+use App\Http\Controllers\Admin\AiLokerController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DocumentController;
@@ -66,6 +67,7 @@ Route::prefix('loker')->group(function () {
 });
 
 
+
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/blog', [AdminBlogController::class, 'index'])->name('blog.index');
     Route::get('/blog/create', [AdminBlogController::class, 'create'])->name('blog.create');
@@ -77,6 +79,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::delete('/blog/{blog:id}/delete', [AdminBlogController::class, 'destroy'])->name('blog.destroy');
     Route::resource('cv', AdminCvController::class);
     Route::resource('loker', AdminLokerController::class);
+    Route::post('loker/scan-ai', [AiLokerController::class, 'scanImage'])->name('loker.scan_ai');
 });
 
 

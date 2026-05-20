@@ -171,43 +171,57 @@
         </script>
 
         {{-- Copy script CKEditor yang sama dengan create.blade.php --}}
-        <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
+        <script src="https://cdn.ckeditor.com/4.22.1/full/ckeditor.js"></script>
         <script>
             CKEDITOR.replace('editor', {
                 // --- HILANGKAN PERINGATAN UPGRADE ---
                 versionCheck: false,
 
+                // --- WAJIB TAMBAHKAN INI AGAR TOMBOL ALIGN / JUSTIFY BERFUNGSI ---
+                extraPlugins: 'justify',
+
                 filebrowserImageUploadUrl: "{{ route('admin.blog.upload_image') . '?_token=' . csrf_token() }}",
 
                 toolbar: [{
+                        name: 'mode',
+                        items: ['Source'] // Tambah tombol lihat HTML mentah
+                    },
+                    {
                         name: 'clipboard',
-                        items: ['Undo', 'Redo']
+                        items: ['Undo', 'Redo', '-', 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord']
                     },
                     {
                         name: 'basicstyles',
-                        items: ['Bold', 'Italic', 'Underline', 'Strike']
+                        // Tambah Subscript, Superscript, dan RemoveFormat (Penghapus format copas)
+                        items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-',
+                            'RemoveFormat'
+                        ]
                     },
                     {
                         name: 'paragraph',
-                        items: ['NumberedList', 'BulletedList', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight',
-                            'JustifyBlock'
+                        // Perataan teks di bawah ini sekarang aman karena plugin 'justify' sudah di-load
+                        items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', '-',
+                            'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'
                         ]
                     },
                     {
                         name: 'links',
-                        items: ['Link', 'Unlink']
+                        items: ['Link', 'Unlink', 'Anchor']
                     },
                     {
                         name: 'insert',
-                        items: ['Image', 'Table', 'HorizontalRule']
+                        // Tambah SpecialChar (Simbol) dan Iframe jika sewaktu-waktu butuh embed video
+                        items: ['Image', 'Table', 'HorizontalRule', 'SpecialChar', 'Iframe']
                     },
                     {
                         name: 'styles',
-                        items: ['Format', 'FontSize', 'TextColor']
+                        items: ['Format', 'FontSize', 'TextColor',
+                            'BGColor'
+                        ] // Tambah BGColor (Stabilo/Highlight teks)
                     },
                     {
                         name: 'tools',
-                        items: ['Maximize']
+                        items: ['Maximize', 'ShowBlocks'] // ShowBlocks membantu melihat batasan tag <p>, <div>, dll
                     }
                 ],
 

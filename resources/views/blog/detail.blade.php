@@ -143,14 +143,26 @@
 
                 {{-- SIDEBAR --}}
                 <aside class="lg:col-span-4 space-y-10">
-                    <div class="sticky top-24 space-y-10">
+                    <div class="sticky top-24 max-h-[calc(100vh-120px)] overflow-y-auto pr-2 custom-scrollbar">
 
-                        {{-- SEARCH --}}
-                        <form action="{{ route('blog.index') }}" method="GET" class="relative group">
-                            <input type="text" name="search" placeholder="Cari panduan..."
-                                class="w-full bg-slate-50 dark:bg-slate-900 border-none rounded-2xl px-6 py-4 focus:ring-2 focus:ring-blue-600 transition-all dark:text-white text-sm">
+                        {{-- Input Search --}}
+                        <form action="{{ route('blog.index') }}" method="GET" class="relative w-full mb-8">
+                            <input type="text" name="search" value="{{ request('search') }}"
+                                placeholder="Cari artikel..."
+                                class="w-full px-4 py-2.5 text-sm bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl text-slate-700 dark:text-slate-200 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-all pr-10">
+
+                            @if (request('search'))
+                                <a href="{{ route('blog.index') }}"
+                                    class="absolute right-10 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M6 18L18 6M6 6l12 12"></path>
+                                    </svg>
+                                </a>
+                            @endif
+
                             <button type="submit"
-                                class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-600">
+                                class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-blue-600 transition-colors">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -160,21 +172,21 @@
 
                         {{-- ARTIKEL TERKAIT --}}
                         <div
-                            class="bg-slate-50 dark:bg-slate-900/50 rounded-[2.5rem] p-8 border border-slate-100 dark:border-slate-800">
-                            <h3 class="text-xl font-black dark:text-white mb-6">Artikel <span
+                            class="bg-slate-50 dark:bg-slate-900/50 rounded-[2.5rem] p-6 border border-slate-100 dark:border-slate-800 mb-8">
+                            <h3 class="text-lg font-black dark:text-white mb-4">Artikel <span
                                     class="text-blue-600">Terkait</span></h3>
-                            <div class="space-y-6">
+                            <div class="space-y-4">
                                 @forelse ($relatedBlogs as $related)
-                                    <a href="{{ route('blog.show', [$related->slug]) }}" class="flex gap-4 group">
+                                    <a href="{{ route('blog.show', [$related->slug]) }}" class="flex gap-3 group">
                                         <div
-                                            class="w-16 h-16 bg-slate-200 dark:bg-slate-800 rounded-2xl flex-shrink-0 overflow-hidden">
+                                            class="w-12 h-12 bg-slate-200 dark:bg-slate-800 rounded-xl flex-shrink-0 overflow-hidden">
                                             <img src="{{ asset('storage/uploads/blog/' . $related->gambar) }}"
                                                 alt="{{ $related->judul }}"
                                                 class="w-full h-full object-cover group-hover:scale-110 transition-transform">
                                         </div>
                                         <div class="flex flex-col justify-center">
                                             <h5
-                                                class="text-sm font-bold dark:text-white group-hover:text-blue-600 transition-colors line-clamp-2 leading-tight">
+                                                class="text-xs font-bold dark:text-white group-hover:text-blue-600 transition-colors line-clamp-2 leading-snug">
                                                 {{ $related->judul }}
                                             </h5>
                                         </div>
@@ -187,19 +199,20 @@
 
                         {{-- CALL TO ACTION --}}
                         <div
-                            class="relative overflow-hidden p-8 rounded-[2.5rem] bg-gradient-to-br from-blue-600 to-indigo-700 text-white shadow-xl shadow-blue-500/20">
+                            class="relative overflow-hidden p-6 rounded-[2.5rem] bg-gradient-to-br from-blue-600 to-indigo-700 text-white shadow-xl shadow-blue-500/20">
                             <div class="relative z-10">
-                                <h4 class="text-2xl font-black mb-4">Siap Lamar Kerja?</h4>
-                                <p class="text-blue-100 text-sm mb-6 leading-relaxed">
-                                    Buat surat lamaran kerja profesional Anda dalam 2 menit. Gratis & Aman.
+                                <h4 class="text-xl font-black mb-2">Siap Lamar Kerja?</h4>
+                                <p class="text-blue-100 text-xs mb-4 leading-relaxed">
+                                    Buat surat lamaran kerja profesional Anda dalam 2 menit.
                                 </p>
                                 <a href="/pekerja/surat-lamaran"
-                                    class="block w-full text-center bg-white text-blue-600 py-4 rounded-2xl font-black hover:bg-blue-50 transition-colors">
+                                    class="block w-full text-center bg-white text-blue-600 py-3 rounded-xl text-xs font-black hover:bg-blue-50 transition-colors">
                                     Mulai Buat Sekarang
                                 </a>
                             </div>
                             <div class="absolute -top-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
                         </div>
+
                     </div>
                 </aside>
             </div>

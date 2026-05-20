@@ -62,7 +62,6 @@
                     ],
                 ],
                 'head' => [
-                    ['id' => 'kota', 'label' => 'Kota', 'targets' => ['kota-text'], 'default' => 'Kota'],
                     [
                         'id' => 'pt',
                         'label' => 'Nama Perusahaan',
@@ -182,16 +181,7 @@
                                 oninput="myFunction('{{ $field['id'] }}', '{{ $field['targets'][0] }}', '{{ $field['default'] }}')">
                         </div>
                     @endforeach
-                    <div>
-                        <div class="flex justify-between items-center">
-                            <label class="block text-sm font-medium text-gray-700">Tanggal dibuat</label>
-                            <button type="button" onclick="setHariIni()"
-                                class="text-xs text-blue-600 hover:underline">Gunakan hari ini</button>
-                        </div>
-                        <input type="date" id="tanggal"
-                            class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all"
-                            oninput="myFunction('tanggal', 'tanggal-text', getTanggalIndo())">
-                    </div>
+
                 </div>
 
                 <div id="pengawalan" class="tab-content hidden space-y-4">
@@ -324,9 +314,7 @@
                 </div>
 
                 <div class="p-8 flex-1 overflow-y-auto text-justify text-slate-800" style="line-height: 1.6;">
-                    <div class="jarak-paragraf text-left">
-                        <span id="kota-text"></span>, <span id="tanggal-text"></span>
-                    </div>
+
 
                     <div class="jarak-paragraf text-left mb-4">
                         Yth. HRD <span id="pt-text" class=" text-slate-900"></span><br>
