@@ -15,22 +15,28 @@
                         <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
                     </div>
 
-                    <div class="absolute bottom-0 left-0 p-8 md:p-16 max-w-3xl">
+                    <div class="absolute bottom-0 left-0 w-full p-6 sm:p-10 md:p-16 max-w-4xl z-10">
                         <span
-                            class="px-3 py-1 bg-blue-600 text-white text-xs font-bold rounded-full uppercase tracking-widest mb-4 inline-block">
+                            class="px-3 py-1 bg-blue-600 text-white text-[10px] md:text-xs font-bold rounded-full uppercase tracking-widest mb-3 inline-block shadow-sm">
                             {{ $featuredBlog->kategori }}
                         </span>
-                        <h2 class="text-xl md:text-5xl font-black text-white mb-4 leading-tight">
-                            {{ $featuredBlog->judul }}
+
+                        <h2
+                            class="text-xl sm:text-3xl md:text-5xl font-black text-white mb-3 md:mb-4 leading-tight tracking-tight drop-shadow-md">
+                            {{ Str::limit(strip_tags($featuredBlog->judul), 40) }}
                         </h2>
-                        <div class="text-slate-300 text-sm md:text-lg mb-6 line-clamp-2">
-                            {!! Str::limit(strip_tags($featuredBlog->konten), 160) !!}
+
+                        <div
+                            class="hidden md:block text-slate-200 text-base md:text-lg mb-6 line-clamp-2 max-w-2xl font-normal drop-shadow-sm">
+                            {!! Str::limit(strip_tags($featuredBlog->konten), 130) !!}
                         </div>
-                        {{-- LINK DENGAN 2 PARAMETER: KATEGORI & SLUG --}}
+
                         <a href="{{ route('blog.show', [$featuredBlog->slug]) }}"
-                            class="inline-flex items-center gap-2 text-white font-bold hover:gap-4 transition-all">
-                            Baca Selengkapnya <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            class="inline-flex items-center gap-2 text-white text-xs md:text-base font-bold backdrop-blur-sm  py-1.5 md:px-5 md:py-2.5 rounded-lg  transition-all group duration-300">
+                            <span>Baca Selengkapnya</span>
+                            <svg class="w-3.5 h-3.5 md:w-4 md:h-4 transform group-hover:translate-x-1.5 transition-transform duration-300"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
                                     d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                             </svg>
                         </a>
@@ -112,7 +118,7 @@
                                     </h4>
                                 </a>
                                 <p class="text-slate-500 dark:text-slate-400 text-sm mt-3 line-clamp-2">
-                                    {{ Str::limit(strip_tags($blog->konten), 100) }}
+                                    {!! Str::limit(strip_tags($blog->konten), 100) !!}
                                 </p>
                             </article>
                         @empty

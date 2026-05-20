@@ -54,7 +54,7 @@ class AiLokerController extends Controller
             "\"minimal_pendidikan\": \"Pilih salah satu sesuai teks: SMP atau SMA/SMK atau D3 atau S1/S2 atau Semua Jenjang\"," .
             "\"pengalaman\": \"Pilih salah satu: Fresh Graduate atau Minimal 1 Tahun atau Minimal 2 Tahun atau Minimal 3 Tahun\"," .
             // --- PERBAIKAN DI SINI ---
-            "\"deskripsi\": \"Tulis deskripsi Pekerjaan, lalu berikan detail lengkap di bawahnya dengan format terstruktur menggunakan baris baru (\\n) seperti berikut:\\n\\nInformasi Lowongan: [Nama Perusahaan & Wilayah]\\nInstansi: [Nama Instansi]\\nPosisi yang Dibuka: [Sebutkan semua posisi yang ada]\\nAlamat Kantor/Toko: [Alamat Lengkap]\\nCara Melamar: [Keterangan kirim berkas/email/subjek jika ada]\\nInfo Kontak HRD: [Nomor HP/WA jika ada]\"," .
+            "\"deskripsi\": \"Tulis Deskripsi Pekerjaan (Job Description), lalu berikan detail lengkap di bawahnya dengan format terstruktur menggunakan baris baru (\\n) seperti berikut:\\n\\nInformasi Lowongan: [Nama Perusahaan & Wilayah]\\nInstansi: [Nama Instansi]\\nPosisi yang Dibuka: [Sebutkan semua posisi yang ada]\\nAlamat Kantor/Toko: [Alamat Lengkap]\\nCara Melamar: [Keterangan kirim berkas/email/subjek jika ada]\\nInfo Kontak HRD: [Nomor HP/WA jika ada]\"," .
             // -------------------------
             "\"tugas\": [\"Tuliskan poin tugas berupa NAMA AKTIVITAS/AKSI SAJA (maksimal 4-6 kata per poin), TANPA kalimat penjelasan panjang di belakangnya. Jika tidak ada di gambar, karang tugas yang relevan. Contoh benar: 'Membuat konsep desain grafis', 'Mengelola aset media digital', 'Membuat layout cetak'. Contoh SALAH: 'Mengembangkan konsep desain kreatif untuk berbagai platform media digital dan cetak karena hal ini penting untuk perusahaan.'\"]," .
             "\"persyaratan\": [\"Syarat 1\", \"Syarat 2\"]," .
@@ -85,11 +85,17 @@ class AiLokerController extends Controller
             $result = $response->json();
 
             // Ambil teks dari response Gemini
-            $rawJson = $result['candidates'][0]['content']['parts'][0]['text'] ?? '';
+
 
             // [LOG 1] Catat respon mentah dari Gemini untuk memantau hasil generate awal
-            Log::info('Gemini Raw Response:', ['raw_text' => $rawJson]);
-
+            Log::info('Gemini HTTP Status Code: ' . $response->status());
+            if (!$response->successful()) {
+                Log::error('Gemini API Error Detail:', [
+                    'status' => $response->status(),
+                    'body' => $response->body() // Di sini akan kelihatan tulisan "RESOURCE_EXHAUSTED" kalau kena limit
+                ]);
+            }
+            $rawJson = $result['candidates'][0]['content']['parts'][0]['text'] ?? '';
             // PERBAIKAN: Deteksi dan potong kalau Gemini nakal dan tetap menyertakan backticks ```json
             if (preg_match('/```json\s*(.*?)\s*```/s', $rawJson, $matches)) {
                 $cleanedJson = $matches[1];
