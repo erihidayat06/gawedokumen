@@ -403,6 +403,7 @@
                         // Isi input text & textarea standar
                         document.querySelector('input[name="posisi"]').value = data.posisi || '';
                         document.querySelector('input[name="perusahaan"]').value = data.perusahaan || '';
+                        document.querySelector('input[name="deadline"]').value = data.deadline || '';
                         document.querySelector('textarea[name="alamat"]').value = data.alamat || '';
                         document.querySelector('input[name="gaji"]').value = data.gaji || '';
                         document.querySelector('textarea[name="deskripsi"]').value = data.deskripsi || '';
