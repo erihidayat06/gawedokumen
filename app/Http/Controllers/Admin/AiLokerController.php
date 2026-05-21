@@ -74,7 +74,7 @@ class AiLokerController extends Controller
         // Lakukan perulangan, jika salah satu key error/limit, ganti ke key berikutnya
         foreach ($apiKeys as $index => $apiKey) {
             try {
-                $url = "[https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=](https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=)" . $apiKey;
+                $url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" . $apiKey;
 
                 $response = Http::post($url, [
                     'contents' => [
