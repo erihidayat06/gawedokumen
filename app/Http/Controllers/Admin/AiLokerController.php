@@ -42,25 +42,23 @@ class AiLokerController extends Controller
         $url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" . $apiKey;
 
         // 2. Buat instruksi prompt seketat mungkin agar AI me-return JSON murni
-        $prompt = "Analisis gambar brosur lowongan kerja ini. Ekstrak informasinya dan kembalikan " .
-            "HANYA dalam format JSON murni tanpa markdown, tanpa tanda ```json. " .
-            "Jika informasi tidak ditemukan di gambar, kosongkan stringnya (\"\"). " .
-            "Format JSON harus tepat seperti struktur ini: " .
-            "{" .
-            "\"posisi\": \"Nama Posisi/Jabatan\"," .
-            "\"perusahaan\": \"Nama PT/Toko/Instansi\"," .
-            "\"alamat\": \"Alamat lengkap penempatan jika ada\"," .
-            "\"gaji\": \"Range gaji contoh: Rp 2.000.000 - Rp 2.500.000 atau kosongkan\"," .
-            "\"minimal_pendidikan\": \"Pilih salah satu sesuai teks: SMP atau SMA/SMK atau D3 atau S1/S2 atau Semua Jenjang\"," .
-            "\"pengalaman\": \"Pilih salah satu: Fresh Graduate atau Minimal 1 Tahun atau Minimal 2 Tahun atau Minimal 3 Tahun\"," .
-            // --- PERBAIKAN DI SINI ---
-            "\"deskripsi\": \"Tulis Deskripsi Pekerjaan (Job Description), lalu berikan detail lengkap di bawahnya dengan format terstruktur menggunakan baris baru (\\n) seperti berikut:\\n\\nInformasi Lowongan: [Nama Perusahaan & Wilayah]\\nInstansi: [Nama Instansi]\\nPosisi yang Dibuka: [Sebutkan semua posisi yang ada]\\nAlamat Kantor/Toko: [Alamat Lengkap]\\nCara Melamar: [Keterangan kirim berkas/email/subjek jika ada]\\nInfo Kontak HRD: [Nomor HP/WA jika ada]\"," .
-            // -------------------------
-            "\"tugas\": [\"Tuliskan poin tugas berupa NAMA AKTIVITAS/AKSI SAJA (maksimal 4-6 kata per poin), TANPA kalimat penjelasan panjang di belakangnya. Jika tidak ada di gambar, karang tugas yang relevan. Contoh benar: 'Membuat konsep desain grafis', 'Mengelola aset media digital', 'Membuat layout cetak'. Contoh SALAH: 'Mengembangkan konsep desain kreatif untuk berbagai platform media digital dan cetak karena hal ini penting untuk perusahaan.'\"]," .
-            "\"persyaratan\": [\"Syarat 1\", \"Syarat 2\"]," .
-            "\"no_wa\": \"Format angka saja diawali 628xxx jika ada\"," .
-            "\"email\": \"Alamat email hrd jika ada\"" .
-            "}";
+        $prompt = "Analisis gambar brosur lowongan kerja ini. Ekstrak informasinya dan kembalikan HANYA dalam format JSON murni tanpa markdown, tanpa tanda ```json. Jika informasi tidak ditemukan di gambar, kosongkan stringnya (\"\").
+
+            Format JSON harus tepat seperti struktur berikut:
+            {
+            \"posisi\": \"Nama Posisi/Jabatan\",
+            \"perusahaan\": \"Nama PT/Toko/Instansi\",
+            \"alamat\": \"Alamat lengkap penempatan jika ada\",
+            \"benefit\": [\"Tuliskan benefit dan fasilitas yang didapatkan\"],
+            \"gaji\": \"Range gaji contoh: Rp 2.000.000 - Rp 2.500.000 atau tuliskan indikasi gaji yang ada seperti UMR, atau kosongkan jika tidak ada teksnya\",
+            \"minimal_pendidikan\": \"Pilih salah satu yang paling sesuai dengan teks di gambar: SMP atau SMA/SMK atau D3 atau S1/S2 atau Semua Jenjang\",
+            \"pengalaman\": \"Pilih salah satu yang paling sesuai dengan teks di gambar: Fresh Graduate atau Minimal 1 Tahun atau Minimal 2 Tahun atau Minimal 3 Tahun\",
+            \"deskripsi\": \"[Tulis draf paragraf ringkas Deskripsi Pekerjaan / Job Description di sini]\\n\\nInformasi Lowongan: [Nama Perusahaan & Wilayah]\\nInstansi: [Nama Instansi]\\nPosisi yang Dibuka: [Sebutkan semua posisi yang ada]\\nAlamat Kantor/Toko: [Alamat Lengkap sesuai gambar]\\nCara Melamar: [Keterangan lengkap alur kirim berkas/email/syarat fisik cetak jika ada]\\nInfo Kontak HRD: [Nomor HP/WA jika ada]\",
+            \"tugas\": [\"Poin tugas berupa NAMA AKTIVITAS/AKSI SAJA (maksimal 4-6 kata per poin), TANPA kalimat penjelasan panjang di belakangnya. Jika tidak tertulis eksplisit di gambar, buatkan tugas logis yang relevan dengan posisi tersebut. Contoh: 'Membalas chat di sosial media', 'Mengunggah konten story dan feed'\"],
+            \"persyaratan\": [\"Tuliskan semua syarat, kualifikasi, dan berkas yang harus dikirim dalam bentuk array string terpisah per poin\"],
+            \"no_wa\": \"Format angka saja diawali 628xxx jika nomor WA ditemukan, jika tidak ada kosongkan\",
+            \"email\": \"Alamat email hrd jika ada, jika tidak ada kosongkan\"
+            }";
 
         try {
             // 3. Request ke API Gemini

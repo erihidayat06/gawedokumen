@@ -424,6 +424,18 @@
 
                         // Loop Isi Array Tugas Dinamis
                         if (data.tugas && data.tugas.length > 0) {
+                            const container = document.getElementById('benefit-container');
+                            container.innerHTML = '';
+                            data.tugas.forEach((itemText) => {
+                                const html = `<div class="input-group mb-2">
+                        <input type="text" name="benefit[]" class="form-control" value="${itemText}" required>
+                        <button class="btn btn-outline-danger remove-item" type="button"><i class="bi bi-trash"></i></button>
+                    </div>`;
+                                container.insertAdjacentHTML('beforeend', html);
+                            });
+                        }
+                        // Loop Isi Array Tugas Dinamis
+                        if (data.tugas && data.tugas.length > 0) {
                             const container = document.getElementById('tugas-container');
                             container.innerHTML = '';
                             data.tugas.forEach((itemText) => {
