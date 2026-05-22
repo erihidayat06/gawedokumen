@@ -13,6 +13,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\Pekerja\CvController;
 use App\Http\Controllers\Pekerja\SuratLamaranController;
 use App\Http\Controllers\Pekerja\KirimEmailController;
+use App\Http\Controllers\Pekerja\SuratResignController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Tools\GabungPdfController;
 use App\Http\Controllers\Tools\KompresGambarController;
@@ -87,6 +88,7 @@ Route::prefix('pekerja')->name('pekerja.')->group(function () {
     Route::get('/surat-lamaran', [SuratLamaranController::class, 'index'])->name('surat.lamaran');
     Route::get('/generate-cv', [CvController::class, 'index'])->name('generate.cv');
     Route::get('/kirim-lamaran-email', [KirimEmailController::class, 'index'])->name('kirim.lamaran.email');
+    Route::get('/surat-resign', [SuratResignController::class, 'index'])->name('surat.resign');
 });
 
 // POST untuk menerima form

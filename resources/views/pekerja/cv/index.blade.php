@@ -521,9 +521,8 @@
             </div>
 
 
-            <div id="panzoom-element" class="bg-white shadow-2xl origin-top flex flex-row"
-                style="width: 210mm; height: 297mm; min-width: 210mm; min-height: 297mm; font-size: 12pt; font-family: 'Arial';
-                    background-image: url('/img/cv/cv1.jpg'); background-size: cover; background-repeat: no-repeat;">
+            <div id="panzoom-element" class="bg-white shadow-2xl origin-top flex flex-row box-border"
+                style="width: 210mm; height: 297mm; min-width: 210mm; min-height: 297mm; font-size: 12pt; font-family: 'Arial'; background-image: url('/img/cv/cv1.jpg'); background-size: cover; background-repeat: no-repeat;">
 
                 <div class="w-[85mm] flex-shrink-0" style="padding: 10mm 0mm 10mm 10mm;">
 
@@ -609,11 +608,11 @@
                     </div>
                 </div>
 
-                <div class="flex-1" style="padding: 15mm 15mm 10mm 15mm; text-align: justify;">
+                <div class="flex-1" style="padding: 15mm 11mm 10mm 12mm; text-align: justify;">
 
-                    <div class="border-b-4 border-[#1d8bbe] pb-4">
+                    <div class="border-b-4 border-[#1d8bbe] pb-1">
                         <h1 class="text-[32pt] font-bold text-slate-800 leading-none" id="nama-text"></h1>
-                        <h2 class="text-[18pt] font-medium text-[#1d8bbe] tracking-[0.2em] uppercase mt-2"
+                        <h2 class="inline-block m-0 pb-[10px] text-[18pt] text-[#1d8bbe] tracking-[3px] uppercase font-medium mt-2"
                             id="profesi-text">
                         </h2>
                     </div>
@@ -1042,25 +1041,39 @@
                     const year = item.querySelector('.exp-year').value || 'Tahun';
                     const desc = item.querySelector('.exp-desc').value || 'Deskripsi...';
                     html = `
-                    <div class="mb-4">
-                        <div class="flex justify-between font-bold text-slate-800 text-[12pt]">
-                            <span>${title}</span>
-                            <span class="italic text-slate-500">${year}</span>
-                        </div>
-                        <p class="text-slate-600 mt-1 whitespace-pre-line text-[11pt]">${desc}</p>
-                    </div>`;
+                  <div class="mb-4">
+    <div class="flex flex-row justify-between items-start flex-nowrap gap-4 w-full">
+
+        <div class="min-w-0 flex-1 font-bold text-slate-800 text-[12pt] break-words">
+            ${title}
+        </div>
+
+        <div class="flex-shrink-0 text-right italic text-slate-500 text-[12pt] font-bold whitespace-nowrap">
+            ${year}
+        </div>
+    </div>
+
+    <p class="text-slate-600 mt-1 whitespace-pre-line text-[11pt]">${desc}</p>
+</div>`;
                 } else if (type === 'education') {
                     const school = item.querySelector('.edu-school').value || 'Nama Instansi';
                     const year = item.querySelector('.edu-year').value || 'Tahun';
                     const degree = item.querySelector('.edu-degree').value || 'Gelar';
                     html = `
-                    <div class="mb-4">
-                        <div class="flex justify-between font-bold text-slate-800 text-[12pt] ">
-                            <span>${school}</span>
-                            <span class="italic text-slate-500 w-[30%] text-end">${year}</span>
-                        </div>
-                        <div class="text-slate-700 text-[11pt]">${degree}</div>
-                    </div>`;
+                   <div class="mb-4">
+    <div class="flex flex-row justify-between items-start flex-nowrap gap-4 w-full">
+
+        <div class="min-w-0 flex-1 font-bold text-slate-800 text-[12pt] break-words">
+            ${school}
+        </div>
+
+        <div class="flex-shrink-0 text-right italic text-slate-500 text-[12pt] font-bold whitespace-nowrap">
+            ${year}
+        </div>
+    </div>
+
+    <div class="text-slate-700 mt-1 text-[11pt]">${degree}</div>
+</div>`;
                 } else if (type === 'skill') {
                     const skillName = item.querySelector('.skill-name').value || 'Nama Keahlian';
                     html = `

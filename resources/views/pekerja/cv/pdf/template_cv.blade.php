@@ -40,11 +40,14 @@
         /* Konten Utama (Kolom Kanan) */
         .main-content {
             vertical-align: top;
-            padding: 15mm 15mm 10mm 0;
-
+            padding: 10mm 10mm 10mm 0mm;
+            text-align: justify;
             position: relative;
             left: -15mm;
             /* Tarik paksa ke kiri */
+
+            /* Tambahkan ini untuk jarak antar baris teks */
+            line-height: 1.5;
         }
 
         .avatar-container {
@@ -120,13 +123,13 @@
         }
 
         .header-name .nama {
-            font-size: 32px;
+            font-size: 32pt;
             margin: 0px;
             font-weight: bold;
         }
 
         .header-name .posisi {
-            font-size: 16pt;
+            font-size: 17pt;
             color: #1d8bbe;
             letter-spacing: 3px;
             text-transform: uppercase;
@@ -398,27 +401,49 @@
 
                 <div class="section-title">Pengalaman Kerja</div>
                 @foreach ($experience as $exp)
-                    <div class="list-item">
-                        <table class="item-header-table">
-                            <tr>
-                                <td class="item-title">{{ $exp['jabatan'] }}</td>
-                                <td class="item-year">{{ $exp['tahun'] }}</td>
-                            </tr>
-                        </table>
-                        <div class="list-item-desc">{{ $exp['deskripsi'] }}</div>
+                    <div class="list-item" style="margin-bottom: 15px; width: 100%;">
+                        <div class="item-header" style="display: table; width: 100%;">
+
+                            <div class="item-title"
+                                style="display: table-cell; vertical-align: top; font-weight: bold; color: #1e293b; font-size: 12pt; word-wrap: break-word; padding-right: 15px;">
+                                {{ $exp['jabatan'] }}
+                            </div>
+
+                            <div class="item-year"
+                                style="display: table-cell; vertical-align: top; text-align: right; width: 1%; white-space: nowrap; font-style: italic; color: #64748b; font-size: 12pt; font-weight: bold;">
+                                {{ $exp['tahun'] }}
+                            </div>
+
+                        </div>
+
+                        <div class="list-item-desc"
+                            style="margin-top: 4px; color: #475569; font-size: 11pt; white-space: pre-line;">
+                            {{ $exp['deskripsi'] }}
+                        </div>
                     </div>
                 @endforeach
 
                 <div class="section-title">Pendidikan</div>
                 @foreach ($pendidikan as $edu)
-                    <div class="list-item">
-                        <table style="width: 100%; border-collapse: collapse;">
-                            <tr>
-                                <td class="list-item-title">{{ $edu['instansi'] }}</td>
-                                <td class="list-item-year">{{ $edu['tahun'] }} </td>
-                            </tr>
-                        </table>
-                        <div class="list-item-sub">{{ $edu['gelar'] }}</div>
+                    <div class="list-item" style="margin-bottom: 15px; width: 100%;">
+                        <div class="item-header" style="display: table; width: 100%; line-height: 1.4;">
+
+                            <div class="list-item-title"
+                                style="display: table-cell; vertical-align: top; font-weight: bold; color: #1e293b; font-size: 12pt; word-wrap: break-word; padding-right: 15px;">
+                                {{ $edu['instansi'] }}
+                            </div>
+
+                            <div class="list-item-year"
+                                style="display: table-cell; vertical-align: top; text-align: right; width: 1%; white-space: nowrap; font-style: italic; color: #64748b; font-size: 12pt; font-weight: bold;">
+                                {{ $edu['tahun'] }}
+                            </div>
+
+                        </div>
+
+                        <div class="list-item-sub"
+                            style="margin-top: 4px; color: #475569; font-size: 11pt; line-height: 1.4;">
+                            {{ $edu['gelar'] }}
+                        </div>
                     </div>
                 @endforeach
             </td>
