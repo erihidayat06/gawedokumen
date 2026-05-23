@@ -595,7 +595,7 @@
       "addressCountry": "ID"
     }
   }
-  @if($loker->gaji && is_numeric($loker->gaji))
+  @if($loker->gaji)
   ,"baseSalary": {
     "@type": "MonetaryAmount",
     "currency": "IDR",
