@@ -595,17 +595,38 @@
       "addressCountry": "ID"
     }
   }
-  @if($loker->gaji)
+@if($loker->gaji && trim($loker->gaji) !== '-')
+  @php
+    // 1. Bersihkan semua karakter selain angka dan tanda strip (-)
+    $gaji_clean = preg_replace('/[^0-9-]/', '', $loker->gaji);
+
+    // 2. Pecah string berdasarkan tanda strip (-) dan buang array yang kosong
+    $salary_parts = array_values(array_filter(explode('-', $gaji_clean)));
+
+    // Ambil angka pertama sebagai nilai minimum
+    $min_salary = !empty($salary_parts) ? (int)$salary_parts[0] : 0;
+    // Ambil angka terakhir sebagai nilai maksimum (jagam-jaga jika ada rentang)
+    $max_salary = count($salary_parts) > 1 ? (int)end($salary_parts) : 0;
+  @endphp
+
+  {{-- Hanya merender baseSalary jika berhasil mendapatkan angka di atas 0 --}}
+  @if($min_salary > 0)
   ,"baseSalary": {
     "@type": "MonetaryAmount",
     "currency": "IDR",
     "value": {
       "@type": "QuantitativeValue",
-      "value": {{ $loker->gaji }},
+      @if($max_salary > $min_salary)
+        "minValue": {{ $min_salary }},
+        "maxValue": {{ $max_salary }},
+      @else
+        "value": {{ $min_salary }},
+      @endif
       "unitText": "MONTH"
     }
   }
   @endif
+@endif
 }
 </script>
 @endpush
