@@ -89,7 +89,7 @@ class AdminLokerController extends Controller
         // 3. Generate Slug SEO otomatis
         app()->setLocale('id');
         $bulan = \Carbon\Carbon::now()->translatedFormat('F Y');
-        $data['slug'] = \Illuminate\Support\Str::slug($request->posisi . ' ' . $request->kecamatan . ' ' . $request->kota . ' ' . $bulan);
+        $data['slug'] = \Illuminate\Support\Str::slug($request->posisi . '' . $request->perusahaan . ' ' . $request->kecamatan . ' ' . $request->kota . ' ' . $bulan);
 
         // 4. Simpan ke Database
         $loker = \App\Models\Loker::create($data);
