@@ -106,6 +106,63 @@
 
     @stack('scripts')
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            function updateLiveAgeCounter() {
+                // Set tanggal awal: 17 April 2026 jam 00:00:00
+                const startDate = new Date("2026-04-17T00:00:00");
+                const endDate = new Date(); // Waktu saat ini (berjalan mengikuti jam komputer user)
+
+                // Jika waktu saat ini belum melewati tanggal awal
+                if (endDate < startDate) {
+                    document.getElementById("age-display").innerText = "Belum Dimulai";
+                    return;
+                }
+
+                // 1. Hitung Selisih Kalender (Tahun, Bulan, Hari)
+                let years = endDate.getFullYear() - startDate.getFullYear();
+                let months = endDate.getMonth() - startDate.getMonth();
+                let days = endDate.getDate() - startDate.getDate();
+
+                if (days < 0) {
+                    months--;
+                    const previousMonth = new Date(endDate.getFullYear(), endDate.getMonth(), 0);
+                    days += previousMonth.getDate();
+                }
+
+                if (months < 0) {
+                    years--;
+                    months += 12;
+                }
+
+                // 2. Hitung Sisa Waktu Aktif Hari Ini (Jam, Menit, Detik)
+                let hours = endDate.getHours();
+                let minutes = endDate.getMinutes();
+                let seconds = endDate.getSeconds();
+
+                // Format angka agar selalu 2 digit (misal: 05 menit, 09 detik)
+                hours = String(hours).padStart(2, '0');
+                minutes = String(minutes).padStart(2, '0');
+                seconds = String(seconds).padStart(2, '0');
+
+                // 3. Rangkai Teks Output
+                let outputText = "";
+                if (years > 0) outputText += `${years} Thn `;
+                if (months > 0 || years > 0) outputText += `${months} Bln `;
+                outputText += `${days} Hari - ${hours}:${minutes}:${seconds}`;
+
+                // Inject hasil ke element HTML
+                document.getElementById("age-display").innerText = outputText;
+            }
+
+            // Jalankan fungsi pertama kali saat page load
+            updateLiveAgeCounter();
+
+            // Paksa fungsi berjalan otomatis setiap 1 detik (1000 milidetik)
+            setInterval(updateLiveAgeCounter, 1000);
+        });
+    </script>
+
 </body>
 
 </html>
