@@ -56,6 +56,12 @@ class HomeController extends Controller
                     'deskripsi' => 'Rancang kalimat pengantar (Cover Letter) email lamaran kerja resmi standar HRD 2026.',
                     'route_path' => '/pekerja/kirim-lamaran-email' // Jangan lupa sesuaikan route jika nanti dipisah
                 ],
+                (object)[
+                    'gambar' => '/img/surat_resign.png', // Ganti nama file gambar khusus Email Mockup
+                    'nama_tool' => 'Surat Pengunduran Diri (Resign)',
+                    'deskripsi' => 'Rancang surat resign kerja resmi, sopan, dan profesional standar HRD 2026 untuk menjaga reputasi karier Anda.',
+                    'route_path' => route('pekerja.surat.resign') // Jangan lupa sesuaikan route jika nanti dipisah
+                ],
             ],
             // 'masyarakat' => [
             //     (object)[

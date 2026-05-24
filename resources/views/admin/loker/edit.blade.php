@@ -133,11 +133,6 @@
                                     <textarea name="deskripsi" class="form-control" rows="4">{{ old('deskripsi', $loker->deskripsi) }}</textarea>
                                 </div>
 
-                                <div class="col-12">
-                                    <label class="form-label fw-semibold">Alamat Lengkap</label>
-                                    <textarea name="alamat" class="form-control" rows="2" placeholder="Jl. Raya No. 123...">{{ old('alamat', $loker->alamat) }}</textarea>
-                                </div>
-
                                 {{-- Tambahan Minimal Pendidikan & Pengalaman untuk Edit --}}
                                 <div class="col-md-6 mt-3">
                                     <label class="form-label fw-semibold">Minimal Pendidikan</label>

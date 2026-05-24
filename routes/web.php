@@ -89,6 +89,9 @@ Route::prefix('pekerja')->name('pekerja.')->group(function () {
     Route::get('/generate-cv', [CvController::class, 'index'])->name('generate.cv');
     Route::get('/kirim-lamaran-email', [KirimEmailController::class, 'index'])->name('kirim.lamaran.email');
     Route::get('/surat-resign', [SuratResignController::class, 'index'])->name('surat.resign');
+    Route::post('/surat-resign', [SuratResignController::class, 'generatePdf'])->name('surat.resign.pdf');
+    Route::get('/preview-surat-resign', [SuratResignController::class, 'previewPdf'])
+        ->name('surat.resign.pdf.preview');
 });
 
 // POST untuk menerima form

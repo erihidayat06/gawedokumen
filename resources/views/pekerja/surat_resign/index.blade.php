@@ -12,27 +12,23 @@
         </span>
 
         <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-            Rancang Surat Lamaran <span class="text-blue-600">Profesional</span>
+            Rancang Surat Resign <span class="text-blue-600">Profesional</span>
         </h1>
 
         <div class="mt-3 max-w-2xl mx-auto">
             <p class="text-base text-slate-600 dark:text-slate-400 leading-relaxed">
-                Mudah, cepat, dan sesuai standar HRD. Isi formulir di bawah, dan biarkan <span
-                    class="font-semibold italic">Gawe Dokument</span> mengerjakan sisanya untuk Anda.
+                Mudah, cepat, dan tetap menjaga reputasi baik Anda. Isi formulir di bawah, dan biarkan <span
+                    class="font-semibold italic">Gawe Dokumen</span> mengerjakan sisanya untuk Anda.
             </p>
         </div>
-
-
 
         <div class="mt-4 flex justify-center items-center space-x-2 text-sm text-slate-400 italic">
             <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
                 <path
                     d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
             </svg>
-            <span>Kami mendoakan kesuksesan karir Anda di tempat tujuan.</span>
+            <span>Kami mendoakan kesuksesan dan keberkahan untuk langkah karier Anda selanjutnya.</span>
         </div>
-
-
 
         <div class="mt-6 w-24 h-1 bg-blue-600 mx-auto rounded-full opacity-20"></div>
     </div>
@@ -78,16 +74,16 @@
                         'default' => 'Nama Lengkap',
                     ],
                     [
-                        'id' => 'jabatan',
-                        'label' => 'Jabatan / Posisi Terakhir',
-                        'targets' => ['jabatan-text', 'jabatan2-text'],
-                        'default' => 'Staff / Karyawan',
-                    ],
-                    [
                         'id' => 'nomor-induk',
                         'label' => 'NIK / Nomor Induk Karyawan',
                         'targets' => ['nik-text'],
                         'default' => '123456789',
+                    ],
+                    [
+                        'id' => 'jabatan',
+                        'label' => 'Jabatan / Posisi Terakhir',
+                        'targets' => ['jabatan-text', 'jabatan2-text'],
+                        'default' => 'Staff / Karyawan',
                     ],
                     [
                         'id' => 'departemen',
@@ -303,7 +299,7 @@
                 </div>
 
                 <div class="jarak-paragraf text-left mb-1">Perihal: Permohonan Pengunduran Diri (Resign)</div>
-                <div class="jarak-paragraf text-left mb-6">Lampiran: -</div>
+
 
                 <div class="jarak-paragraf text-left mb-6">
                     Kepada Yth,<br>
@@ -330,17 +326,17 @@
                         <tr class="h-7">
                             <td>NIK Karyawan</td>
                             <td>&nbsp;:&nbsp;</td>
-                            <td><span id="nik-text">123456789</span></td>
+                            <td><span id="nik-text"></span></td>
                         </tr>
                         <tr class="h-7">
                             <td>Jabatan / Posisi</td>
                             <td>&nbsp;:&nbsp;</td>
-                            <td><span id="jabatan-text">Staff / Karyawan</span></td>
+                            <td><span id="jabatan-text">n</span></td>
                         </tr>
                         <tr class="h-7">
                             <td>Departemen</td>
                             <td>&nbsp;:&nbsp;</td>
-                            <td><span id="departemen-text">Operational</span></td>
+                            <td><span id="departemen-text"></span></td>
                         </tr>
                     </table>
                 </div>
@@ -406,19 +402,21 @@
     <article class="mt-12 border-t border-slate-100 dark:border-slate-800 pt-10 px-5">
         <div class="max-w-3xl mx-auto">
             <h2 class="text-2xl md:text-3xl font-black text-slate-900 dark:text-white mb-8 leading-tight text-center">
-                Bagaimana Cara Membuat Surat Lamaran Kerja di GaweDokumen & Tips Mengisinya
+                Bagaimana Cara Membuat Surat Resign di GaweDokumen & Tips Mengisinya
             </h2>
 
             <div class="space-y-8 text-slate-600 dark:text-slate-400 leading-relaxed">
                 <div class="space-y-4">
                     <p>
-                        Membuat surat lamaran kerja profesional kini hanya butuh hitungan menit. Di
-                        <strong>GaweDokumen</strong>, kami sudah menyediakan struktur standar HRD 2026. Anda cukup
-                        memasukkan data diri, posisi yang dilamar, dan pengalaman singkat.
+                        Membuat surat pengunduran diri kerja resmi kini hanya butuh hitungan menit. Di
+                        <strong>GaweDokumen</strong>, kami sudah menyediakan struktur standar tata bahasa formal dan sopan.
+                        Anda cukup
+                        memasukkan data diri, posisi saat ini, tanggal efektif keluar, serta alasan pengunduran diri secara
+                        profesional.
                     </p>
                     <p>
-                        Isilah form dengan teliti sesuai data diri Anda. Setiap teks yang Anda masukkan akan otomatis muncul
-                        pada <strong>preview dokumen</strong> secara real-time. Demi keamanan, data Anda hanya akan
+                        Isilah form dengan teliti sesuai kondisi Anda. Setiap teks yang Anda masukkan akan otomatis muncul
+                        pada <strong>preview dokumen</strong> secara real-time. Demi keamanan, data sensitif Anda hanya akan
                         tersimpan di dalam browser (Local Storage) dan <strong>tidak akan pernah dikirim ke server
                             kami</strong>.
                     </p>
@@ -428,47 +426,47 @@
                     <div>
                         <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">1. Font (Gaya Tulisan)</h3>
                         <p>
-                            Pilih gaya tulisan yang sesuai dengan karakter dokumen Anda. Untuk kesan yang lebih formal dan
-                            standar industri di Indonesia, kami sangat menyarankan menggunakan font <strong>Times New
-                                Roman</strong>.
+                            Pilih gaya tulisan yang sesuai dengan karakter dokumen resmi. Untuk dokumen formal atau
+                            administrasi legal di Indonesia, kami menyarankan menggunakan tipe font serif seperti
+                            <strong>Times New Roman</strong> atau sans-serif standar industri seperti
+                            <strong>Arial</strong>.
                         </p>
                     </div>
 
                     <div>
                         <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">2. Head (Bagian Atas)</h3>
                         <p>
-                            Isi <strong>Kota</strong> tempat Anda membuat surat dan <strong>Tanggal</strong> pembuatan. Anda
-                            bisa klik tombol <span class="text-blue-600 font-medium">"Gunakan hari ini"</span> untuk
-                            pengisian otomatis. Masukkan juga nama dan alamat lengkap perusahaan tujuan. Nama perusahaan
-                            yang Anda input di sini akan otomatis sinkron ke bagian isi surat agar Anda tidak perlu menulis
-                            berulang kali.
+                            Isi <strong>Kota</strong> tempat Anda berdomisili atau menandatangani surat beserta
+                            <strong>Tanggal</strong> dokumen diterbitkan. Gunakan tombol <span
+                                class="text-blue-600 font-medium">"Gunakan hari ini"</span> untuk pengisian instan.
+                            Cantumkan nama PT, alamat kantor, serta kota perusahaan secara akurat sesuai kontrak kerja Anda.
                         </p>
                     </div>
 
                     <div>
-                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">3. Data Diri</h3>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">3. Profil & Data Diri</h3>
                         <p>
-                            Masukkan informasi personal Anda dengan lengkap mulai dari Nama, Alamat, hingga kontak yang bisa
-                            dihubungi. Pastikan tidak ada kesalahan ketik pada nomor telepon dan email agar HRD mudah
-                            menghubungi Anda.
+                            Masukkan detail posisi pekerjaan saat ini beserta Nomor Induk Karyawan (NIK) jika ada. Mengisi
+                            NIK Karyawan sangat membantu tim HRD memvalidasi file kepegawaian Anda di database internal
+                            perusahaan dengan lebih cepat tanpa tertukar.
                         </p>
                     </div>
 
                     <div>
-                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">4. Lampiran</h3>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">4. Tanggal Efektif & Alasan</h3>
                         <p>
-                            Sebutkan dokumen apa saja yang Anda sertakan dalam lamaran ini (misal: CV, Ijazah, atau
-                            Portofolio). Gunakan tanda koma atau baris baru agar daftar lampiran terlihat rapi di dokumen
-                            final.
+                            Tentukan tanggal hari terakhir Anda bekerja secara jelas (biasanya mengacu pada kebijakan <i>One
+                                Month Notice</i>). Sampaikan alasan secara diplomatis, sopan, dan ringkas. Hindari menulis
+                            curhatan negatif mengenai lingkungan kerja lama pada dokumen fisik surat resign Anda.
                         </p>
                     </div>
 
                     <div>
-                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">5. Tanda Tangan</h3>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">5. Tanda Tangan Digital</h3>
                         <p>
-                            Bagian akhir adalah penutup dan nama terang. Nama Anda akan otomatis muncul di bawah kolom tanda
-                            tangan. Setelah semua data terisi, Anda bisa langsung mengunduh dokumen dalam format PDF yang
-                            siap cetak.
+                            Pilih perataan letak tanda tangan (Kiri, Tengah, atau Kanan) sesuai dengan kebiasaan format di
+                            perusahaan Anda. Setelah mengunggah berkas foto tanda tangan, Anda bisa langsung mengunduh hasil
+                            jadinya dalam format PDF siap cetak.
                         </p>
                     </div>
                 </div>
@@ -481,417 +479,418 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
-                        Tips Biar Dilirik HRD:
+                        Tips Resign yang Elegan & Profesional:
                     </h3>
                     <ul class="list-disc pl-5 space-y-3 text-sm text-blue-800/80 dark:text-blue-200/80">
-                        <li><strong>Fokus pada Solusi:</strong> Jelaskan bagaimana skill Anda bisa menyelesaikan masalah
-                            atau membantu target perusahaan.</li>
-                        <li><strong>Gunakan Kata Kerja Aktif:</strong> Gunakan kata seperti "Meningkatkan", "Mengelola",
-                            atau "Membangun" untuk menunjukkan inisiatif.</li>
-                        <li><strong>Cek Typo:</strong> Teliti kembali sebelum download. Surat yang bersih dari salah ketik
-                            menunjukkan profesionalisme dan ketelitian Anda.</li>
+                        <li><strong>Tetap Jaga Hubungan Baik:</strong> Gunakan kalimat ucapan terima kasih atas bimbingan,
+                            ilmu, dan kesempatan kerja yang pernah diberikan oleh manajemen selama ini.</li>
+                        <li><strong>Gunakan Aturan Waktu yang Tepat:</strong> Ajukan surat resign ini idealnya 30 hari
+                            sebelum tanggal efektif keluar (One Month Notice) agar perusahaan sempat mencari pengganti
+                            posisi Anda.</li>
+                        <li><strong>Tinjau Keaslian Dokumen:</strong> Cek kembali penulisan nama lengkap, NIK karyawan, dan
+                            nama perusahaan. Surat bebas typo mencerminkan integritas profesional Anda hingga hari terakhir
+                            bekerja.</li>
                     </ul>
                 </div>
             </div>
         </div>
-    </article>
+        </< /article>
 
-    {{-- FAQ KHUSUS SURAT LAMARAN --}}
-    <section class="mt-20 border-t border-slate-100 dark:border-slate-800 pt-16 px-5">
-        <div class="max-w-3xl mx-auto">
-            <h2 class="text-2xl font-black text-slate-900 dark:text-white mb-8 text-center">
-                Pertanyaan Seputar <span class="text-blue-600">Surat Lamaran</span>
-            </h2>
+        {{-- FAQ KHUSUS SURAT RESIGN --}}
+        <section class="mt-20 border-t border-slate-100 dark:border-slate-800 pt-16 px-5">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="text-2xl font-black text-slate-900 dark:text-white mb-8 text-center">
+                    Pertanyaan Seputar <span class="text-blue-600">Surat Pengunduran Diri</span>
+                </h2>
 
-            <div class="space-y-4" x-data="{ active: null }">
+                <div class="space-y-4" x-data="{ active: null }">
 
-                {{-- Item 1 --}}
-                <div class="rounded-3xl border border-slate-100 dark:border-slate-800 overflow-hidden">
-                    <button @click="active !== 1 ? active = 1 : active = null"
-                        class="flex items-center justify-between w-full p-6 text-left bg-slate-50 dark:bg-slate-900/50 hover:bg-white dark:hover:bg-slate-900 transition-all">
-                        <span class="font-bold text-slate-900 dark:text-white">Apakah format surat ini sudah ramah sistem
-                            ATS?</span>
-                        <svg class="w-5 h-5 transition-transform" :class="active === 1 ? 'rotate-180' : ''" fill="none"
-                            stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
-                            </path>
-                        </svg>
-                    </button>
-                    <div x-show="active === 1" x-collapse
-                        class="p-6 text-sm text-slate-600 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800">
-                        Ya. Kami menggunakan struktur teks bersih dan font standar seperti Times New Roman atau Arial yang
-                        sangat mudah dibaca oleh sistem ATS (Applicant Tracking System) perusahaan besar.
+                    {{-- Item 1 --}}
+                    <div class="rounded-3xl border border-slate-100 dark:border-slate-800 overflow-hidden">
+                        <button @click="active !== 1 ? active = 1 : active = null"
+                            class="flex items-center justify-between w-full p-6 text-left bg-slate-50 dark:bg-slate-900/50 hover:bg-white dark:hover:bg-slate-900 transition-all">
+                            <span class="font-bold text-slate-900 dark:text-white">Mengapa saya wajib mencantumkan NIK
+                                Karyawan?</span>
+                            <svg class="w-5 h-5 transition-transform" :class="active === 1 ? 'rotate-180' : ''"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                                </path>
+                            </svg>
+                        </button>
+                        <div x-show="active === 1" x-collapse
+                            class="p-6 text-sm text-slate-600 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800">
+                            Mencantumkan NIK Karyawan berfungsi untuk mempercepat proses administrasi tim HRD dalam
+                            mencocokkan data profil kerja Anda dengan sistem payroll, pencabutan BPJS Ketenagakerjaan,
+                            maupun dalam penerbitan Surat Pengalaman Kerja (Paklaring).
+                        </div>
                     </div>
-                </div>
 
-                {{-- Item 2 --}}
-                <div class="rounded-3xl border border-slate-100 dark:border-slate-800 overflow-hidden">
-                    <button @click="active !== 2 ? active = 2 : active = null"
-                        class="flex items-center justify-between w-full p-6 text-left bg-slate-50 dark:bg-slate-900/50 hover:bg-white dark:hover:bg-slate-900 transition-all">
-                        <span class="font-bold text-slate-900 dark:text-white">Bolehkah saya mengosongkan bagian
-                            lampiran?</span>
-                        <svg class="w-5 h-5 transition-transform" :class="active === 2 ? 'rotate-180' : ''" fill="none"
-                            stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
-                            </path>
-                        </svg>
-                    </button>
-                    <div x-show="active === 2" x-collapse
-                        class="p-6 text-sm text-slate-600 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800">
-                        Boleh. Jika Anda mengirim lamaran via email dan dokumen sudah digabung menjadi satu PDF, Anda bisa
-                        mengosongkan bagian lampiran atau cukup menuliskan "Dokumen Pendukung" saja.
+                    {{-- Item 2 --}}
+                    <div class="rounded-3xl border border-slate-100 dark:border-slate-800 overflow-hidden">
+                        <button @click="active !== 2 ? active = 2 : active = null"
+                            class="flex items-center justify-between w-full p-6 text-left bg-slate-50 dark:bg-slate-900/50 hover:bg-white dark:hover:bg-slate-900 transition-all">
+                            <span class="font-bold text-slate-900 dark:text-white">Kapan waktu terbaik menyerahkan surat
+                                resign ini?</span>
+                            <svg class="w-5 h-5 transition-transform" :class="active === 2 ? 'rotate-180' : ''"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                                </path>
+                            </svg>
+                        </button>
+                        <div x-show="active === 2" x-collapse
+                            class="p-6 text-sm text-slate-600 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800">
+                            Umumnya surat diserahkan 30 hari (1 bulan) sebelum hari terakhir Anda bekerja aktif. Namun,
+                            pastikan kembali untuk membaca rincian klausul pemutusan hubungan kerja yang tertera di surat
+                            kontrak kerja (PKWT/PKWTT) Anda masing-masing.
+                        </div>
                     </div>
-                </div>
 
-                {{-- Item 3 yang sudah diupdate sesuai fitur upload --}}
-                <div class="rounded-3xl border border-slate-100 dark:border-slate-800 overflow-hidden">
-                    <button @click="active !== 3 ? active = 3 : active = null"
-                        class="flex items-center justify-between w-full p-6 text-left bg-slate-50 dark:bg-slate-900/50 hover:bg-white dark:hover:bg-slate-900 transition-all">
-                        <span class="font-bold text-slate-900 dark:text-white">Bagaimana cara memasukkan tanda tangan
-                            saya?</span>
-                        <svg class="w-5 h-5 transition-transform" :class="active === 3 ? 'rotate-180' : ''" fill="none"
-                            stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
-                            </path>
-                        </svg>
-                    </button>
-                    <div x-show="active === 3" x-collapse
-                        class="p-6 text-sm text-slate-600 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800">
-                        Anda bisa langsung mengunggah foto tanda tangan (format .png atau .jpg) melalui input yang tersedia.
-                        Sistem akan otomatis menempatkannya di atas nama terang Anda. <strong>Tips:</strong> Gunakan foto
-                        tanda tangan di atas kertas putih polos dengan pencahayaan yang terang agar hasilnya terlihat
-                        natural seperti tanda tangan basah.
+                    {{-- Item 3 --}}
+                    <div class="rounded-3xl border border-slate-100 dark:border-slate-800 overflow-hidden">
+                        <button @click="active !== 3 ? active = 3 : active = null"
+                            class="flex items-center justify-between w-full p-6 text-left bg-slate-50 dark:bg-slate-900/50 hover:bg-white dark:hover:bg-slate-900 transition-all">
+                            <span class="font-bold text-slate-900 dark:text-white">Bagaimana cara memasukkan gambar tanda
+                                tangan saya?</span>
+                            <svg class="w-5 h-5 transition-transform" :class="active === 3 ? 'rotate-180' : ''"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                                </path>
+                            </svg>
+                        </button>
+                        <div x-show="active === 3" x-collapse
+                            class="p-6 text-sm text-slate-600 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800">
+                            Anda bisa mengunggah file gambar tanda tangan berformat .png atau .jpg melalui panel input yang
+                            tersedia. <strong>Tips Hasil Maksimal:</strong> Tanda tanganlah di atas kertas putih bersih yang
+                            polos dengan tinta pulpen tebal (hitam/biru), lalu foto di ruangan terang agar warna latar
+                            belakang kertasnya serasi saat menyatu dengan PDF template.
+                        </div>
                     </div>
+
                 </div>
-
             </div>
-        </div>
-    </section>
+        </section>
 
-    <div id="printAdModal"
-        class="fixed inset-0 z-[999] hidden flex items-center justify-center bg-slate-900/90 backdrop-blur-md p-4">
-        <div
-            class="bg-white dark:bg-slate-900 w-full max-w-md rounded-[2.5rem] p-8 shadow-2xl border border-slate-100 dark:border-slate-800">
-
-            <div id="loadingState" class="text-center mb-6">
-                <div
-                    class="w-14 h-14 border-4 border-emerald-100 border-t-emerald-600 rounded-full animate-spin mx-auto mb-4">
-                </div>
-                <h3 class="text-xl font-black dark:text-white">Menyiapkan Dokumen...</h3>
-                <p class="text-sm text-slate-500">Mohon tunggu sebentar</p>
-            </div>
-
-            <div id="readyState" class="hidden text-center mb-6">
-                <div
-                    class="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                </div>
-                <h3 class="text-xl font-black dark:text-white">Dokumen Siap!</h3>
-                <p class="text-sm text-slate-500">Silakan klik tombol di bawah</p>
-            </div>
-
+        <div id="printAdModal"
+            class="fixed inset-0 z-[999] hidden flex items-center justify-center bg-slate-900/90 backdrop-blur-md p-4">
             <div
-                class="my-6 min-h-[250px] bg-slate-50 dark:bg-slate-800/50 rounded-3xl border border-dashed border-slate-200 dark:border-slate-700 flex flex-col items-center justify-center p-4">
-                <span class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-2">Advertisement</span>
-                <div class="text-slate-300 italic text-xs text-center">
-                    {{-- Taruh Script Iklan AdSense Kamu Di Sini --}}
-                    Iklan Display akan muncul di area ini
+                class="bg-white dark:bg-slate-900 w-full max-w-md rounded-[2.5rem] p-8 shadow-2xl border border-slate-100 dark:border-slate-800">
+
+                <div id="loadingState" class="text-center mb-6">
+                    <div
+                        class="w-14 h-14 border-4 border-emerald-100 border-t-emerald-600 rounded-full animate-spin mx-auto mb-4">
+                    </div>
+                    <h3 class="text-xl font-black dark:text-white">Menyiapkan Dokumen...</h3>
+                    <p class="text-sm text-slate-500">Mohon tunggu sebentar</p>
+                </div>
+
+                <div id="readyState" class="hidden text-center mb-6">
+                    <div
+                        class="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-black dark:text-white">Dokumen Siap!</h3>
+                    <p class="text-sm text-slate-500">Silakan klik tombol di bawah</p>
+                </div>
+
+                <div
+                    class="my-6 min-h-[250px] bg-slate-50 dark:bg-slate-800/50 rounded-3xl border border-dashed border-slate-200 dark:border-slate-700 flex flex-col items-center justify-center p-4">
+                    <span class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-2">Advertisement</span>
+                    <div class="text-slate-300 italic text-xs text-center">
+                        {{-- Taruh Script Iklan AdSense Kamu Di Sini --}}
+                        Iklan Display akan muncul di area ini
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-3">
+                    <button id="btnRealPrint" disabled
+                        class="w-full py-4 bg-slate-200 text-slate-400 font-bold rounded-2xl transition-all cursor-not-allowed flex items-center justify-center gap-1">
+                        <span id="btnText">Tunggu</span>
+                        <span id="adTimerSpan"><span id="adTimer">5</span>s</span>
+                    </button>
+                    <button onclick="closeAdModal()"
+                        class="text-sm font-bold text-slate-400 hover:text-red-500 transition-colors">
+                        Batal
+                    </button>
                 </div>
             </div>
-
-            <div class="flex flex-col gap-3">
-                <button id="btnRealPrint" disabled
-                    class="w-full py-4 bg-slate-200 text-slate-400 font-bold rounded-2xl transition-all cursor-not-allowed flex items-center justify-center gap-1">
-                    <span id="btnText">Tunggu</span>
-                    <span id="adTimerSpan"><span id="adTimer">5</span>s</span>
-                </button>
-                <button onclick="closeAdModal()"
-                    class="text-sm font-bold text-slate-400 hover:text-red-500 transition-colors">
-                    Batal
-                </button>
-            </div>
         </div>
-    </div>
 
 
 
 
-    <style>
-        /* Font standar untuk dokumen formal */
-        .font-serif {
-            font-family: "Times New Roman", Times, serif;
-        }
-
-        .font-sans {
-            font-family: ui-sans-serif, system-ui, sans-serif;
-        }
-
-        .font-mono {
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-        }
-
-        .font-georgia {
-            font-family: Georgia, serif;
-        }
-
-        /* Utility agar spasi antar baris di kertas terlihat rapi */
-        .jarak-paragraf {
-            margin-bottom: 1rem;
-            line-height: 1.6;
-        }
-    </style>
-@endsection
-
-@push('scripts')
-    <script src="/js/gawedokumen.js"></script>
-    <script>
-        let printTimer = null;
-        let preparedData = {};
-        let compressedTTD = null; // Menyimpan base64 TTD yang sudah dikompres
-
-        // --- 1. EVENT LISTENER TOMBOL PRINT UTAMA ---
-        document.getElementById('print')?.addEventListener('click', function() {
-            const modal = document.getElementById('printAdModal');
-            const timerDigit = document.getElementById('adTimer');
-            const timerSpan = document.getElementById('adTimerSpan');
-            const btnText = document.getElementById('btnText');
-            const btnPrint = document.getElementById('btnRealPrint');
-            const loading = document.getElementById('loadingState');
-            const ready = document.getElementById('readyState');
-
-            // --- RESET STATE (PENTING BIAR GAK BUG) ---
-            if (printTimer) clearInterval(printTimer);
-            let timeLeft = 5;
-
-            if (modal) modal.classList.remove('hidden');
-            if (loading) loading.classList.remove('hidden');
-            if (ready) ready.classList.add('hidden');
-
-            // Kembalikan tombol ke mode nunggu
-            if (btnPrint && btnText && timerDigit && timerSpan) {
-                btnPrint.disabled = true;
-                btnText.innerText = "Tunggu ";
-                timerDigit.innerText = timeLeft;
-                timerSpan.classList.remove('hidden');
-                btnPrint.className =
-                    "w-full py-4 bg-slate-200 text-slate-400 font-bold rounded-2xl transition-all cursor-not-allowed flex items-center justify-center gap-1";
+        <style>
+            /* Font standar untuk dokumen formal */
+            .font-serif {
+                font-family: "Times New Roman", Times, serif;
             }
 
-            // --- AMBIL DATA DARI INPUT (DATA BINDING RESIGN) ---
-            const inputLampiran = Array.from(document.querySelectorAll('#container-input-dokumen input'))
-                .map(i => i.value).filter(val => val.trim() !== "");
+            .font-sans {
+                font-family: ui-sans-serif, system-ui, sans-serif;
+            }
 
-            const lampiranFinal = inputLampiran.length > 0 ? inputLampiran : ["Daftar Lampiran (Belum diisi)"];
+            .font-mono {
+                font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            }
 
-            preparedData = {
-                _token: "{{ csrf_token() }}",
-                kota: document.getElementById('kota')?.value || "Kota",
-                tanggal: document.getElementById('tanggal')?.value || getTanggalInput(),
-                pt: document.getElementById('pt')?.value || "PT. xxxxxxxx",
-                alamat_perusahaan: document.getElementById('alamat-perusahaan')?.value || "Jl. xxxxxxxx",
-                kota_perusahaan: document.getElementById('kota-perusahaan')?.value || "Kota Perusahaan",
-                nama: document.getElementById('nama')?.value || "Nama Lengkap",
-                jabatan: document.getElementById('jabatan')?.value || "Jabatan / Posisi",
-                departemen: document.getElementById('departemen')?.value || "Nama Divisi / Departemen",
-                alasan: document.getElementById('alasan')?.value || "Alasan pengunduran diri...",
-                tanggal_efektif: document.getElementById('tanggal-efektif')?.value || getTanggalInput(),
-                ttd_align: document.getElementById('ttd-align-selector')?.value || 'items-end',
-                font_style: document.getElementById('font-selector')?.value || 'font-sans',
-                lampiran: JSON.stringify(lampiranFinal),
-                ttd_base64: compressedTTD
-            };
+            .font-georgia {
+                font-family: Georgia, serif;
+            }
 
-            // --- JALANKAN COUNTDOWN ---
-            printTimer = setInterval(() => {
-                timeLeft--;
+            /* Utility agar spasi antar baris di kertas terlihat rapi */
+            .jarak-paragraf {
+                margin-bottom: 1rem;
+                line-height: 1.6;
+            }
+        </style>
+    @endsection
 
-                if (timeLeft >= 0 && timerDigit) {
+    @push('scripts')
+        <script src="/js/gawedokumen.js"></script>
+        <script>
+            let printTimer = null;
+            let preparedData = {};
+            let compressedTTD = null; // Menyimpan base64 TTD yang sudah dikompres
+
+            // --- 1. EVENT LISTENER TOMBOL PRINT UTAMA ---
+            document.getElementById('print')?.addEventListener('click', function() {
+                const modal = document.getElementById('printAdModal');
+                const timerDigit = document.getElementById('adTimer');
+                const timerSpan = document.getElementById('adTimerSpan');
+                const btnText = document.getElementById('btnText');
+                const btnPrint = document.getElementById('btnRealPrint');
+                const loading = document.getElementById('loadingState');
+                const ready = document.getElementById('readyState');
+
+                // --- RESET STATE (PENTING BIAR GAK BUG) ---
+                if (printTimer) clearInterval(printTimer);
+                let timeLeft = 5;
+
+                if (modal) modal.classList.remove('hidden');
+                if (loading) loading.classList.remove('hidden');
+                if (ready) ready.classList.add('hidden');
+
+                // Kembalikan tombol ke mode nunggu
+                if (btnPrint && btnText && timerDigit && timerSpan) {
+                    btnPrint.disabled = true;
+                    btnText.innerText = "Tunggu ";
                     timerDigit.innerText = timeLeft;
+                    timerSpan.classList.remove('hidden');
+                    btnPrint.className =
+                        "w-full py-4 bg-slate-200 text-slate-400 font-bold rounded-2xl transition-all cursor-not-allowed flex items-center justify-center gap-1";
                 }
 
-                if (timeLeft <= 0) {
-                    clearInterval(printTimer);
 
-                    if (loading) loading.classList.add('hidden');
-                    if (ready) ready.classList.remove('hidden');
+                preparedData = {
+                    _token: "{{ csrf_token() }}",
+                    kota: document.getElementById('kota')?.value || "Kota",
+                    tanggal: document.getElementById('tanggal')?.value || getTanggalInput(),
+                    pt: document.getElementById('pt')?.value || "PT. xxxxxxxx",
+                    alamat_perusahaan: document.getElementById('alamat-perusahaan')?.value || "Jl. xxxxxxxx",
+                    kota_perusahaan: document.getElementById('kota-perusahaan')?.value || "Kota Perusahaan",
+                    nama: document.getElementById('nama')?.value || "Nama Lengkap",
+                    nik: document.getElementById('nomor-induk')?.value || "Nik Karyawan",
+                    jabatan: document.getElementById('jabatan')?.value || "Jabatan / Posisi",
+                    departemen: document.getElementById('departemen')?.value || "Nama Divisi / Departemen",
+                    alasan: document.getElementById('alasan')?.value || "Alasan pengunduran diri...",
+                    tanggal_efektif: document.getElementById('tanggal-efektif')?.value || getTanggalInput(),
+                    ttd_align: document.getElementById('ttd-align-selector')?.value || 'items-end',
+                    font_style: document.getElementById('font-selector')?.value || 'font-sans',
 
-                    if (btnText && timerSpan && btnPrint) {
-                        btnText.innerText = "Cetak Sekarang";
-                        timerSpan.classList.add('hidden');
+                    ttd_base64: compressedTTD
+                };
 
-                        btnPrint.disabled = false;
-                        btnPrint.className =
-                            "w-full py-4 bg-emerald-600 text-white font-bold rounded-2xl shadow-lg shadow-emerald-600/20 hover:bg-emerald-700 transition-all active:scale-95 cursor-pointer flex items-center justify-center";
-                        btnPrint.onclick = finalExecutePrint;
+                // --- JALANKAN COUNTDOWN ---
+                printTimer = setInterval(() => {
+                    timeLeft--;
+
+                    if (timeLeft >= 0 && timerDigit) {
+                        timerDigit.innerText = timeLeft;
+                    }
+
+                    if (timeLeft <= 0) {
+                        clearInterval(printTimer);
+
+                        if (loading) loading.classList.add('hidden');
+                        if (ready) ready.classList.remove('hidden');
+
+                        if (btnText && timerSpan && btnPrint) {
+                            btnText.innerText = "Cetak Sekarang";
+                            timerSpan.classList.add('hidden');
+
+                            btnPrint.disabled = false;
+                            btnPrint.className =
+                                "w-full py-4 bg-emerald-600 text-white font-bold rounded-2xl shadow-lg shadow-emerald-600/20 hover:bg-emerald-700 transition-all active:scale-95 cursor-pointer flex items-center justify-center";
+                            btnPrint.onclick = finalExecutePrint;
+                        }
+                    }
+                }, 1000);
+            });
+
+            // --- 2. FUNGSI KIRIM DATA KE SERVER (FORM BAYANGAN) ---
+            function finalExecutePrint() {
+                closeAdModal();
+
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = "{{ route('pekerja.surat.resign.pdf') }}";
+                form.target = '_blank';
+
+                for (const key in preparedData) {
+                    if (preparedData[key] !== null && preparedData[key] !== undefined) {
+                        const input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.name = key;
+                        input.value = preparedData[key];
+                        form.appendChild(input);
                     }
                 }
-            }, 1000);
-        });
 
-        // --- 2. FUNGSI KIRIM DATA KE SERVER (FORM BAYANGAN) ---
-        function finalExecutePrint() {
-            closeAdModal();
-
-            const form = document.createElement('form');
-            form.method = 'POST';
-            form.action = "{{ route('pdf.generate') }}";
-            form.target = '_blank';
-
-            for (const key in preparedData) {
-                if (preparedData[key] !== null && preparedData[key] !== undefined) {
-                    const input = document.createElement('input');
-                    input.type = 'hidden';
-                    input.name = key;
-                    input.value = preparedData[key];
-                    form.appendChild(input);
-                }
+                document.body.appendChild(form);
+                form.submit();
+                document.body.removeChild(form);
             }
 
-            document.body.appendChild(form);
-            form.submit();
-            document.body.removeChild(form);
-        }
-
-        function closeAdModal() {
-            const modal = document.getElementById('printAdModal');
-            if (modal) modal.classList.add('hidden');
-            if (printTimer) clearInterval(printTimer);
-        }
-
-        // --- 3. LOGIKA LIVE TEXT PREVIEW & STORAGE (RELEVANT UNTUK RESIGN) ---
-        function myFunction(inputId, targetId, defaultText) {
-            const input = document.getElementById(inputId);
-            if (!input) return;
-
-            let nilaiInput = input.value;
-
-            const updateElement = (tglId, val, def) => {
-                const el = document.getElementById(tglId);
-                if (!el) return;
-
-                if (val.trim() !== "") {
-                    el.classList.remove('text-red-500');
-                    el.textContent = (input.type === 'date') ? getTanggalIndo(new Date(val)) : val;
-                    localStorage.setItem("storage_" + tglId, val);
-                } else {
-                    el.textContent = def;
-                    el.classList.add('text-red-500');
-                    localStorage.removeItem("storage_" + tglId);
-                }
-            };
-
-            if (inputId === 'nama') {
-                updateElement('nama-text', nilaiInput, 'Nama Lengkap');
-                updateElement('nama2-text', nilaiInput, 'Nama Lengkap');
-            } else if (inputId === 'jabatan') {
-                updateElement('jabatan-text', nilaiInput, 'Jabatan / Posisi');
-                updateElement('jabatan2-text', nilaiInput, 'Jabatan / Posisi');
-            } else if (inputId === 'pt') {
-                updateElement('pt-text', nilaiInput, 'PT. xxxxxxxx');
-                updateElement('pt2-text', nilaiInput, 'PT. xxxxxxxx');
-            } else {
-                updateElement(targetId, nilaiInput, defaultText);
+            function closeAdModal() {
+                const modal = document.getElementById('printAdModal');
+                if (modal) modal.classList.add('hidden');
+                if (printTimer) clearInterval(printTimer);
             }
-        }
 
-        // --- INITIALIZATION ---
-        document.addEventListener('DOMContentLoaded', () => {
-            const savedFont = localStorage.getItem('selected_font') || 'font-sans';
-            const fontSelector = document.getElementById('font-selector');
-            if (fontSelector) fontSelector.value = savedFont;
-            if (typeof changeDocFont === 'function') changeDocFont(savedFont);
+            // --- 3. LOGIKA LIVE TEXT PREVIEW & STORAGE (RELEVANT UNTUK RESIGN) ---
+            function myFunction(inputId, targetId, defaultText) {
+                const input = document.getElementById(inputId);
+                if (!input) return;
 
-            const savedAlign = localStorage.getItem('storage_ttd_align') || 'items-end';
-            const alignSelector = document.getElementById('ttd-align-selector');
-            if (alignSelector) alignSelector.value = savedAlign;
-            if (typeof changeTTDAlign === 'function') changeTTDAlign(savedAlign);
+                let nilaiInput = input.value;
 
-            const fields = @json($jsConfig);
+                const updateElement = (tglId, val, def) => {
+                    const el = document.getElementById(tglId);
+                    if (!el) return;
 
-            fields.forEach(field => {
-                const inputElem = document.getElementById(field.inputId);
-
-                field.targets.forEach(targetId => {
-                    const targetElem = document.getElementById(targetId);
-                    if (!targetElem) return;
-
-                    const savedValue = localStorage.getItem("storage_" + targetId);
-                    const defaultText = (field.default === 'DATE_NOW') ? getTanggalIndo() : field
-                        .default;
-
-                    if (savedValue) {
-                        if (inputElem) inputElem.value = savedValue;
-                        targetElem.textContent = (field.isDate) ? getTanggalIndo(new Date(
-                            savedValue)) : savedValue;
-                        targetElem.classList.remove('text-red-500');
+                    if (val.trim() !== "") {
+                        el.classList.remove('text-red-500');
+                        el.textContent = (input.type === 'date') ? getTanggalIndo(new Date(val)) : val;
+                        localStorage.setItem("storage_" + tglId, val);
                     } else {
-                        targetElem.textContent = defaultText;
-                        targetElem.classList.add('text-red-500');
+                        el.textContent = def;
+                        el.classList.add('text-red-500');
+                        localStorage.removeItem("storage_" + tglId);
+                    }
+                };
 
-                        if (inputElem && (field.inputId === 'tanggal' || field.inputId ===
-                                'tanggal-efektif') && !savedValue) {
-                            inputElem.value = getTanggalInput();
-                            targetElem.textContent = getTanggalIndo();
+                if (inputId === 'nama') {
+                    updateElement('nama-text', nilaiInput, 'Nama Lengkap');
+                    updateElement('nama2-text', nilaiInput, 'Nama Lengkap');
+                } else if (inputId === 'jabatan') {
+                    updateElement('jabatan-text', nilaiInput, 'Jabatan / Posisi');
+                    updateElement('jabatan2-text', nilaiInput, 'Jabatan / Posisi');
+                } else if (inputId === 'pt') {
+                    updateElement('pt-text', nilaiInput, 'PT. xxxxxxxx');
+                    updateElement('pt2-text', nilaiInput, 'PT. xxxxxxxx');
+                } else {
+                    updateElement(targetId, nilaiInput, defaultText);
+                }
+            }
+
+            // --- INITIALIZATION ---
+            document.addEventListener('DOMContentLoaded', () => {
+                const savedFont = localStorage.getItem('selected_font') || 'font-sans';
+                const fontSelector = document.getElementById('font-selector');
+                if (fontSelector) fontSelector.value = savedFont;
+                if (typeof changeDocFont === 'function') changeDocFont(savedFont);
+
+                const savedAlign = localStorage.getItem('storage_ttd_align') || 'items-end';
+                const alignSelector = document.getElementById('ttd-align-selector');
+                if (alignSelector) alignSelector.value = savedAlign;
+                if (typeof changeTTDAlign === 'function') changeTTDAlign(savedAlign);
+
+                const fields = @json($jsConfig);
+
+                fields.forEach(field => {
+                    const inputElem = document.getElementById(field.inputId);
+
+                    field.targets.forEach(targetId => {
+                        const targetElem = document.getElementById(targetId);
+                        if (!targetElem) return;
+
+                        const savedValue = localStorage.getItem("storage_" + targetId);
+                        const defaultText = (field.default === 'DATE_NOW') ? getTanggalIndo() : field
+                            .default;
+
+                        if (savedValue) {
+                            if (inputElem) inputElem.value = savedValue;
+                            targetElem.textContent = (field.isDate) ? getTanggalIndo(new Date(
+                                savedValue)) : savedValue;
                             targetElem.classList.remove('text-red-500');
+                        } else {
+                            targetElem.textContent = defaultText;
+                            targetElem.classList.add('text-red-500');
+
+                            if (inputElem && (field.inputId === 'tanggal' || field.inputId ===
+                                    'tanggal-efektif') && !savedValue) {
+                                inputElem.value = getTanggalInput();
+                                targetElem.textContent = getTanggalIndo();
+                                targetElem.classList.remove('text-red-500');
+                            }
                         }
+                    });
+
+                    if (inputElem) {
+                        inputElem.addEventListener('input', () => {
+                            const primaryTarget = field.targets[0] || '';
+                            myFunction(field.inputId, primaryTarget, field.default);
+                        });
                     }
                 });
 
-                if (inputElem) {
-                    inputElem.addEventListener('input', () => {
-                        const primaryTarget = field.targets[0] || '';
-                        myFunction(field.inputId, primaryTarget, field.default);
-                    });
+                const savedFoto = localStorage.getItem("storage_foto");
+                if (savedFoto) {
+                    if (typeof tampilkanGambar === 'function') tampilkanGambar(savedFoto);
+                    if (typeof compressSignature === 'function') {
+                        compressSignature(savedFoto).then(compressed => {
+                            compressedTTD = compressed;
+                        });
+                    }
                 }
+
+                if (typeof renderInputs === 'function') renderInputs();
             });
 
-            const savedFoto = localStorage.getItem("storage_foto");
-            if (savedFoto) {
-                if (typeof tampilkanGambar === 'function') tampilkanGambar(savedFoto);
-                if (typeof compressSignature === 'function') {
-                    compressSignature(savedFoto).then(compressed => {
-                        compressedTTD = compressed;
-                    });
+            // --- 4. LOGIKA STYLE, FONT, & TTD ALIGNMENT ---
+            function changeDocFont(fontClass) {
+                const kertas = document.getElementById('panzoom-element');
+                if (kertas) {
+                    const allFonts = ['font-serif', 'font-sans', 'font-mono', 'font-georgia'];
+                    allFonts.forEach(f => kertas.classList.remove(f));
+                    kertas.classList.add(fontClass);
+                    localStorage.setItem('selected_font', fontClass);
                 }
             }
 
-            if (typeof renderInputs === 'function') renderInputs();
-        });
-
-        // --- 4. LOGIKA STYLE, FONT, & TTD ALIGNMENT ---
-        function changeDocFont(fontClass) {
-            const kertas = document.getElementById('panzoom-element');
-            if (kertas) {
-                const allFonts = ['font-serif', 'font-sans', 'font-mono', 'font-georgia'];
-                allFonts.forEach(f => kertas.classList.remove(f));
-                kertas.classList.add(fontClass);
-                localStorage.setItem('selected_font', fontClass);
+            function changeTTDAlign(alignClass) {
+                const container = document.getElementById('ttd-container');
+                if (container) {
+                    container.classList.remove('items-start', 'items-center', 'items-end');
+                    container.classList.add(alignClass);
+                    localStorage.setItem('storage_ttd_align', alignClass);
+                }
             }
-        }
 
-        function changeTTDAlign(alignClass) {
-            const container = document.getElementById('ttd-container');
-            if (container) {
-                container.classList.remove('items-start', 'items-center', 'items-end');
-                container.classList.add(alignClass);
-                localStorage.setItem('storage_ttd_align', alignClass);
-            }
-        }
+            // --- 5. LOGIKA LAMPIRAN DOKUMEN ---
+            let daftarDokumen = JSON.parse(localStorage.getItem("storage_list_dokumen")) || [""];
 
-        // --- 5. LOGIKA LAMPIRAN DOKUMEN ---
-        let daftarDokumen = JSON.parse(localStorage.getItem("storage_list_dokumen")) || [""];
+            function renderInputs() {
+                const container = document.getElementById('container-input-dokumen');
+                if (!container) return;
+                container.innerHTML = '';
 
-        function renderInputs() {
-            const container = document.getElementById('container-input-dokumen');
-            if (!container) return;
-            container.innerHTML = '';
-
-            daftarDokumen.forEach((value, index) => {
-                const div = document.createElement('div');
-                div.className = "flex gap-2";
-                div.innerHTML = `
+                daftarDokumen.forEach((value, index) => {
+                    const div = document.createElement('div');
+                    div.className = "flex gap-2";
+                    div.innerHTML = `
                     <input type="text"
                         class="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
                         placeholder="Lampiran ${index + 1}"
@@ -900,115 +899,115 @@
                     <button onclick="hapusBarisInput(${index})"
                         class="text-red-500 p-2 ${daftarDokumen.length === 1 ? 'hidden' : ''}">✕</button>
                 `;
-                container.appendChild(div);
-            });
-            updatePreviewDokumen();
-        }
-
-        function tambahBarisInput() {
-            daftarDokumen.push("");
-            renderInputs();
-        }
-
-        function updateDataDokumen(index, val) {
-            daftarDokumen[index] = val;
-            localStorage.setItem("storage_list_dokumen", JSON.stringify(daftarDokumen));
-            updatePreviewDokumen();
-        }
-
-        function updatePreviewDokumen() {
-            const listPreview = document.getElementById('dokumen-text');
-            if (!listPreview) return;
-            const dokumenValid = daftarDokumen.filter(item => item.trim() !== "");
-            if (dokumenValid.length > 0) {
-                listPreview.classList.remove('text-red-500');
-                listPreview.innerHTML = dokumenValid.map(doc => `<li>${doc}</li>`).join('');
-            } else {
-                listPreview.classList.add('text-red-500');
-                listPreview.innerHTML = `<li>Daftar Lampiran (Belum diisi)</li>`;
+                    container.appendChild(div);
+                });
+                updatePreviewDokumen();
             }
-        }
 
-        function hapusBarisInput(index) {
-            if (daftarDokumen.length > 1) {
-                daftarDokumen.splice(index, 1);
-                localStorage.setItem("storage_list_dokumen", JSON.stringify(daftarDokumen));
+            function tambahBarisInput() {
+                daftarDokumen.push("");
                 renderInputs();
             }
-        }
 
-        // --- 6. LOGIKA GAMBAR TANDA TANGAN & ASYNC COMPRESSION ---
-        function simpanGambar(input) {
-            const file = input.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onloadend = () => {
-                    const rawResult = reader.result;
-                    localStorage.setItem("storage_foto", rawResult);
-                    tampilkanGambar(rawResult);
-
-                    compressSignature(rawResult).then(compressed => {
-                        compressedTTD = compressed;
-                        console.log("TTD Resign berhasil dikompres!");
-                    });
-                };
-                reader.readAsDataURL(file);
+            function updateDataDokumen(index, val) {
+                daftarDokumen[index] = val;
+                localStorage.setItem("storage_list_dokumen", JSON.stringify(daftarDokumen));
+                updatePreviewDokumen();
             }
-        }
 
-        function tampilkanGambar(base64) {
-            const imgPreview = document.getElementById('preview-foto');
-            if (imgPreview) {
-                imgPreview.src = base64;
-                imgPreview.classList.remove('hidden');
+            function updatePreviewDokumen() {
+                const listPreview = document.getElementById('dokumen-text');
+                if (!listPreview) return;
+                const dokumenValid = daftarDokumen.filter(item => item.trim() !== "");
+                if (dokumenValid.length > 0) {
+                    listPreview.classList.remove('text-red-500');
+                    listPreview.innerHTML = dokumenValid.map(doc => `<li>${doc}</li>`).join('');
+                } else {
+                    listPreview.classList.add('text-red-500');
+                    listPreview.innerHTML = `<li>Daftar Lampiran (Belum diisi)</li>`;
+                }
             }
-        }
 
-        // FIX TYPO: Dari 'fnction' menjadi 'function'
-        function hapusGambar() {
-            localStorage.removeItem("storage_foto");
-            compressedTTD = null;
-            const inputFoto = document.getElementById('input-foto');
-            if (inputFoto) inputFoto.value = "";
-            const imgPreview = document.getElementById('preview-foto');
-            if (imgPreview) imgPreview.classList.add('hidden');
-        }
+            function hapusBarisInput(index) {
+                if (daftarDokumen.length > 1) {
+                    daftarDokumen.splice(index, 1);
+                    localStorage.setItem("storage_list_dokumen", JSON.stringify(daftarDokumen));
+                    renderInputs();
+                }
+            }
 
-        function compressSignature(base64Str) {
-            return new Promise((resolve) => {
-                const img = new Image();
-                img.src = base64Str;
-                img.onload = () => {
-                    const canvas = document.createElement('canvas');
-                    const ctx = canvas.getContext('2d');
+            // --- 6. LOGIKA GAMBAR TANDA TANGAN & ASYNC COMPRESSION ---
+            function simpanGambar(input) {
+                const file = input.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                        const rawResult = reader.result;
+                        localStorage.setItem("storage_foto", rawResult);
+                        tampilkanGambar(rawResult);
 
-                    const maxWidth = 400;
-                    const scale = maxWidth / img.width;
-                    canvas.width = maxWidth;
-                    canvas.height = img.height * scale;
+                        compressSignature(rawResult).then(compressed => {
+                            compressedTTD = compressed;
+                            console.log("TTD Resign berhasil dikompres!");
+                        });
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
 
-                    if (ctx) {
-                        ctx.fillStyle = "#FFFFFF";
-                        ctx.fillRect(0, 0, canvas.width, canvas.height);
-                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                    }
+            function tampilkanGambar(base64) {
+                const imgPreview = document.getElementById('preview-foto');
+                if (imgPreview) {
+                    imgPreview.src = base64;
+                    imgPreview.classList.remove('hidden');
+                }
+            }
 
-                    resolve(canvas.toDataURL("image/jpeg", 0.2));
-                };
-            });
-        }
+            // FIX TYPO: Dari 'fnction' menjadi 'function'
+            function hapusGambar() {
+                localStorage.removeItem("storage_foto");
+                compressedTTD = null;
+                const inputFoto = document.getElementById('input-foto');
+                if (inputFoto) inputFoto.value = "";
+                const imgPreview = document.getElementById('preview-foto');
+                if (imgPreview) imgPreview.classList.add('hidden');
+            }
 
-        // --- 7. HELPER TANGGAL ---
-        function getTanggalInput(dateObj = new Date()) {
-            return dateObj.toISOString().split('T')[0];
-        }
+            function compressSignature(base64Str) {
+                return new Promise((resolve) => {
+                    const img = new Image();
+                    img.src = base64Str;
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
 
-        function getTanggalIndo(dateObj = new Date()) {
-            const bulanIndo = [
-                "Januari", "Februari", "Maret", "April", "Mei", "Juni",
-                "Juli", "Agustus", "September", "Oktober", "November", "Desember"
-            ];
-            return `${dateObj.getDate()} ${bulanIndo[dateObj.getMonth()]} ${dateObj.getFullYear()}`;
-        }
-    </script>
-@endpush
+                        const maxWidth = 400;
+                        const scale = maxWidth / img.width;
+                        canvas.width = maxWidth;
+                        canvas.height = img.height * scale;
+
+                        if (ctx) {
+                            ctx.fillStyle = "#FFFFFF";
+                            ctx.fillRect(0, 0, canvas.width, canvas.height);
+                            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                        }
+
+                        resolve(canvas.toDataURL("image/jpeg", 0.2));
+                    };
+                });
+            }
+
+            // --- 7. HELPER TANGGAL ---
+            function getTanggalInput(dateObj = new Date()) {
+                return dateObj.toISOString().split('T')[0];
+            }
+
+            function getTanggalIndo(dateObj = new Date()) {
+                const bulanIndo = [
+                    "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+                    "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+                ];
+                return `${dateObj.getDate()} ${bulanIndo[dateObj.getMonth()]} ${dateObj.getFullYear()}`;
+            }
+        </script>
+    @endpush
