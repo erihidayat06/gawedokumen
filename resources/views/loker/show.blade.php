@@ -165,82 +165,80 @@
                             </div>
                         </div>
 
-                        <div class="p-8 md:p-10 space-y-6 border-t border-slate-50 dark:border-slate-800 lg:hidden">
+                        <div
+                            class="p-6 space-y-5 border-t border-slate-100 dark:border-slate-800 lg:hidden bg-slate-50/50 dark:bg-slate-900/20">
 
                             @php
                                 $isExpired = false;
 
                                 if ($loker->deadline) {
-                                    // Skenario 1: Jika melewati tanggal deadline
                                     $isExpired = \Carbon\Carbon::now()->greaterThan(
                                         \Carbon\Carbon::parse($loker->deadline)->endOfDay(),
                                     );
                                 } else {
-                                    // Skenario 2: Jika tidak ada deadline, cek apakah sudah lebih dari 1 bulan dari created_at
                                     $isExpired = \Carbon\Carbon::parse($loker->created_at)->addMonth()->isPast();
                                 }
                             @endphp
-                            {{-- Deadline Horizontal - Teks diperbesar di Desktop --}}
-                            <div
-                                class="{{ $isExpired ? 'bg-red-50 dark:bg-red-900/10 border-red-100 dark:border-red-900/20' : 'bg-blue-50 dark:bg-blue-900/10 border-blue-100 dark:border-blue-900/20' }} mb-6 p-3 rounded-2xl border flex items-center justify-between">
 
-                                {{-- Kiri: Label Status --}}
+                            {{-- 1. Status Deadline: Dibuat lebih ringkas --}}
+                            <div
+                                class="{{ $isExpired ? 'bg-red-50/70 dark:bg-red-950/20 border-red-100 dark:border-red-900/30' : 'bg-blue-50/70 dark:bg-blue-950/20 border-blue-100 dark:border-blue-900/30' }} p-3 rounded-xl border flex items-center justify-between text-xs">
                                 <span
-                                    class="{{ $isExpired ? 'text-red-400' : 'text-blue-400' }} text-[10px] font-black uppercase tracking-widest ml-1">
+                                    class="{{ $isExpired ? 'text-red-500' : 'text-blue-500' }} font-bold uppercase tracking-wider">
                                     {{ $isExpired ? 'Lowongan Tutup' : 'Deadline' }}
                                 </span>
-
-                                {{-- Kanan: Detail Tanggal / Keterangan --}}
                                 <p
-                                    class="{{ $isExpired ? 'text-red-600 dark:text-red-500' : 'text-blue-600 dark:text-blue-500' }} text-[12px] font-black mr-1">
+                                    class="{{ $isExpired ? 'text-red-700 dark:text-red-400' : 'text-blue-700 dark:text-blue-400' }} font-bold">
                                     @if ($loker->deadline)
-                                        {{-- Jika ada deadline, tampilkan tanggalnya meskipun sudah lewat --}}
                                         {{ \Carbon\Carbon::parse($loker->deadline)->translatedFormat('d M Y') }}
                                     @else
-                                        {{-- Jika tidak ada deadline --}}
-                                        @if ($isExpired)
-                                            Selesai (Sudah > 1 Bulan)
-                                        @else
-                                            Sampai Kuota Terpenuhi
-                                        @endif
+                                        {{ $isExpired ? 'Selesai (> 1 Bulan)' : 'Sampai Kuota Penuh' }}
                                     @endif
                                 </p>
                             </div>
 
-
-                            {{-- Tombol Kontak Sejajar --}}
+                            {{-- Kumpulan Aksi / Tombol --}}
                             <div class="space-y-3">
-                                {{-- Tombol Link Pendaftaran (Utama) --}}
-                                @if ($loker->link_pendaftaran)
+                                {{-- 2. Tombol Utama: Daftar Online (Jika Lowongan Masih Buka) --}}
+                                @if ($loker->link_pendaftaran && !$isExpired)
                                     <a href="{{ $loker->link_pendaftaran }}" target="_blank" rel="nofollow noreferrer"
-                                        class="flex items-center justify-center gap-2 w-full py-4 bg-blue-600 text-white rounded-xl font-bold shadow-lg shadow-blue-600/20 hover:bg-blue-700 transition-all active:scale-95">
-                                        <i class="bi bi-box-arrow-up-right"></i>
-                                        <span>Daftar Online / Isi Formulir</span>
+                                        class="flex items-center justify-center gap-2 w-full py-3 bg-blue-600 text-white rounded-xl font-bold text-sm shadow-md shadow-blue-600/10 hover:bg-blue-700 transition-all active:scale-98">
+                                        <i class="bi bi-box-arrow-up-right text-xs"></i>
+                                        <span>Daftar Online / Formulir</span>
                                     </a>
                                 @endif
 
-                                {{-- Grid Tombol Kontak (WhatsApp & Email) --}}
-                                <div class="grid grid-cols-2 gap-3">
+                                {{-- 3. Grid Kontak: Dibuat semi-flat agar tidak balapan mencolok dengan tombol utama --}}
+                                <div class="grid grid-cols-2 gap-2.5">
                                     @if ($loker->no_wa)
                                         @php
                                             $pesanWA = "Halo HRD {$loker->perusahaan}, saya tertarik melamar posisi {$loker->posisi} via GaweDokumen.";
                                         @endphp
-                                        <a href="https://wa.me/{{ $loker->no_wa }}" target="_blank"
-                                            class="flex flex-col items-center justify-center gap-1 py-3 bg-green-600 text-white rounded-xl font-bold shadow-lg shadow-green-600/20 hover:bg-green-700 transition-all active:scale-95">
-                                            <i class="bi bi-whatsapp text-lg"></i>
-                                            <span class="text-[12px]">WhatsApp</span>
+                                        <a href="https://wa.me/{{ $loker->no_wa }}?text={{ urlencode($pesanWA) }}"
+                                            target="_blank"
+                                            class="flex items-center justify-center gap-2 py-2.5 bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-xl font-semibold text-xs transition-all active:scale-98">
+                                            <i class="bi bi-whatsapp"></i>
+                                            <span>WhatsApp</span>
                                         </a>
                                     @endif
 
                                     @if ($loker->email)
                                         <a href="mailto:{{ $loker->email }}"
-                                            class="flex flex-col items-center justify-center gap-1 py-3 bg-slate-900 dark:bg-slate-700 text-white rounded-xl font-bold shadow-lg transition-all active:scale-95 text-center">
-                                            <i class="bi bi-envelope text-lg"></i>
-                                            <span class="text-[12px]">Kirim Email</span>
+                                            class="flex items-center justify-center gap-2 py-2.5 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 rounded-xl font-semibold text-xs transition-all active:scale-98">
+                                            <i class="bi bi-envelope"></i>
+                                            <span>Kirim Email</span>
                                         </a>
                                     @endif
                                 </div>
+
+                                {{-- 4. Fitur Unggulan Kita: Bikin Lamaran Otomatis (Gaya Soft Outline Menarik) --}}
+                                <a href="/pekerja/surat-lamaran?posisi={{ urlencode($loker->posisi) }}&perusahaan={{ urlencode($loker->perusahaan) }}"
+                                    class="flex items-center justify-center gap-2 w-full py-3 bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800/60 text-center rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-blue-50 transition-all shadow-sm">
+                                    <i class="bi bi-file-earmark-text"></i>
+                                    <span>Bikin Lamaran Otomatis</span>
+                                </a>
                             </div>
+
                         </div>
 
                         {{-- Content Detail --}}
@@ -489,7 +487,7 @@
                             <div class="p-5 bg-blue-600 rounded-2xl text-white relative overflow-hidden group">
                                 <p class="text-[11px] md:text-xs font-bold text-blue-100 mb-3 relative z-10 text-center">
                                     Butuh berkas lamaran profesional?</p>
-                                <a href="/tools/lamaran?posisi={{ urlencode($loker->posisi) }}&perusahaan={{ urlencode($loker->perusahaan) }}"
+                                <a href="/pekerja/surat-lamaran?posisi={{ urlencode($loker->posisi) }}&perusahaan={{ urlencode($loker->perusahaan) }}"
                                     class="block w-full py-3 bg-white text-blue-600 text-center rounded-lg text-[11px] md:text-xs font-black uppercase tracking-wider hover:bg-blue-50 transition-all relative z-10">
                                     Bikin Lamaran Otomatis
                                 </a>

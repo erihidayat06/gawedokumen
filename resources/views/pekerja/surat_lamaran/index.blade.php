@@ -167,9 +167,27 @@
                     @foreach ($allFields['head'] as $field)
                         <div>
                             <label class="block text-sm font-medium text-gray-700">{{ $field['label'] }}</label>
+
+                            @php
+                                // Cek jika ID field adalah 'pt', ambil dari request('perusahaan'). Jika tidak ada, pakai default.
+                                $currentValue =
+                                    $field['id'] == 'pt' ? request('perusahaan', $field['default']) : $field['default'];
+                            @endphp
+
                             <input type="text" id="{{ $field['id'] }}"
                                 class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all"
-                                oninput="myFunction('{{ $field['id'] }}', '{{ $field['targets'][0] }}', '{{ $field['default'] }}')">
+                                oninput="myFunction('{{ $field['id'] }}', '{{ $field['targets'][0] }}', '{{ $field['default'] }}')"
+                                value="{{ $currentValue }}">
+
+                            {{-- Trigger otomatis ke preview jika value dari request URL terisi --}}
+                            @if ($field['id'] == 'pt' && request('perusahaan'))
+                                <script>
+                                    document.addEventListener("DOMContentLoaded", function() {
+                                        // Paksa jalankan fungsi agar teks langsung muncul di preview kanan saat page load
+                                        myFunction('{{ $field['id'] }}', '{{ $field['targets'][0] }}', '{{ $field['default'] }}');
+                                    });
+                                </script>
+                            @endif
                         </div>
                     @endforeach
                     <div>
@@ -188,9 +206,27 @@
                     @foreach ($allFields['pengawalan'] as $field)
                         <div>
                             <label class="block text-sm font-medium text-gray-700">{{ $field['label'] }}</label>
+
+                            @php
+                                // Logika baru: Cek APAKAH benar-benar ada request 'posisi' di URL untuk ID 'posisi'
+                                // Jika ada, pakai request tersebut. Jika tidak ada request, biarkan KOSONG ("") agar tidak menimpa Local Storage
+                                $currentValue =
+                                    $field['id'] == 'posisi' && request()->has('posisi') ? request('posisi') : '';
+                            @endphp
+
                             <input type="text" id="{{ $field['id'] }}"
                                 class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all"
-                                oninput="myFunction('{{ $field['id'] }}', '{{ $field['targets'][0] }}', '{{ $field['default'] }}')">
+                                oninput="myFunction('{{ $field['id'] }}', '{{ $field['targets'][0] }}', '{{ $field['default'] }}')"
+                                value="{{ $currentValue }}">
+
+                            {{-- Hanya jalankan trigger preview otomatis JIKA ada request dari URL saja --}}
+                            @if ($field['id'] == 'posisi' && request()->has('posisi'))
+                                <script>
+                                    document.addEventListener("DOMContentLoaded", function() {
+                                        myFunction('{{ $field['id'] }}', '{{ $field['targets'][0] }}', '{{ $field['default'] }}');
+                                    });
+                                </script>
+                            @endif
                         </div>
                     @endforeach
                 </div>
@@ -945,6 +981,8 @@
 
         // 3. Eksekusi Saat Halaman Dimuat
         document.addEventListener('DOMContentLoaded', () => {
+            // Ambil semua input yang ada di dalam tab pengawalan (atau seluruh form)
+
             // Ambil config dari PHP secara otomatis
             const fields = @json($jsConfig);
 
