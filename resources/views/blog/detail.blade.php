@@ -105,51 +105,42 @@
                         $daftarIsi = [];
 
                         if (!empty($htmlContent)) {
-                            // Matikan libxml errors agar parsing HTML tidak memicu warning jika ada tag kurang rapi
                             libxml_use_internal_errors(true);
 
                             $dom = new \DOMDocument();
-                            // Load HTML dengan encoding UTF-8 agar karakter spesial tidak rusak
                             $dom->loadHTML(
                                 mb_convert_encoding($htmlContent, 'HTML-ENTITIES', 'UTF-8'),
                                 LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD,
                             );
 
-                            // Cari semua elemen H2 dan H3
-                            $headings = [];
+                            // KOREKSI: Query diubah hanya mencari '//h2' saja, tag h3 dibuang
                             $xpath = new \DOMXPath($dom);
-                            $headingNodes = $xpath->query('//h2 | //h3');
+                            $headingNodes = $xpath->query('//h2');
 
                             foreach ($headingNodes as $index => $node) {
                                 $text = $node->nodeValue;
-                                // Buat ID slug unik dari teks heading untuk target anchor link
                                 $slug = Str::slug($text) . '-' . $index;
 
-                                // Set attribute ID baru ke tag heading di dalam HTML
                                 $node->setAttribute('id', $slug);
 
-                                // Simpan data untuk dirender di list Daftar Isi
                                 $daftarIsi[] = [
                                     'text' => $text,
                                     'slug' => $slug,
-                                    'level' => $node->nodeName, // 'h2' atau 'h3'
                                 ];
                             }
 
-                            // Simpan kembali HTML yang sudah disuntikkan ID anchor ke variabel utama
                             $htmlContent = $dom->saveHTML();
                             libxml_clear_errors();
                         }
                     @endphp
 
-                    {{-- RENDER DAFTAR ISI (Interaktif & Ukuran Lebih Ringkas) --}}
+                    {{-- RENDER DAFTAR ISI (Hanya H2 - Lebih Clean) --}}
                     @if (!empty($daftarIsi))
-                        <div class="mb-8 max-w-md"> {{-- Mengubah max-w-xl menjadi max-w-md agar card tidak kegedean --}}
+                        <div class="mb-8 max-w-md">
                             <details
                                 class="group bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 [&_summary::-webkit-details-marker]:hidden"
                                 open>
 
-                                {{-- Bagian Header yang Bisa Diklik untuk Buka/Tutup --}}
                                 <summary
                                     class="flex items-center justify-between font-bold text-slate-900 dark:text-white cursor-pointer select-none list-none">
                                     <span class="text-base flex items-center gap-2">
@@ -161,7 +152,6 @@
                                         Daftar Isi
                                     </span>
 
-                                    {{-- Icon Panah Indikator (Otomatis berputar berkat class group-open:rotate-180) --}}
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="2.5" stroke="currentColor"
                                         class="w-4 h-4 text-slate-500 transition-transform duration-200 group-open:rotate-180">
@@ -170,14 +160,13 @@
                                     </svg>
                                 </summary>
 
-                                {{-- Bagian List Menu (Otomatis tersembunyi jika details ditutup) --}}
                                 <ul class="mt-4 space-y-2 text-sm border-t border-slate-200 dark:border-slate-800 pt-3">
                                     @foreach ($daftarIsi as $item)
-                                        <li
-                                            class="{{ $item['level'] == 'h3' ? 'ml-6 list-[circle]' : 'font-medium list-none' }}">
+                                        {{-- Kelas li disederhanakan karena tipenya seragam (font-medium list-none) --}}
+                                        <li class="font-medium list-none">
                                             <a href="#{{ $item['slug'] }}"
                                                 class="toc-link text-blue-600 dark:text-blue-400 hover:underline transition-colors duration-150 block py-0.5"
-                                                data-target="{{ $item['slug'] }}"> {{-- Kita pakai data-target agar lebih aman --}}
+                                                data-target="{{ $item['slug'] }}">
                                                 {{ $item['text'] }}
                                             </a>
                                         </li>
