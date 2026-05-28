@@ -99,6 +99,95 @@
                         }
                     </style>
 
+                    @php
+                        // 1. Ambil konten blog
+                        $htmlContent = $blog->konten;
+                        $daftarIsi = [];
+
+                        if (!empty($htmlContent)) {
+                            // Matikan libxml errors agar parsing HTML tidak memicu warning jika ada tag kurang rapi
+                            libxml_use_internal_errors(true);
+
+                            $dom = new \DOMDocument();
+                            // Load HTML dengan encoding UTF-8 agar karakter spesial tidak rusak
+                            $dom->loadHTML(
+                                mb_convert_encoding($htmlContent, 'HTML-ENTITIES', 'UTF-8'),
+                                LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD,
+                            );
+
+                            // Cari semua elemen H2 dan H3
+                            $headings = [];
+                            $xpath = new \DOMXPath($dom);
+                            $headingNodes = $xpath->query('//h2 | //h3');
+
+                            foreach ($headingNodes as $index => $node) {
+                                $text = $node->nodeValue;
+                                // Buat ID slug unik dari teks heading untuk target anchor link
+                                $slug = Str::slug($text) . '-' . $index;
+
+                                // Set attribute ID baru ke tag heading di dalam HTML
+                                $node->setAttribute('id', $slug);
+
+                                // Simpan data untuk dirender di list Daftar Isi
+                                $daftarIsi[] = [
+                                    'text' => $text,
+                                    'slug' => $slug,
+                                    'level' => $node->nodeName, // 'h2' atau 'h3'
+                                ];
+                            }
+
+                            // Simpan kembali HTML yang sudah disuntikkan ID anchor ke variabel utama
+                            $htmlContent = $dom->saveHTML();
+                            libxml_clear_errors();
+                        }
+                    @endphp
+
+                    {{-- RENDER DAFTAR ISI (Interaktif & Ukuran Lebih Ringkas) --}}
+                    @if (!empty($daftarIsi))
+                        <div class="mb-8 max-w-md"> {{-- Mengubah max-w-xl menjadi max-w-md agar card tidak kegedean --}}
+                            <details
+                                class="group bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 [&_summary::-webkit-details-marker]:hidden"
+                                open>
+
+                                {{-- Bagian Header yang Bisa Diklik untuk Buka/Tutup --}}
+                                <summary
+                                    class="flex items-center justify-between font-bold text-slate-900 dark:text-white cursor-pointer select-none list-none">
+                                    <span class="text-base flex items-center gap-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="2" stroke="currentColor" class="w-5 h-5 text-blue-500">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-0.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                                        </svg>
+                                        Daftar Isi
+                                    </span>
+
+                                    {{-- Icon Panah Indikator (Otomatis berputar berkat class group-open:rotate-180) --}}
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="2.5" stroke="currentColor"
+                                        class="w-4 h-4 text-slate-500 transition-transform duration-200 group-open:rotate-180">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                                    </svg>
+                                </summary>
+
+                                {{-- Bagian List Menu (Otomatis tersembunyi jika details ditutup) --}}
+                                <ul class="mt-4 space-y-2 text-sm border-t border-slate-200 dark:border-slate-800 pt-3">
+                                    @foreach ($daftarIsi as $item)
+                                        <li
+                                            class="{{ $item['level'] == 'h3' ? 'ml-6 list-[circle]' : 'font-medium list-none' }}">
+                                            <a href="#{{ $item['slug'] }}"
+                                                class="toc-link text-blue-600 dark:text-blue-400 hover:underline transition-colors duration-150 block py-0.5"
+                                                data-target="{{ $item['slug'] }}"> {{-- Kita pakai data-target agar lebih aman --}}
+                                                {{ $item['text'] }}
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+
+                            </details>
+                        </div>
+                    @endif
+
                     {{-- BODY CONTENT --}}
                     <div
                         class="konten-blog prose prose-lg prose-slate dark:prose-invert max-w-none
@@ -129,7 +218,7 @@
 ">
 
                         {{-- Menggunakan {!! !!} karena konten berasal dari CKEditor (HTML) --}}
-                        {!! $blog->konten !!}
+                        {!! $htmlContent !!}
                     </div>
 
                     {{-- TAGS (Opsional jika ada kolom tags) --}}
@@ -249,6 +338,32 @@
                 });
             }
 
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cari semua link daftar isi yang memiliki class .toc-link
+            const tocLinks = document.querySelectorAll('.toc-link');
+
+            tocLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // 1. Matikan fungsi default bawaan HTML agar URL tidak berubah
+                    e.preventDefault();
+
+                    // 2. Ambil ID target dari attribute data-target
+                    const targetId = this.getAttribute('data-target');
+                    const targetElement = document.getElementById(targetId);
+
+                    if (targetElement) {
+                        // 3. Lakukan scroll halus secara programmatic menuju elemen target
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start' // Posisi elemen berada di bagian atas layar setelah scroll
+                        });
+                    }
+                });
+            });
         });
     </script>
 @endpush

@@ -33,6 +33,11 @@
     -webkit-mask-image: url('/bootstrap-icons/file-earmark-richtext.svg');
 }
 
+.bi-file-earmark-text {
+    mask-image: url('/bootstrap-icons/file-earmark-text.svg');
+    -webkit-mask-image: url('/bootstrap-icons/file-earmark-text.svg');
+}
+
 .bi-eye {
     mask-image: url('/bootstrap-icons/eye.svg');
     -webkit-mask-image: url('/bootstrap-icons/eye.svg');

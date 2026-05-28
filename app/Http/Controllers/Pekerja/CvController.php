@@ -65,28 +65,6 @@ class CvController extends Controller
             'avatar'          => $request->foto_base64,
         ];
 
-        // if ($request->foto_base64) {
-
-        //     $image = $request->foto_base64;
-
-        //     $image = preg_replace(
-        //         '/^data:image\/\w+;base64,/',
-        //         '',
-        //         $image
-        //     );
-
-        //     $image = str_replace(' ', '+', $image);
-
-        //     $fileName = 'avatar_' . time() . '.jpg';
-
-        //     Storage::disk('public')->put(
-        //         'temp/' . $fileName,
-        //         base64_decode($image)
-        //     );
-
-        //     $data['avatar'] =
-        //         public_path('storage/temp/' . $fileName);
-        // }
 
         // simpan ke session
         session(['cv_data' => $data]);

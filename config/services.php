@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'google' => [
+        'analytics_id' => env('MIX_ANALYTICS_ID', env('VITE_ANALYTICS_ID', 'G-DGR0WR4BKB')),
+    ],
+
 ];

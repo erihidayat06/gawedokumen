@@ -25,18 +25,19 @@
         }
     </script>
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DGR0WR4BKB"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
+    @if (app()->environment('production') && config('services.google.analytics_id'))
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{ config('services.google.analytics_id') }}"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
 
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
 
-        gtag('config', 'G-DGR0WR4BKB');
-    </script>
+            gtag('config', "{{ config('services.google.analytics_id') }}");
+        </script>
+    @endif
 
 
     {{-- Meta Description Dinamis --}}
