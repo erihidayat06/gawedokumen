@@ -190,7 +190,6 @@
     [&_li]:mb-2
     [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:mt-6 [&_h2]:mb-4
     [&_h3]:text-xl [&_h3]:font-bold [&_h3]:mt-4 [&_h3]:mb-2
-
     [&_table]:w-full
     [&_table]:border [&_table]:border-slate-300
     [&_th]:border [&_td]:border
