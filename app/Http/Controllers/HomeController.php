@@ -62,6 +62,12 @@ class HomeController extends Controller
                     'deskripsi' => 'Rancang surat resign kerja resmi, sopan, dan profesional standar HRD 2026 untuk menjaga reputasi karier Anda.',
                     'route_path' => route('pekerja.surat.resign') // Jangan lupa sesuaikan route jika nanti dipisah
                 ],
+                (object)[
+                    'gambar' => '/img/surat_paklaring.png', // Sesuaikan dengan nama file aset gambar preview paklaringmu
+                    'nama_tool' => 'Surat Keterangan Kerja (Paklaring)',
+                    'deskripsi' => 'Buat draf surat paklaring resmi dan profesional sebagai bukti masa kerja sah untuk keperluan klaim BPJS atau melamar kerja.',
+                    'route_path' => route('pekerja.surat.paklaring') // Mengarah ke view index yang sempat error tadi setelah diperbaiki
+                ],
             ],
             // 'masyarakat' => [
             //     (object)[

@@ -46,6 +46,12 @@
                         class="dropdown-content hidden w-full md:absolute md:w-44 mt-1 md:mt-4 bg-white dark:bg-slate-800 md:rounded-xl md:shadow-xl border-l-2 border-blue-600 md:border-l-0 md:border md:border-slate-200 md:dark:border-slate-700 overflow-hidden">
                         <ul class="py-1 text-sm">
                             <li>
+                                <a href="/kategori/pekerja"
+                                    class="block px-6 md:px-4 py-2 text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 transition-colors">
+                                    Semua Surat
+                                </a>
+                            </li>
+                            <li>
                                 <a href="{{ route('pekerja.surat.lamaran') }}"
                                     class="block px-6 md:px-4 py-2 text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 transition-colors">
                                     Surat Lamaran Kerja
