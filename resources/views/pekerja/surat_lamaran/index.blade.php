@@ -408,7 +408,7 @@
                 </button>
             </div>
 
-            <div id="panzoom-element" class="bg-white shadow-2xl p-10 origin-top flex-shrink-0 text-justify"
+            <div id="panzoom-element" class="bg-white shadow-2xl p-[3.3rem] origin-top flex-shrink-0 text-justify"
                 style="width: 210mm; height: 297mm; min-width: 210mm; min-height: 297mm; font-size:12pt;">
 
                 <div class="jarak-paragraf text-left">
@@ -816,7 +816,8 @@
                 tempat_lahir: document.getElementById('tempat-lahir').value || "Tempat Lahir",
                 tanggal_lahir: document.getElementById('tanggal-lahir').value || (window.getTanggalInput ?
                     getTanggalInput() : ""),
-                kualifikasi: document.getElementById('kualifikasi').value || "Kualifikasi",
+                kualifikasi: document.getElementById('kualifikasi_input').value || "Kualifikasi",
+                keahlian: document.getElementById('keahlian').value || "Keahlian",
                 alamat_diri: document.getElementById('alamat-diri').value || "Alamat Sekarang",
                 no_tlp: document.getElementById('no-tlp').value || "08xxxxxxxxxx",
                 ttd_align: document.getElementById('ttd-align-selector').value,

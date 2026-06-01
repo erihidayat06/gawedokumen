@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class BlogController extends Controller
 {
@@ -53,10 +54,23 @@ class BlogController extends Controller
     }
 
 
+
+
     public function show($slug)
     {
         // Cari artikel berdasarkan slug
         $blog = Blog::where('slug', $slug)->firstOrFail();
+
+        // --- HITUNG READING TIME ---
+        // 1. Bersihkan tag HTML dari konten (misal field-nya bernama 'deskripsi')
+        $cleanContent = strip_tags($blog->konten);
+
+        // 2. Hitung jumlah kata menggunakan helper Laravel Str
+        $wordCount = Str::wordCount($cleanContent);
+
+        // 3. Bagi dengan rata-rata kecepatan membaca (200 kata/menit). Ambil batas atasnya dengan ceil()
+        $readingTime = ceil($wordCount / 200);
+        // ----------------------------
 
         // Related blogs tetap pakai kategori dari data yang ditemukan
         $relatedBlogs = Blog::where('kategori', $blog->kategori)
@@ -65,6 +79,7 @@ class BlogController extends Controller
             ->limit(3)
             ->get();
 
-        return view('blog.detail', compact('blog', 'relatedBlogs'));
+        // Tambahkan variabel 'readingTime' ke dalam compact
+        return view('blog.detail', compact('blog', 'relatedBlogs', 'readingTime'));
     }
 }
