@@ -14,6 +14,7 @@ use App\Http\Controllers\Pekerja\CvController;
 use App\Http\Controllers\Pekerja\SuratLamaranController;
 use App\Http\Controllers\Pekerja\KirimEmailController;
 use App\Http\Controllers\Pekerja\PaklaringController;
+use App\Http\Controllers\Pekerja\PortofolioController;
 use App\Http\Controllers\Pekerja\SuratResignController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Tools\GabungPdfController;
@@ -97,6 +98,10 @@ Route::prefix('pekerja')->name('pekerja.')->group(function () {
     Route::post('/paklaring', [PaklaringController::class, 'generatePdf'])->name('surat.paklaring.pdf');
     Route::get('/preview-paklaring', [PaklaringController::class, 'previewPdf'])
         ->name('surat.paklaring.pdf.preview');
+    Route::get('/portofolio', [PortofolioController::class, 'index'])->name('portofolio.index');
+    Route::post('/portofolio', [PortofolioController::class, 'generatePdf'])->name('portofolio.pdf');
+    Route::get('/preview-portofolio', [PortofolioController::class, 'previewPdf'])
+        ->name('portofolio.pdf.preview');
 });
 
 // POST untuk menerima form

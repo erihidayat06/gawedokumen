@@ -3,15 +3,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const parent = elem.parentElement;
 
     if (typeof Panzoom !== 'undefined') {
-        // 1. Tentukan Koordinat Berdasarkan Layar
         const isDesktop = window.innerWidth >= 768;
 
-        // Angka dari temuan kamu (Desktop)
         const desktopScale = 0.6;
         const desktopX = 0;
         const desktopY = -300;
 
-        // Angka perkiraan untuk Mobile (Silakan sesuaikan jika sudah nemu yang pas)
         const mobileScale = 0.4;
         const mobileY = -750;
 
@@ -23,27 +20,18 @@ document.addEventListener('DOMContentLoaded', () => {
             cursor: 'move',
         });
 
-        // 2. Fungsi Reset ke Posisi Presisi
         const setPresisi = () => {
             if (window.innerWidth >= 768) {
-                // Pakai angka desktop kamu
                 panzoom.zoom(desktopScale);
-                panzoom.pan(desktopX, desktopY, {
-                    force: true
-                });
+                panzoom.pan(desktopX, desktopY, { force: true });
             } else {
-                // Pakai angka mobile
                 panzoom.zoom(mobileScale);
-                panzoom.pan(0, mobileY, {
-                    force: true
-                });
+                panzoom.pan(0, mobileY, { force: true });
             }
         };
 
-        // Jalankan otomatis saat buka
         setTimeout(setPresisi, 100);
 
-        // Tombol Reset balik ke angka sakti ini
         document.getElementById('reset').addEventListener('click', () => {
             setPresisi();
         });

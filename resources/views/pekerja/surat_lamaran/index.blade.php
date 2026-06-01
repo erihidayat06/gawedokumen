@@ -44,32 +44,42 @@
                 ['id' => 'Head', 'label' => 'Head'],
                 ['id' => 'pengawalan', 'label' => 'Pengawalan'],
                 ['id' => 'data-diri', 'label' => 'Data Diri'],
+                ['id' => 'kualifikasi', 'label' => 'Kualifikasi'],
                 ['id' => 'dokumen', 'label' => 'Lampiran'],
                 ['id' => 'tanda-tangan', 'label' => 'Tanda Tangan'],
             ];
 
             // Definisi Field (Gabungan untuk HTML & JS)
-            // Format: 'id' (input id), 'label' (tampilan form), 'targets' (id preview teks), 'default' (teks awal)
+            // Ditambahkan key 'placeholder' agar dinamis saat di-render di dalam @foreach
             $allFields = [
                 'head' => [
-                    ['id' => 'kota', 'label' => 'Kota', 'targets' => ['kota-text'], 'default' => 'Kota'],
+                    [
+                        'id' => 'kota',
+                        'label' => 'Kota',
+                        'targets' => ['kota-text'],
+                        'default' => 'Kota',
+                        'placeholder' => 'Contoh: Jakarta Selatan, Bandung, Tegal, Semarang',
+                    ],
                     [
                         'id' => 'pt',
                         'label' => 'Nama Perusahaan',
                         'targets' => ['pt-text', 'pt2-text', 'pt3-text'],
                         'default' => 'PT. xxxxxxxx',
+                        'placeholder' => 'Contoh: PT. Sinergi Teknologi Nusantara',
                     ],
                     [
                         'id' => 'alamat-perusahaan',
                         'label' => 'Alamat Perusahaan',
                         'targets' => ['alamat-perusahaan-text'],
                         'default' => 'Jl. xxxxxxxx',
+                        'placeholder' => 'Contoh: Jl. Jenderal Sudirman Kav. 21, Menara Kencana Lt. 5',
                     ],
                     [
                         'id' => 'kota-perusahaan',
                         'label' => 'Kota Perusahaan',
                         'targets' => ['kota-perusahaan-text'],
                         'default' => 'Kota Perusahaan',
+                        'placeholder' => 'Contoh: Jakarta Selatan, Surabaya, Kota Tegal',
                     ],
                 ],
                 'pengawalan' => [
@@ -78,12 +88,14 @@
                         'label' => 'Media Informasi',
                         'targets' => ['media-text'],
                         'default' => 'Media Sosial',
+                        'placeholder' => 'Contoh: JobStreet, LinkedIn, Instagram Resmi Perusahaan',
                     ],
                     [
                         'id' => 'posisi',
                         'label' => 'Posisi Kerja',
                         'targets' => ['posisi-text', 'posisi2-text'],
                         'default' => 'Posisi Kerja',
+                        'placeholder' => 'Contoh: Full Stack Web Developer, Staff Administrasi, Supervisor',
                     ],
                 ],
                 'dataDiri' => [
@@ -92,24 +104,46 @@
                         'label' => 'Nama Lengkap',
                         'targets' => ['nama-text', 'nama2-text'],
                         'default' => 'Nama Lengkap',
+                        'placeholder' => 'Contoh: Aris Setiawan, S.Kom',
                     ],
                     [
                         'id' => 'tempat-lahir',
                         'label' => 'Tempat Lahir',
                         'targets' => ['tempat-lahir-text'],
                         'default' => 'Tempat Lahir',
+                        'placeholder' => 'Contoh: Tegal, Bandung, Jakarta',
                     ],
                     [
                         'id' => 'alamat-diri',
                         'label' => 'Alamat diri',
                         'targets' => ['alamat-diri-text'],
                         'default' => 'Alamat Sekarang',
+                        'placeholder' => 'Contoh: Jl. RE Martadinata No. 12, RT 03/RW 04, Kec. Tegal Barat, Kota Tegal',
                     ],
                     [
                         'id' => 'no-tlp',
                         'label' => 'Nomor Telepon',
                         'targets' => ['no-tlp-text'],
                         'default' => '08xxxxxxxxxx',
+                        'placeholder' => 'Contoh: 081234567890',
+                    ],
+                ],
+                'kualifikasi_keahlian' => [
+                    [
+                        'id' => 'kualifikasi_input',
+                        'label' => 'Kualifikasi',
+                        'targets' => ['kualifikasi-text'],
+                        'default' => 'Kualifikasi',
+                        'placeholder' =>
+                            'Contoh: Saya merupakan lulusan S1 Teknik Informatika yang memiliki pengalaman kerja selama 2 tahun di bidang IT',
+                    ],
+                    [
+                        'id' => 'keahlian',
+                        'label' => 'Keahlian',
+                        'targets' => ['keahlian-text', 'keahlian-text'],
+                        'default' => 'Keahlian',
+                        'placeholder' =>
+                            'Contoh: pengembangan aplikasi web dengan Laravel & React, manajemen database, serta analisis SEO',
                     ],
                 ],
             ];
@@ -139,6 +173,7 @@
                 'isDate' => true,
             ];
         @endphp
+
         <div class="order-1 md:order-2 p-5 bg-white border rounded-xl flex flex-col h-[700px]">
             <h3 class="font-bold border-b pb-2 text-gray-700">Form Input</h3>
 
@@ -177,13 +212,12 @@
                             <input type="text" id="{{ $field['id'] }}"
                                 class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                                 oninput="myFunction('{{ $field['id'] }}', '{{ $field['targets'][0] }}', '{{ $field['default'] }}')"
-                                value="{{ $currentValue }}">
+                                value="{{ $currentValue }}" placeholder="{{ $field['placeholder'] }}">
 
                             {{-- Trigger otomatis ke preview jika value dari request URL terisi --}}
                             @if ($field['id'] == 'pt' && request('perusahaan'))
                                 <script>
                                     document.addEventListener("DOMContentLoaded", function() {
-                                        // Paksa jalankan fungsi agar teks langsung muncul di preview kanan saat page load
                                         myFunction('{{ $field['id'] }}', '{{ $field['targets'][0] }}', '{{ $field['default'] }}');
                                     });
                                 </script>
@@ -191,8 +225,8 @@
                         </div>
                     @endforeach
                     <div>
-                        <div class="flex justify-between items-center"><label
-                                class="block text-sm font-medium text-gray-700">Tanggal dibuat</label>
+                        <div class="flex justify-between items-center">
+                            <label class="block text-sm font-medium text-gray-700">Tanggal dibuat</label>
                             <button type="button" onclick="setHariIni()"
                                 class="text-xs text-blue-600 hover:underline">Gunakan hari ini</button>
                         </div>
@@ -208,8 +242,6 @@
                             <label class="block text-sm font-medium text-gray-700">{{ $field['label'] }}</label>
 
                             @php
-                                // Logika baru: Cek APAKAH benar-benar ada request 'posisi' di URL untuk ID 'posisi'
-                                // Jika ada, pakai request tersebut. Jika tidak ada request, biarkan KOSONG ("") agar tidak menimpa Local Storage
                                 $currentValue =
                                     $field['id'] == 'posisi' && request()->has('posisi') ? request('posisi') : '';
                             @endphp
@@ -217,9 +249,8 @@
                             <input type="text" id="{{ $field['id'] }}"
                                 class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                                 oninput="myFunction('{{ $field['id'] }}', '{{ $field['targets'][0] }}', '{{ $field['default'] }}')"
-                                value="{{ $currentValue }}">
+                                value="{{ $currentValue }}" placeholder="{{ $field['placeholder'] }}">
 
-                            {{-- Hanya jalankan trigger preview otomatis JIKA ada request dari URL saja --}}
                             @if ($field['id'] == 'posisi' && request()->has('posisi'))
                                 <script>
                                     document.addEventListener("DOMContentLoaded", function() {
@@ -237,7 +268,8 @@
                             <label class="block text-sm font-medium text-gray-700">{{ $field['label'] }}</label>
                             <input type="text" id="{{ $field['id'] }}"
                                 class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all"
-                                oninput="myFunction('{{ $field['id'] }}', '{{ $field['targets'][0] }}', '{{ $field['default'] }}')">
+                                oninput="myFunction('{{ $field['id'] }}', '{{ $field['targets'][0] }}', '{{ $field['default'] }}')"
+                                placeholder="{{ $field['placeholder'] }}">
                         </div>
                     @endforeach
                     <div>
@@ -249,7 +281,8 @@
                                         onclick="myFunctionRadio('jk', 'jenis-kelamin-text', 'Jenis Kelamin')">
                                     <div
                                         class="px-4 py-2 border border-slate-300 rounded-lg peer-checked:bg-blue-500 peer-checked:text-white transition-all">
-                                        {{ $jk }}</div>
+                                        {{ $jk }}
+                                    </div>
                                 </label>
                             @endforeach
                         </div>
@@ -262,6 +295,18 @@
                     </div>
                 </div>
 
+                <div id="kualifikasi" class="tab-content hidden space-y-4">
+                    @foreach ($allFields['kualifikasi_keahlian'] as $field)
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">{{ $field['label'] }}</label>
+                            <input type="text" id="{{ $field['id'] }}"
+                                class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                                oninput="myFunction('{{ $field['id'] }}', '{{ $field['targets'][0] }}', '{{ $field['default'] }}')"
+                                placeholder="{{ $field['placeholder'] }}">
+                        </div>
+                    @endforeach
+                </div>
+
                 <div id="dokumen" class="tab-content hidden space-y-4">
                     <div class="flex justify-between items-center mt-2">
                         <label class="block text-sm font-medium text-gray-700">Daftar Lampiran</label>
@@ -271,6 +316,7 @@
                         </button>
                     </div>
                     <div id="container-input-dokumen" class="space-y-2 pb-4">
+                        {{-- Di sini nanti di-render baris input lampiran via JS, pastikan di fungsi JS tambahBarisInput() juga ditambahkan placeholder seperti "Contoh: Curriculum Vitae (CV)" --}}
                     </div>
                 </div>
 
@@ -297,8 +343,7 @@
                         </div>
 
                         <input type="file" id="input-foto" accept="image/*"
-                            class="w-full px-4 py-2 border border-slate-300 rounded-lg outline-none text-sm file:mr-4 file:py-1 file:px-2 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-                            onchange="simpanGambar(this)">
+                            class="w-full px-4 py-2 border border-slate-300 rounded-lg outline-none text-sm file:mr-4 file:py-1 file:px-2 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
 
                         <button onclick="hapusGambar()"
                             class="text-[10px] font-bold text-red-500 mt-2 uppercase tracking-tight hover:underline">
@@ -318,7 +363,6 @@
                 </div>
             </div>
         </div>
-
 
         <div
             class="order-2 md:order-1 w-full h-[500px] md:h-[700px] border bg-gray-300 overflow-hidden relative touch-none flex justify-center items-start rounded-xl">
@@ -374,19 +418,17 @@
                 <div class="jarak-paragraf text-left">Perihal: Lamaran Pekerjaan</div>
 
                 <div class="jarak-paragraf text-left">
-                    Kepada,<br>
+                    Kepada Yth,<br>
                     HRD <span id="pt-text"></span> <br>
-                    <span id="alamat-perusahaan-text"></span> <br>
-                    <span id="kota-perusahaan-text"></span> <br>
+                    <span id="alamat-perusahaan-text"></span>, <span id="kota-perusahaan-text"></span>
                 </div>
 
                 <div class="jarak-paragraf text-left">Dengan Hormat,</div>
 
+                {{-- REVISI 1: Gabungkan info lowongan langsung dengan deklarasi data diri --}}
                 <div class="jarak-paragraf text-justify">
-                    Sehubungan dengan informasi lowongan kerja yang saya dapatkan di <span id="media-text"></span>,
-                    saya mengetahui bahwa perusahaan <span id="pt2-text"></span> sedang mencari posisi <span
-                        id="posisi-text"></span>.
-                    Untuk itu, saya yang bertanda tangan di bawah ini:
+                    Sehubungan dengan informasi lowongan kerja di <span id="media-text"></span> untuk posisi <span
+                        id="posisi-text" class="font-semibold"></span>, saya yang bertanda tangan di bawah ini:
                 </div>
 
                 <div class="jarak-paragraf">
@@ -402,7 +444,7 @@
                             <td><span id="jenis-kelamin-text"></span></td>
                         </tr>
                         <tr>
-                            <td>Tempat/Tanggal lahir</td>
+                            <td>Tempat/Tanggal Lahir</td>
                             <td>&nbsp;:&nbsp;</td>
                             <td><span id="tempat-lahir-text"></span>, <span id="tanggal-lahir-text"></span></td>
                         </tr>
@@ -412,36 +454,44 @@
                             <td><span id="alamat-diri-text"></span></td>
                         </tr>
                         <tr>
-                            <td>Nomor telepon</td>
+                            <td>Nomor Telepon</td>
                             <td>&nbsp;:&nbsp;</td>
                             <td><span id="no-tlp-text"></span></td>
                         </tr>
                     </table>
                 </div>
 
-                <div class="jarak-paragraf text-justify">
-                    Dengan ini bermaksud untuk melamar posisi <span id="posisi2-text"></span> di <span
-                        id="pt3-text"></span>.
-                    Sebagai bahan pertimbangan, saya sertakan beberapa dokumen berikut:
+                {{-- REVISI 2: Penggabungan Paragraf Kualifikasi & Keahlian (Menghapus pengulangan posisi & PT) --}}
+                <div class="jarak-paragraf text-justify leading-relaxed">
+                    <span id="kualifikasi-text"></span>. Selain itu, saya juga
+                    membekali diri dengan keahlian kompeten di antaranya yaitu <span id="keahlian-text"></span> yang dapat
+                    menunjang produktivitas di perusahaan Bapak/Ibu.
                 </div>
 
-                <div class="jarak-paragraf " style="list-style-type: disc; margin-left: 20px;">
-                    <ol id="dokumen-text" class="list-decimal ml-5 text-red-500"></ol>
+                {{-- Paragraf Lampiran Dokumen --}}
+                <div class="jarak-paragraf text-justify leading-relaxed mt-2">
+                    Sebagai bahan pertimbangan, bersama surat ini saya lampirkan beberapa dokumen pendukung:
+                </div>
+                <div class="jarak-paragraf mt-1">
+                    <ol id="dokumen-text" class="list-decimal ml-10 space-y-0.5"></ol>
                 </div>
 
-                <div class="jarak-paragraf text-justify">
-                    Demikian surat lamaran kerja ini, saya ucapkan terima kasih atas perhatian Bapak/Ibu HRD.
+                {{-- REVISI 3: Penutup dipadatkan agar tidak memakan sisa space halaman bawah --}}
+                <div class="jarak-paragraf text-justify leading-relaxed mt-2">
+                    Demikian surat lamaran ini saya sampaikan. Besar harapan saya untuk diberikan kesempatan wawancara agar
+                    dapat mendiskusikan kontribusi saya lebih mendalam. Atas perhatian Bapak/Ibu, saya ucapkan terima kasih.
                 </div>
 
-                <div class="jarak-paragraf mt-10 px-5">
+                {{-- REVISI 4: Pengecilan container TTD agar tidak mendorong margin bawah --}}
+                <div class="jarak-paragraf mt-6 px-5">
                     <div id="ttd-container" class="flex flex-col items-end">
                         <div class="text-center">
-                            <span class="block mb-2">Hormat saya,</span>
-                            <div class="w-32 h-32 flex justify-center items-center mx-auto">
+                            <span class="block mb-1 text-sm">Hormat saya,</span>
+                            <div class="w-24 h-24 flex justify-center items-center mx-auto">
                                 <img id="preview-foto" src=""
                                     class="hidden max-w-full max-h-full object-contain">
                             </div>
-                            <div class="mt-2 font-bold underline">
+                            <div class="mt-1 font-bold underline">
                                 <span id="nama2-text"></span>
                             </div>
                         </div>
@@ -766,6 +816,7 @@
                 tempat_lahir: document.getElementById('tempat-lahir').value || "Tempat Lahir",
                 tanggal_lahir: document.getElementById('tanggal-lahir').value || (window.getTanggalInput ?
                     getTanggalInput() : ""),
+                kualifikasi: document.getElementById('kualifikasi').value || "Kualifikasi",
                 alamat_diri: document.getElementById('alamat-diri').value || "Alamat Sekarang",
                 no_tlp: document.getElementById('no-tlp').value || "08xxxxxxxxxx",
                 ttd_align: document.getElementById('ttd-align-selector').value,
