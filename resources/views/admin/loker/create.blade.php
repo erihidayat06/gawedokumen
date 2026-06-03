@@ -444,6 +444,11 @@
                             // Konversikan item array ke string / integer yang sesuai dengan value option kamu
                             selectProduk.val(data.product_ids).trigger('change');
                         }
+                        const selectBlog = $('select[name="blog_ids[]"]');
+                        if (selectBlog.length && Array.isArray(data.blog_ids)) {
+                            // Konversikan item array ke string / integer yang sesuai dengan value option kamu
+                            selectBlog.val(data.blog_ids).trigger('change');
+                        }
 
                         // Loop Isi Array Benefit Dinamis
                         if (data.benefit && data.benefit.length > 0) {

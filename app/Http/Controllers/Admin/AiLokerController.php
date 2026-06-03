@@ -56,8 +56,15 @@ class AiLokerController extends Controller
             ->map(function ($prod) {
                 return "ID [{$prod->id}]: {$prod->nama_produk}";
             })->implode("\n");
+        $availableBlogs = \App\Models\Blog::get(['id', 'judul'])
+            ->map(function ($prod) {
+                return "ID [{$prod->id}]: {$prod->judul}";
+            })->implode("\n");
 
         $prompt = "Analisis gambar brosur lowongan kerja ini. Ekstrak informasinya dan kembalikan HANYA dalam format JSON murni tanpa markdown, tanpa tanda ```json. Jika informasi tidak ditemukan di gambar, kosongkan stringnya (\"\").
+
+        Daftar Blog yang Tersedia:
+        {$availableBlogs}
 
         Daftar Produk Affiliate yang Tersedia:
         {$availableProducts}
@@ -76,15 +83,16 @@ class AiLokerController extends Controller
         \"tugas\": [\"Poin tugas berupa NAMA AKTIVITAS/AKSI SAJA (maksimal 4-6 kata per poin), TANPA kalimat penjelasan panjang di belakangnya. Jika tidak tertulis eksplisit di gambar, buatkan tugas logis yang relevan dengan posisi tersebut. Contoh: 'Membalas chat di sosial media', 'Mengunggah konten story dan feed'\"],
         \"persyaratan\": [\"Tuliskan semua syarat, kualifikasi, dan berkas yang harus dikirim dalam bentuk array string terpisah per poin\"],
         \"no_wa\": \"Format angka saja diawali 628xxx jika nomor WA ditemukan, jika tidak ada kosongkan\",
-        \"email\": \"Alamat email hrd jika ada, jika tidak ada kosongkan\"
+        \"email\": \"Alamat email hrd jika ada, jika tidak ada kosongkan\",
+        \"blog_ids\": [\"Pilih 5 blog yang sesuai dengan loker, jika kurang ambil yang kemungkinan relevan\"]
         \"product_ids\": []
         }
 
         PANDUAN KHUSUS UNTUK 'product_ids':
         1. Pahami lingkungan kerja posisi tersebut (Contoh: cuci loyang berarti basah, lelah fisik, kerja shift malam).
-        2. Pilih 3-5 ID Produk dari 'Daftar Produk Affiliate yang Tersedia' di atas yang PALING LOGIS mendukung fisik atau kebutuhan pelamar kerja tersebut (Misal: korset punggung, sabuk hangat, sepatu boots, vitamin stamina, botol minum besar, atau map lamaran).
+        2. Pilih 5-10 ID Produk dari 'Daftar Produk Affiliate yang Tersedia' di atas yang PALING LOGIS mendukung fisik atau kebutuhan pelamar kerja tersebut (Misal: korset punggung, sabuk hangat, sepatu boots, vitamin stamina, botol minum besar, atau map lamaran).
         3. JANGAN merekomendasikan barang rumah tangga acak seperti jemuran baju, alat kosmetik, atau perabotan yang tidak relevan dengan kebutuhan pekerja kasar/pencari kerja.
-        4. Jika tidak ada produk yang cocok sama sekali, isi dengan 3-5 ID produk secara acak dari daftar yang tersedia.";
+        4. Jika tidak ada produk yang cocok sama sekali, isi dengan 5-10 ID produk secara acak dari daftar yang tersedia.";
 
         $response = null;
         $successRequest = false;

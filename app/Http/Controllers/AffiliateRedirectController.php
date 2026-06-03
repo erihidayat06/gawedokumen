@@ -14,19 +14,24 @@ class AffiliateRedirectController extends Controller
             ->where('status', 'active')
             ->firstOrFail();
 
-        // 2. SESUAIKAN: Ganti 'link_afiliasi' dengan nama kolom asli di tabel affiliate_ads kamu
-        // Kita cek apakah kolom tersebut ada isinya dan tidak null
         $urlTujuan = $ad->affiliate_url;
 
         if (empty($urlTujuan)) {
-            // Jika kolom di database ternyata kosong/null, kembalikan ke halaman sebelumnya atau beranda
             return redirect()->to('/')->with('error', 'Link produk tidak tersedia.');
         }
 
-        // --- FITUR HITUNG KLIK / VIEWS ---
-        // Baris ini akan otomatis menambahkan +1 pada kolom total_views di database
-        // SESUAIKAN: Ganti 'total_views' dengan nama kolom asli di tabel database kamu (misal: 'clicks', 'view_count')
-        $ad->increment('total_views');
+        // --- FITUR HITUNG KLIK (DENGAN FILTER BOT) ---
+        // Mendapatkan User Agent dari pengakses
+        $userAgent = request()->userAgent();
+
+        // Pola regex untuk mendeteksi bot/crawler umum
+        // Menambahkan: bot, crawler, spider, slurp, facebookexternalhit, curl, wget, dll
+        $isBot = preg_match('/bot|crawler|spider|crawling|slurp|facebookexternalhit|python-requests|curl|wget|applebot|bingbot|googlebot/i', $userAgent);
+
+        // Hanya tambahkan increment jika BUKAN bot
+        if (!$isBot) {
+            $ad->increment('total_views');
+        }
 
         // 3. Alihkan secara aman ke URL eksternal
         return redirect()->away($urlTujuan);
