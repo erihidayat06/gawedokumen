@@ -160,7 +160,9 @@
 
                                     if ($deadline) {
                                         // Skenario 1: Jika ada deadline, cek apakah sudah lewat hari ini
-                                        $isExpired = \Carbon\Carbon::parse($deadline)->endOfDay()->isPast();
+                                        $isExpired = \Carbon\Carbon::now()->greaterThan(
+                                            \Carbon\Carbon::parse($loker->deadline)->addDay()->startOfDay(),
+                                        );
                                     } else {
                                         // Skenario 2: Jika tidak ada deadline, cek apakah sudah lebih dari 1 bulan daricreated_at
                                         $isExpired = \Carbon\Carbon::parse($loker->created_at)->addMonth()->isPast();

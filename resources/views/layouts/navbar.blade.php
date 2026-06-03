@@ -27,13 +27,18 @@
             <ul
                 class="flex flex-col p-2 md:p-0 font-medium border border-slate-100 dark:border-slate-800 rounded-2xl bg-slate-50 dark:bg-slate-800/50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-transparent md:dark:bg-transparent items-center">
 
+                {{-- Menu Beranda --}}
                 <li class="w-full md:w-auto">
-                    <a href="/" class="block py-2.5 px-4 text-blue-600 font-bold md:p-0">Beranda</a>
+                    <a href="/"
+                        class="block py-2.5 px-4 md:p-0 transition-colors {{ request()->is('/') ? 'text-blue-600 font-bold dark:text-blue-400' : 'text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400' }}">
+                        Beranda
+                    </a>
                 </li>
 
+                {{-- Dropdown Pekerja --}}
                 <li class="relative w-full md:w-auto">
                     <button
-                        class="dropdown-button flex items-center justify-between w-full py-2.5 px-4 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors md:p-0">
+                        class="dropdown-button flex items-center justify-between w-full py-2.5 px-4 md:p-0 transition-colors {{ request()->is('kategori/pekerja*') || request()->routeIs('pekerja.*') ? 'text-blue-600 font-bold dark:text-blue-400' : 'text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400' }}">
                         Pekerja
                         <svg class="w-4 h-4 ms-1 transition-transform duration-200" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
@@ -43,50 +48,58 @@
                     </button>
 
                     <div
-                        class="dropdown-content hidden w-full md:absolute md:w-44 mt-1 md:mt-4 bg-white dark:bg-slate-800 md:rounded-xl md:shadow-xl border-l-2 border-blue-600 md:border-l-0 md:border md:border-slate-200 md:dark:border-slate-700 overflow-hidden">
+                        class="dropdown-content hidden w-full md:absolute md:w-56 mt-1 md:mt-4 bg-white dark:bg-slate-800 md:rounded-xl md:shadow-xl border-l-2 border-blue-600 md:border-l-0 md:border md:border-slate-200 md:dark:border-slate-700 overflow-hidden z-50">
                         <ul class="py-1 text-sm">
                             <li>
                                 <a href="/kategori/pekerja"
-                                    class="block px-6 md:px-4 py-2 text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 transition-colors">
+                                    class="block px-6 md:px-4 py-2 transition-colors {{ request()->is('kategori/pekerja') ? 'bg-blue-50 text-blue-600 font-semibold dark:bg-slate-700/60 dark:text-blue-400' : 'text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600' }}">
                                     Semua Surat
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ route('pekerja.surat.lamaran') }}"
-                                    class="block px-6 md:px-4 py-2 text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 transition-colors">
+                                    class="block px-6 md:px-4 py-2 transition-colors {{ request()->routeIs('pekerja.surat.lamaran') ? 'bg-blue-50 text-blue-600 font-semibold dark:bg-slate-700/60 dark:text-blue-400' : 'text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600' }}">
                                     Surat Lamaran Kerja
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ route('pekerja.generate.cv') }}"
-                                    class="block px-6 md:px-4 py-2 text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 transition-colors">
+                                    class="block px-6 md:px-4 py-2 transition-colors {{ request()->routeIs('pekerja.generate.cv') ? 'bg-blue-50 text-blue-600 font-semibold dark:bg-slate-700/60 dark:text-blue-400' : 'text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600' }}">
                                     Membuat CV
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ route('pekerja.kirim.lamaran.email') }}"
-                                    class="block px-6 md:px-4 py-2 text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 transition-colors">
+                                    class="block px-6 md:px-4 py-2 transition-colors {{ request()->routeIs('pekerja.kirim.lamaran.email') ? 'bg-blue-50 text-blue-600 font-semibold dark:bg-slate-700/60 dark:text-blue-400' : 'text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600' }}">
                                     Kirim ke Email HRD (Otomatis)
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ route('pekerja.surat.resign') }}"
-                                    class="block px-6 md:px-4 py-2 text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 transition-colors">
+                                    class="block px-6 md:px-4 py-2 transition-colors {{ request()->routeIs('pekerja.surat.resign') ? 'bg-blue-50 text-blue-600 font-semibold dark:bg-slate-700/60 dark:text-blue-400' : 'text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600' }}">
                                     Surat Resign
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ route('pekerja.surat.paklaring') }}"
-                                    class="block px-6 md:px-4 py-2 text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 transition-colors">
+                                    class="block px-6 md:px-4 py-2 transition-colors {{ request()->routeIs('pekerja.surat.paklaring') ? 'bg-blue-50 text-blue-600 font-semibold dark:bg-slate-700/60 dark:text-blue-400' : 'text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600' }}">
                                     Surat Paklaring
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('pekerja.portofolio.index') }}"
+                                    class="block px-6 md:px-4 py-2 transition-colors {{ request()->routeIs('pekerja.portofolio.index') ? 'bg-blue-50 text-blue-600 font-semibold dark:bg-slate-700/60 dark:text-blue-400' : 'text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600' }}">
+                                    Pertofolio
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </li>
+
+                {{-- Dropdown Tools --}}
                 <li class="relative w-full md:w-auto">
                     <button
-                        class="dropdown-button flex items-center justify-between w-full py-2.5 px-4 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors md:p-0">
+                        class="dropdown-button flex items-center justify-between w-full py-2.5 px-4 md:p-0 transition-colors {{ request()->routeIs('tool.*') ? 'text-blue-600 font-bold dark:text-blue-400' : 'text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400' }}">
                         Tools
                         <svg class="w-4 h-4 ms-1 transition-transform duration-200" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
@@ -96,47 +109,48 @@
                     </button>
 
                     <div
-                        class="dropdown-content hidden w-full md:absolute md:w-44 mt-1 md:mt-4 bg-white dark:bg-slate-800 md:rounded-xl md:shadow-xl border-l-2 border-blue-600 md:border-l-0 md:border md:border-slate-200 md:dark:border-slate-700 overflow-hidden">
+                        class="dropdown-content hidden w-full md:absolute md:w-52 mt-1 md:mt-4 bg-white dark:bg-slate-800 md:rounded-xl md:shadow-xl border-l-2 border-blue-600 md:border-l-0 md:border md:border-slate-200 md:dark:border-slate-700 overflow-hidden z-50">
                         <ul class="py-1 text-sm">
                             <li>
                                 <a href="{{ route('tool.signature') }}"
-                                    class="block px-6 md:px-4 py-2 text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 transition-colors">
+                                    class="block px-6 md:px-4 py-2 transition-colors {{ request()->routeIs('tool.signature') ? 'bg-blue-50 text-blue-600 font-semibold dark:bg-slate-700/60 dark:text-blue-400' : 'text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600' }}">
                                     Tanda Tangan Digital
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ route('tool.kompres.pdf.index') }}"
-                                    class="block px-6 md:px-4 py-2 text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 transition-colors">
+                                    class="block px-6 md:px-4 py-2 transition-colors {{ request()->routeIs('tool.kompres.pdf.*') ? 'bg-blue-50 text-blue-600 font-semibold dark:bg-slate-700/60 dark:text-blue-400' : 'text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600' }}">
                                     Kompres PDF
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ route('tool.kompres.gambar.index') }}"
-                                    class="block px-6 md:px-4 py-2 text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 transition-colors">
+                                    class="block px-6 md:px-4 py-2 transition-colors {{ request()->routeIs('tool.kompres.gambar.*') ? 'bg-blue-50 text-blue-600 font-semibold dark:bg-slate-700/60 dark:text-blue-400' : 'text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600' }}">
                                     Kompres Gambar
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ route('tool.pdf.merge.index') }}"
-                                    class="block px-6 md:px-4 py-2 text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 transition-colors">
-                                    Gabung Pdf
+                                    class="block px-6 md:px-4 py-2 transition-colors {{ request()->routeIs('tool.pdf.merge.*') ? 'bg-blue-50 text-blue-600 font-semibold dark:bg-slate-700/60 dark:text-blue-400' : 'text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600' }}">
+                                    Gabung PDF
                                 </a>
                             </li>
                         </ul>
                     </div>
-
                 </li>
 
-
+                {{-- Menu Loker --}}
                 <li class="w-full md:w-auto">
                     <a href="{{ route('loker.index') }}"
-                        class="block py-2.5 px-4 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 md:p-0 transition-colors">
+                        class="block py-2.5 px-4 md:p-0 transition-colors {{ request()->routeIs('loker.*') ? 'text-blue-600 font-bold dark:text-blue-400' : 'text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400' }}">
                         Loker
                     </a>
                 </li>
+
+                {{-- Menu Blog --}}
                 <li class="w-full md:w-auto">
                     <a href="/blog"
-                        class="block py-2.5 px-4 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 md:p-0 transition-colors">
+                        class="block py-2.5 px-4 md:p-0 transition-colors {{ request()->is('blog*') ? 'text-blue-600 font-bold dark:text-blue-400' : 'text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400' }}">
                         Blog
                     </a>
                 </li>
@@ -145,30 +159,7 @@
     </div>
 </nav>
 
-
 <script>
-    let lastScrollTop = 0;
-    const navbar = document.getElementById('main-navbar');
-
-    window.addEventListener('scroll', function() {
-        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-        if (scrollTop > lastScrollTop && scrollTop > 100) {
-            // Jika scroll ke bawah dan sudah melewati 100px, sembunyikan navbar
-            navbar.style.transform = 'translateY(-100%)';
-        } else {
-            // Jika scroll ke atas, munculkan kembali navbar
-            navbar.style.transform = 'translateY(0)';
-        }
-
-        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // Untuk menangani mobile or negative scrolling
-    }, false);
-</script>
-
-<script>
-    const dropdownButton = document.getElementById('dropdownButton');
-    const dropdownContent = document.getElementById('dropdownContent');
-
     document.addEventListener('DOMContentLoaded', () => {
         // --- 1. Navbar Scroll (Hide/Show) ---
         let lastScrollTop = 0;
@@ -177,9 +168,9 @@
         window.addEventListener('scroll', () => {
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
             if (scrollTop > lastScrollTop && scrollTop > 100) {
-                navbar.style.transform = 'translateY(-100%)'; // Sembunyikan
+                navbar.style.transform = 'translateY(-100%)'; // Sembunyikan ke atas
             } else {
-                navbar.style.transform = 'translateY(0)'; // Munculkan
+                navbar.style.transform = 'translateY(0)'; // Munculkan kembali
             }
             lastScrollTop = Math.max(0, scrollTop);
         });
@@ -201,21 +192,32 @@
             btn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 const currentContent = btn.nextElementSibling;
+                const arrowIcon = btn.querySelector('svg');
 
-                // Tutup dropdown lain yang sedang terbuka
-                dropdownContents.forEach(content => {
-                    if (content !== currentContent) content.classList.add('hidden');
+                // Tutup dropdown lain yang sedang terbuka & kembalikan rotasi panahnya
+                dropdownButtons.forEach(otherBtn => {
+                    if (otherBtn !== btn) {
+                        otherBtn.nextElementSibling.classList.add('hidden');
+                        const otherArrow = otherBtn.querySelector('svg');
+                        if (otherArrow) otherArrow.style.transform = 'rotate(0deg)';
+                    }
                 });
 
-                // Toggle dropdown yang diklik
-                currentContent.classList.toggle('hidden');
+                // Toggle dropdown yang diklik beserta animasi panahnya
+                const isHidden = currentContent.classList.toggle('hidden');
+                if (arrowIcon) {
+                    arrowIcon.style.transform = isHidden ? 'rotate(0deg)' : 'rotate(180deg)';
+                }
             });
         });
 
-        // Tutup semuanya jika klik di luar navbar
+        // Tutup semua dropdown & menu mobile jika klik di sembarang tempat luar navbar
         window.addEventListener('click', () => {
             dropdownContents.forEach(content => content.classList.add('hidden'));
-            // Optional: tutup menu mobile juga saat klik luar
+            dropdownButtons.forEach(btn => {
+                const arrowIcon = btn.querySelector('svg');
+                if (arrowIcon) arrowIcon.style.transform = 'rotate(0deg)';
+            });
             if (window.innerWidth < 768) navbarMenu.classList.add('hidden');
         });
     });

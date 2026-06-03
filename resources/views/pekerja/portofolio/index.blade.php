@@ -5,31 +5,29 @@
     <div class="mb-8 text-center px-4 mt-28">
         <span
             class="inline-block px-3 py-1 mb-3 text-xs font-semibold tracking-wider text-blue-600 uppercase bg-blue-50 rounded-full dark:bg-slate-800 dark:text-blue-400">
-            Document Generator
+            Portfolio Builder
         </span>
 
         <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-            Rancang Surat Lamaran <span class="text-blue-600">Profesional</span>
+            Bangun Portofolio <span class="text-blue-600">Memukau</span>
         </h1>
 
         <div class="mt-3 max-w-2xl mx-auto">
             <p class="text-base text-slate-600 dark:text-slate-400 leading-relaxed">
-                Mudah, cepat, dan sesuai standar HRD. Isi formulir di bawah, dan biarkan <span
-                    class="font-semibold italic">Gawe Dokument</span> mengerjakan sisanya untuk Anda.
+                Pamerkan karya terbaik Anda dengan tata letak modern dan profesional. Isi data proyek, dan biarkan <span
+                    class="font-semibold italic">Gawe Dokumen</span> menyusun portofolio impian Anda.
             </p>
         </div>
 
-
-
         <div class="mt-4 flex justify-center items-center space-x-2 text-sm text-slate-400 italic">
-            <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+            {{-- Ikon Magic/Sparkles untuk merepresentasikan pembuatan karya/portofolio --}}
+            <svg class="w-4 h-4 text-blue-500 animate-pulse" fill="none" stroke="currentColor" stroke-width="2"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M9.813 15.904L9 21l-.813-5.096L3 15l5.096-.813L9 9l.813 5.096L15 15l-5.187.904zM19.071 4.929l-.707 1.414-1.414.707 1.414.707.707 1.414.707-1.414 1.414-.707-1.414-.707-.707-1.414z" />
             </svg>
-            <span>Kami mendoakan kesuksesan karir Anda di tempat tujuan.</span>
+            <span>Tunjukkan potensi terbaik Anda kepada klien dan perusahaan impian.</span>
         </div>
-
-
 
         <div class="mt-6 w-24 h-1 bg-blue-600 mx-auto rounded-full opacity-20"></div>
     </div>
@@ -274,6 +272,190 @@
             </div>
         </div>
     </div>
+
+    <div class="mx-5">
+        <div class="mt-6 p-4 bg-blue-50 border-l-4 border-blue-500 rounded-r-lg">
+            <div class="flex items-center">
+                <svg class="w-5 h-5 text-blue-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                        d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                        clip-rule="evenodd" />
+                </svg>
+                <span class="text-sm text-blue-800 font-medium">Jaminan Privasi</span>
+            </div>
+            <p class="text-xs text-blue-600 mt-1">
+                Data karya dan informasi pribadi yang Anda masukkan tidak disimpan di server kami. Kami menggunakan
+                teknologi penyimpanan lokal agar data portofolio Anda tetap aman di perangkat Anda sendiri.
+            </p>
+        </div>
+    </div>
+
+    {{-- Bagian Edukasi/Tips di bawah Form --}}
+    <article class="mt-12 border-t border-slate-100 dark:border-slate-800 pt-10 px-5">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-2xl md:text-3xl font-black text-slate-900 dark:text-white mb-8 leading-tight text-center">
+                Bagaimana Cara Membuat Portofolio di GaweDokumen & Tips Mengisinya
+            </h2>
+
+            <div class="space-y-8 text-slate-600 dark:text-slate-400 leading-relaxed">
+                <div class="space-y-4">
+                    <p>
+                        Membangun portofolio profesional yang memikat klien kini jauh lebih mudah. Di
+                        <strong>GaweDokumen</strong>, kami menyediakan struktur modern yang menonjolkan keahlian dan proyek
+                        terbaik Anda. Cukup masukkan profil singkat, daftar keahlian, dan dokumentasi karya Anda.
+                    </p>
+                    <p>
+                        Isilah formulir dengan teliti. Setiap data, deskripsi proyek, dan tautan yang Anda masukkan akan
+                        otomatis muncul pada <strong>preview dokumen</strong> secara real-time. Demi keamanan, semua aset
+                        teks dan konfigurasi Anda hanya akan tersimpan di dalam browser (Local Storage) dan <strong>tidak
+                            akan pernah dikirim ke server kami</strong>.
+                    </p>
+                </div>
+
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">1. Layout & Tipografi</h3>
+                        <p>
+                            Pilih gaya tulisan dan tata letak yang mencerminkan bidang industri Anda. Untuk kesan formal,
+                            font seperti Inter atau Roboto sangat disarankan, sementara industri kreatif dapat
+                            mengeksplorasi pilihan font yang lebih dinamis.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">2. Profil Singkat (About Me)</h3>
+                        <p>
+                            Tuliskan ringkasan profesional yang padat mengenai siapa Anda, keahlian utama, dan nilai jual
+                            yang Anda tawarkan. Bagian ini adalah hal pertama yang akan dibaca oleh perekrut atau calon
+                            klien potensial Anda.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">3. Pengalaman & Detail Proyek
+                        </h3>
+                        <p>
+                            Masukkan daftar proyek terbaik yang pernah Anda kerjakan. Jelaskan peran Anda, teknologi atau
+                            alat yang digunakan, serta dampak atau hasil akhir dari proyek tersebut. Hindari memasukkan
+                            terlalu banyak proyek kecil; kurasi hanya karya terbaik Anda.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">4. Tautan Luar (Live Preview /
+                            Repositori)</h3>
+                        <p>
+                            Sertakan tautan aktif menuju proyek asli Anda, seperti link website, repositori GitHub, Behance,
+                            atau Google Drive. Pastikan tautan dapat diakses publik agar calon klien bisa langsung
+                            memvalidasi hasil kerja Anda.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">5. Kontak & Call to Action (CTA)
+                        </h3>
+                        <p>
+                            Pastikan email, nomor WhatsApp, atau LinkedIn yang dicantumkan sudah benar dan aktif. Setelah
+                            semua komponen terisi, portofolio Anda siap diunduh dalam format PDF atau dibagikan dalam bentuk
+                            tautan digital siap pakai.
+                        </p>
+                    </div>
+                </div>
+
+                {{-- Tips Card --}}
+                <div
+                    class="bg-blue-50 dark:bg-blue-900/20 p-8 rounded-[2rem] border border-blue-100 dark:border-blue-800/50">
+                    <h3 class="font-bold text-blue-900 dark:text-blue-300 mb-4 flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        Tips Biar Portofolio Dilirik Klien:
+                    </h3>
+                    <ul class="list-disc pl-5 space-y-3 text-sm text-blue-800/80 dark:text-blue-200/80">
+                        <li><strong>Kualitas > Kuantitas:</strong> Lebih baik menampilkan 3 proyek luar biasa dengan
+                            penjelasan detail daripada 10 proyek biasa tanpa konteks yang jelas.</li>
+                        <li><strong>Tunjukkan Proses Kerja:</strong> Perekrut menyukai penyelesaian masalah. Jelaskan
+                            singkat tantangan yang Anda hadapi dan bagaimana Anda menyelesaikannya.</li>
+                        <li><strong>Periksa Tautan Rusak:</strong> Pastikan semua link proyek eksternal berfungsi dengan
+                            baik. Tautan yang rusak (broken link) dapat mengurangi nilai profesionalisme Anda.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    {{-- FAQ KHUSUS PORTOFOLIO --}}
+    <section class="mt-20 border-t border-slate-100 dark:border-slate-800 pt-16 px-5">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-2xl font-black text-slate-900 dark:text-white mb-8 text-center">
+                Pertanyaan Seputar <span class="text-blue-600">Portofolio Digital</span>
+            </h2>
+
+            <div class="space-y-4" x-data="{ active: null }">
+
+                {{-- Item 1 --}}
+                <div class="rounded-3xl border border-slate-100 dark:border-slate-800 overflow-hidden">
+                    <button @click="active !== 1 ? active = 1 : active = null"
+                        class="flex items-center justify-between w-full p-6 text-left bg-slate-50 dark:bg-slate-900/50 hover:bg-white dark:hover:bg-slate-900 transition-all">
+                        <span class="font-bold text-slate-900 dark:text-white">Apakah format portofolio ini bisa dibaca
+                            oleh sistem ATS?</span>
+                        <svg class="w-5 h-5 transition-transform" :class="active === 1 ? 'rotate-180' : ''" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                            </path>
+                        </svg>
+                    </button>
+                    <div x-show="active === 1" x-collapse
+                        class="p-6 text-sm text-slate-600 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800">
+                        Ya. Jika Anda mengunduhnya dalam format PDF, kami menjaga struktur teks tetap bersih dan
+                        *selectable* (bisa diblok), sehingga informasi keahlian dan pengalaman Anda dapat dipindai dengan
+                        sempurna oleh sistem ATS korporat.
+                    </div>
+                </div>
+
+                {{-- Item 2 --}}
+                <div class="rounded-3xl border border-slate-100 dark:border-slate-800 overflow-hidden">
+                    <button @click="active !== 2 ? active = 2 : active = null"
+                        class="flex items-center justify-between w-full p-6 text-left bg-slate-50 dark:bg-slate-900/50 hover:bg-white dark:hover:bg-slate-900 transition-all">
+                        <span class="font-bold text-slate-900 dark:text-white">Berapa banyak proyek yang idealnya saya
+                            masukkan?</span>
+                        <svg class="w-5 h-5 transition-transform" :class="active === 2 ? 'rotate-180' : ''" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                            </path>
+                        </svg>
+                    </button>
+                    <div x-show="active === 2" x-collapse
+                        class="p-6 text-sm text-slate-600 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800">
+                        Untuk hasil terbaik, pilihlah sekitar 3 hingga 5 proyek paling relevan dan berskala besar yang
+                        menunjukkan kemampuan terbaik Anda secara komprehensif.
+                    </div>
+                </div>
+
+                {{-- Item 3 --}}
+                <div class="rounded-3xl border border-slate-100 dark:border-slate-800 overflow-hidden">
+                    <button @click="active !== 3 ? active = 3 : active = null"
+                        class="flex items-center justify-between w-full p-6 text-left bg-slate-50 dark:bg-slate-900/50 hover:bg-white dark:hover:bg-slate-900 transition-all">
+                        <span class="font-bold text-slate-900 dark:text-white">Bagaimana cara memasukkan gambar tangkapan
+                            layar (screenshot) proyek?</span>
+                        <svg class="w-5 h-5 transition-transform" :class="active === 3 ? 'rotate-180' : ''" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                            </path>
+                        </svg>
+                    </button>
+                    <div x-show="active === 3" x-collapse
+                        class="p-6 text-sm text-slate-600 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800">
+                        Anda bisa langsung mengunggah file gambar (format .png atau .jpg) mockup aplikasi/desain Anda pada
+                        slot media proyek yang tersedia. <strong>Tips:</strong> Kompres gambar terlebih dahulu agar ukuran
+                        dokumen final tidak terlalu besar namun tetap tajam.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
 @endsection
 
 
@@ -288,7 +470,7 @@
                 const isDesktop = window.innerWidth >= 768;
 
                 const desktopScale = 0.6;
-                const mobileScale = 0.4;
+                const mobileScale = 0.45;
 
                 const panzoom = Panzoom(elem, {
                     maxScale: 3,

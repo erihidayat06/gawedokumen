@@ -3,7 +3,11 @@
 use App\Http\Controllers\Admin\AdminBlogController;
 use App\Http\Controllers\Admin\AdminCvController;
 use App\Http\Controllers\Admin\AdminLokerController;
+use App\Http\Controllers\Admin\AffiliateAdController;
 use App\Http\Controllers\Admin\AiLokerController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\PlatformController;
+use App\Http\Controllers\AffiliateRedirectController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DocumentController;
@@ -83,6 +87,9 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('cv', AdminCvController::class);
     Route::resource('loker', AdminLokerController::class);
     Route::post('loker/scan-ai', [AiLokerController::class, 'scanImage'])->name('loker.scan_ai');
+    Route::resource('platforms', PlatformController::class);
+    Route::resource('categories', CategoryController::class);
+    Route::resource('affiliate-ads', AffiliateAdController::class);
 });
 
 
@@ -103,6 +110,9 @@ Route::prefix('pekerja')->name('pekerja.')->group(function () {
     Route::get('/preview-portofolio', [PortofolioController::class, 'previewPdf'])
         ->name('portofolio.pdf.preview');
 });
+
+// Route untuk pengalihan (redirect) link afiliasi produk
+Route::get('/r/{slug}', [AffiliateRedirectController::class, 'redirect'])->name('affiliate.redirect');
 
 // POST untuk menerima form
 Route::post('/generate-pdf-cv', [CvController::class, 'generatePdf'])->name('cv.pdf.generate');

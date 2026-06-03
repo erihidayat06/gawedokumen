@@ -59,26 +59,48 @@ class LokerController extends Controller
     public function show($slug)
     {
         // 1. Cari loker berdasarkan slug dan pastikan statusnya Aktif
-        // Gunakan with('blogs') agar relasi artikel tips karir ikut terbawa
-        $loker = \App\Models\Loker::with('blogs')
+        // Kita langsung eager load relasi 'affiliateAds' dan 'platform'-nya agar hemat query
+        $loker = \App\Models\Loker::with(['blogs', 'affiliateAds' => function ($query) {
+            $query->where('status', 'active')->with('platform');
+        }])
             ->where('slug', $slug)
             ->where('status', 'Aktif')
-            ->firstOrFail(); // Jika tidak ada, otomatis muncul halaman 404
+            ->firstOrFail();
 
-        // 2. Set locale ke Indonesia agar diffForHumans (Tayang 2 jam yang lalu)
-        // dan format tanggal menggunakan bahasa Indonesia
+        // 2. Set locale ke Indonesia agar format tanggal pas
         app()->setLocale('id');
 
-        // Ambil 3 loker lain secara acak (selain loker yang sedang dibuka)
+        // Ambil 3 loker lain secara acak untuk rekomendasi bawah
         $rekomendasi = \App\Models\Loker::where('id', '!=', $loker->id)
             ->where('status', 'Aktif')
             ->inRandomOrder()
             ->limit(3)
             ->get();
-        // 3. SEO Metadata (Opsional tapi sangat disarankan)
-        // Kamu bisa melempar data title khusus ke view
+
+        // --- LOGIKA PENGAMBILAN PRODUK AFFILIATE VIA TABEL PIVOT ---
+
+        // Ambil semua produk aktif yang nempel di loker ini lewat pivot
+        $adsCollection = $loker->affiliateAds;
+        $totalAds = $adsCollection->count();
+
+        if ($totalAds > 0) {
+            // Biar gak error pas data di pivot kurang dari 3, kita batasi jumlah randomnya
+            $limitRandom = min(3, $totalAds);
+            $affiliateAds = $adsCollection->random($limitRandom);
+        } else {
+            // Fallback: Kalau di tabel loker_affiliate_ad kosong (misal AI belum petakan),
+            // kita ambil 3 produk acak dari semua produk aktif di database biar slot gak kosong.
+            $affiliateAds = \App\Models\AffiliateAd::with('platform')
+                ->where('status', 'active')
+                ->inRandomOrder()
+                ->limit(3)
+                ->get();
+        }
+
+        // 3. SEO Metadata
         $title = $loker->posisi . " di " . $loker->perusahaan . " - GaweDokumen";
 
-        return view('loker.show', compact('loker', 'title', 'rekomendasi'));
+        // Lempar variabel ke view loker.show
+        return view('loker.show', compact('loker', 'title', 'rekomendasi', 'affiliateAds'));
     }
 }

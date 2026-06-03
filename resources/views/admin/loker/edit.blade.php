@@ -248,6 +248,21 @@
                                     </select>
                                 </div>
 
+                                {{-- Versi Form EDIT agar data lama dari Database otomatis muncul --}}
+                                <div class="col-12 mt-3">
+                                    <label class="form-label fw-semibold">Rekomendasi Produk Affiliate (Bisa Pilih
+                                        Banyak)</label>
+                                    <select name="product_ids[]" class="form-control select2-multiple"
+                                        multiple="multiple">
+                                        @foreach ($affiliateAds as $ad)
+                                            <option value="{{ $ad->id }}"
+                                                {{ in_array($ad->id, old('product_ids', isset($loker) ? $loker->affiliateAds->pluck('id')->toArray() : [])) ? 'selected' : '' }}>
+                                                {{ $ad->nama_produk }} ({{ $ad->platform->nama_platform }})
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
                                 <div class="col-12 mt-5">
                                     <button type="submit"
                                         class="btn btn-primary btn-lg w-100 rounded-3 fw-bold shadow-sm py-3">

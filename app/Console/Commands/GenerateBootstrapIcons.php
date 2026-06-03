@@ -36,7 +36,7 @@ class GenerateBootstrapIcons extends Command
 
         $icons = array_unique($icons);
 
-        $savePath = public_path('bootstrap-icons');
+        $savePath = public_path('img/bootstrap-icons');
 
         if (!File::exists($savePath)) {
             File::makeDirectory($savePath, 0755, true);

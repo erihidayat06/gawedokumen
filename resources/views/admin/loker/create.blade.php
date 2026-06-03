@@ -292,6 +292,7 @@
                                     </select>
                                 </div>
 
+                                {{-- Pilih Artikel Blog Terkait --}}
                                 <div class="col-12 mt-3">
                                     <label class="form-label fw-semibold">Pilih Artikel Blog Terkait (Opsional)</label>
                                     <select name="blog_ids[]" class="form-control select2-multiple" multiple="multiple">
@@ -304,19 +305,35 @@
                                     </select>
                                 </div>
 
-                                <div class="col-12 mt-5">
-                                    <button type="submit"
-                                        class="btn btn-primary btn-lg w-100 rounded-3 fw-bold shadow-sm py-3">
-                                        Tayangkan Lowongan
-                                    </button>
+                                {{-- Rekomendasi Produk Affiliate --}}
+                                <div class="col-12 mt-3"> {{-- mt-3 disamakan agar jarak spacing-nya konsisten --}}
+                                    <label class="form-label fw-semibold">Rekomendasi Produk Affiliate (Bisa Pilih
+                                        Banyak)</label>
+                                    <select name="product_ids[]" class="form-control select2-multiple"
+                                        multiple="multiple">
+                                        @foreach ($affiliateAds as $ad)
+                                            <option value="{{ $ad->id }}"
+                                                {{ is_array(old('product_ids')) && in_array($ad->id, old('product_ids')) ? 'selected' : '' }}>
+                                                {{ $ad->nama_produk }} ({{ $ad->platform->nama_platform }})
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
+
                             </div>
-                        </form>
+                            <div class="col-12 mt-5">
+                                <button type="submit"
+                                    class="btn btn-primary btn-lg w-100 rounded-3 fw-bold shadow-sm py-3">
+                                    Tayangkan Lowongan
+                                </button>
+                            </div>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+
 
     <style>
         /* CSS Tambahan agar Select2 tidak hancur tampilannya */
@@ -374,22 +391,19 @@
                     body: formData,
                     headers: {
                         'X-Requested-With': 'XMLHttpRequest',
-                        'Accept': 'application/json' // Paksa Laravel kirim JSON kalau error validation
+                        'Accept': 'application/json'
                     }
                 })
                 .then(async response => {
                     const isJson = response.headers.get('content-type')?.includes('application/json');
-                    const textData = await response.text(); // Ambil data mentah dulu mentah-mentah
+                    const textData = await response.text();
 
                     if (!response.ok) {
-                        // JIKA ERROR HTML (500/404 dll)
                         if (!isJson) {
-                            // Ambil pesan utama dari halaman crash Laravel
                             const match = textData.match(/<title>(.*?)<\/title>/);
                             const errorTitle = match ? match[1] : 'Internal Server Error';
                             throw new Error(`[Laravel Error] ${errorTitle}`);
                         }
-                        // JIKA ERROR JSON (Validation dll)
                         const jsonErr = JSON.parse(textData);
                         throw new Error(jsonErr.message || 'Terjadi kesalahan validasi.');
                     }
@@ -423,27 +437,36 @@
                             selectPengalaman.dispatchEvent(new Event('change'));
                         }
 
-                        // Loop Isi Array Tugas Dinamis
+                        // ISI DATA SELECT2 MULTIPLE PRODUK AFFILIATE (PILIHAN AI)
+                        // Cek apakah data dari AI ada dan tipenya berupa Array
+                        const selectProduk = $('select[name="product_ids[]"]');
+                        if (selectProduk.length && Array.isArray(data.product_ids)) {
+                            // Konversikan item array ke string / integer yang sesuai dengan value option kamu
+                            selectProduk.val(data.product_ids).trigger('change');
+                        }
+
+                        // Loop Isi Array Benefit Dinamis
                         if (data.benefit && data.benefit.length > 0) {
                             const container = document.getElementById('benefit-container');
                             container.innerHTML = '';
                             data.benefit.forEach((itemText) => {
                                 const html = `<div class="input-group mb-2">
-                        <input type="text" name="benefit[]" class="form-control" value="${itemText}" required>
-                        <button class="btn btn-outline-danger remove-item" type="button"><i class="bi bi-trash"></i></button>
-                    </div>`;
+                            <input type="text" name="benefit[]" class="form-control" value="${itemText}" required>
+                            <button class="btn btn-outline-danger remove-item" type="button"><i class="bi bi-trash"></i></button>
+                        </div>`;
                                 container.insertAdjacentHTML('beforeend', html);
                             });
                         }
+
                         // Loop Isi Array Tugas Dinamis
                         if (data.tugas && data.tugas.length > 0) {
                             const container = document.getElementById('tugas-container');
                             container.innerHTML = '';
                             data.tugas.forEach((itemText) => {
                                 const html = `<div class="input-group mb-2">
-                        <input type="text" name="tugas[]" class="form-control" value="${itemText}" required>
-                        <button class="btn btn-outline-danger remove-item" type="button"><i class="bi bi-trash"></i></button>
-                    </div>`;
+                            <input type="text" name="tugas[]" class="form-control" value="${itemText}" required>
+                            <button class="btn btn-outline-danger remove-item" type="button"><i class="bi bi-trash"></i></button>
+                        </div>`;
                                 container.insertAdjacentHTML('beforeend', html);
                             });
                         }
@@ -454,21 +477,20 @@
                             container.innerHTML = '';
                             data.persyaratan.forEach((itemText) => {
                                 const html = `<div class="input-group mb-2">
-                        <input type="text" name="persyaratan[]" class="form-control" value="${itemText}" required>
-                        <button class="btn btn-outline-danger remove-item" type="button"><i class="bi bi-trash"></i></button>
-                    </div>`;
+                            <input type="text" name="persyaratan[]" class="form-control" value="${itemText}" required>
+                            <button class="btn btn-outline-danger remove-item" type="button"><i class="bi bi-trash"></i></button>
+                        </div>`;
                                 container.insertAdjacentHTML('beforeend', html);
                             });
                         }
 
-                        alert('Mantap! Form berhasil terisi otomatis oleh AI.');
+                        alert('Mantap! Form berhasil terisi otomatis oleh AI beserta rekomendasi produknya.');
                     } else {
                         alert('Gagal: ' + res.message);
                     }
                 })
                 .catch(err => {
                     console.error(err);
-                    // Memunculkan error asli di popup alert browser
                     alert(err.message);
                 })
                 .finally(() => {
@@ -634,11 +656,12 @@
                 $('#benefit-container, #tugas-container, #persyaratan-container').empty();
 
                 Object.keys(data).forEach(key => {
-                    // A. Logika untuk Select2 Multiple (blog_ids[])
-                    if (key === 'blog_ids[]' && Array.isArray(data[key])) {
-                        $('.select2-multiple').val(data[key]).trigger('change.select2');
+                    // A. Logika Baru untuk SEMUA Select2 Multiple (blog_ids[] dan product_ids[])
+                    if ((key === 'blog_ids[]' || key === 'product_ids[]') && Array.isArray(data[key])) {
+                        // Menembak elemen spesifik menggunakan atribut name agar tidak tertukar
+                        $(`select[name="${key}"]`).val(data[key]).trigger('change.select2');
                     }
-                    // B. Logika untuk Input Dinamis (Array)
+                    // B. Logika untuk Input Dinamis (Array Teks: Benefit, Tugas, Persyaratan)
                     else if (key.includes('[]') && Array.isArray(data[key])) {
                         const containerMap = {
                             'benefit[]': 'benefit-container',
@@ -653,7 +676,7 @@
                     else {
                         const input = $(`[name="${key}"]`);
                         if (input.length) {
-                            if (input.hasClass('select2-init')) {
+                            if (input.hasClass('select2-init') || input.hasClass('select2-multiple')) {
                                 input.val(data[key]).trigger('change.select2');
                             } else {
                                 input.val(data[key]);
@@ -662,7 +685,6 @@
                     }
                 });
             }
-
             // --- EVENT LISTENERS ---
 
             // Deteksi ketikan dan perubahan input

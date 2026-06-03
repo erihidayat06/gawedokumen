@@ -49,7 +49,18 @@ class AiLokerController extends Controller
         // Acak urutan kunci agar beban merata di setiap request
         shuffle($apiKeys);
 
+
+        // --- AMBIL DATA PRODUK AFFILIATE UNTUK DIKIRIM KE AI ---
+        $availableProducts = \App\Models\AffiliateAd::where('status', 'active')
+            ->get(['id', 'nama_produk'])
+            ->map(function ($prod) {
+                return "ID [{$prod->id}]: {$prod->nama_produk}";
+            })->implode("\n");
+
         $prompt = "Analisis gambar brosur lowongan kerja ini. Ekstrak informasinya dan kembalikan HANYA dalam format JSON murni tanpa markdown, tanpa tanda ```json. Jika informasi tidak ditemukan di gambar, kosongkan stringnya (\"\").
+
+        Daftar Produk Affiliate yang Tersedia:
+        {$availableProducts}
 
         Format JSON harus tepat seperti struktur berikut:
         {
@@ -66,7 +77,14 @@ class AiLokerController extends Controller
         \"persyaratan\": [\"Tuliskan semua syarat, kualifikasi, dan berkas yang harus dikirim dalam bentuk array string terpisah per poin\"],
         \"no_wa\": \"Format angka saja diawali 628xxx jika nomor WA ditemukan, jika tidak ada kosongkan\",
         \"email\": \"Alamat email hrd jika ada, jika tidak ada kosongkan\"
-        }";
+        \"product_ids\": []
+        }
+
+        PANDUAN KHUSUS UNTUK 'product_ids':
+        1. Pahami lingkungan kerja posisi tersebut (Contoh: cuci loyang berarti basah, lelah fisik, kerja shift malam).
+        2. Pilih 3-5 ID Produk dari 'Daftar Produk Affiliate yang Tersedia' di atas yang PALING LOGIS mendukung fisik atau kebutuhan pelamar kerja tersebut (Misal: korset punggung, sabuk hangat, sepatu boots, vitamin stamina, botol minum besar, atau map lamaran).
+        3. JANGAN merekomendasikan barang rumah tangga acak seperti jemuran baju, alat kosmetik, atau perabotan yang tidak relevan dengan kebutuhan pekerja kasar/pencari kerja.
+        4. Jika tidak ada produk yang cocok sama sekali, isi dengan 3-5 ID produk secara acak dari daftar yang tersedia.";
 
         $response = null;
         $successRequest = false;

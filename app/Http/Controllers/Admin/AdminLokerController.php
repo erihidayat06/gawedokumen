@@ -52,7 +52,8 @@ class AdminLokerController extends Controller
     public function create(Loker $loker)
     {
         $blogs = \App\Models\Blog::select('id', 'judul')->get();
-        return view('admin.loker.create', compact('blogs'));
+        $affiliateAds = \App\Models\AffiliateAd::get();
+        return view('admin.loker.create', compact('blogs', 'affiliateAds'));
     }
 
     /**
@@ -67,6 +68,8 @@ class AdminLokerController extends Controller
             'kota' => 'required',
             'blog_ids' => 'nullable|array',
             'blog_ids.*' => 'exists:blogs,id',
+            'product_ids' => 'nullable|array', // Validasi harus berupa array id produk
+            'product_ids.*' => 'exists:affiliate_ads,id',
         ]);
 
         $data = $request->all();
@@ -99,6 +102,11 @@ class AdminLokerController extends Controller
             $loker->blogs()->sync($request->blog_ids);
         }
 
+        // Hubungkan banyak produk ke loker via tabel pivot
+        if ($request->has('product_ids')) {
+            $loker->affiliateAds()->sync($request->product_ids);
+        }
+
         return redirect()->route('admin.loker.index')->with('success', 'Loker berhasil ditayangkan!');
     }
 
@@ -117,11 +125,12 @@ class AdminLokerController extends Controller
     {
         // Ambil semua daftar blog untuk pilihan di Select2
         $blogs = \App\Models\Blog::select('id', 'judul')->get();
+        $affiliateAds = \App\Models\AffiliateAd::get();
 
         // Pastikan relasi blogs yang sudah ada di loker ini juga ikut terbawa
         $loker->load('blogs');
 
-        return view('admin.loker.edit', compact('loker', 'blogs'));
+        return view('admin.loker.edit', compact('loker', 'blogs', 'affiliateAds'));
     }
 
     /**
@@ -136,6 +145,8 @@ class AdminLokerController extends Controller
             'kota' => 'required',
             'blog_ids' => 'nullable|array',
             'blog_ids.*' => 'exists:blogs,id',
+            'product_ids' => 'nullable|array',
+            'product_ids.*' => 'exists:affiliate_ads,id',
         ]);
 
         $data = $request->all();
@@ -164,6 +175,8 @@ class AdminLokerController extends Controller
             // Jika tidak ada yang dipilih, kosongkan relasi
             $loker->blogs()->detach();
         }
+
+        $loker->affiliateAds()->sync($request->product_ids ?? []);
 
         return redirect()->route('admin.loker.index')->with('success', 'Loker berhasil diperbarui!');
     }
