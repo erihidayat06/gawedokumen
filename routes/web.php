@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\AffiliateAdController;
 use App\Http\Controllers\Admin\AiLokerController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PlatformController;
+use App\Http\Controllers\Admin\TulisTanganController;
 use App\Http\Controllers\AffiliateRedirectController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
@@ -90,6 +91,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('platforms', PlatformController::class);
     Route::resource('categories', CategoryController::class);
     Route::resource('affiliate-ads', AffiliateAdController::class);
+    Route::get('tulis-tangan', [TulisTanganController::class, 'index'])->name('tulis.tangan');
 });
 
 

@@ -30,9 +30,7 @@
 
     <hr class="sidebar-divider">
 
-    <div class="sidebar-heading">
-        Interface
-    </div>
+    <div class="sidebar-heading">Interface</div>
 
     <li class="nav-item {{ request()->routeIs('admin.blog.*') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('admin.blog.index') }}">
@@ -43,9 +41,7 @@
 
     <hr class="sidebar-divider">
 
-    <div class="sidebar-heading">
-        Template
-    </div>
+    <div class="sidebar-heading">Template & Tools</div>
 
     <li class="nav-item {{ request()->routeIs('admin.cv.*') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('admin.cv.index') }}">
@@ -54,9 +50,12 @@
         </a>
     </li>
 
-    <div class="sidebar-heading">
-        Loker
-    </div>
+    <li class="nav-item {{ request()->routeIs('admin.tulis.tangan') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.tulis.tangan') }}">
+            <i class="fas fa-fw fa-pen-nib"></i>
+            <span>Tulisan Tangan</span>
+        </a>
+    </li>
 
     <li class="nav-item {{ request()->routeIs('admin.loker.*') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('admin.loker.index') }}">
@@ -67,17 +66,15 @@
 
     <hr class="sidebar-divider">
 
-    <div class="sidebar-heading">
-        Affiliate
-    </div>
+    <div class="sidebar-heading">Affiliate</div>
 
     @php
-        // Cek apakah ada salah satu route affiliate yang sedang aktif
         $isAffiliateActive =
             request()->routeIs('admin.platforms.*') ||
             request()->routeIs('admin.categories.*') ||
             request()->routeIs('admin.affiliate-ads.*');
     @endphp
+
     <li class="nav-item {{ $isAffiliateActive ? 'active' : '' }}">
         <a class="nav-link {{ $isAffiliateActive ? '' : 'collapsed' }}" href="#" data-toggle="collapse"
             data-target="#collapseAffiliate" aria-expanded="{{ $isAffiliateActive ? 'true' : 'false' }}"
