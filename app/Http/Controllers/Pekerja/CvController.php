@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Pekerja;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cv;
+use App\Services\LogService;
 use Illuminate\Http\Request;
 use Nette\Utils\Json;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -64,6 +65,8 @@ class CvController extends Controller
             'template_id'     => $request->template_id ?? '1',
             'avatar'          => $request->foto_base64,
         ];
+
+        LogService::logDownload('cv');
 
 
         // simpan ke session

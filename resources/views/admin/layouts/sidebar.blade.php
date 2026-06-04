@@ -57,6 +57,13 @@
         </a>
     </li>
 
+    <li class="nav-item {{ request()->routeIs('admin.downloads.analytic') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.downloads.analytic') }}">
+            <i class="fas fa-fw fa-chart-line"></i>
+            <span>Analitik Dokumen</span>
+        </a>
+    </li>
+
     <li class="nav-item {{ request()->routeIs('admin.loker.*') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('admin.loker.index') }}">
             <i class="fas fa-fw fa-briefcase"></i>

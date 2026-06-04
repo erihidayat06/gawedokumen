@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Pekerja;
 
 use App\Http\Controllers\Controller;
+use App\Services\LogService;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -56,6 +57,8 @@ class PortofolioController extends Controller
             'pages'         => $pages,
             'selected_font' => $request->font_style ?? 'font-sans',
         ];
+
+        LogService::logDownload('portofolio');
 
         session(['portofolio_download_data' => $portfolioData]);
 

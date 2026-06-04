@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\LogService;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
@@ -10,6 +11,7 @@ class DocumentController extends Controller
 {
     public function generate(Request $request)
     {
+
         $data = $request->all();
 
         Carbon::setLocale('id');
@@ -44,6 +46,9 @@ class DocumentController extends Controller
             ? json_decode($request->lampiran, true)
             : ($request->lampiran ?? []);
 
+        LogService::logDownload('surat_lamaran');
+
+
         // Simpan ke session
         session([
             'surat_lamaran_data' => $data
@@ -57,6 +62,8 @@ class DocumentController extends Controller
     {
         $data = session('surat_lamaran_data');
 
+
+
         if (!$data) {
             return redirect()->back()
                 ->with('error', 'Data surat tidak ditemukan');
@@ -69,6 +76,6 @@ class DocumentController extends Controller
 
         $pdf->setPaper('a4', 'portrait');
 
-        return $pdf->stream('Surat_Lamaran.pdf');
+        return $pdf->stream('Surat_Lamaran_' . $data['nama'] . '.pdf');
     }
 }

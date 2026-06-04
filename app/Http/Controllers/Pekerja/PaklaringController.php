@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Pekerja;
 
 use App\Http\Controllers\Controller;
+use App\Services\LogService;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
@@ -58,6 +59,8 @@ class PaklaringController extends Controller
             // Tanda tangan digital mentah base64 (Stempel/TTD Atasan)
             'ttd_base64'        => $request->ttd_base64
         ];
+
+        LogService::logDownload('paklaring');
 
         // Simpan data array paklaring ke dalam session kustom
         session(['paklaring_data' => $data]);

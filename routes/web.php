@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\AffiliateAdController;
 use App\Http\Controllers\Admin\AffiliateStatController;
 use App\Http\Controllers\Admin\AiLokerController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\DownloadStatController;
 use App\Http\Controllers\Admin\PlatformController;
 use App\Http\Controllers\Admin\TulisTanganController;
 use App\Http\Controllers\AffiliateRedirectController;
@@ -94,6 +95,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('affiliate-ads', AffiliateAdController::class);
     Route::get('affiliate-analytic', [AffiliateStatController::class, 'index'])->name('affiliate.analytic');
     Route::get('tulis-tangan', [TulisTanganController::class, 'index'])->name('tulis.tangan');
+    Route::get('download-analytic', [DownloadStatController::class, 'index'])->name('downloads.analytic');
 });
 
 

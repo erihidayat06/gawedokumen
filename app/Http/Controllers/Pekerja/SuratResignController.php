@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Pekerja;
 
 use App\Http\Controllers\Controller;
+use App\Services\LogService;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -52,6 +53,7 @@ class SuratResignController extends Controller
             'ttd_base64'        => $request->ttd_base64
         ];
 
+        LogService::logDownload('surat_resign');
         // Simpan data array ke dalam session kustom
         session(['surat_data' => $data]);
 
