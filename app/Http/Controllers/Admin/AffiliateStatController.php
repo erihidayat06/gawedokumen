@@ -40,6 +40,8 @@ class AffiliateStatController extends Controller
             ->orderByDesc('stats_sum_clicks') // <--- Perhatikan: Laravel otomatis membuat alias 'stats_sum_clicks'
             ->limit(20)
             ->get();
+
+
         $latestLogs = \App\Models\AffiliateLog::with('affiliateAd')
             ->orderBy('created_at', 'desc')
             ->limit(50)

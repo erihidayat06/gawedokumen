@@ -68,7 +68,8 @@
                                             {{ $p->nama_produk }}
                                         </a>
                                     </td>
-                                    <td class="font-weight-bold text-success">{{ number_format($p->total_clicks ?? 0) }}
+                                    <td class="font-weight-bold text-success">
+                                        {{ number_format($p->stats_sum_clicks ?? 0) }}
                                     </td>
                                     <td><span class="badge badge-info">{{ $p->platform->nama_platform }}</span></td>
                                 </tr>
