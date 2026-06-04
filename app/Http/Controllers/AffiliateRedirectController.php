@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\AffiliateAd;
+use App\Models\AffiliateStat; // Pastikan model ini sudah di-import
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB; // Tambahkan ini untuk DB::raw
 
 class AffiliateRedirectController extends Controller
 {
@@ -21,16 +23,35 @@ class AffiliateRedirectController extends Controller
         }
 
         // --- FITUR HITUNG KLIK (DENGAN FILTER BOT) ---
-        // Mendapatkan User Agent dari pengakses
         $userAgent = request()->userAgent();
-
-        // Pola regex untuk mendeteksi bot/crawler umum
-        // Menambahkan: bot, crawler, spider, slurp, facebookexternalhit, curl, wget, dll
         $isBot = preg_match('/bot|crawler|spider|crawling|slurp|facebookexternalhit|python-requests|curl|wget|applebot|bingbot|googlebot/i', $userAgent);
+        // Simpan ke log audit
+        \App\Models\AffiliateLog::create([
+            'affiliate_ad_id' => $ad->id,
+            'ip_address' => request()->ip(),
+            'user_agent' => $userAgent,
+            'is_bot' => $isBot
+        ]);
 
         // Hanya tambahkan increment jika BUKAN bot
         if (!$isBot) {
+            // Update total view di tabel utama
             $ad->increment('total_views');
+
+            // Update statistik harian di tabel affiliate_stats
+            AffiliateStat::updateOrCreate(
+                [
+                    'affiliate_ad_id' => $ad->id,
+                    'date' => date('Y-m-d') // Mengambil tanggal hari ini
+                ],
+                [
+                    'clicks' => DB::raw('clicks + 1') // Menambah 1 ke data yang ada
+                ]
+            );
+        }
+
+        if (config('app.env') === 'local') {
+            return redirect()->away(env('REDIRECT_TEST_URL', 'https://example.com/'));
         }
 
         // 3. Alihkan secara aman ke URL eksternal

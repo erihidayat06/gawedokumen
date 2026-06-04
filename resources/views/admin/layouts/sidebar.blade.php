@@ -92,6 +92,8 @@
                     href="{{ route('admin.platforms.index') }}">Platform</a>
                 <a class="collapse-item {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}"
                     href="{{ route('admin.categories.index') }}">Kategori</a>
+                <a class="collapse-item {{ request()->routeIs('admin.affiliate.analytic') ? 'active' : '' }}"
+                    href="{{ route('admin.affiliate.analytic') }}">Analytic</a>
             </div>
         </div>
     </li>

@@ -39,4 +39,14 @@ class AffiliateAd extends Model
         return $this->belongsToMany(AffiliateAd::class, 'loker_affiliate_ad', 'loker_id', 'affiliate_ad_id')
             ->withTimestamps();
     }
+
+    public function stats()
+    {
+        return $this->hasMany(AffiliateStat::class);
+    }
+
+    public function todayStats()
+    {
+        return $this->hasOne(AffiliateStat::class)->where('date', date('Y-m-d'));
+    }
 }

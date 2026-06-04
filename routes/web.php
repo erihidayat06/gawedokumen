@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminBlogController;
 use App\Http\Controllers\Admin\AdminCvController;
 use App\Http\Controllers\Admin\AdminLokerController;
 use App\Http\Controllers\Admin\AffiliateAdController;
+use App\Http\Controllers\Admin\AffiliateStatController;
 use App\Http\Controllers\Admin\AiLokerController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PlatformController;
@@ -91,6 +92,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('platforms', PlatformController::class);
     Route::resource('categories', CategoryController::class);
     Route::resource('affiliate-ads', AffiliateAdController::class);
+    Route::get('affiliate-analytic', [AffiliateStatController::class, 'index'])->name('affiliate.analytic');
     Route::get('tulis-tangan', [TulisTanganController::class, 'index'])->name('tulis.tangan');
 });
 

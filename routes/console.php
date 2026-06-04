@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\AffiliateLog;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schedule;
@@ -30,3 +31,8 @@ Schedule::call(function () {
         }
     }
 })->everyMinute(); // Jalankan pengecekan setiap jam
+
+Schedule::call(function () {
+    // Hapus log yang lebih tua dari 7 hari
+    AffiliateLog::where('created_at', '<', now()->subDays(7))->delete();
+})->weekly()->mondays()->at('00:00');
