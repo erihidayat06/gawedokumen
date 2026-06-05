@@ -118,7 +118,7 @@ Route::prefix('pekerja')->name('pekerja.')->group(function () {
 });
 
 // Route untuk pengalihan (redirect) link afiliasi produk
-Route::get('/r/{slug}', [AffiliateRedirectController::class, 'redirect'])->name('affiliate.redirect');
+Route::post('/r/{slug}', [AffiliateRedirectController::class, 'redirect'])->name('affiliate.redirect');
 
 // POST untuk menerima form
 Route::post('/generate-pdf-cv', [CvController::class, 'generatePdf'])->name('cv.pdf.generate');

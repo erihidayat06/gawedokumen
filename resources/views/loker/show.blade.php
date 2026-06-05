@@ -321,64 +321,64 @@
                                     <div class="flex flex-nowrap overflow-x-auto md:overflow-x-visible md:grid md:grid-cols-3 gap-3 pb-2 md:pb-0 snap-x snap-mandatory scrollbar-none"
                                         style="-webkit-overflow-scrolling: touch;">
                                         @foreach ($affiliateAds as $ad)
-                                            <a href="/r/{{ $ad->custom_slug }}" target="_blank"
-                                                rel="noopener noreferrer nofollow"
-                                                class="flex-none w-[30%] sm:w-[45%] md:w-full snap-start flex flex-col md:flex-row md:items-center gap-2 md:gap-3 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/40 rounded-xl p-2 shadow-2xs hover:shadow-xs hover:border-blue-500/20 dark:hover:border-blue-500/20 transition-all duration-200 group text-decoration-none">
+                                            <form action="/r/{{ $ad->custom_slug }}" method="POST" target="_blank"
+                                                class="contents">
+                                                @csrf
+                                                <button type="submit"
+                                                    class="w-full text-left flex-none w-[30%] sm:w-[45%] md:w-full snap-start flex flex-col md:flex-row md:items-center gap-2 md:gap-3 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/40 rounded-xl p-2 shadow-2xs hover:shadow-xs hover:border-blue-500/20 dark:hover:border-blue-500/20 transition-all duration-200 group">
 
-                                                {{-- Gambar Produk --}}
-                                                <div
-                                                    class="relative w-full h-20 md:w-20 md:h-20 aspect-square rounded-lg overflow-hidden bg-slate-50 dark:bg-slate-950 shrink-0">
-                                                    @if ($ad->gambar_produk)
-                                                        <img src="{{ asset('storage/' . $ad->gambar_produk) }}"
-                                                            alt="{{ $ad->nama_produk }}"
-                                                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                                                    @else
-                                                        <div
-                                                            class="w-full h-full flex items-center justify-center text-slate-300 dark:text-slate-700">
-                                                            <i class="bi bi-image text-xs"></i>
-                                                        </div>
-                                                    @endif
-
-                                                    {{-- Badge Platform --}}
-                                                    <span
-                                                        class="absolute top-0.5 right-0.5 text-[7px] font-extrabold px-1 py-0.5 rounded-md bg-white/90 dark:bg-slate-900/90 text-slate-700 dark:text-slate-300 backdrop-blur-xs shadow-3xs border border-slate-100/5 max-w-[58px] truncate">
-                                                        {{ $ad->platform->nama_platform }}
-                                                    </span>
-                                                </div>
-
-                                                {{-- Konten Teks --}}
-                                                <div class="flex flex-col flex-1 min-w-0 justify-center">
-                                                    <h4
-                                                        class="font-bold text-slate-800 dark:text-slate-200 text-[11px] sm:text-xs line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200 leading-tight">
-                                                        {{ $ad->nama_produk }}
-                                                    </h4>
-
-                                                    {{-- Info Harga --}}
-                                                    <div class="flex flex-wrap items-center gap-x-1.5 mt-1 leading-none">
-                                                        @if ($ad->harga_diskon)
-                                                            <span
-                                                                class="text-[11px] sm:text-xs font-black text-rose-600 dark:text-rose-400">
-                                                                Rp{{ number_format($ad->harga_diskon, 0, ',', '.') }}
-                                                            </span>
+                                                    {{-- Isi konten (Gambar, Teks, dll) tetap sama --}}
+                                                    <div
+                                                        class="relative w-full h-20 md:w-20 md:h-20 aspect-square rounded-lg overflow-hidden bg-slate-50 dark:bg-slate-950 shrink-0">
+                                                        @if ($ad->gambar_produk)
+                                                            <img src="{{ asset('storage/' . $ad->gambar_produk) }}"
+                                                                alt="{{ $ad->nama_produk }}"
+                                                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                                                        @else
+                                                            <div
+                                                                class="w-full h-full flex items-center justify-center text-slate-300 dark:text-slate-700">
+                                                                <i class="bi bi-image text-xs"></i>
+                                                            </div>
                                                         @endif
-
-                                                        @if ($ad->harga_asli && $ad->harga_asli > $ad->harga_diskon)
-                                                            <span
-                                                                class="text-[9px] text-slate-400 dark:text-slate-500 line-through">
-                                                                Rp{{ number_format($ad->harga_asli, 0, ',', '.') }}
-                                                            </span>
-                                                        @endif
+                                                        <span
+                                                            class="absolute top-0.5 right-0.5 text-[7px] font-extrabold px-1 py-0.5 rounded-md bg-white/90 dark:bg-slate-900/90 text-slate-700 dark:text-slate-300 backdrop-blur-xs shadow-3xs border border-slate-100/5 max-w-[58px] truncate">
+                                                            {{ $ad->platform->nama_platform }}
+                                                        </span>
                                                     </div>
 
-                                                    {{-- Deskripsi Pendek --}}
-                                                    @if ($ad->deskripsi_pendek)
-                                                        <p
-                                                            class="text-[9px] text-slate-400 dark:text-slate-500 line-clamp-1 leading-none mt-1.5">
-                                                            {{ $ad->deskripsi_pendek }}
-                                                        </p>
-                                                    @endif
-                                                </div>
-                                            </a>
+                                                    <div class="flex flex-col flex-1 min-w-0 justify-center">
+                                                        <h4
+                                                            class="font-bold text-slate-800 dark:text-slate-200 text-[11px] sm:text-xs line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200 leading-tight">
+                                                            {{ $ad->nama_produk }}
+                                                        </h4>
+                                                        {{-- Info Harga --}}
+                                                        <div
+                                                            class="flex flex-wrap items-center gap-x-1.5 mt-1 leading-none">
+                                                            @if ($ad->harga_diskon)
+                                                                <span
+                                                                    class="text-[11px] sm:text-xs font-black text-rose-600 dark:text-rose-400">
+                                                                    Rp{{ number_format($ad->harga_diskon, 0, ',', '.') }}
+                                                                </span>
+                                                            @endif
+
+                                                            @if ($ad->harga_asli && $ad->harga_asli > $ad->harga_diskon)
+                                                                <span
+                                                                    class="text-[9px] text-slate-400 dark:text-slate-500 line-through">
+                                                                    Rp{{ number_format($ad->harga_asli, 0, ',', '.') }}
+                                                                </span>
+                                                            @endif
+                                                        </div>
+
+                                                        {{-- Deskripsi Pendek --}}
+                                                        @if ($ad->deskripsi_pendek)
+                                                            <p
+                                                                class="text-[9px] text-slate-400 dark:text-slate-500 line-clamp-1 leading-none mt-1.5">
+                                                                {{ $ad->deskripsi_pendek }}
+                                                            </p>
+                                                        @endif
+                                                    </div>
+                                                </button>
+                                            </form>
                                         @endforeach
                                     </div>
                                 </div>
