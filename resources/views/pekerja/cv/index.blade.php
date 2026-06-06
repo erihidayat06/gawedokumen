@@ -64,6 +64,9 @@
             const panzoom = document.getElementById('panzoom-element');
             if (panzoom) panzoom.style.backgroundImage = 'url(' + template.gambar + ')';
     
+            document.querySelectorAll('.border-dynamic').forEach(el => {
+                el.style.borderColor = template.config.primary;
+            });
             document.querySelectorAll('.text-primary-dynamic').forEach(el => el.style.color = template.config.primary);
             document.querySelectorAll('.text-sidebar-dynamic').forEach(el => el.style.color = template.config.sidebarText);
             document.querySelectorAll('.bg-text').forEach(el => el.style.backgroundColor = template.config.bgText);
@@ -610,15 +613,15 @@
 
                 <div class="flex-1" style="padding: 15mm 11mm 10mm 12mm; text-align: justify;">
 
-                    <div class="border-b-4 border-[#1d8bbe] pb-1">
+                    <div class="border-b-4 border-dynamic pb-1">
                         <h1 class="text-[32pt] font-bold text-slate-800 leading-none" id="nama-text"></h1>
-                        <h2 class="inline-block m-0 pb-[10px] text-[18pt] text-[#1d8bbe] tracking-[3px] uppercase font-medium mt-2"
+                        <h2 class="inline-block m-0 pb-[10px] text-[18pt] text-[#1d8bbe] text-primary-dynamic tracking-[3px] uppercase font-medium mt-2"
                             id="profesi-text">
                         </h2>
                     </div>
 
                     <div class="mt-10">
-                        <h3 class="text-[16pt] font-bold text-slate-800 border-l-4 border-[#1d8bbe] pl-3 uppercase">Profil
+                        <h3 class="text-[16pt] font-bold text-slate-800 border-l-4 border-dynamic pl-3 uppercase">Profil
                         </h3>
                         <p class="mt-4 text-[12pt] text-slate-600 leading-relaxed" id="profil-text">
 
@@ -626,7 +629,7 @@
                     </div>
 
                     <div class="mt-10">
-                        <h3 class="text-[16pt] font-bold text-slate-800 border-l-4 border-[#1d8bbe] pl-3 uppercase">
+                        <h3 class="text-[16pt] font-bold text-slate-800 border-l-4 border-dynamic pl-3 uppercase">
                             Pengalaman Kerja</h3>
                         <div class="mt-6 space-y-8">
                             <div id="preview-experience-list" class="space-y-4">
@@ -636,7 +639,7 @@
                     </div>
 
                     <div class="mt-10">
-                        <h3 class="text-[16pt] font-bold text-slate-800 border-l-4 border-[#1d8bbe] pl-3 uppercase">
+                        <h3 class="text-[16pt] font-bold text-slate-800 border-l-4 border-dynamic pl-3 uppercase">
                             Pendidikan</h3>
                         <div class="mt-6">
                             <div id="preview-education-list" class="space-y-4">
@@ -663,6 +666,8 @@
             const printBtn = document.getElementById('print');
             const modal = document.getElementById('printAdModal');
 
+
+
             // Pengecekan apakah tombol dan modal ada di DOM
             if (!printBtn || !modal) {
                 console.error("Elemen 'print' atau 'printAdModal' tidak ditemukan!");
@@ -681,6 +686,7 @@
 
             printBtn.addEventListener('click', function() {
                 console.log("Menyiapkan data untuk preview...");
+                const idTemplate = document.querySelector('input[name="template_id"]').value;
 
                 // Di dalam printBtn.addEventListener
                 const avatarPreview = document.getElementById('preview-avatar');
@@ -693,6 +699,8 @@
                     // Jika masih gambar default, kirim null atau biarkan kosong
                     fotoData = null;
                 }
+
+
 
                 // Jalankan handleSubmit secara manual untuk sinkronisasi data terbaru
                 handleSubmit();
@@ -716,11 +724,13 @@
                     pendidikan: document.getElementById('pendidikan').value,
                     keahlian: document.getElementById('keahlian').value,
 
-                    template_id: document.getElementById('template-selector')?.value || "1",
+                    template_id: idTemplate.slice(3) || "1",
                     warna_tema: document.getElementById('warna_tema').value,
                     // INI KRUSIAL: Ambil value terbaru dari input hidden
                     foto_base64: document.getElementById('foto_base64').value || null
                 };
+
+                console.log('Ini Warna' + document.querySelectorAll('.text-primary-dynamic'));
 
                 // Log untuk debugging foto
                 console.log("Foto Base64 Length:", preparedData.foto_base64 ? preparedData.foto_base64
@@ -1008,7 +1018,7 @@
         </div>
     </div>
 
-    <p class="text-slate-600 mt-1 whitespace-pre-line text-[11pt]">${desc}</p>
+    <p class="text-slate-600 mt-1 whitespace-pre-line text-left text-[11pt]">${desc}</p>
 </div>`;
                 } else if (type === 'education') {
                     const school = item.querySelector('.edu-school').value || 'Nama Instansi';

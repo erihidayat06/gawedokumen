@@ -41,7 +41,19 @@ class CvController extends Controller
     {
         app()->setLocale('id');
 
-        $data = [
+        // 1. Cari template berdasarkan ID
+        $template = Cv::find($request->template_id);
+
+        // 2. Ambil nilai kolom 'cv_image'
+        // Gunakan operator null coalescing (??) untuk memberikan default jika data kosong
+        $gambar_template = 'storage/' . $template->cv_image ?? 'img/cv/cv1.jpg';
+        $color_primary_text = $template->color_primary_text;
+        $color_body_text = $template->color_body_text;
+        $color_sidebar_text = $template->color_sidebar_text;
+        $color_sidebar_bg = $template->color_sidebar_bg;
+
+
+        $cvData = [
             'nama'            => $request->nama,
             'posisi'          => $request->profesi,
             'tempat_lahir'    => $request->tempat_lahir,
@@ -61,16 +73,22 @@ class CvController extends Controller
             'pendidikan'      => json_decode($request->pendidikan, true) ?? [],
             'keahlian'        => json_decode($request->keahlian, true) ?? [],
 
-            'warna_tema'      => $request->warna_tema ?? '#000000',
-            'template_id'     => $request->template_id ?? '1',
+            'color_primary_text' => $template->color_primary_text,
+            'color_body_text' => $template->color_body_text,
+            'color_sidebar_text' => $template->color_sidebar_text,
+            'color_sidebar_bg' => $template->color_sidebar_bg,
             'avatar'          => $request->foto_base64,
+            'gambar_template'    => $gambar_template
         ];
 
+
+
+
+        // 5. Catat log
         LogService::logDownload('cv');
 
-
-        // simpan ke session
-        session(['cv_data' => $data]);
+        // 6. Simpan array tersebut ke session
+        session(['cv_data' => $cvData]);
 
         // redirect ke GET
         return redirect()->route('cv.pdf.preview');

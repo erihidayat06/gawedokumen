@@ -15,6 +15,7 @@
             margin: 0;
             padding: 0;
             background-color: #ffffff;
+
             /* Ukuran A4 Fix */
             width: 210mm;
             height: 297mm;
@@ -22,11 +23,13 @@
 
 
         .wrapper {
-            width: 205mm;
+            width: 210mm;
             height: 297mm;
             border-collapse: collapse;
             table-layout: fixed;
-            background: url('{{ public_path('img/cv/cv1.jpg') }}') no-repeat;
+            /* Cukup gunakan public_path saja */
+            background-image: url('{{ public_path($gambar_template) }}');
+            background-repeat: no-repeat;
             background-size: cover;
         }
 
@@ -41,13 +44,9 @@
         .main-content {
             vertical-align: top;
             padding: 10mm 10mm 10mm 0mm;
-            text-align: justify;
+            line-height: 1.5;
             position: relative;
             left: -15mm;
-            /* Tarik paksa ke kiri */
-
-            /* Tambahkan ini untuk jarak antar baris teks */
-            line-height: 1.5;
         }
 
         .avatar-container {
@@ -78,9 +77,12 @@
             -ms-interpolation-mode: bicubic;
         }
 
+
+
         /* Sisanya biarkan seperti kode Anda sebelumnya */
         .sidebar-header {
-            background-color: #f1f5f9;
+            /* Gunakan sintaks Blade yang benar untuk fallback */
+            background-color: {{ $color_sidebar_bg ?? '#f1f5f9' }};
             width: 65mm;
             margin-top: 10mm;
             padding: 9px 20px;
@@ -91,14 +93,15 @@
         .sidebar-header span {
             font-size: 16pt;
             font-weight: bold;
-            color: #1d8bbe;
+            color: {{ $color_primary_text ?? '#1d8bbe' }};
             text-transform: uppercase;
         }
+
 
         .sidebar-item {
             padding-left: 35px;
             margin-top: 8px;
-            color: #f8fafc;
+            color: {{ $color_sidebar_text ?? '#f8fafc' }};
         }
 
         .sidebar-item h3 {
@@ -119,7 +122,7 @@
             margin: 0;
             padding: 0;
             width: 100%;
-            border-bottom: 4px solid #1d8bbe;
+            border-bottom: 4px solid {{ $color_primary_text ?? '#1d8bbe' }};
         }
 
         .header-name .nama {
@@ -130,7 +133,7 @@
 
         .header-name .posisi {
             font-size: 17pt;
-            color: #1d8bbe;
+            color: {{ $color_primary_text ?? '#1d8bbe' }};
             letter-spacing: 3px;
             text-transform: uppercase;
 
@@ -148,7 +151,7 @@
             font-size: 14pt;
             font-weight: bold;
             color: #1e293b;
-            border-left: 4px solid #1d8bbe;
+            border-left: 4px solid {{ $color_primary_text ?? '#1d8bbe' }};
             padding-left: 10px;
             text-transform: uppercase;
             margin-top: 30px;
@@ -156,7 +159,7 @@
 
         .profile-text {
             font-size: 11pt;
-            color: #475569;
+            color: {{ $color_body_text ?? '#475569' }};
             margin-top: 10px;
             text-align: justify;
         }
@@ -188,10 +191,11 @@
         }
 
         .list-item-desc {
-            font-size: 10pt;
-            text-align: justify;
-            margin-top: 5px;
+            font-size: 11pt;
+            text-align: left;
             line-height: 1.4;
+
+            hyphens: auto;
         }
 
         /* Container utama per item */
@@ -226,13 +230,6 @@
             width: 30%;
         }
 
-        /* Deskripsi pengalaman */
-        .list-item-desc {
-            font-size: 10.5pt;
-            color: #333333;
-            text-align: justify;
-            line-height: 1.4;
-        }
 
         /* Sub-judul (Gelar atau Nama Perusahaan) */
         .list-item-sub {
@@ -270,13 +267,13 @@
             margin: 0;
             font-size: 11pt;
             font-weight: bold;
-            color: #f8fafc;
+            color: {{ $color_sidebar_text ?? '#f8fafc' }};
             font-family: 'Helvetica', sans-serif;
         }
 
         .contact-info span {
             font-size: 10pt;
-            color: #ffffff;
+            color: {{ $color_sidebar_text ?? '#f8fafc' }};
             font-family: 'Helvetica', sans-serif;
             word-wrap: break-word;
         }
@@ -296,14 +293,14 @@
         .check-icon {
             width: 1rem;
             font-family: 'DejaVu Sans', sans-serif;
-            color: #ffffff;
+            color: {{ $color_sidebar_text ?? '#f8fafc' }};
             /* Warna hijau, silakan ganti sesuai tema */
             font-size: 12pt;
         }
 
         .skill-text {
             font-size: 10pt;
-            color: #f8fafc;
+            color: {{ $color_sidebar_text ?? '#f8fafc' }};
             font-family: 'Helvetica', sans-serif;
         }
     </style>
@@ -312,7 +309,10 @@
 <body>
 
     <table class="wrapper">
+
+
         <tr>
+
             <!-- SIDEBAR -->
             <td class="sidebar">
                 <div class="avatar-container">
