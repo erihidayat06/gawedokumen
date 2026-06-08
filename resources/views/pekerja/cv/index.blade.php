@@ -348,10 +348,33 @@
                             + Tambah Keahlian
                         </button>
                     </div>
-                    <div id="pengalaman" class="tab-content hidden space-y-4 overflow-y-auto pr-2 scrollbar-thin">
-                        <div id="experience-list" class="space-y-4 p-3"></div>
-                        <button type="button" onclick="addItem('experience')"
-                            class="w-full py-3 border-2 border-dashed border-blue-300 text-blue-600 rounded-lg">
+                    <div id="pengalaman" class="tab-content hidden space-y-6">
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                            <label
+                                class="cursor-pointer flex items-center p-3 border rounded-lg hover:bg-blue-50 transition-colors">
+                                <input type="radio" name="pengalaman_type" value="punya_kerja"
+                                    onchange="updatePengalaman(this.value)" class="mr-2"> Kerja
+                            </label>
+                            <label
+                                class="cursor-pointer flex items-center p-3 border rounded-lg hover:bg-blue-50 transition-colors">
+                                <input type="radio" name="pengalaman_type" value="punya_organisasi"
+                                    onchange="updatePengalaman(this.value)" class="mr-2"> Organisasi
+                            </label>
+                            <label
+                                class="cursor-pointer flex items-center p-3 border rounded-lg hover:bg-blue-50 transition-colors">
+                                <input type="radio" name="pengalaman_type" value="tidak_punya"
+                                    onchange="updatePengalaman(this.value)" class="mr-2"> Tidak Punya
+                            </label>
+                        </div>
+
+                        <div id="experience-list"
+                            class="space-y-4 p-3 border rounded-lg bg-gray-50 max-h-[400px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
+                        </div>
+                        <input type="hidden" id="status_pengalaman_hidden" name="status_pengalaman"
+                            value="punya_kerja">
+                        <button id="experience-btn" type="button" onclick="addItem('experience')"
+                            class="w-full py-3 border-2 border-dashed border-blue-400 text-blue-600 font-semibold rounded-lg hover:bg-blue-50 transition-all">
                             + Tambah Pengalaman
                         </button>
                     </div>
@@ -629,7 +652,8 @@
                     </div>
 
                     <div class="mt-10">
-                        <h3 class="text-[16pt] font-bold text-slate-800 border-l-4 border-dynamic pl-3 uppercase">
+                        <h3 id="judul-pengalaman"
+                            class="text-[16pt] font-bold text-slate-800 border-l-4 border-dynamic pl-3 uppercase">
                             Pengalaman Kerja</h3>
                         <div class="mt-6 space-y-8">
                             <div id="preview-experience-list" class="space-y-4">
@@ -662,7 +686,46 @@
 @push('scripts')
     <script src="/js/gawedokumen.js"></script>
     <script>
+        function updatePengalaman(val) {
+            console.log("Menyimpan ke localStorage:", val);
+
+            localStorage.setItem("storage_status_pengalaman", val);
+            const hiddenInput = document.getElementById('status_pengalaman_hidden');
+            if (hiddenInput) {
+                hiddenInput.value = val;
+            }
+            const targetElement = document.getElementById('preview-experience-list');
+            const experienceList = document.getElementById('experience-list');
+            const headerElement = document.getElementById('judul-pengalaman');
+            const experienceBtn = document.getElementById('experience-btn');
+            let teks = "Pengalaman";
+            if (val === 'tidak_punya') {
+                // Sembunyikan elemen jika pilih "tidak punya"
+                if (targetElement) targetElement.style.display = 'none';
+                if (headerElement) headerElement.style.display = 'none';
+                if (experienceList) experienceList.style.display = 'none';
+                if (experienceBtn) experienceBtn.style.display = 'none';
+                teks = ""; // Kosongkan teks jika perlu
+            } else {
+                // Tampilkan kembali jika pilih "punya"
+                if (targetElement) targetElement.style.display = 'block';
+                if (headerElement) headerElement.style.display = 'block';
+                if (experienceList) experienceList.style.display = 'block';
+                if (experienceBtn) experienceBtn.style.display = 'block';
+
+                // Atur teks sesuai pilihan
+                if (val === 'punya_kerja') teks = "Pengalaman Kerja";
+                if (val === 'punya_organisasi') teks = "Pengalaman Organisasi";
+            }
+
+            // Update teks judul
+            if (headerElement) {
+                headerElement.innerText = teks;
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
+
             const printBtn = document.getElementById('print');
             const modal = document.getElementById('printAdModal');
 
@@ -720,6 +783,8 @@
                     profil_singkat: document.getElementById('profile')?.value || "",
 
                     // Ambil data yang sudah di-stringifikasi oleh handleSubmit
+                    status_pengalaman: document.getElementById('status_pengalaman_hidden')?.value ||
+                        'punya_kerja',
                     pengalaman: document.getElementById('pengalaman').value,
                     pendidikan: document.getElementById('pendidikan').value,
                     keahlian: document.getElementById('keahlian').value,
@@ -924,6 +989,7 @@
                 }
             });
 
+
             // Load Radio Button Jenis Kelamin
             const savedJK = localStorage.getItem("storage_jenis-kelamin-text");
             const targetJK = document.getElementById('jenis-kelamin-text');
@@ -934,8 +1000,34 @@
                 targetJK.classList.remove('text-red-500');
             }
 
-            // Load & Render Lampiran
-            renderInputs();
+            // Ambil data dan bersihkan spasi yang tidak terlihat
+            let savedVal = localStorage.getItem("storage_status_pengalaman");
+            if (savedVal) savedVal = savedVal.trim();
+
+            console.log("Nilai savedVal:", savedVal); // Kita lihat apa isinya
+            console.log("Tipe data:", typeof savedVal);
+
+            // Paksa kondisi if: jika savedVal bukan null
+            if (savedVal !== null && savedVal !== "") {
+                console.log("Masuk ke dalam blok IF!");
+
+                // Jalankan fungsi update
+                updatePengalaman(savedVal);
+
+                // Paksa select radio
+                const radio = document.querySelector(`input[value="${savedVal}"]`);
+                if (radio) {
+                    radio.checked = true;
+                    console.log("Radio berhasil di-check");
+                } else {
+                    console.warn("Input dengan value '" + savedVal + "' tidak ditemukan");
+                }
+            } else {
+                console.log("Kondisi IF tidak terpenuhi, menjalankan default...");
+                // Fallback jika data tidak valid
+                updatePengalaman('punya_kerja');
+            }
+
         });
 
         // Fungsi untuk Radio Button
@@ -1129,7 +1221,6 @@
             if (imgPreview) {
                 imgPreview.src = base64;
                 document.getElementById('foto_base64').value = base64;
-                console.log("📸 Preview gambar diperbarui dari storage.");
             }
         }
 
@@ -1167,27 +1258,25 @@
             });
 
             localStorage.setItem('cv_data_lengkap', JSON.stringify(cvData));
-            console.log("📝 Data teks berhasil dicadangkan.");
+
         }
 
         // --- 4. MUAT DATA SAAT REFRESH ---
         document.addEventListener('DOMContentLoaded', () => {
-            console.log("🔄 Halaman dimuat, mengecek storage...");
+
 
             // A. Cek dan Muat Foto Profil
             const savedFoto = localStorage.getItem("storage_foto_profil");
             if (savedFoto) {
-                console.log("🖼️ Foto profil ditemukan di storage.");
+
                 tampilkanGambar(savedFoto);
-            } else {
-                console.log("⚠️ Tidak ada foto profil di storage.");
             }
 
             // B. Cek dan Muat Data Teks
             const savedData = localStorage.getItem('cv_data_lengkap');
             if (savedData) {
                 const data = JSON.parse(savedData);
-                console.log("📄 Data teks ditemukan:", data);
+
 
                 // Isi Field Dasar
                 const setVal = (id, val) => {

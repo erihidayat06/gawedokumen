@@ -47,10 +47,15 @@ class CvController extends Controller
         // 2. Ambil nilai kolom 'cv_image'
         // Gunakan operator null coalescing (??) untuk memberikan default jika data kosong
         $gambar_template = 'storage/' . $template->cv_image ?? 'img/cv/cv1.jpg';
-        $color_primary_text = $template->color_primary_text;
-        $color_body_text = $template->color_body_text;
-        $color_sidebar_text = $template->color_sidebar_text;
-        $color_sidebar_bg = $template->color_sidebar_bg;
+        // Di Controller (generatePdf)
+        $status = $request->status_pengalaman;
+        $judul = 'Pengalaman'; // Default
+
+        if ($status === 'punya_kerja') {
+            $judul = 'Pengalaman Kerja';
+        } elseif ($status === 'punya_organisasi') {
+            $judul = 'Pengalaman Organisasi';
+        }
 
 
         $cvData = [
@@ -68,7 +73,8 @@ class CvController extends Controller
             'no_tlp'          => $request->telepon,
             'alamat_diri'     => $request->alamat,
             'profil'          => $request->profil_singkat,
-
+            'status_pengalaman' => $request->status_pengalaman,
+            'judul' => $judul,
             'experience'      => json_decode($request->pengalaman, true) ?? [],
             'pendidikan'      => json_decode($request->pendidikan, true) ?? [],
             'keahlian'        => json_decode($request->keahlian, true) ?? [],
@@ -80,7 +86,6 @@ class CvController extends Controller
             'avatar'          => $request->foto_base64,
             'gambar_template'    => $gambar_template
         ];
-
 
 
 

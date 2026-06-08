@@ -399,29 +399,31 @@
                 <div class="section-title">Profil</div>
                 <p class="profile-text">{{ $profil }}</p>
 
-                <div class="section-title">Pengalaman Kerja</div>
-                @foreach ($experience as $exp)
-                    <div class="list-item" style="margin-bottom: 15px; width: 100%;">
-                        <div class="item-header" style="display: table; width: 100%;">
-
-                            <div class="item-title"
-                                style="display: table-cell; vertical-align: top; font-weight: bold; color: #1e293b; font-size: 12pt; word-wrap: break-word; padding-right: 15px;">
-                                {{ $exp['jabatan'] }}
-                            </div>
-
-                            <div class="item-year"
-                                style="display: table-cell; vertical-align: top; text-align: right; width: 1%; white-space: nowrap; font-style: italic; color: #64748b; font-size: 12pt; font-weight: bold;">
-                                {{ $exp['tahun'] }}
-                            </div>
-
-                        </div>
-
-                        <div class="list-item-desc"
-                            style="margin-top: 4px; color: #475569; font-size: 11pt; white-space: pre-line;">
-                            {{ $exp['deskripsi'] }}
-                        </div>
+                {{-- Cek apakah statusnya 'tidak_punya' --}}
+                @if ($status_pengalaman !== 'tidak_punya' && !empty($experience))
+                    <div class="section-title">
+                        {{ $judul }}
                     </div>
-                @endforeach
+
+                    @foreach ($experience as $exp)
+                        <div class="list-item" style="margin-bottom: 15px; width: 100%;">
+                            <div class="item-header" style="display: table; width: 100%;">
+                                <div class="item-title"
+                                    style="display: table-cell; vertical-align: top; font-weight: bold; color: #1e293b; font-size: 12pt; word-wrap: break-word; padding-right: 15px;">
+                                    {{ $exp['jabatan'] }}
+                                </div>
+                                <div class="item-year"
+                                    style="display: table-cell; vertical-align: top; text-align: right; width: 1%; white-space: nowrap; font-style: italic; color: #64748b; font-size: 12pt; font-weight: bold;">
+                                    {{ $exp['tahun'] }}
+                                </div>
+                            </div>
+                            <div class="list-item-desc"
+                                style="margin-top: 4px; color: #475569; font-size: 11pt; white-space: pre-line;">
+                                {{ $exp['deskripsi'] }}
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
 
                 <div class="section-title">Pendidikan</div>
                 @foreach ($pendidikan as $edu)
