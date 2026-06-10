@@ -7,7 +7,7 @@
                 Syarat & <span class="text-blue-600">Ketentuan</span>
             </h1>
             <p class="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">
-                Berlaku mulai: 10 April 2026. <br>
+                Berlaku mulai: 10 Juni 2026. <br>
                 Harap baca ketentuan penggunaan layanan GaweDokumen dengan seksama.
             </p>
         </div>
@@ -17,7 +17,8 @@
                 class="mb-12 p-8 rounded-[2rem] bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 text-center">
                 <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
                     Dengan mengakses dan menggunakan <strong>GaweDokumen</strong>, Anda dianggap telah membaca, memahami,
-                    dan menyetujui seluruh ketentuan yang berlaku di bawah ini.
+                    dan menyetujui seluruh ketentuan yang berlaku di bawah ini. Pengumpulan dan penggunaan data pribadi Anda
+                    diatur dalam <a href="/privacy" class="text-blue-600 underline">Kebijakan Privasi</a> kami.
                 </p>
             </div>
 
@@ -31,8 +32,8 @@
                     </h3>
                     <p class="text-slate-600 dark:text-slate-400 ml-11">
                         GaweDokumen menyediakan alat untuk pembuatan dokumen otomatis. Anda dilarang menggunakan layanan ini
-                        untuk membuat dokumen palsu, menipu, atau melanggar hukum yang berlaku di wilayah Republik
-                        Indonesia.
+                        untuk membuat dokumen palsu, melakukan penipuan, atau melanggar hukum yang berlaku di wilayah
+                        Republik Indonesia.
                     </p>
                 </section>
 
@@ -45,8 +46,8 @@
                     <p class="text-slate-600 dark:text-slate-400 ml-11">
                         Kami berusaha memberikan template yang sesuai dengan standar umum. Namun, GaweDokumen tidak
                         bertanggung jawab atas kesalahan ketik, kesalahan format, atau penolakan dokumen oleh pihak ketiga
-                        (perusahaan/instansi). Kami menyarankan Anda untuk selalu memeriksa kembali hasil PDF sebelum
-                        dicetak.
+                        (perusahaan/instansi). Anda bertanggung jawab penuh untuk memeriksa kembali hasil dokumen sebelum
+                        digunakan.
                     </p>
                 </section>
 
@@ -54,12 +55,12 @@
                     <h3 class="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
                         <span
                             class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-lg bg-blue-600 text-white text-sm">3</span>
-                        Kepemilikan Konten
+                        Akun & Layanan Berbayar
                     </h3>
                     <p class="text-slate-600 dark:text-slate-400 ml-11">
-                        Segala data yang Anda masukkan adalah milik Anda sepenuhnya. GaweDokumen tidak memiliki hak atas
-                        informasi pribadi yang Anda input. Namun, desain template dan kode program website adalah properti
-                        intelektual milik GaweDokumen.
+                        Pengguna bertanggung jawab atas kerahasiaan kredensial akun mereka. Jika Anda menggunakan layanan
+                        berbayar, Anda setuju untuk melakukan pembayaran sesuai dengan harga yang tertera. Semua pembayaran
+                        bersifat final (non-refundable), kecuali ditentukan lain dalam kebijakan pengembalian dana kami.
                     </p>
                 </section>
 
@@ -67,13 +68,40 @@
                     <h3 class="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
                         <span
                             class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-lg bg-blue-600 text-white text-sm">4</span>
+                        Penyimpanan Data Cloud
+                    </h3>
+                    <p class="text-slate-600 dark:text-slate-400 ml-11">
+                        Fitur penyimpanan Cloud disediakan "sebagaimana adanya". Meskipun kami melakukan upaya terbaik untuk
+                        menjaga keamanan dan ketersediaan data, kami tidak menjamin ketersediaan data 100% atau bebas dari
+                        kerusakan teknis. Kami menyarankan Anda untuk tetap menyimpan salinan cadangan dokumen penting
+                        secara mandiri.
+                    </p>
+                </section>
+
+                <section>
+                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
+                        <span
+                            class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-lg bg-blue-600 text-white text-sm">5</span>
+                        Kepemilikan Konten
+                    </h3>
+                    <p class="text-slate-600 dark:text-slate-400 ml-11">
+                        Segala data yang Anda masukkan adalah milik Anda sepenuhnya. GaweDokumen tidak memiliki hak atas
+                        informasi pribadi yang Anda input. Namun, desain template, database, dan kode program website adalah
+                        properti intelektual milik GaweDokumen.
+                    </p>
+                </section>
+
+                <section>
+                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
+                        <span
+                            class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-lg bg-blue-600 text-white text-sm">6</span>
                         Batasan Tanggung Jawab
                     </h3>
                     <div class="ml-11 p-6 bg-red-50 dark:bg-red-900/10 border-l-4 border-red-500 rounded-r-xl">
                         <p class="text-red-700 dark:text-red-400 text-sm leading-relaxed">
                             GaweDokumen tidak bertanggung jawab atas segala kerugian material maupun imaterial yang timbul
                             akibat penggunaan layanan ini, termasuk namun tidak terbatas pada kegagalan mendapatkan
-                            pekerjaan atau kesalahan administrasi lainnya.
+                            pekerjaan, kehilangan data Cloud, atau kesalahan administrasi lainnya.
                         </p>
                     </div>
                 </section>
@@ -81,12 +109,13 @@
                 <section>
                     <h3 class="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
                         <span
-                            class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-lg bg-blue-600 text-white text-sm">5</span>
+                            class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-lg bg-blue-600 text-white text-sm">7</span>
                         Perubahan Ketentuan
                     </h3>
                     <p class="text-slate-600 dark:text-slate-400 ml-11">
                         Kami berhak mengubah syarat dan ketentuan ini sewaktu-waktu tanpa pemberitahuan sebelumnya.
-                        Penggunaan berkelanjutan atas situs ini setelah perubahan dianggap sebagai persetujuan Anda.
+                        Penggunaan berkelanjutan atas situs ini setelah perubahan dianggap sebagai persetujuan Anda terhadap
+                        ketentuan yang baru.
                     </p>
                 </section>
 

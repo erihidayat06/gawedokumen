@@ -7,89 +7,116 @@
                 Kebijakan <span class="text-blue-600">Privasi</span>
             </h1>
             <p class="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">
-                Terakhir diperbarui: 10 April 2026. <br>
-                Privasi Anda adalah prioritas utama kami. Kami membangun sistem yang menjaga data tetap di tangan Anda.
+                Terakhir diperbarui: 10 Juni 2026. <br>
+                Kami memberi Anda kendali penuh atas data Anda.
             </p>
         </div>
 
-        <div class="max-w-4xl mx-auto px-6">
-            <div class="mb-12 p-8 rounded-[2rem] bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800">
-                <div class="flex items-start gap-4">
-                    <div class="bg-blue-600 p-2 rounded-lg mt-1">
-                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z">
-                            </path>
-                        </svg>
-                    </div>
-                    <div>
-                        <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Komitmen Tanpa Database</h2>
-                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
-                            GaweDokumen dirancang dengan arsitektur <strong>Client-Side</strong>. Segala informasi yang Anda
-                            masukkan (nama, alamat, hingga tanda tangan) diproses secara lokal di browser Anda. Kami tidak
-                            menyimpan, mengumpulkan, atau membagikan data pribadi Anda ke server kami.
-                        </p>
-                    </div>
+        <div class="max-w-3xl mx-auto px-6 space-y-4">
+
+            <div x-data="{ open: true }"
+                class="rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden">
+                <button @click="open = !open"
+                    class="w-full p-6 text-left flex justify-between items-center focus:outline-none">
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">1. Bagaimana cara GaweDokumen menyimpan
+                        data saya?</h3>
+                </button>
+                <div x-show="open" x-collapse class="px-6 pb-6 text-slate-600 dark:text-slate-400">
+                    Kami menggunakan pendekatan <strong>Hybrid Storage</strong>. Secara default, data Anda diproses dan
+                    disimpan secara <em>Client-Side</em> (lokal di browser Anda) demi privasi maksimal. Anda tidak perlu
+                    akun untuk ini. Namun, jika Anda ingin data Anda tersedia di berbagai perangkat, Anda bisa memilih untuk
+                    mengaktifkan fitur <strong>"Simpan ke Cloud"</strong> dengan akun terdaftar.
                 </div>
             </div>
 
-            <div class="space-y-12 prose prose-slate dark:prose-invert max-w-none">
+            <div x-data="{ open: false }"
+                class="rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden">
+                <button @click="open = !open"
+                    class="w-full p-6 text-left flex justify-between items-center focus:outline-none">
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">2. Apa yang terjadi jika saya menyimpan
+                        data ke Cloud?</h3>
+                </button>
+                <div x-show="open" x-collapse class="px-6 pb-6 text-slate-600 dark:text-slate-400">
+                    Jika Anda memilih untuk menyimpan data ke Cloud, informasi tersebut akan diunggah ke server kami yang
+                    terenkripsi agar bisa Anda akses kapan saja dan di mana saja. Data ini sepenuhnya milik Anda dan kami
+                    tidak akan pernah membagikannya tanpa izin. Anda tetap bisa menghapus data Cloud tersebut kapan pun
+                    melalui pengaturan akun Anda.
+                </div>
+            </div>
 
-                <section>
-                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white">1. Informasi yang Kami Kumpulkan</h3>
-                    <p class="text-slate-600 dark:text-slate-400">
-                        Kami tidak mewajibkan pembuatan akun untuk menggunakan layanan GaweDokumen. Informasi yang Anda
-                        masukkan dalam formulir generate dokumen hanya digunakan untuk mengisi template PDF secara real-time
-                        yang hanya tersimpan pada browser anda, kami tidak menyimpan data anda ke dalam database kami yang
-                        anda tulis di from GaweDokumen baik saat mengisi form atau saat anda mencetaknya
-                        dan akan hilang secara otomatis saat Anda menutup tab browser atau membersihkan cache.
-                    </p>
-                </section>
+            <div x-data="{ open: false }"
+                class="rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden">
+                <button @click="open = !open"
+                    class="w-full p-6 text-left flex justify-between items-center focus:outline-none">
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">3. Bagaimana fitur Loker dan Job Alert
+                        bekerja?</h3>
+                </button>
+                <div x-show="open" x-collapse class="px-6 pb-6 text-slate-600 dark:text-slate-400">
+                    Dengan mendaftarkan akun, Anda dapat menyimpan preferensi karier. Kami hanya menyimpan informasi Nama,
+                    Email, dan preferensi loker yang Anda simpan. Kami akan mengirimkan <em>Job Alert</em> yang relevan agar
+                    Anda tetap update dengan peluang kerja terbaru. Anda dapat berhenti berlangganan kapan saja di
+                    pengaturan email.
+                </div>
+            </div>
 
-                <section>
-                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white">2. Cookies dan Teknologi Pelacakan</h3>
-                    <p class="text-slate-600 dark:text-slate-400">
-                        Kami menggunakan <em>Local Storage</em> browser untuk menyimpan preferensi ringan (seperti mode
-                        gelap atau pilihan template terakhir) demi kenyamanan penggunaan Anda. Kami juga menggunakan layanan
-                        pihak ketiga seperti Google Analytics untuk memahami trafik situs secara anonim agar kami bisa
-                        mengetahui apa yang di perlukan oleh pengguna GaweDokumen dan sebagai evalusi kami agar GaweDokumen
-                        ini bisa di kembangkan dengan lebih baik dan bisa membantu lebih banyak lagi pengguna.
-                    </p>
-                </section>
-
-                <section>
-                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white">3. Iklan Pihak Ketiga (Google AdSense)
+            <div x-data="{ open: false }"
+                class="rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden">
+                <button @click="open = !open"
+                    class="w-full p-6 text-left flex justify-between items-center focus:outline-none">
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">4. Apakah pembayaran di GaweDokumen aman?
                     </h3>
-                    <p class="text-slate-600 dark:text-slate-400 mb-4">
-                        Layanan kami didukung oleh iklan. Vendor pihak ketiga, termasuk Google, menggunakan cookie untuk
-                        menayangkan iklan berdasarkan kunjungan pengguna sebelumnya ke situs web kami atau situs web lain.
-                        Penggunaan cookie iklan oleh Google memungkinkan Google dan mitranya menayangkan iklan kepada
-                        pengguna berdasarkan kunjungan mereka ke situs ini.
-                    </p>
-                    <div
-                        class="p-4 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-50 rounded-xl text-sm border border-slate-200 dark:border-slate-800 italic">
-                        Catatan: Anda dapat memilih untuk keluar dari iklan yang dipersonalisasi dengan mengunjungi <a
-                            href="https://www.google.com/settings/ads" class="text-blue-600 underline">Setelan Iklan
-                            Google</a>.
-                    </div>
-                </section>
+                </button>
+                <div x-show="open" x-collapse class="px-6 pb-6 text-slate-600 dark:text-slate-400">
+                    Ya. Kami bekerja sama dengan penyedia gerbang pembayaran terpercaya yang memenuhi standar keamanan
+                    industri (PCI-DSS). Kami tidak pernah menyimpan nomor kartu kredit atau detail perbankan Anda di server
+                    kami.
+                </div>
+            </div>
 
-                <section>
-                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white">4. Keamanan Data</h3>
-                    <p class="text-slate-600 dark:text-slate-400">
-                        Meskipun data tidak disimpan di server kami, keamanan perangkat Anda adalah tanggung jawab Anda.
-                        Kami menyarankan untuk selalu menggunakan koneksi internet yang aman saat mengunggah foto tanda
-                        tangan atau data sensitif lainnya.
-                    </p>
-                </section>
+            <div x-data="{ open: false }"
+                class="rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden">
+                <button @click="open = !open"
+                    class="w-full p-6 text-left flex justify-between items-center focus:outline-none">
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">5. Mengapa ada iklan di situs ini?</h3>
+                </button>
+                <div x-show="open" x-collapse class="px-6 pb-6 text-slate-600 dark:text-slate-400">
+                    Iklan membantu kami menjaga layanan GaweDokumen tetap gratis. Kami menggunakan layanan Google AdSense.
+                    Anda selalu bisa mengontrol iklan yang ditampilkan melalui <a href="https://www.google.com/settings/ads"
+                        class="text-blue-600 underline">Setelan Iklan Google</a>.
+                </div>
+            </div>
 
-                <section class="pt-8 border-t border-slate-200 dark:border-slate-800 text-center">
-                    <p class="text-slate-500 dark:text-slate-400 text-sm">
-                        Punya pertanyaan tentang kebijakan privasi kami? <br>
-                        Hubungi kami melalui email di <a href="mailto:privacy@gawedokumen.com"
-                            class="text-blue-600 font-bold">privacy@gawedokumen.com</a>
-                    </p>
-                </section>
+            <div x-data="{ open: false }"
+                class="rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden">
+                <button @click="open = !open"
+                    class="w-full p-6 text-left flex justify-between items-center focus:outline-none">
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">6. Apa hak saya terhadap data yang saya
+                        simpan?</h3>
+                </button>
+                <div x-show="open" x-collapse class="px-6 pb-6 text-slate-600 dark:text-slate-400">
+                    Anda memiliki kendali penuh. Anda berhak meminta akses, perbaikan, atau penghapusan permanen atas akun
+                    dan data yang Anda simpan di cloud kami kapan saja. Silakan hubungi kami melalui email untuk memproses
+                    permintaan tersebut.
+                </div>
+            </div>
+
+            <div x-data="{ open: false }"
+                class="rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden">
+                <button @click="open = !open"
+                    class="w-full p-6 text-left flex justify-between items-center focus:outline-none">
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">7. Apakah kebijakan ini bisa berubah?</h3>
+                </button>
+                <div x-show="open" x-collapse class="px-6 pb-6 text-slate-600 dark:text-slate-400">
+                    Ya, kami mungkin memperbarui kebijakan ini dari waktu ke waktu untuk menyesuaikan dengan fitur baru atau
+                    perubahan regulasi. Perubahan signifikan akan kami informasikan melalui situs web atau email.
+                </div>
+            </div>
+
+            <div class="mt-12 text-center">
+                <p class="text-slate-500 dark:text-slate-400 text-sm">
+                    Pertanyaan lebih lanjut? Email kami di <a href="mailto:privacy@gawedokumen.com"
+                        class="text-blue-600 font-bold">privacy@gawedokumen.com</a>
+                </p>
             </div>
         </div>
     </div>
