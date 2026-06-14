@@ -101,7 +101,7 @@
 
                                             {{ $displayDate->locale('id')->translatedFormat('F Y') }}
 
-                                            {{ $displayDate->locale('id')->translatedFormat('F Y') }}
+
                                         </p>
                                     </div>
                                     <div class="mt-4">
