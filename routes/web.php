@@ -24,6 +24,7 @@ use App\Http\Controllers\Pekerja\PaklaringController;
 use App\Http\Controllers\Pekerja\PortofolioController;
 use App\Http\Controllers\Pekerja\SuratResignController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SavedLokerController;
 use App\Http\Controllers\Tools\GabungPdfController;
 use App\Http\Controllers\Tools\KompresGambarController;
 use App\Http\Controllers\Tools\KompresPdfController;
@@ -74,11 +75,16 @@ Route::prefix('loker')->group(function () {
 
     // Opsional: Filter berdasarkan wilayah/kecamatan
     Route::get('/wilayah/{kota}', [LokerController::class, 'wilayah'])->name('loker.wilayah');
+
+    Route::middleware(['auth'])->group(function () {
+        Route::post('/{loker}/save', [SavedLokerController::class, 'store'])->name('loker.save');
+        Route::delete('/{loker}/unsave', [SavedLokerController::class, 'destroy'])->name('loker.unsave');
+    });
 });
 
 
 
-Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
+Route::prefix('admin')->name('admin.')->middleware('auth', 'role:admin')->group(function () {
     Route::get('/blog', [AdminBlogController::class, 'index'])->name('blog.index');
     Route::get('/blog/create', [AdminBlogController::class, 'create'])->name('blog.create');
     Route::post('/blog/store', [AdminBlogController::class, 'store'])->name('blog.store');
@@ -138,13 +144,27 @@ Route::get('/preview-pdf', [DocumentController::class, 'preview'])
 Route::get('/tentang-kami', [PageController::class, 'about'])->name('about');
 Route::get('/kebijakan-privasi', [PageController::class, 'privacy'])->name('privacy');
 Route::get('/syarat-ketentuan', [PageController::class, 'terms'])->name('terms');
-Route::get('/contact', [PageController::class, 'contact'])->name('kontak');
+Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 Route::post('/kontak/kirim', [ContactController::class, 'send'])->name('kontak.send');
 
 
-Route::get('/dashboard', function () {
-    return view('admin.dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Mengelompokkan rute yang memerlukan auth dan verifikasi
+Route::middleware(['auth', 'verified'])->group(function () {
+
+    // Prefix untuk URL (contoh: /dashboard/...)
+    // Name prefix untuk nama route (contoh: dashboard.index)
+    Route::prefix('dashboard')->name('dashboard.')->group(function () {
+
+        // Route utama dashboard
+        Route::get('/', function () {
+            return view('admin.dashboard');
+        })->name('index');
+
+        // Route Saved Jobs (Loker Disimpan)
+        Route::get('/saved-jobs', [SavedLokerController::class, 'index'])->name('saved-jobs.index');
+        Route::delete('/saved-jobs/{id}', [SavedLokerController::class, 'destroy'])->name('saved-jobs.destroy');
+    });
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -27,15 +27,15 @@
 
             <div class="relative z-10 my-auto max-w-md space-y-4">
                 <h2 class="text-4xl font-extrabold text-white tracking-tight leading-tight">
-                    Kelola Dokumen Kerja & Karir Dalam Satu Dasbor.
+                    Administrasi Jadi Mudah, Cepat, dan Profesional.
                 </h2>
                 <p class="text-slate-200 text-base leading-relaxed font-medium">
-                    Buat CV profesional, surat lamaran otomatis, kelola portofolio, hingga kompres berkas penting tanpa
-                    ribet.
+                    GaweDokumen membantu Anda menyusun berbagai dokumen administrasi, mulai dari surat lamaran kerja,
+                    CV, hingga keperluan formal lainnya dengan template yang rapi.
                 </p>
                 <div class="pt-4 flex items-center space-x-3 text-sm text-blue-200 font-semibold">
                     <span class="flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                    <span>Dipercaya oleh ribuan pencari kerja aktif</span>
+                    <span>Template otomatis & siap pakai</span>
                 </div>
             </div>
 

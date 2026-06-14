@@ -92,7 +92,7 @@ class AdminLokerController extends Controller
         // 3. Generate Slug SEO otomatis
         app()->setLocale('id');
         $bulan = \Carbon\Carbon::now()->translatedFormat('F Y');
-        $data['slug'] = \Illuminate\Support\Str::slug($request->posisi . ' ' . $request->perusahaan . ' ' . $request->kecamatan . ' ' . $request->kota . ' ' . $bulan);
+        $data['slug'] = \Illuminate\Support\Str::slug($request->posisi . ' ' . $request->perusahaan . ' ' . $request->kecamatan . ' ' . $request->kota);
 
         // 4. Simpan ke Database
         $loker = \App\Models\Loker::create($data);
@@ -148,9 +148,11 @@ class AdminLokerController extends Controller
             'product_ids' => 'nullable|array',
             'product_ids.*' => 'exists:affiliate_ads,id',
         ]);
+        $data = $request->except(['updated_at']);
 
         $data = $request->all();
         $data['deadline'] = $request->filled('deadline') ? $request->deadline : null;
+        $data['updated_at'] = $request->input('updated_at') ?? $loker->updated_at;
 
         // 2. Olah data array (Benefit, Tugas, Persyaratan)
         // Gunakan array_values + array_filter agar index-nya rapi (0,1,2...)

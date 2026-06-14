@@ -20,7 +20,7 @@
         </div>
     </div>
 
-    <div class="bg-white dark:bg-slate-950 min-h-screen pt-32 pb-20"> {{-- pt ditambah agar tidak tertutup bar --}}
+    <div class=" min-h-screen pt-32 pb-20"> {{-- pt ditambah agar tidak tertutup bar --}}
         <div class="max-w-7xl mx-auto px-6">
 
             <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">

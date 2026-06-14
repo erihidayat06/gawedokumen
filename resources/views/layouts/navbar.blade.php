@@ -154,10 +154,87 @@
                         Blog
                     </a>
                 </li>
+                @auth
+                    <li class="relative w-full md:w-auto md:ml-4">
+                        <button type="button"
+                            class="dropdown-button flex items-center justify-between w-full py-2.5 px-4 md:p-0 text-slate-700 dark:text-slate-300 hover:text-blue-600 transition-colors">
+                            <span class="truncate max-w-[120px]">{{ auth()->user()->name }}</span>
+                            <svg class="w-4 h-4 ms-1 transition-transform duration-200" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                                </path>
+                            </svg>
+                        </button>
+
+                        {{-- Dropdown Content --}}
+                        {{-- Kita tambahkan 'md:left-auto md:right-0' agar di desktop menempel kanan, di mobile mengikuti alur --}}
+                        <div
+                            class="dropdown-content hidden w-full md:absolute md:right-0 mt-2 md:w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 z-[9999]">
+                            <ul class="py-1 text-sm">
+                                <li>
+                                    <a href="{{ route('dashboard.index') }}"
+                                        class="block px-4 py-2 text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600">
+                                        Dashboard
+                                    </a>
+                                </li>
+                                <li>
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <button type="submit"
+                                            class="w-full text-left px-4 py-2 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-slate-700">
+                                            Keluar
+                                        </button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                @else
+                    {{-- Container untuk Guest (Login/Daftar) --}}
+                    <li class="w-full md:w-auto mt-4 md:mt-0 md:ml-4 flex flex-col md:flex-row gap-2">
+                        <a href="{{ route('login') }}"
+                            class="text-center px-5 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-blue-600 transition-colors">
+                            Masuk
+                        </a>
+                        <a href="{{ route('register') }}"
+                            class="text-center px-5 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 shadow-lg shadow-blue-600/20 transition-all">
+                            Daftar
+                        </a>
+                    </li>
+                @endauth
+                {{-- Tombol Dark Mode Toggle --}}
+                <li class="w-full md:w-auto">
+                    <button id="theme-toggle" type="button"
+                        class="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors">
+                        <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor"
+                            viewBox="0 0 20 20">
+                            <path
+                                d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 7a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707z">
+                            </path>
+                        </svg>
+                        <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor"
+                            viewBox="0 0 20 20">
+                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                        </svg>
+                    </button>
+                </li>
             </ul>
         </div>
     </div>
 </nav>
+
+<style>
+    /* Pastikan tidak ada elemen yang memotong dropdown */
+    .nav-container {
+        overflow: visible !important;
+    }
+
+    .dropdown-content {
+        /* Mencegah pemotongan di layar kecil */
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+</style>
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {

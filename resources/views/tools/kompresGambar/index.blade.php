@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="py-24 bg-white dark:bg-slate-950 min-h-screen">
+    <div class="py-24  min-h-screen">
         <div class="max-w-xl mx-auto px-2">
 
             <div class="sm:mx-auto sm:w-full sm:max-w-md text-center">

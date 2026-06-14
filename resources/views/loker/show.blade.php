@@ -9,14 +9,14 @@
 @endsection
 
 @section('content')
-    <div class="bg-slate-50 dark:bg-slate-950 min-h-screen pt-24 pb-20">
+    <div class=" min-h-screen pt-24 pb-20">
         <div class="max-w-6xl mx-auto px-6">
 
             {{-- BREADCRUMB --}}
-            <nav class="flex mb-6  font-medium text-slate-500 dark:text-slate-400">
+            <nav class="flex text-xs md:text-xl mb-6  font-medium text-slate-500 dark:text-slate-400">
                 <a href="{{ route('loker.index') }}" class="hover:text-blue-600 transition-colors">Lowongan Kerja</a>
                 <span class="mx-3 opacity-50">/</span>
-                <span class="text-slate-900 dark:text-white line-clamp-1">{{ $loker->posisi }}</span>
+                <span class="text-slate-900 dark:text-white line-clamp-1">{{ Str::title($loker->posisi) }}</span>
             </nav>
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -61,13 +61,13 @@
                                     </h1>
 
                                     <p
-                                        class="text-lg md:text-xl font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-1">
-                                        <i class="bi bi-building text-blue-600"></i> {{ $loker->perusahaan }}
+                                        class=" text-xs md:text-xl font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-2">
+                                        <i class="bi bi-building text-blue-600"></i> {{ Str::title($loker->perusahaan) }}
                                     </p>
 
                                     <div
                                         class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm md:text-base text-slate-500 dark:text-slate-400 font-medium">
-                                        <p class="flex items-center gap-1">
+                                        <p class="flex items-center gap-1 text-xs md:text-lg">
                                             <i class="bi bi-geo-alt"></i>
                                             <span class="capitalize">
                                                 {{ Str::lower($loker->kecamatan) }}, {{ Str::title($loker->kota) }}
@@ -76,15 +76,63 @@
 
                                         <span class="hidden md:block text-slate-300">•</span>
 
-                                        <p class="flex items-center gap-1 text-blue-600 font-bold">
+                                        <p class="flex items-center gap-1 text-blue-600 font-bold text-xs md:text-lg">
                                             <i class="bi bi-calendar3"></i>
                                             @php
-                                                $date = \Carbon\Carbon::parse($loker->deadline)->isFuture()
-                                                    ? \Carbon\Carbon::now()
-                                                    : \Carbon\Carbon::parse($loker->deadline);
+                                                // 1. Tentukan tanggal dasar
+                                                $lastUpdate = \Carbon\Carbon::parse(
+                                                    $loker->updated_at ?? $loker->created_at,
+                                                );
+
+                                                if ($loker->deadline) {
+                                                    // Jika ada deadline, pakai deadline
+                                                    $displayDate = \Carbon\Carbon::parse($loker->deadline);
+                                                } else {
+                                                    // Jika tidak ada deadline:
+                                                    // Tampilkan bulan saat loker kedaluwarsa (1 bulan setelah update)
+                                                    $displayDate = $lastUpdate->copy()->addMonth();
+                                                }
                                             @endphp
-                                            {{ $date->locale('id')->translatedFormat('F Y') }}
+
+                                            {{ $displayDate->locale('id')->translatedFormat('F Y') }}
                                         </p>
+                                    </div>
+                                    <div class="mt-4">
+                                        <button id="save-btn" data-id="{{ $loker->id }}"
+                                            data-saved="{{ auth()->check() && auth()->user()->savedLokers->contains($loker->id) ? 'true' : 'false' }}"
+                                            {{-- Hapus hover:bg-slate-100 dan dark:hover:bg-slate-800 --}}
+                                            class="group flex  items-center gap-2 px-0 py-0 transition-all duration-300 hover:opacity-70 active:scale-95 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200">
+
+                                            <i id="save-icon"
+                                                class="bi {{ auth()->check() && auth()->user()->savedLokers->contains($loker->id) ? 'bi-bookmark-fill text-blue-600' : 'bi-bookmark' }} text-sm md:text-xl transition-all duration-300"></i>
+
+                                            <span id="save-text" class="font-semibold text-xs md:text-sm">
+                                                {{ auth()->check() && auth()->user()->savedLokers->contains($loker->id) ? 'Tersimpan' : 'Simpan Loker' }}
+                                            </span>
+                                        </button>
+                                    </div>
+                                    <div id="auth-modal"
+                                        class="fixed inset-0 z-50 flex items-center justify-center hidden bg-black/50 backdrop-blur-sm px-4">
+                                        <div
+                                            class="bg-white dark:bg-slate-800 rounded-3xl p-8 max-w-md w-full shadow-2xl relative">
+                                            <button onclick="closeModal()"
+                                                class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">✕</button>
+
+                                            <div class="flex gap-4 mb-6 border-b border-slate-100 dark:border-slate-700">
+                                                <button onclick="showTab('login')" id="tab-login-btn"
+                                                    class="pb-2 font-black border-b-2 border-blue-600 text-blue-600">Masuk</button>
+                                                <button onclick="showTab('register')" id="tab-reg-btn"
+                                                    class="pb-2 font-black border-b-2 border-transparent text-slate-400">Daftar</button>
+                                            </div>
+
+                                            <div id="form-login">
+                                                @include('auth.login-form-minimal')
+                                            </div>
+
+                                            <div id="form-register" class="hidden">
+                                                @include('auth.register-form-minimal')
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -176,7 +224,7 @@
                                         \Carbon\Carbon::parse($loker->deadline)->addDay()->startOfDay(),
                                     );
                                 } else {
-                                    $isExpired = \Carbon\Carbon::parse($loker->created_at)->addMonth()->isPast();
+                                    $isExpired = \Carbon\Carbon::parse($loker->updated_at)->addMonth()->isPast();
                                 }
                             @endphp
 
@@ -232,7 +280,7 @@
                                 </div>
 
                                 {{-- 4. Fitur Unggulan Kita: Bikin Lamaran Otomatis (Gaya Soft Outline Menarik) --}}
-                                <a href="/pekerja/surat-lamaran?posisi={{ urlencode($loker->posisi) }}&perusahaan={{ urlencode($loker->perusahaan) }}"
+                                <a href="/pekerja/surat-lamaran?posisi={{ urlencode(ucwords(strtolower($loker->posisi))) }}&perusahaan={{ urlencode(ucwords(strtolower($loker->perusahaan))) }}"
                                     class="flex items-center justify-center gap-2 w-full py-3 bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800/60 text-center rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-blue-50 transition-all shadow-sm">
                                     <i class="bi bi-file-earmark-text"></i>
                                     <span>Bikin Lamaran Otomatis</span>
@@ -528,7 +576,7 @@
                                 );
                             } else {
                                 // Skenario 2: Jika tidak ada deadline, cek apakah sudah lebih dari 1 bulan dari created_at
-                                $isExpired = \Carbon\Carbon::parse($loker->created_at)->addMonth()->isPast();
+                                $isExpired = \Carbon\Carbon::parse($loker->updated_at)->addMonth()->isPast();
                             }
                         @endphp
                         {{-- Deadline Horizontal - Teks diperbesar di Desktop --}}
@@ -614,7 +662,7 @@
                             <div class="p-5 bg-blue-600 rounded-2xl text-white relative overflow-hidden group">
                                 <p class="text-[11px] md:text-xs font-bold text-blue-100 mb-3 relative z-10 text-center">
                                     Butuh berkas lamaran profesional?</p>
-                                <a href="/pekerja/surat-lamaran?posisi={{ urlencode($loker->posisi) }}&perusahaan={{ urlencode($loker->perusahaan) }}"
+                                <a href="/pekerja/surat-lamaran?posisi={{ urlencode(ucwords(strtolower($loker->posisi))) }}&perusahaan={{ urlencode(ucwords(strtolower($loker->perusahaan))) }}"
                                     class="block w-full py-3 bg-white text-blue-600 text-center rounded-lg text-[11px] md:text-xs font-black uppercase tracking-wider hover:bg-blue-50 transition-all relative z-10">
                                     Bikin Lamaran Otomatis
                                 </a>
@@ -683,10 +731,180 @@
             </div>
         </div>
     </div>
+    <style>
+        /* Partikel kembang api */
+        /* Menggunakan position: fixed agar menimpa seluruh halaman */
+        .particle {
+            position: fixed !important;
+            top: 0;
+            left: 0;
+            width: 2px;
+            height: 2px;
+            background-color: #747474 !important;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 999999 !important;
+            /* Nilai setinggi mungkin */
+            box-shadow: 0 0 10px #3b82f6;
+            /* Sedikit efek glow agar lebih terlihat */
+        }
+
+        /* Animasi klik */
+        @keyframes pulse-once {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.4);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .animate-pulse-click {
+            animation: pulse-once 0.4s ease-in-out;
+        }
+    </style>
 @endsection
 
 
 @push('scripts')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function showTab(tab) {
+            if (tab === 'login') {
+                $('#form-login').removeClass('hidden');
+                $('#form-register').addClass('hidden');
+                $('#tab-login-btn').addClass('border-blue-600 text-blue-600').removeClass(
+                    'border-transparent text-slate-400');
+                $('#tab-reg-btn').removeClass('border-blue-600 text-blue-600').addClass(
+                    'border-transparent text-slate-400');
+            } else {
+                $('#form-login').addClass('hidden');
+                $('#form-register').removeClass('hidden');
+                $('#tab-reg-btn').addClass('border-blue-600 text-blue-600').removeClass(
+                    'border-transparent text-slate-400');
+                $('#tab-login-btn').removeClass('border-blue-600 text-blue-600').addClass(
+                    'border-transparent text-slate-400');
+            }
+        }
+
+        function closeModal() {
+            $('#auth-modal').addClass('hidden');
+        }
+        $(document).ready(function() {
+            function createFirework(x, y) {
+                console.log("Kembang api dipicu di:", x, y); // Cek di console apakah fungsi ini jalan
+                const particleCount = 12; // Tambah jumlah partikel
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    document.body.appendChild(particle);
+
+                    const angle = (i / particleCount) * Math.PI * 2;
+                    const velocity = 50;
+                    const dx = Math.cos(angle) * velocity;
+                    const dy = Math.sin(angle) * velocity;
+
+                    particle.animate([{
+                            transform: `translate(${x}px, ${y}px)`,
+                            opacity: 1
+                        },
+                        {
+                            transform: `translate(${x + dx}px, ${y + dy}px)`,
+                            opacity: 0
+                        }
+                    ], {
+                        duration: 800,
+                        easing: 'cubic-bezier(0,0,0.2,1)'
+                    }).onfinish = () => particle.remove();
+                }
+            }
+
+            $('#save-btn').on('click', function(e) {
+                e.preventDefault();
+                // Cek login
+                @if (!auth()->check())
+                    $('#auth-modal').removeClass('hidden').addClass('flex');
+                    return;
+                @endif
+
+                var btn = $(this);
+                var icon = btn.find('#save-icon');
+                var text = btn.find('#save-text');
+                var lokerId = btn.data('id');
+                var isSaved = $(this).data('saved') === true || $(this).data('saved') === 'true';
+
+                if (!isSaved) {
+                    var rect = this.getBoundingClientRect();
+                    var x = rect.left + rect.width / 2;
+                    var y = rect.top + rect.height / 2;
+                    createFirework(x, y);
+                }
+
+                // Ambil koordinat untuk kembang api
+                var rect = this.getBoundingClientRect();
+                var x = rect.left + rect.width / 2;
+                var y = rect.top + rect.height / 2;
+
+                // Efek kembang api jika baru disimpan
+                if (!isSaved) {
+                    createFirework(x, y);
+                }
+
+                // --- Efek Visual: Animasi klik ---
+                icon.addClass('animate-pulse-click');
+                setTimeout(() => icon.removeClass('animate-pulse-click'), 400);
+
+                var url = isSaved ? '/loker/' + lokerId + '/unsave' : '/loker/' + lokerId + '/save';
+                var method = isSaved ? 'DELETE' : 'POST';
+
+                $.ajax({
+                    url: url,
+                    type: method,
+                    data: {
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function() {
+                        if (!isSaved) {
+                            // Berubah jadi tersimpan
+                            icon.fadeOut(100, function() {
+                                $(this).removeClass('bi-bookmark').addClass(
+                                    'bi-bookmark-fill text-blue-600').fadeIn(100);
+                            });
+                            text.fadeOut(100, function() {
+                                $(this).text('Tersimpan').fadeIn(100);
+                            });
+                            btn.data('saved', true);
+                        } else {
+                            // Berubah jadi belum tersimpan
+                            icon.fadeOut(100, function() {
+                                $(this).removeClass('bi-bookmark-fill text-blue-600')
+                                    .addClass('bi-bookmark').fadeIn(100);
+                            });
+                            text.fadeOut(100, function() {
+                                $(this).text('Simpan Loker').fadeIn(100);
+                            });
+                            btn.data('saved', false);
+                        }
+                    }
+                });
+            });
+        });
+        $(document).ready(function() {
+            @if ($errors->any())
+                $('#auth-modal').removeClass('hidden');
+
+                // Opsional: Jika error berasal dari register, pindahkan ke tab register
+                @if (session('error_type') == 'register') // Anda perlu mengirim session ini dari Controller
+                    showTab('register');
+                @endif
+            @endif
+        });
+    </script>
     {{-- SCRIPT COPY TO CLIPBOARD --}}
     <script>
         function copyToClipboard(text, label) {
@@ -709,7 +927,7 @@
     "name": "{{ $loker->perusahaan }}"
   },
   "datePosted": "{{ $loker->created_at->toIso8601String() }}",
-  "validThrough": "{{ $loker->deadline ? \Carbon\Carbon::parse($loker->deadline)->toIso8601String() : $loker->created_at->addDays(30)->toIso8601String() }}",
+  "validThrough": "{{ $loker->deadline ? \Carbon\Carbon::parse($loker->deadline)->toIso8601String() : $loker->updated_at->addDays(30)->toIso8601String() }}",
   "jobLocation": {
     "@type": "Place",
     "address": {
@@ -753,5 +971,7 @@
   @endif
 @endif
 }
+
+
 </script>
 @endpush

@@ -49,12 +49,22 @@
     <meta property="og:image" content="@yield('og_image', asset('/img/default-og-image.jpg'))">
     <meta property="og:type" content="article">
 
+    <script>
+        // Cek preferensi perangkat atau localStorage secepat mungkin
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia(
+                '(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-sans antialiased dark:bg-slate-950">
+<body class="font-sans antialiased bg-slate-100 dark:bg-slate-950">
 
     @include('layouts.navbar')
 
@@ -70,7 +80,34 @@
 
     <script defer src="https://unpkg.com/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const darkIcon = document.getElementById('theme-toggle-dark-icon');
+            const lightIcon = document.getElementById('theme-toggle-light-icon');
 
+            // Fungsi sinkronisasi ikon dengan state class 'dark'
+            const updateIcons = () => {
+                const isDark = document.documentElement.classList.contains('dark');
+                lightIcon.classList.toggle('hidden', !isDark);
+                darkIcon.classList.toggle('hidden', isDark);
+            };
+
+            // Jalankan sekali saat halaman siap untuk menyesuaikan ikon
+            updateIcons();
+
+            // Event listener klik
+            themeToggleBtn.addEventListener('click', () => {
+                document.documentElement.classList.toggle('dark');
+                const isDark = document.documentElement.classList.contains('dark');
+
+                // Simpan pilihan user agar menetap (override preferensi perangkat)
+                localStorage.theme = isDark ? 'dark' : 'light';
+
+                updateIcons();
+            });
+        });
+    </script>
 </body>
 
 </html>

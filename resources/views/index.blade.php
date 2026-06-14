@@ -2,7 +2,7 @@
 
 @section('content')
     {{-- HERO SECTION --}}
-    <section class="relative bg-white dark:bg-slate-950 pt-32 pb-20 overflow-hidden">
+    <section class="relative  pt-32 pb-20 overflow-hidden">
         <div class="max-w-7xl mx-auto px-6 relative z-10">
             <div class="text-center max-w-3xl mx-auto mb-16">
                 <span
@@ -194,7 +194,7 @@
             @endforeach
         </div>
         {{-- FAQ SECTION --}}
-        <section class="py-24 bg-white dark:bg-slate-950">
+        <section class="py-24 ">
             <div class="max-w-4xl mx-auto">
                 <div class="text-center mb-16">
                     <h2 class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-4">

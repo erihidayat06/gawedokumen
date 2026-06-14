@@ -186,3 +186,22 @@
     mask-image: url('/img/bootstrap-icons/lightbulb-fill.svg');
     -webkit-mask-image: url('/img/bootstrap-icons/lightbulb-fill.svg');
 }
+
+.bi-bookmark {
+    mask-image: url('/img/bootstrap-icons/bookmark.svg');
+    -webkit-mask-image: url('/img/bootstrap-icons/bookmark.svg');
+}
+.bi-bookmark-fill {
+    mask-image: url('/img/bootstrap-icons/bookmark-fill.svg');
+    -webkit-mask-image: url('/img/bootstrap-icons/bookmark-fill.svg');
+}
+
+.bi-lock {
+    mask-image: url('/img/bootstrap-icons/lock.svg');
+    -webkit-mask-image: url('/img/bootstrap-icons/lock.svg');
+}
+
+.bi-person {
+    mask-image: url('/img/bootstrap-icons/person.svg');
+    -webkit-mask-image: url('/img/bootstrap-icons/person.svg');
+}

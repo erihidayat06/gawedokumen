@@ -21,7 +21,7 @@
         // Jika ada, gunakan route wilayah. Jika tidak, gunakan route index biasa.
         $formAction = isset($currentSlug) ? route('loker.wilayah', $currentSlug) : route('loker.index');
     @endphp
-    <div class="bg-slate-50 dark:bg-slate-950 min-h-screen pt-20 pb-20">
+    <div class=" min-h-screen pt-20 pb-20">
         <div class="max-w-7xl mx-auto px-4 md:px-6">
 
 
@@ -165,7 +165,7 @@
                                         );
                                     } else {
                                         // Skenario 2: Jika tidak ada deadline, cek apakah sudah lebih dari 1 bulan daricreated_at
-                                        $isExpired = \Carbon\Carbon::parse($loker->created_at)->addMonth()->isPast();
+                                        $isExpired = \Carbon\Carbon::parse($loker->update_at)->addMonth()->isPast();
                                     }
                                 @endphp
 
@@ -190,7 +190,7 @@
                             <div class="mb-4">
                                 <h4
                                     class="text-base font-bold dark:text-white group-hover:text-blue-600 transition-colors leading-snug mb-1 line-clamp-1">
-                                    {{ $loker->posisi }}
+                                    {{ ucwords(strtolower($loker->posisi)) }}
                                 </h4>
                                 <p class="text-slate-500 dark:text-slate-400 text-xs font-medium flex items-center gap-1">
                                     <i class="bi bi-building text-[10px]"></i> {{ $loker->perusahaan }}

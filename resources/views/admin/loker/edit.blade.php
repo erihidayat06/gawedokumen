@@ -105,6 +105,12 @@
                                             Draft</option>
                                     </select>
                                 </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-semibold">Tanggal Update</label>
+                                    <input type="datetime-local" name="updated_at" class="form-control"
+                                        value="{{ old('updated_at', $loker->updated_at ? $loker->updated_at->format('Y-m-d\TH:i') : '') }}">
+                                    <small class="text-muted">Kosongkan untuk tidak mengatur tanggal khusus.</small>
+                                </div>
 
                                 {{-- Benefit Dinamis --}}
                                 <div class="col-12 mt-4">

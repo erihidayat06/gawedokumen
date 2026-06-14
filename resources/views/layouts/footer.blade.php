@@ -1,6 +1,6 @@
-<footer class="bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 mt-24">
+<footer class=" border-t border-slate-200 dark:border-slate-800 mt-24">
     <div class="max-w-screen-xl mx-auto px-6 py-12 md:py-16">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-12">
             <div class="col-span-1 md:col-span-2">
                 <a href="/" class="flex items-center space-x-3 mb-4 group">
                     <div class="bg-blue-600 p-1.5 rounded-lg group-hover:rotate-6 transition-transform shadow-md">
@@ -37,7 +37,7 @@
                             Lamaran</a></li>
                     <li><a href="{{ route('tool.signature') }}"
                             class="text-slate-600 dark:text-slate-400 hover:text-blue-600 transition-colors">Tanda
-                            Tangan di Gital</a></li>
+                            Tangan Digital</a></li>
                     <li><a href="/blog"
                             class="text-slate-600 dark:text-slate-400 hover:text-blue-600 transition-colors">Blog</a>
                     </li>
@@ -57,6 +57,18 @@
                     <li><a href="{{ route('terms') }}"
                             class="text-slate-600 dark:text-slate-400 hover:text-blue-600 transition-colors">Syarat &
                             Ketentuan</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-sm font-semibold text-slate-900 dark:text-white uppercase tracking-wider mb-4">Bantuan
+                </h3>
+                <ul class="space-y-3 text-sm">
+                    <li>
+                        <a href="{{ route('contact') }}"
+                            class="text-slate-600 dark:text-slate-400 hover:text-blue-600 transition-colors">Hubungi
+                            Kami</a>
+                    </li>
                 </ul>
             </div>
         </div>

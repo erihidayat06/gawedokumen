@@ -24,11 +24,25 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        // 1. Proses autentikasi
         $request->authenticate();
 
+        // 2. Regenerasi session
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        // 3. Logika Simpan Loker Otomatis (jika user menekan simpan sebelum login)
+        if ($request->filled('loker_id_to_save')) {
+            // syncWithoutDetaching akan otomatis menambahkan ID jika belum ada,
+            // dan tidak melakukan apa-apa jika sudah ada (menghindari duplikasi)
+            auth()->user()->savedLokers()->syncWithoutDetaching([
+                $request->input('loker_id_to_save')
+            ]);
+        }
+
+        // 4. Redirect ke halaman asal atau dashboard
+        $url = $request->input('url_intended', route('dashboard.index', absolute: false));
+
+        return redirect($url);
     }
 
     /**
@@ -42,6 +56,15 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        // Dapatkan URL asal
+        $previousUrl = url()->previous();
+
+        // Cek apakah halaman asal mengandung kata 'dashboard' atau 'admin'
+        if (str_contains($previousUrl, 'dashboard') || str_contains($previousUrl, 'admin')) {
+            return redirect('/'); // Ke halaman utama
+        }
+
+        // Jika bukan dari dashboard/admin, kembali ke halaman asal
+        return redirect()->back();
     }
 }

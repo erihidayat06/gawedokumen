@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="bg-white dark:bg-slate-950 min-h-screen pb-20 overflow-hidden">
+    <div class=" min-h-screen pb-20 overflow-hidden">
         <div class="relative pt-24 pb-16 px-6">
             <div
                 class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-gradient-to-b from-blue-50/50 to-transparent dark:from-blue-950/20 -z-10">
@@ -117,7 +117,7 @@
             <div
                 class="relative p-1 rounded-[2.5rem] bg-gradient-to-r from-blue-600 to-cyan-500 overflow-hidden shadow-2xl shadow-blue-500/20">
                 <div
-                    class="bg-white dark:bg-slate-950 rounded-[2.3rem] p-10 flex flex-col md:flex-row items-center justify-between text-center md:text-left">
+                    class=" rounded-[2.3rem] p-10 flex flex-col md:flex-row items-center justify-between text-center md:text-left">
                     <div>
                         <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-2">Butuh Bantuan?</h2>
                         <p class="text-slate-500 dark:text-slate-400">Hubungi tim kami jika ada saran atau kerjasama.</p>
