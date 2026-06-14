@@ -83,16 +83,23 @@
                                                 $lastUpdate = \Carbon\Carbon::parse(
                                                     $loker->updated_at ?? $loker->created_at,
                                                 );
+                                                $expiredDate = $lastUpdate->copy()->addMonth();
 
                                                 if ($loker->deadline) {
                                                     // Jika ada deadline, pakai deadline
                                                     $displayDate = \Carbon\Carbon::parse($loker->deadline);
                                                 } else {
                                                     // Jika tidak ada deadline:
-                                                    // Tampilkan bulan saat loker kedaluwarsa (1 bulan setelah update)
-                                                    $displayDate = $lastUpdate->copy()->addMonth();
+                                                    // Jika masa aktif (1 bulan setelah update) belum tercapai (masih di masa depan),
+                                                    // maka tampilkan bulan sekarang.
+                                                    // Jika sudah tercapai/lewat, tampilkan tanggal kedaluwarsanya.
+                                                    $displayDate = $expiredDate->isFuture()
+                                                        ? \Carbon\Carbon::now()
+                                                        : $expiredDate;
                                                 }
                                             @endphp
+
+                                            {{ $displayDate->locale('id')->translatedFormat('F Y') }}
 
                                             {{ $displayDate->locale('id')->translatedFormat('F Y') }}
                                         </p>
