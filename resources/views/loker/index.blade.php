@@ -165,7 +165,7 @@
                                         );
                                     } else {
                                         // Skenario 2: Jika tidak ada deadline, cek apakah sudah lebih dari 1 bulan daricreated_at
-                                        $isExpired = \Carbon\Carbon::parse($loker->update_at)->addMonth()->isPast();
+                                        $isExpired = \Carbon\Carbon::parse($loker->updated_at)->addMonth()->isPast();
                                     }
                                 @endphp
 
