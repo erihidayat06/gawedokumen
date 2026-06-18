@@ -31,19 +31,23 @@
             background-image: url('{{ public_path($gambar_template) }}');
             background-repeat: no-repeat;
             background-size: cover;
+
+
+
         }
 
         /* Sidebar (Kolom Kiri) */
 
         .sidebar {
-            width: 48%;
+
+            width: 35%;
         }
 
 
         /* Konten Utama (Kolom Kanan) */
         .main-content {
             vertical-align: top;
-            padding: 10mm 10mm 10mm 0mm;
+            padding: 10mm 10mm 10mm 25mm;
             line-height: 1.5;
             position: relative;
             left: -15mm;
@@ -431,12 +435,12 @@
                         <div class="item-header" style="display: table; width: 100%; line-height: 1.4;">
 
                             <div class="list-item-title"
-                                style="display: table-cell; vertical-align: top; font-weight: bold; color: #1e293b; font-size: 12pt; word-wrap: break-word; padding-right: 15px;">
+                                style="display: table-cell; vertical-align: top; font-weight: bold; color: #1e293b; font-size: 11pt; word-wrap: break-word; padding-right: 15px;">
                                 {{ $edu['instansi'] }}
                             </div>
 
                             <div class="list-item-year"
-                                style="display: table-cell; vertical-align: top; text-align: right; width: 1%; white-space: nowrap; font-style: italic; color: #64748b; font-size: 12pt; font-weight: bold;">
+                                style="display: table-cell; vertical-align: top; text-align: right; width: 1%; white-space: nowrap; font-style: italic; color: #64748b; font-size: 11pt; font-weight: bold;">
                                 {{ $edu['tahun'] }}
                             </div>
 

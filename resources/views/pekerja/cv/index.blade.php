@@ -635,11 +635,11 @@
                     </div>
                 </div>
 
-                <div class="flex-1" style="padding: 15mm 11mm 10mm 12mm; text-align: justify;">
+                <div class="flex-1" style="padding: 15mm 8mm 10mm 13mm; text-align: justify;">
 
                     <div class="border-b-4 border-dynamic pb-1">
                         <h1 class="text-[32pt] font-bold text-slate-800 leading-none" id="nama-text"></h1>
-                        <h2 class="inline-block m-0 pb-[10px] text-[18pt] text-[#1d8bbe] text-primary-dynamic tracking-[3px] uppercase font-medium mt-2"
+                        <h2 class="inline-block m-0 pb-[10px] text-[16pt] text-[#1d8bbe] text-primary-dynamic tracking-[3px] uppercase font-medium mt-2"
                             id="profesi-text">
                         </h2>
                     </div>
@@ -647,7 +647,7 @@
                     <div class="mt-10">
                         <h3 class="text-[16pt] font-bold text-slate-800 border-l-4 border-dynamic pl-3 uppercase">Profil
                         </h3>
-                        <p class="mt-4 text-[12pt] text-slate-600 leading-relaxed" id="profil-text">
+                        <p class="mt-4 text-[10pt] text-slate-600 leading-relaxed" id="profil-text">
 
                         </p>
                     </div>
@@ -1153,16 +1153,16 @@
                    <div class="mb-4">
     <div class="flex flex-row justify-between items-start flex-nowrap gap-4 w-full">
 
-        <div class="min-w-0 flex-1 font-bold text-slate-800 text-[12pt] break-words">
+        <div class="min-w-0 flex-1 font-bold text-slate-800 text-[10pt] break-words">
             ${school}
         </div>
 
-        <div class="flex-shrink-0 text-right italic text-slate-500 text-[12pt] font-bold whitespace-nowrap">
+        <div class="flex-shrink-0 text-right italic text-slate-500 text-[11pt] font-bold whitespace-nowrap">
             ${year}
         </div>
     </div>
 
-    <div class="text-slate-700 mt-1 text-[11pt]">${degree}</div>
+    <div class="text-slate-700 mt-1 text-[10pt]">${degree}</div>
 </div>`;
                 } else if (type === 'skill') {
                     const skillName = item.querySelector('.skill-name').value || 'Nama Keahlian';
