@@ -11,7 +11,7 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif !important;
+            font-family: {!! $selected_font !!};
             margin: 0;
             padding: 0;
             background-color: #ffffff;

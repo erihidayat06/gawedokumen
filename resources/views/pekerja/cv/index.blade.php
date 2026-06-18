@@ -548,7 +548,7 @@
 
 
             <div id="panzoom-element" class="bg-white shadow-2xl origin-top flex flex-row box-border"
-                style="width: 210mm; height: 297mm; min-width: 210mm; min-height: 297mm; font-size: 12pt; font-family: 'Arial'; background-image: url('/img/cv/cv1.jpg'); background-size: cover; background-repeat: no-repeat;">
+                style="width: 210mm; height: 297mm; min-width: 210mm; min-height: 297mm; font-size: 12pt;  background-image: url('/img/cv/cv1.jpg'); background-size: cover; background-repeat: no-repeat;">
 
                 <div class="w-[85mm] flex-shrink-0" style="padding: 10mm 0mm 10mm 10mm;">
 
@@ -789,6 +789,7 @@
                     pengalaman: document.getElementById('pengalaman').value,
                     pendidikan: document.getElementById('pendidikan').value,
                     keahlian: document.getElementById('keahlian').value,
+                    font_style: document.getElementById('font-selector').value,
 
                     template_id: idTemplate.slice(3) || "1",
                     warna_tema: document.getElementById('warna_tema').value,
@@ -1041,6 +1042,37 @@
                 localStorage.setItem("storage_" + targetId, el.value);
             }
         }
+
+
+        function changeDocFont(fontClass) {
+            // Targetkan elemen kertas preview
+            const kertas = document.getElementById('panzoom-element');
+
+            if (kertas) {
+                // Daftar semua class font yang mungkin ada (agar bisa dihapus dulu)
+                const allFonts = ['font-serif', 'font-sans', 'font-mono', 'font-georgia'];
+
+                // Hapus class font yang lama
+                allFonts.forEach(f => kertas.classList.remove(f));
+
+                // Tambahkan class font yang baru dipilih
+                kertas.classList.add(fontClass);
+
+                // Simpan pilihan ke localStorage
+                localStorage.setItem('selected_font', fontClass);
+            }
+        }
+
+        // Jalankan saat halaman pertama kali dibuka
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedFont = localStorage.getItem('selected_font') || 'font-sans';
+            const fontSelector = document.getElementById('font-selector');
+
+            if (fontSelector) {
+                fontSelector.value = savedFont;
+            }
+            changeDocFont(savedFont);
+        });
     </script>
 
     <script>

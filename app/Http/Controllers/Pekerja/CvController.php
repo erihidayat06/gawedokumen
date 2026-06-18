@@ -79,15 +79,25 @@ class CvController extends Controller
             'pendidikan'      => json_decode($request->pendidikan, true) ?? [],
             'keahlian'        => json_decode($request->keahlian, true) ?? [],
 
+
             'color_primary_text' => $template->color_primary_text,
             'color_body_text' => $template->color_body_text,
             'color_sidebar_text' => $template->color_sidebar_text,
             'color_sidebar_bg' => $template->color_sidebar_bg,
+
             'avatar'          => $request->foto_base64,
             'gambar_template'    => $gambar_template
         ];
 
+        $fontMap = [
+            'font-serif'   => '"Times New Roman", Times, serif',
+            'font-sans'    => 'Arial, Helvetica, sans-serif',
+            'font-mono'    => '"Courier New", Courier, monospace',
+            'font-georgia' => 'Georgia, serif',
+        ];
 
+        $cvData['selected_font'] =
+            $fontMap[$request->font_style] ?? 'Arial, sans-serif';
 
         // 5. Catat log
         LogService::logDownload('cv');
