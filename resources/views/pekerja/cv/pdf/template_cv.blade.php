@@ -257,7 +257,7 @@
             width: 25px;
             font-family: 'DejaVu Sans', sans-serif;
             font-size: 16pt;
-            color: #f1f5f9;
+            color: {{ $color_sidebar_text ?? '#f8fafc' }};
             /* Ganti kode HEX ini untuk ubah warna ikon */
             padding-top: 2px;
             padding-right: 5px;

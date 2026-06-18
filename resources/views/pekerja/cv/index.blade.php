@@ -629,7 +629,8 @@
                         </span>
                     </div>
                     <!-- Bagian Keahlian di Sidebar -->
-                    <div id="preview-skill-list" class="space-y-3" style="margin-top: 3mm; padding-left: 2mm;">
+                    <div id="preview-skill-list" class="space-y-3 text-sidebar-dynamic"
+                        style="margin-top: 3mm; padding-left: 2mm;">
                         <!-- Data akan dirender otomatis di sini -->
                     </div>
                 </div>
