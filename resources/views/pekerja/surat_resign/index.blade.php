@@ -196,9 +196,25 @@
                     @foreach ($allFields['resignInfo'] as $field)
                         <div>
                             <label class="block text-sm font-medium text-gray-700">{{ $field['label'] }}</label>
+
+                            @php
+                                // Cek apakah ada request untuk 'alasan', jika tidak, kosongkan
+                                $currentValue = request()->has('alasan') ? request('alasan') : '';
+                            @endphp
+
                             <textarea id="{{ $field['id'] }}" rows="4"
                                 class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all"
-                                oninput="myFunction('{{ $field['id'] }}', '{{ $field['targets'][0] }}', '{{ $field['default'] }}')"></textarea>
+                                oninput="myFunction('{{ $field['id'] }}', '{{ $field['targets'][0] }}', '{{ $field['default'] }}')"
+                                placeholder="Masukkan alasan...">{{ $currentValue }}</textarea>
+
+                            @if ($field['id'] === 'alasan' && request()->has('alasan'))
+                                <script>
+                                    document.addEventListener("DOMContentLoaded", function() {
+                                        // Panggil fungsi untuk mengisi preview segera setelah load
+                                        myFunction('{{ $field['id'] }}', '{{ $field['targets'][0] }}', '{{ $field['default'] }}');
+                                    });
+                                </script>
+                            @endif
                         </div>
                     @endforeach
                 </div>

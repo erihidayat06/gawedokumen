@@ -13,7 +13,10 @@
         }
 
         .page {
-            width: 100%;
+            width: 98%;
+            /* Atau gunakan width: calc(100% - 40px); */
+            margin: 0 auto;
+            /* 0 untuk atas-bawah, auto untuk kanan-kiri (centering) */
         }
 
         .text-justify {
@@ -125,8 +128,7 @@
 
         {{-- PENAMBAHAN PARAGRAF KUALIFIKASI DAN KEAHLIAN --}}
         <div class="jarak-paragraf text-justify">
-            {{ $kualifikasi }}. Selain itu, saya juga membekali diri dengan keahlian kompeten di antaranya yaitu
-            {{ $keahlian }} yang dapat menunjang produktivitas di perusahaan Bapak/Ibu.
+            {{ $paragraf_kualifikasi }}
         </div>
 
         <div class="jarak-paragraf text-justify" style="margin-bottom: 5px;">

@@ -145,6 +145,14 @@
                         'placeholder' =>
                             'Contoh: pengembangan aplikasi web dengan Laravel & React, manajemen database, serta analisis SEO',
                     ],
+                    [
+                        'id' => 'kualif-keahlian',
+                        'label' => 'Kualifikasi dan Keahlian',
+                        'tipe' => 'template', // Ini yang memicu munculnya pilihan Radio Button
+                        'targets' => ['kualif-keahlian-text'],
+                        'default' => 'Kualifikasi dan Keahlian',
+                        'placeholder' => 'Tulis pengalaman kerja, sertifikasi, dan keahlian Anda secara lengkap...',
+                    ],
                 ],
             ];
 
@@ -296,16 +304,62 @@
                 </div>
 
                 <div id="kualifikasi" class="tab-content hidden space-y-4">
-                    @foreach ($allFields['kualifikasi_keahlian'] as $field)
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">{{ $field['label'] }}</label>
-                            <input type="text" id="{{ $field['id'] }}"
-                                class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all"
-                                oninput="myFunction('{{ $field['id'] }}', '{{ $field['targets'][0] }}', '{{ $field['default'] }}')"
-                                placeholder="{{ $field['placeholder'] }}">
-                        </div>
-                    @endforeach
+                    <div class="flex gap-6 p-4 bg-gray-50 rounded-xl border border-gray-200 mb-4">
+                        <label class="flex items-center cursor-pointer">
+                            <input type="radio" name="mode" value="template" checked onclick="toggleMode('template')">
+                            Pakai Template
+                        </label>
+                        <label class="flex items-center cursor-pointer">
+                            <input type="radio" name="mode" value="manual" onclick="toggleMode('manual')"> Tulis Manual
+                        </label>
+                    </div>
+
+                    <div id="kualifikasi-template" class="space-y-4">
+                        @foreach ($allFields['kualifikasi_keahlian'] as $field)
+                            @if ($field['id'] !== 'kualif-keahlian')
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">{{ $field['label'] }}</label>
+                                    <input type="text" id="{{ $field['id'] }}"
+                                        class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                                        oninput="myFunction('{{ $field['id'] }}', '{{ $field['targets'][0] }}', '{{ $field['default'] }}')"
+                                        placeholder="{{ $field['placeholder'] }}">
+                                </div>
+                            @endif
+                        @endforeach
+                    </div>
+
+                    <div id="kualifikasi-manual" class="hidden">
+                        @foreach ($allFields['kualifikasi_keahlian'] as $field)
+                            @if ($field['id'] === 'kualif-keahlian')
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">{{ $field['label'] }}</label>
+                                    <textarea id="{{ $field['id'] }}"
+                                        class="w-full px-4 py-2 border border-slate-300 rounded-lg h-32 focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                                        oninput="myFunction('{{ $field['id'] }}', '{{ $field['targets'][0] }}', '{{ $field['default'] }}')"
+                                        placeholder="{{ $field['placeholder'] }}">{{ request('kualif_keahlian') }}</textarea>
+                                </div>
+                            @endif
+                        @endforeach
+                    </div>
                 </div>
+
+                @if (request()->has('kualif_keahlian'))
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function() {
+                            // 1. Paksa mode manual
+                            toggleMode('manual');
+
+                            // 2. Centang radio button manual
+                            const radio = document.querySelector('input[name="mode"][value="manual"]');
+                            if (radio) radio.checked = true;
+
+                            // 3. Panggil update preview
+                            const fieldId = 'kualif-keahlian'; // Sesuai ID di config
+                            const targetId = 'kualif-keahlian-text'; // Sesuai target ID Anda
+                            myFunction(fieldId, targetId, 'Kualifikasi dan Keahlian');
+                        });
+                    </script>
+                @endif
 
                 <div id="dokumen" class="tab-content hidden space-y-4">
                     <div class="flex justify-between items-center mt-2">
@@ -463,9 +517,14 @@
 
                 {{-- REVISI 2: Penggabungan Paragraf Kualifikasi & Keahlian (Menghapus pengulangan posisi & PT) --}}
                 <div class="jarak-paragraf text-justify leading-relaxed">
-                    <span id="kualifikasi-text"></span>. Selain itu, saya juga
-                    membekali diri dengan keahlian kompeten di antaranya yaitu <span id="keahlian-text"></span> yang dapat
-                    menunjang produktivitas di perusahaan Bapak/Ibu.
+                    <div id="preview-template">
+                        <span id="kualifikasi-text"></span>. Selain itu, saya juga membekali diri dengan keahlian kompeten
+                        di antaranya yaitu <span id="keahlian-text"></span> yang dapat menunjang produktivitas di
+                        perusahaan Bapak/Ibu.
+                    </div>
+                    <div id="preview-manual" class="hidden">
+                        <span id="kualif-keahlian-text"></span>
+                    </div>
                 </div>
 
                 {{-- Paragraf Lampiran Dokumen --}}
@@ -719,6 +778,28 @@
 @push('scripts')
     <script src="/js/gawedokumen.js"></script>
     <script>
+        // Tambahkan fungsi simpan ke LocalStorage di dalam toggleMode
+        function toggleMode(mode) {
+            const divTemplate = document.getElementById('kualifikasi-template');
+            const divManual = document.getElementById('kualifikasi-manual');
+            const prevTemplate = document.getElementById('preview-template');
+            const prevManual = document.getElementById('preview-manual');
+
+            // Simpan pilihan ke localStorage
+            localStorage.setItem('storage_kualifikasi_mode', mode);
+
+            if (mode === 'template') {
+                divTemplate.classList.remove('hidden');
+                divManual.classList.add('hidden');
+                prevTemplate.classList.remove('hidden');
+                prevManual.classList.add('hidden');
+            } else {
+                divTemplate.classList.add('hidden');
+                divManual.classList.remove('hidden');
+                prevTemplate.classList.add('hidden');
+                prevManual.classList.remove('hidden');
+            }
+        }
         let printTimer = null;
         let preparedData = {};
 
@@ -755,7 +836,7 @@
                 .map(i => i.value).filter(val => val.trim() !== "");
 
             const lampiranFinal = inputLampiran.length > 0 ? inputLampiran : ["Daftar Lampiran (Belum diisi)"];
-
+            const mode = document.querySelector('input[name="mode"]:checked').value;
             preparedData = {
                 _token: "{{ csrf_token() }}",
                 kota: document.getElementById('kota').value || "Kota",
@@ -771,8 +852,11 @@
                 tempat_lahir: document.getElementById('tempat-lahir').value || "Tempat Lahir",
                 tanggal_lahir: document.getElementById('tanggal-lahir').value || (window.getTanggalInput ?
                     getTanggalInput() : ""),
-                kualifikasi: document.getElementById('kualifikasi_input').value || "Kualifikasi",
-                keahlian: document.getElementById('keahlian').value || "Keahlian",
+                kualifikasi: mode === 'template' ? (document.getElementById('kualifikasi_input')?.value ||
+                    "Kualifikasi") : "",
+                keahlian: mode === 'template' ? (document.getElementById('keahlian')?.value || "Keahlian") : "",
+                kaulif_keahlian: mode === 'manual' ? (document.getElementById('kualif-keahlian')?.value ||
+                    "Keahlian") : "",
                 alamat_diri: document.getElementById('alamat-diri').value || "Alamat Sekarang",
                 no_tlp: document.getElementById('no-tlp').value || "08xxxxxxxxxx",
                 ttd_align: document.getElementById('ttd-align-selector').value,
@@ -899,6 +983,17 @@
                 fontSelector.value = savedFont;
             }
             changeDocFont(savedFont);
+
+            const savedMode = localStorage.getItem('storage_kualifikasi_mode') || 'template';
+
+            // Set radio button yang aktif
+            const radioToSelect = document.querySelector(`input[name="mode"][value="${savedMode}"]`);
+            if (radioToSelect) {
+                radioToSelect.checked = true;
+            }
+
+            // Jalankan fungsi untuk menampilkan div yang sesuai
+            toggleMode(savedMode);
         });
 
 

@@ -5,7 +5,6 @@
         /* 1. Pastikan area konten dashboard tidak scroll keluar layar */
         .container-fluid {
             height: calc(100vh - 100px);
-            /* Sesuaikan dengan tinggi header dashboard */
             display: flex;
             flex-direction: column;
         }
@@ -16,7 +15,6 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            /* Mencegah card nembus keluar */
             margin-bottom: 0 !important;
         }
 
@@ -111,6 +109,19 @@
                 </div>
 
                 <div class="form-group">
+                    <label class="font-weight-bold">Link Membuat</label>
+                    @include('admin.blog.select_link')
+                    <div class="mt-3">
+                        <input type="text" name="text" id="text"
+                            class="form-control @error('text') is-invalid @enderror" value="{{ old('text') }}"
+                            placeholder="Contoh: posisi=Admin&nama=Budi" required>
+                    </div>
+
+                    <button type="button" id="tambah-link" class="btn btn-sm btn-warning mt-3 text-black">Tambahkan
+                        Link</button>
+                </div>
+
+                <div class="form-group">
                     <label class="font-weight-bold">Isi Konten</label>
                     <textarea name="konten" id="editor" class="@error('konten') is-invalid @enderror">{{ old('konten') }}</textarea>
                     @error('konten')
@@ -125,66 +136,18 @@
         </div>
     </div>
 
+    @stack('scriptsLink')
 
     @push('scripts')
-        <script>
-            function previewImage() {
-                const image = document.querySelector('#gambarInput');
-                const imgPreview = document.querySelector('#imgPreview');
-
-                // Pastikan ada file yang dipilih
-                if (image.files && image.files[0]) {
-                    imgPreview.style.display = 'block'; // Munculkan elemen img
-
-                    const oFReader = new FileReader();
-                    oFReader.readAsDataURL(image.files[0]);
-
-                    oFReader.onload = function(oFREvent) {
-                        imgPreview.src = oFREvent.target.result;
-                    };
-                }
-            }
-        </script>
-
-        <script>
-            const judul = document.querySelector('#judul');
-            const slug = document.querySelector('#slug');
-
-            judul.addEventListener('keyup', function() {
-                // Hanya auto-generate jika slug masih kosong atau belum pernah diedit manual
-                // Jika ingin selalu sinkron, hapus pengecekan kondisi ini
-                let text = judul.value;
-                text = text.toLowerCase()
-                    .replace(/[^a-z0-9 -]/g, '') // hapus karakter aneh
-                    .replace(/\s+/g, '-') // ganti spasi jadi -
-                    .replace(/-+/g, '-'); // hapus - yang dobel
-
-                slug.value = text;
-            });
-
-            // Validasi saat input slug manual (mencegah spasi dan karakter aneh)
-            slug.addEventListener('input', function() {
-                this.value = this.value.toLowerCase()
-                    .replace(/[^a-z0-9 -]/g, '')
-                    .replace(/\s+/g, '-');
-            });
-        </script>
-
-        {{-- Copy script CKEditor yang sama dengan create.blade.php --}}
         <script src="https://cdn.ckeditor.com/4.22.1/full/ckeditor.js"></script>
         <script>
             CKEDITOR.replace('editor', {
-                // --- HILANGKAN PERINGATAN UPGRADE ---
                 versionCheck: false,
-
-                // --- WAJIB TAMBAHKAN INI AGAR TOMBOL ALIGN / JUSTIFY BERFUNGSI ---
                 extraPlugins: 'justify',
-
                 filebrowserImageUploadUrl: "{{ route('admin.blog.upload_image') . '?_token=' . csrf_token() }}",
-
                 toolbar: [{
                         name: 'mode',
-                        items: ['Source'] // Tambah tombol lihat HTML mentah
+                        items: ['Source']
                     },
                     {
                         name: 'clipboard',
@@ -192,14 +155,12 @@
                     },
                     {
                         name: 'basicstyles',
-                        // Tambah Subscript, Superscript, dan RemoveFormat (Penghapus format copas)
                         items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-',
                             'RemoveFormat'
                         ]
                     },
                     {
                         name: 'paragraph',
-                        // Perataan teks di bawah ini sekarang aman karena plugin 'justify' sudah di-load
                         items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', '-',
                             'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'
                         ]
@@ -210,24 +171,19 @@
                     },
                     {
                         name: 'insert',
-                        // Tambah SpecialChar (Simbol) dan Iframe jika sewaktu-waktu butuh embed video
                         items: ['Image', 'Table', 'HorizontalRule', 'SpecialChar', 'Iframe']
                     },
                     {
                         name: 'styles',
-                        items: ['Format', 'FontSize', 'TextColor',
-                            'BGColor'
-                        ] // Tambah BGColor (Stabilo/Highlight teks)
+                        items: ['Format', 'FontSize', 'TextColor', 'BGColor']
                     },
                     {
                         name: 'tools',
-                        items: ['Maximize', 'ShowBlocks'] // ShowBlocks membantu melihat batasan tag <p>, <div>, dll
+                        items: ['Maximize', 'ShowBlocks']
                     }
                 ],
-
                 removePlugins: 'easyimage',
-                allowedContent: true,
-                uploadUrl: "{{ route('admin.blog.upload_image') . '?_token=' . csrf_token() }}"
+                allowedContent: true
             });
         </script>
     @endpush

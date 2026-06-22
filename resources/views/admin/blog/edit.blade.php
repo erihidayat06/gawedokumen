@@ -109,6 +109,18 @@
                 </div>
 
                 <div class="form-group">
+                    <label class="font-weight-bold">Link Membuat</label>
+                    @include('admin.blog.select_link')
+                    <div class="mt-3">
+                        <input type="text" name="text" id="text"
+                            class="form-control @error('text') is-invalid @enderror" value="{{ old('text') }}"
+                            placeholder="Contoh: posisi=Admin&nama=Budi" required>
+                    </div>
+
+                    <button type="button" id="tambah-link" class="btn btn-sm btn-warning mt-3 text-black">Tambahkan
+                        Link</button>
+                </div>
+                <div class="form-group">
                     <label class="font-weight-bold">Isi Konten</label>
                     <textarea name="konten" id="editor">{{ $blog->konten }}</textarea>
                 </div>
@@ -121,6 +133,9 @@
         </div>
     </div>
 @endsection
+
+@stack('scriptsLink')
+
 
 @push('scripts')
     <script>
