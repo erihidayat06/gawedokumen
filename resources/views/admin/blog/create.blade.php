@@ -114,7 +114,7 @@
                     <div class="mt-3">
                         <input type="text" name="text" id="text"
                             class="form-control @error('text') is-invalid @enderror" value="{{ old('text') }}"
-                            placeholder="Contoh: posisi=Admin&nama=Budi" required>
+                            placeholder="Contoh: posisi=Admin&nama=Budi">
                     </div>
 
                     <button type="button" id="tambah-link" class="btn btn-sm btn-warning mt-3 text-black">Tambahkan

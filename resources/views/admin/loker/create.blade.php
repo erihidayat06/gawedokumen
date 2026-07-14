@@ -5,46 +5,52 @@
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
 
-    <div class="container-fluid bg-light min-vh-screen px-0 px-md-4 pt-0 pt-md-5 pb-5">
-
+    <div class="container-fluid bg-light min-vh-100 px-2 px-md-4 pt-3 pt-md-5 pb-5">
         <div class="row justify-content-center g-0">
-
             <div class="col-12 col-lg-10">
+                <!-- Menghilangkan shadow & rounded di HP agar tidak memakan space layar yang sempit -->
                 <div class="card border-0 shadow-sm rounded-0 rounded-md-4">
-                    <div class="card-body p-4 p-md-5">
+                    <!-- Padding disesuaikan (p-3 di HP, p-md-5 di Desktop) -->
+                    <div class="card-body p-3 p-md-5">
 
-
+                        <!-- Header Section -->
                         <div class="d-flex align-items-center mb-4">
-                            <div class="bg-primary text-white rounded-3 p-3 me-3">
-                                <i class="bi bi-briefcase-fill fs-4"></i>
+                            <!-- Ukuran box icon disesuaikan agar tidak terlalu besar di HP -->
+                            <div class="bg-primary text-white rounded-3 p-2 p-md-3 me-3">
+                                <i class="bi bi-briefcase-fill fs-5 fs-md-4"></i>
                             </div>
                             <div>
-                                <h4 class="fw-bold mb-0">Tambah Lowongan Baru</h4>
-                                <small class="text-muted">Gunakan fitur pencarian untuk wilayah Jawa Tengah.</small>
+                                <h4 class="fw-bold mb-0 fs-5 fs-md-4">Tambah Lowongan Baru</h4>
+                                <small class="text-muted d-block small">Gunakan fitur pencarian untuk wilayah Jawa
+                                    Tengah.</small>
                             </div>
                         </div>
 
+                        <!-- AI Auto-Fill Section -->
                         <div class="mb-4 p-3 bg-light-subtle border border-primary-subtle rounded-3">
-                            <label class="form-label fw-bold text-primary mb-1">
+                            <label class="form-label fw-bold text-primary mb-1 small">
                                 <i class="bi bi-cpu-fill me-1"></i> Auto-Fill Loker Pakai AI (Scan Gambar)
                             </label>
-                            <div class="input-group">
+                            <!-- Mengubah input-group menjadi flex-column di HP agar tombol tidak gepeng -->
+                            <div class="d-flex flex-column flex-sm-row gap-2">
                                 <input type="file" id="ai-image-input" class="form-control" accept="image/*">
-                                <button class="btn btn-primary" type="button" id="btn-scan-ai">
+                                <button class="btn btn-primary text-nowrap" type="button" id="btn-scan-ai">
                                     <span class="spinner-border spinner-border-sm d-none me-1" id="loading-scan"
                                         role="status"></span>
-                                    <i class="bi bi-magic me-1" id="icon-magic"></i> Mulai Scan Lokermu
+                                    <i class="bi bi-magic me-1" id="icon-magic"></i> Mulai Scan
                                 </button>
                             </div>
-                            <small class="text-muted d-block mt-1">Upload pamflet/brosur loker, AI akan otomatis mengisi
-                                form di bawah.</small>
+                            <small class="text-muted d-block mt-2 small">Upload pamflet/brosur loker, AI akan otomatis
+                                mengisi form di bawah.</small>
                         </div>
 
+                        <!-- Main Form -->
                         <form id="lokerForm" action="{{ route('admin.loker.store') }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
 
                             <div class="row g-3">
+                                <!-- Section 1: Identitas -->
                                 <div class="col-12 mt-2">
                                     <h6 class="text-primary fw-bold text-uppercase small tracking-wider mb-2">Identitas
                                         Perusahaan</h6>
@@ -52,25 +58,26 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label class="form-label fw-semibold">Nama Posisi</label>
+                                    <label class="form-label fw-semibold small">Nama Posisi</label>
                                     <input type="text" name="posisi" class="form-control form-control-lg fs-6"
                                         placeholder="Contoh: Admin Gudang" value="{{ old('posisi') }}" required>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label class="form-label fw-semibold">Nama Perusahaan</label>
+                                    <label class="form-label fw-semibold small">Nama Perusahaan</label>
                                     <input type="text" name="perusahaan" class="form-control form-control-lg fs-6"
                                         placeholder="Nama PT atau Toko" value="{{ old('perusahaan') }}" required>
                                 </div>
 
+                                <!-- Section 2: Lokasi -->
                                 <div class="col-12 mt-4">
                                     <h6 class="text-primary fw-bold text-uppercase small tracking-wider mb-2">Lokasi
                                         Penempatan</h6>
                                     <hr class="mt-0 mb-3 opacity-10">
                                 </div>
 
-                                <div class="col-12 col-md-6">
-                                    <label class="form-label fw-semibold">Kota/Kabupaten</label>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold small">Kota/Kabupaten</label>
                                     <select name="kota" id="select-kota" class="form-select select2-init" required>
                                         <option value="">Cari Kota/Kabupaten...</option>
                                         <optgroup label="Wilayah Utama">
@@ -86,12 +93,11 @@
                                                 {{ old('kota') == 'Kabupaten Pemalang' ? 'selected' : '' }}>Kabupaten
                                                 Pemalang</option>
                                         </optgroup>
-                                        {{-- ... (opsi lainnya tetap sama, tinggal tambahkan logika ternary selected) --}}
                                     </select>
                                 </div>
 
-                                <div class="col-12 col-md-6">
-                                    <label class="form-label fw-semibold">Kecamatan</label>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold small">Kecamatan</label>
                                     <select name="kecamatan" id="select-kecamatan" class="form-select select2-init"
                                         required>
                                         @if (old('kecamatan'))
@@ -103,37 +109,39 @@
                                 </div>
 
                                 <div class="col-12">
-                                    <label class="form-label fw-semibold">Alamat Lengkap</label>
+                                    <label class="form-label fw-semibold small">Alamat Lengkap</label>
                                     <textarea name="alamat" class="form-control" rows="2" placeholder="Jl. Raya No. 123...">{{ old('alamat') }}</textarea>
                                 </div>
 
+                                <!-- Section 3: Detail -->
                                 <div class="col-12 mt-4">
                                     <h6 class="text-primary fw-bold text-uppercase small tracking-wider mb-2">Detail
                                         Lowongan</h6>
                                     <hr class="mt-0 mb-3 opacity-10">
                                 </div>
 
-                                <div class="col-md-4">
-                                    <label class="form-label fw-semibold">Gaji (Range)</label>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold small">Gaji (Range)</label>
                                     <input type="text" name="gaji" class="form-control"
                                         placeholder="Contoh: Rp 2.1jt - 2.5jt" value="{{ old('gaji') }}">
                                 </div>
 
-                                <div class="col-md-4">
-                                    <label class="form-label fw-semibold">Batas Pendaftaran (Deadline)</label>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold small">Batas Pendaftaran (Deadline)</label>
                                     <input type="date" name="deadline" class="form-control"
                                         value="{{ old('deadline') }}">
-                                    <small class="text-muted">Biarkan kosong jika pendaftaran hingga kuota
+                                    <small class="text-muted d-block mt-1 small">Biarkan kosong jika hingga kuota
                                         terpenuhi.</small>
                                 </div>
 
-                                {{-- Section Benefit dengan Re-populate --}}
-                                <div class="col-12 mt-4">
+                                <!-- Benefit Section -->
+                                <div class="col-12 mt-3">
                                     <label
-                                        class="form-label fw-semibold d-flex justify-content-between align-items-center">
-                                        Benefit / Fasilitas
-                                        <button type="button" class="btn btn-sm btn-outline-primary" id="add-benefit">
-                                            <i class="bi bi-plus-circle me-1"></i>Tambah Baris
+                                        class="form-label fw-semibold d-flex justify-content-between align-items-center small mb-2">
+                                        <span>Benefit / Fasilitas</span>
+                                        <button type="button" class="btn btn-sm btn-outline-primary py-1 px-2 fs-7"
+                                            id="add-benefit">
+                                            <i class="bi bi-plus-circle me-1"></i>Baris
                                         </button>
                                     </label>
                                     <div id="benefit-container">
@@ -161,14 +169,15 @@
                                     </div>
                                 </div>
 
+                                <!-- Section 4: Isi Lowongan -->
                                 <div class="col-12 mt-4">
-                                    <h6 class="text-primary fw-bold text-uppercase small tracking-wider mb-2">4. Isi
-                                        Lowongan</h6>
+                                    <h6 class="text-primary fw-bold text-uppercase small tracking-wider mb-2">Isi Lowongan
+                                    </h6>
                                     <hr class="mt-0 mb-3 opacity-10">
                                 </div>
 
-                                <div class="col-md-6 mt-3">
-                                    <label class="form-label fw-semibold">Minimal Pendidikan</label>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold small">Minimal Pendidikan</label>
                                     <select name="minimal_pendidikan" class="form-select select2-init">
                                         <option value="">Pilih Pendidikan...</option>
                                         @foreach (['SMP', 'SMA/SMK', 'D3', 'S1/S2', 'Semua Jenjang'] as $pend)
@@ -179,8 +188,8 @@
                                     </select>
                                 </div>
 
-                                <div class="col-md-6 mt-3">
-                                    <label class="form-label fw-semibold">Pengalaman Kerja</label>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold small">Pengalaman Kerja</label>
                                     <select name="pengalaman" class="form-select select2-init">
                                         <option value="">Pilih Kategori...</option>
                                         @foreach (['Fresh Graduate', 'Minimal 1 Tahun', 'Minimal 2 Tahun', 'Minimal 3 Tahun', 'Lebih dari 5 Tahun'] as $exp)
@@ -192,17 +201,18 @@
                                 </div>
 
                                 <div class="col-12">
-                                    <label class="form-label fw-semibold">Ringkasan / Deskripsi Pekerjaan</label>
-                                    <textarea name="deskripsi" class="form-control" rows="4"
-                                        placeholder="Jelaskan secara singkat mengenai perusahaan dan posisi ini...">{{ old('deskripsi') }}</textarea>
+                                    <label class="form-label fw-semibold small">Deskripsi Pekerjaan</label>
+                                    <textarea name="deskripsi" class="form-control" rows="3"
+                                        placeholder="Jelaskan singkat mengenai posisi ini...">{{ old('deskripsi') }}</textarea>
                                 </div>
 
-                                {{-- Section Tugas dengan Re-populate --}}
-                                <div class="col-md-6 mt-4">
+                                <!-- Tugas & Tanggung Jawab -->
+                                <div class="col-md-6 mt-3">
                                     <label
-                                        class="form-label fw-semibold d-flex justify-content-between align-items-center">
-                                        Tugas & Tanggung Jawab
-                                        <button type="button" class="btn btn-sm btn-outline-primary" id="add-tugas">
+                                        class="form-label fw-semibold d-flex justify-content-between align-items-center small mb-2">
+                                        <span>Tugas & Tanggung Jawab</span>
+                                        <button type="button" class="btn btn-sm btn-outline-primary py-1 px-2 fs-7"
+                                            id="add-tugas">
                                             <i class="bi bi-plus-circle"></i>
                                         </button>
                                     </label>
@@ -227,12 +237,12 @@
                                     </div>
                                 </div>
 
-                                {{-- Section Persyaratan dengan Re-populate --}}
-                                <div class="col-md-6 mt-4">
+                                <!-- Persyaratan / Kualifikasi -->
+                                <div class="col-md-6 mt-3">
                                     <label
-                                        class="form-label fw-semibold d-flex justify-content-between align-items-center">
-                                        Persyaratan / Kualifikasi
-                                        <button type="button" class="btn btn-sm btn-outline-primary"
+                                        class="form-label fw-semibold d-flex justify-content-between align-items-center small mb-2">
+                                        <span>Persyaratan / Kualifikasi</span>
+                                        <button type="button" class="btn btn-sm btn-outline-primary py-1 px-2 fs-7"
                                             id="add-persyaratan">
                                             <i class="bi bi-plus-circle"></i>
                                         </button>
@@ -258,32 +268,33 @@
                                     </div>
                                 </div>
 
+                                <!-- Section 5: Kontak -->
                                 <div class="col-12 mt-4">
-                                    <h6 class="text-primary fw-bold text-uppercase small tracking-wider mb-2">5. Kontak &
+                                    <h6 class="text-primary fw-bold text-uppercase small tracking-wider mb-2">Kontak &
                                         Publikasi</h6>
                                     <hr class="mt-0 mb-3 opacity-10">
                                 </div>
 
-                                <div class="col-md-4">
-                                    <label class="form-label fw-semibold">WhatsApp (Format: 628xxx)</label>
+                                <div class="col-md-4 col-sm-6">
+                                    <label class="form-label fw-semibold small">WhatsApp</label>
                                     <input type="text" name="no_wa" class="form-control" placeholder="62857xxxx"
                                         value="{{ old('no_wa') }}">
                                 </div>
 
-                                <div class="col-md-4">
-                                    <label class="form-label fw-semibold">Email HRD</label>
+                                <div class="col-md-4 col-sm-6">
+                                    <label class="form-label fw-semibold small">Email HRD</label>
                                     <input type="email" name="email" class="form-control"
                                         placeholder="hrd@perusahaan.com" value="{{ old('email') }}">
                                 </div>
 
-                                <div class="col-md-4">
-                                    <label class="form-label fw-semibold">Link Pendaftaran</label>
+                                <div class="col-md-4 col-sm-12">
+                                    <label class="form-label fw-semibold small">Link Pendaftaran</label>
                                     <input type="text" name="link_pendaftaran" class="form-control"
                                         placeholder="https://" value="{{ old('link_pendaftaran') }}">
                                 </div>
 
-                                <div class="col-md-4">
-                                    <label class="form-label fw-semibold">Status Tayang</label>
+                                <div class="col-12">
+                                    <label class="form-label fw-semibold small">Status Tayang</label>
                                     <select name="status" class="form-select text-success fw-bold">
                                         <option value="Aktif" {{ old('status') == 'Aktif' ? 'selected' : '' }}>Aktif /
                                             Terbitkan</option>
@@ -292,9 +303,10 @@
                                     </select>
                                 </div>
 
-                                {{-- Pilih Artikel Blog Terkait --}}
-                                <div class="col-12 mt-3">
-                                    <label class="form-label fw-semibold">Pilih Artikel Blog Terkait (Opsional)</label>
+                                <!-- Blog Relasi -->
+                                <div class="col-12">
+                                    <label class="form-label fw-semibold small">Pilih Artikel Blog Terkait
+                                        (Opsional)</label>
                                     <select name="blog_ids[]" class="form-control select2-multiple" multiple="multiple">
                                         @foreach ($blogs as $blog)
                                             <option value="{{ $blog->id }}"
@@ -305,10 +317,9 @@
                                     </select>
                                 </div>
 
-                                {{-- Rekomendasi Produk Affiliate --}}
-                                <div class="col-12 mt-3"> {{-- mt-3 disamakan agar jarak spacing-nya konsisten --}}
-                                    <label class="form-label fw-semibold">Rekomendasi Produk Affiliate (Bisa Pilih
-                                        Banyak)</label>
+                                <!-- Affiliate Ads -->
+                                <div class="col-12">
+                                    <label class="form-label fw-semibold small">Rekomendasi Produk Affiliate</label>
                                     <select name="product_ids[]" class="form-control select2-multiple"
                                         multiple="multiple">
                                         @foreach ($affiliateAds as $ad)
@@ -319,20 +330,37 @@
                                         @endforeach
                                     </select>
                                 </div>
+                            </div>
 
+                            <!-- Submit Button -->
+                            <div class="row">
+                                <div class="col-12 mt-4 mt-md-5">
+                                    <button type="submit"
+                                        class="btn btn-primary btn-lg w-100 rounded-3 fw-bold shadow-sm py-3 fs-6">
+                                        Tayangkan Lowongan
+                                    </button>
+                                </div>
                             </div>
-                            <div class="col-12 mt-5">
-                                <button type="submit"
-                                    class="btn btn-primary btn-lg w-100 rounded-3 fw-bold shadow-sm py-3">
-                                    Tayangkan Lowongan
-                                </button>
-                            </div>
+
+                        </form>
                     </div>
-                    </form>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Tambahan style khusus untuk select2-multiple di HP -->
+    <style>
+        @media (max-width: 576px) {
+            .select2-container {
+                width: 100% !important;
+            }
+
+            .fs-7 {
+                font-size: 0.75rem !important;
+            }
+        }
+    </style>
 
 
     <style>

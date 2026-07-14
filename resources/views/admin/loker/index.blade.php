@@ -1,17 +1,28 @@
 @extends('admin.layouts.main')
 
 @section('content')
-    <div class="container-fluid pt-4 px-4">
+    <div class="container-fluid pt-4 px-1">
         <div class="row g-4">
             <div class="col-12">
                 <div class="bg-white rounded-4 shadow-sm p-4">
 
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <div>
-                            <h4 class="fw-bold mb-0">Manajemen Lowongan Kerja</h4>
-                            <p class="text-muted small">Menampilkan {{ $lokers->total() }} postingan loker.</p>
+                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4">
+                        <div class="d-flex align-items-center">
+                            <!-- Icon Box Boxy & Modern (Konsisten dengan form) -->
+                            <div
+                                class="bg-primary text-white rounded-3 p-2 p-md-3 me-3 d-flex align-items-center justify-content-center">
+                                <i class="bi bi-briefcase fs-5 fs-md-4"></i>
+                            </div>
+                            <div>
+                                <h4 class="fw-bold mb-0 fs-5 fs-md-4">Manajemen Lowongan Kerja</h4>
+                                <small class="text-muted d-block small">Menampilkan <strong>{{ $lokers->total() }}</strong>
+                                    postingan loker.</small>
+                            </div>
                         </div>
-                        <a href="{{ route('admin.loker.create') }}" class="btn btn-primary rounded-3 fw-bold px-4">
+
+                        <!-- Tombol otomatis memanjang penuh di HP (w-100 w-sm-auto) -->
+                        <a href="{{ route('admin.loker.create') }}"
+                            class="btn btn-primary rounded-3 fw-bold px-4 py-2 py-md-2.5 w-100 w-sm-auto d-flex align-items-center justify-content-center shadow-sm">
                             <i class="bi bi-plus-lg me-2"></i>Tambah Loker
                         </a>
                     </div>

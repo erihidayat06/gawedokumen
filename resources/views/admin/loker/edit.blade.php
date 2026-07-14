@@ -5,23 +5,28 @@
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
 
-    <div class="container-fluid bg-light min-vh-screen px-0 px-md-4 pt-0 pt-md-5 pb-5">
+    <div class="container-fluid bg-light min-vh-100 px-2 px-md-4 pt-3 pt-md-5 pb-5">
         <div class="row justify-content-center g-0">
             <div class="col-12 col-lg-10">
+                <!-- Menghilangkan border & rounded berlebih di layar HP agar hemat ruang -->
                 <div class="card border-0 shadow-sm rounded-0 rounded-md-4">
-                    <div class="card-body p-4 p-md-5">
+                    <div class="card-body p-3 p-md-5">
 
-                        <div class="d-flex align-items-center justify-content-between mb-4">
+                        <!-- Header Section -->
+                        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-4">
                             <div class="d-flex align-items-center">
-                                <div class="bg-info text-white rounded-3 p-3 me-3">
-                                    <i class="bi bi-pencil-square fs-4"></i>
+                                <!-- Ukuran icon box lebih proporsional di mobile -->
+                                <div class="bg-info text-white rounded-3 p-2 p-md-3 me-3">
+                                    <i class="bi bi-pencil-square fs-5 fs-md-4"></i>
                                 </div>
                                 <div>
-                                    <h4 class="fw-bold mb-0">Edit Lowongan</h4>
-                                    <small class="text-muted">Memperbarui data: {{ $loker->posisi }}</small>
+                                    <h4 class="fw-bold mb-0 fs-5 fs-md-4">Edit Lowongan</h4>
+                                    <small class="text-muted d-block small">Memperbarui data:
+                                        <strong>{{ $loker->posisi }}</strong></small>
                                 </div>
                             </div>
-                            <a href="{{ route('admin.loker.index') }}" class="btn btn-light border btn-sm px-3">Kembali</a>
+                            <a href="{{ route('admin.loker.index') }}"
+                                class="btn btn-light border btn-sm px-3 ms-auto">Kembali</a>
                         </div>
 
                         <form id="editLokerForm" action="{{ route('admin.loker.update', $loker->id) }}" method="POST"
@@ -30,34 +35,36 @@
                             @method('PUT')
 
                             <div class="row g-3">
-                                {{-- Identitas Perusahaan --}}
+                                <!-- Section 1: Identitas -->
                                 <div class="col-12 mt-2">
                                     <h6 class="text-primary fw-bold text-uppercase small tracking-wider mb-2">Identitas
                                         Perusahaan</h6>
                                     <hr class="mt-0 mb-3 opacity-10">
                                 </div>
+
                                 <div class="col-md-6">
-                                    <label class="form-label fw-semibold">Nama Posisi</label>
+                                    <label class="form-label fw-semibold small">Nama Posisi</label>
                                     <input type="text" name="posisi" class="form-control form-control-lg fs-6"
                                         value="{{ old('posisi', $loker->posisi) }}" required>
                                 </div>
+
                                 <div class="col-md-6">
-                                    <label class="form-label fw-semibold">Nama Perusahaan</label>
+                                    <label class="form-label fw-semibold small">Nama Perusahaan</label>
                                     <input type="text" name="perusahaan" class="form-control form-control-lg fs-6"
                                         value="{{ old('perusahaan', $loker->perusahaan) }}" required>
                                 </div>
 
-                                {{-- Lokasi --}}
+                                <!-- Section 2: Lokasi -->
                                 <div class="col-12 mt-4">
                                     <h6 class="text-primary fw-bold text-uppercase small tracking-wider mb-2">Lokasi
                                         Penempatan</h6>
                                     <hr class="mt-0 mb-3 opacity-10">
                                 </div>
-                                <div class="col-12 col-md-6">
-                                    <label class="form-label fw-semibold">Kota/Kabupaten</label>
+
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold small">Kota/Kabupaten</label>
                                     <select name="kota" id="select-kota" class="form-select select2-init" required>
                                         <option value="{{ $loker->kota }}" selected>{{ $loker->kota }}</option>
-                                        {{-- Tambahkan list kota lainnya seperti di create --}}
                                         <optgroup label="Wilayah Utama">
                                             <option value="Kabupaten Tegal" data-id="3328">Kabupaten Tegal</option>
                                             <option value="Kota Tegal" data-id="3376">Kota Tegal</option>
@@ -65,38 +72,43 @@
                                         </optgroup>
                                     </select>
                                 </div>
-                                <div class="col-12 col-md-6">
-                                    <label class="form-label fw-semibold">Kecamatan</label>
+
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold small">Kecamatan</label>
                                     <select name="kecamatan" id="select-kecamatan" class="form-select select2-init"
                                         required>
                                         <option value="{{ $loker->kecamatan }}" selected>{{ $loker->kecamatan }}</option>
                                     </select>
                                 </div>
+
                                 <div class="col-12">
-                                    <label class="form-label fw-semibold">Alamat Lengkap</label>
+                                    <label class="form-label fw-semibold small">Alamat Lengkap</label>
                                     <textarea name="alamat" class="form-control" rows="2">{{ old('alamat', $loker->alamat) }}</textarea>
                                 </div>
 
-                                {{-- Detail --}}
+                                <!-- Section 3: Detail & Gaji -->
                                 <div class="col-12 mt-4">
                                     <h6 class="text-primary fw-bold text-uppercase small tracking-wider mb-2">Detail & Gaji
                                     </h6>
                                     <hr class="mt-0 mb-3 opacity-10">
                                 </div>
-                                <div class="col-md-4">
-                                    <label class="form-label fw-semibold">Gaji (Range)</label>
+
+                                <div class="col-md-6 col-lg-3">
+                                    <label class="form-label fw-semibold small">Gaji (Range)</label>
                                     <input type="text" name="gaji" class="form-control"
                                         value="{{ old('gaji', $loker->gaji) }}">
                                 </div>
-                                <div class="col-md-4">
-                                    <label class="form-label fw-semibold">Batas Pendaftaran</label>
+
+                                <div class="col-md-6 col-lg-3">
+                                    <label class="form-label fw-semibold small">Batas Pendaftaran</label>
                                     <input type="date" name="deadline" class="form-control"
                                         value="{{ old('deadline', $loker->deadline ? \Carbon\Carbon::parse($loker->deadline)->format('Y-m-d') : '') }}">
-                                    <small class="text-muted">Kosongkan jika pendaftaran dibuka sampai kuota
+                                    <small class="text-muted d-block mt-1 small">Kosongkan jika dibuka sampai kuota
                                         terpenuhi.</small>
                                 </div>
-                                <div class="col-md-4">
-                                    <label class="form-label fw-semibold">Status Tayang</label>
+
+                                <div class="col-md-6 col-lg-3">
+                                    <label class="form-label fw-semibold small">Status Tayang</label>
                                     <select name="status"
                                         class="form-select fw-bold {{ $loker->status == 'Aktif' ? 'text-success' : 'text-secondary' }}">
                                         <option value="Aktif" {{ $loker->status == 'Aktif' ? 'selected' : '' }}>Aktif /
@@ -105,19 +117,23 @@
                                             Draft</option>
                                     </select>
                                 </div>
-                                <div class="col-md-4">
-                                    <label class="form-label fw-semibold">Tanggal Update</label>
+
+                                <div class="col-md-6 col-lg-3">
+                                    <label class="form-label fw-semibold small">Tanggal Update</label>
                                     <input type="datetime-local" name="updated_at" class="form-control"
                                         value="{{ old('updated_at', $loker->updated_at ? $loker->updated_at->format('Y-m-d\TH:i') : '') }}">
-                                    <small class="text-muted">Kosongkan untuk tidak mengatur tanggal khusus.</small>
+                                    <small class="text-muted d-block mt-1 small">Kosongkan untuk waktu otomatis.</small>
                                 </div>
 
-                                {{-- Benefit Dinamis --}}
-                                <div class="col-12 mt-4">
-                                    <label class="form-label fw-semibold d-flex justify-content-between">
-                                        Benefit / Fasilitas
-                                        <button type="button" class="btn btn-sm btn-outline-primary" id="add-benefit"><i
-                                                class="bi bi-plus-circle me-1"></i>Tambah Baris</button>
+                                <!-- Benefit Dinamis -->
+                                <div class="col-12 mt-3">
+                                    <label
+                                        class="form-label fw-semibold d-flex justify-content-between align-items-center small mb-2">
+                                        <span>Benefit / Fasilitas</span>
+                                        <button type="button" class="btn btn-sm btn-outline-primary py-1 px-2 fs-7"
+                                            id="add-benefit">
+                                            <i class="bi bi-plus-circle me-1"></i>Baris
+                                        </button>
                                     </label>
                                     <div id="benefit-container">
                                         @foreach ($loker->benefit as $b)
@@ -133,20 +149,18 @@
                                     </div>
                                 </div>
 
-                                {{-- Deskripsi --}}
+                                <!-- Section 4: Isi Lowongan -->
                                 <div class="col-12 mt-4">
-                                    <label class="form-label fw-semibold">Ringkasan / Deskripsi Pekerjaan</label>
-                                    <textarea name="deskripsi" class="form-control" rows="4">{{ old('deskripsi', $loker->deskripsi) }}</textarea>
+                                    <h6 class="text-primary fw-bold text-uppercase small tracking-wider mb-2">Isi Lowongan
+                                    </h6>
+                                    <hr class="mt-0 mb-3 opacity-10">
                                 </div>
 
-                                {{-- Tambahan Minimal Pendidikan & Pengalaman untuk Edit --}}
-                                <div class="col-md-6 mt-3">
-                                    <label class="form-label fw-semibold">Minimal Pendidikan</label>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold small">Minimal Pendidikan</label>
                                     <select name="minimal_pendidikan" class="form-select select2-init">
                                         <option value="">Pilih Pendidikan...</option>
-                                        @php
-                                            $pendidikans = ['SMP', 'SMA/SMK', 'D3', 'S1/S2', 'Semua Jenjang'];
-                                        @endphp
+                                        @php $pendidikans = ['SMP', 'SMA/SMK', 'D3', 'S1/S2', 'Semua Jenjang']; @endphp
                                         @foreach ($pendidikans as $p)
                                             <option value="{{ $p }}"
                                                 {{ old('minimal_pendidikan', $loker->minimal_pendidikan) == $p ? 'selected' : '' }}>
@@ -156,19 +170,11 @@
                                     </select>
                                 </div>
 
-                                <div class="col-md-6 mt-3">
-                                    <label class="form-label fw-semibold">Pengalaman Kerja</label>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold small">Pengalaman Kerja</label>
                                     <select name="pengalaman" class="form-select select2-init">
                                         <option value="">Pilih Kategori...</option>
-                                        @php
-                                            $pengalamans = [
-                                                'Fresh Graduate',
-                                                'Minimal 1 Tahun',
-                                                'Minimal 2 Tahun',
-                                                'Minimal 3 Tahun',
-                                                'Lebih dari 5 Tahun',
-                                            ];
-                                        @endphp
+                                        @php $pengalamans = ['Fresh Graduate', 'Minimal 1 Tahun', 'Minimal 2 Tahun', 'Minimal 3 Tahun', 'Lebih dari 5 Tahun']; @endphp
                                         @foreach ($pengalamans as $exp)
                                             <option value="{{ $exp }}"
                                                 {{ old('pengalaman', $loker->pengalaman) == $exp ? 'selected' : '' }}>
@@ -178,18 +184,20 @@
                                     </select>
                                 </div>
 
-                                <div class="col-12 mt-4">
-                                    <h6 class="text-primary fw-bold text-uppercase small tracking-wider mb-2">Detail
-                                        Lowongan</h6>
-                                    <hr class="mt-0 mb-3 opacity-10">
+                                <div class="col-12">
+                                    <label class="form-label fw-semibold small">Ringkasan / Deskripsi Pekerjaan</label>
+                                    <textarea name="deskripsi" class="form-control" rows="3">{{ old('deskripsi', $loker->deskripsi) }}</textarea>
                                 </div>
 
-                                {{-- Tugas Dinamis --}}
-                                <div class="col-md-6 mt-4">
-                                    <label class="form-label fw-semibold d-flex justify-content-between">
-                                        Tanggung Jawab
-                                        <button type="button" class="btn btn-sm btn-outline-primary" id="add-tugas"><i
-                                                class="bi bi-plus-circle"></i></button>
+                                <!-- Tugas Dinamis -->
+                                <div class="col-md-6 mt-3">
+                                    <label
+                                        class="form-label fw-semibold d-flex justify-content-between align-items-center small mb-2">
+                                        <span>Tanggung Jawab</span>
+                                        <button type="button" class="btn btn-sm btn-outline-primary py-1 px-2 fs-7"
+                                            id="add-tugas">
+                                            <i class="bi bi-plus-circle"></i>
+                                        </button>
                                     </label>
                                     <div id="tugas-container">
                                         @foreach ($loker->tugas as $t)
@@ -203,12 +211,15 @@
                                     </div>
                                 </div>
 
-                                {{-- Persyaratan Dinamis --}}
-                                <div class="col-md-6 mt-4">
-                                    <label class="form-label fw-semibold d-flex justify-content-between">
-                                        Persyaratan
-                                        <button type="button" class="btn btn-sm btn-outline-primary"
-                                            id="add-persyaratan"><i class="bi bi-plus-circle"></i></button>
+                                <!-- Persyaratan Dinamis -->
+                                <div class="col-md-6 mt-3">
+                                    <label
+                                        class="form-label fw-semibold d-flex justify-content-between align-items-center small mb-2">
+                                        <span>Persyaratan</span>
+                                        <button type="button" class="btn btn-sm btn-outline-primary py-1 px-2 fs-7"
+                                            id="add-persyaratan">
+                                            <i class="bi bi-plus-circle"></i>
+                                        </button>
                                     </label>
                                     <div id="persyaratan-container">
                                         @foreach ($loker->persyaratan as $p)
@@ -222,56 +233,67 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-4">
-                                    <label class="form-label fw-semibold">WhatsApp (Format: 628xxx)</label>
+                                <!-- Section 5: Kontak & Publikasi -->
+                                <div class="col-12 mt-4">
+                                    <h6 class="text-primary fw-bold text-uppercase small tracking-wider mb-2">Kontak &
+                                        Publikasi</h6>
+                                    <hr class="mt-0 mb-3 opacity-10">
+                                </div>
+
+                                <div class="col-md-4 col-sm-6">
+                                    <label class="form-label fw-semibold small">WhatsApp (Format: 628xxx)</label>
                                     <input type="text" name="no_wa" class="form-control" placeholder="62857xxxx"
                                         value="{{ old('no_wa', $loker->no_wa) }}">
                                 </div>
 
-                                <div class="col-md-4">
-                                    <label class="form-label fw-semibold">Email HRD</label>
+                                <div class="col-md-4 col-sm-6">
+                                    <label class="form-label fw-semibold small">Email HRD</label>
                                     <input type="email" name="email" class="form-control"
                                         placeholder="hrd@perusahaan.com" value="{{ old('email', $loker->email) }}">
                                 </div>
 
-                                <div class="col-md-4">
-                                    <label class="form-label fw-semibold">WhatsApp (Format: 628xxx)</label>
+                                <!-- Memperbaiki label yang sebelumnya salah tertulis WhatsApp -->
+                                <div class="col-md-4 col-sm-12">
+                                    <label class="form-label fw-semibold small">Link Pendaftaran</label>
                                     <input type="text" name="link_pendaftaran" class="form-control"
-                                        placeholder="62857xxxx"
+                                        placeholder="https://"
                                         value="{{ old('link_pendaftaran', $loker->link_pendaftaran) }}">
                                 </div>
 
-                                {{-- Blog --}}
-                                <div class="col-12 mt-4">
-                                    <label class="form-label fw-semibold">Pilih Artikel Blog Terkait (Opsional)</label>
+                                <!-- Blog Relasi -->
+                                <div class="col-12">
+                                    <label class="form-label fw-semibold small">Pilih Artikel Blog Terkait
+                                        (Opsional)</label>
                                     <select name="blog_ids[]" class="form-control select2-multiple" multiple="multiple">
                                         @foreach ($blogs as $blog)
                                             <option value="{{ $blog->id }}"
-                                                {{ in_array($blog->id, $loker->blogs->pluck('id')->toArray()) ? 'selected' : '' }}>
+                                                {{ in_array($blog->id, old('blog_ids', $loker->blogs->pluck('id')->toArray())) ? 'selected' : '' }}>
                                                 {{ $blog->judul }}
                                             </option>
                                         @endforeach
                                     </select>
                                 </div>
 
-                                {{-- Versi Form EDIT agar data lama dari Database otomatis muncul --}}
-                                <div class="col-12 mt-3">
-                                    <label class="form-label fw-semibold">Rekomendasi Produk Affiliate (Bisa Pilih
-                                        Banyak)</label>
+                                <!-- Affiliate Ads -->
+                                <div class="col-12">
+                                    <label class="form-label fw-semibold small">Rekomendasi Produk Affiliate</label>
                                     <select name="product_ids[]" class="form-control select2-multiple"
                                         multiple="multiple">
                                         @foreach ($affiliateAds as $ad)
                                             <option value="{{ $ad->id }}"
-                                                {{ in_array($ad->id, old('product_ids', isset($loker) ? $loker->affiliateAds->pluck('id')->toArray() : [])) ? 'selected' : '' }}>
+                                                {{ in_array($ad->id, old('product_ids', $loker->affiliateAds->pluck('id')->toArray())) ? 'selected' : '' }}>
                                                 {{ $ad->nama_produk }} ({{ $ad->platform->nama_platform }})
                                             </option>
                                         @endforeach
                                     </select>
                                 </div>
+                            </div>
 
-                                <div class="col-12 mt-5">
+                            <!-- Submit Button -->
+                            <div class="row">
+                                <div class="col-12 mt-4 mt-md-5">
                                     <button type="submit"
-                                        class="btn btn-primary btn-lg w-100 rounded-3 fw-bold shadow-sm py-3">
+                                        class="btn btn-primary btn-lg w-100 rounded-3 fw-bold shadow-sm py-3 fs-6">
                                         Simpan Perubahan Loker
                                     </button>
                                 </div>
@@ -282,6 +304,19 @@
             </div>
         </div>
     </div>
+
+    <!-- Tambahan style pembantu khusus responsive -->
+    <style>
+        @media (max-width: 576px) {
+            .select2-container {
+                width: 100% !important;
+            }
+
+            .fs-7 {
+                font-size: 0.75rem !important;
+            }
+        }
+    </style>
 @endsection
 
 @push('scripts')

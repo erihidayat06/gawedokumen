@@ -1,4 +1,5 @@
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<!-- Menambahkan kelas "toggled" secara default agar di mobile langsung tertutup -->
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled" id="accordionSidebar">
 
     <a class="sidebar-brand d-flex align-items-center justify-content-center text-decoration-none" href="/">
         <div class="sidebar-brand-icon">
@@ -43,3 +44,26 @@
     </div>
 
 </ul>
+
+<!-- Script Tambahan untuk mengontrol perilaku responsif jika diperlukan -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const sidebar = document.getElementById('accordionSidebar');
+
+        // Memastikan jika layar berukuran desktop (lebar >= 768px), sidebar otomatis terbuka kembali
+        if (window.innerWidth >= 768) {
+            sidebar.classList.remove('toggled');
+        } else {
+            sidebar.classList.add('toggled');
+        }
+
+        // Opsional: Menghandle resize layar secara dinamis
+        window.addEventListener('resize', function() {
+            if (window.innerWidth >= 768) {
+                sidebar.classList.remove('toggled');
+            } else {
+                sidebar.classList.add('toggled');
+            }
+        });
+    });
+</script>
