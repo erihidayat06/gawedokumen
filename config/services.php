@@ -37,6 +37,7 @@ return [
 
     'google' => [
         'analytics_id' => env('MIX_ANALYTICS_ID', env('VITE_ANALYTICS_ID', 'G-DGR0WR4BKB')),
+        'adsense_client_id' => env('GOOGLE_ADSENSE_CLIENT_ID'),
     ],
 
 ];

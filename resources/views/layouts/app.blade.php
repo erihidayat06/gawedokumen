@@ -39,6 +39,12 @@
         </script>
     @endif
 
+    {{-- Google AdSense (Hanya aktif di Production & Jika Publisher ID diisi) --}}
+    @if (app()->environment('production') && config('services.google.adsense_client_id'))
+        <script async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ config('services.google.adsense_client_id') }}"
+            crossorigin="anonymous"></script>
+    @endif
 
     {{-- Meta Description Dinamis --}}
     <meta name="description" content="@yield('meta_description', 'Bikin surat lamaran, label, dan dokumen administrasi otomatis dalam hitungan menit.')">
@@ -59,7 +65,6 @@
         }
     </script>
 
-
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -72,7 +77,6 @@
     <main>
         @yield('content')
     </main>
-
 
     @include('layouts.footer')
 
