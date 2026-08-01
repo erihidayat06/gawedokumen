@@ -679,6 +679,171 @@
 
     </div>
 
+    <div class="mx-5">
+        <div class="mt-6 p-4 bg-blue-50 border-l-4 border-blue-500 rounded-r-lg">
+            <div class="flex items-center">
+                <svg class="w-5 h-5 text-blue-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                        d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                        clip-rule="evenodd" />
+                </svg>
+                <span class="text-sm text-blue-800 font-medium">Jaminan Privasi</span>
+            </div>
+            <p class="text-xs text-blue-600 mt-1">
+                Data yang Anda masukkan tidak disimpan di server kami. Kami menggunakan teknologi penyimpanan lokal agar
+                identitas Anda tetap aman di perangkat Anda sendiri.
+            </p>
+        </div>
+    </div>
+    {{-- Bagian Edukasi/Tips di bawah Form CV --}}
+    <article class="mt-12 border-t border-slate-100 dark:border-slate-800 pt-10 px-5">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-2xl md:text-3xl font-black text-slate-900 dark:text-white mb-8 leading-tight text-center">
+                Bagaimana Cara Membuat CV Profesional di GaweDokumen & Tips Mengisinya
+            </h2>
+
+            <div class="space-y-8 text-slate-600 dark:text-slate-400 leading-relaxed">
+                <div class="space-y-4">
+                    <p>
+                        Membuat Curiculum Vitae (CV) ATS-friendly yang dilirik HRD kini hanya butuh hitungan menit. Di
+                        <strong>GaweDokumen</strong>, kami sudah menyediakan struktur layout CV standar industri modern.
+                        Anda cukup
+                        mengisi data diri, profil profesional, serta riwayat pengalaman tanpa pusing memikirkan desain.
+                    </p>
+                    <p>
+                        Isilah formulir dengan teliti dan lengkap. Setiap teks yang Anda masukkan akan otomatis terpampang
+                        pada <strong>preview dokumen</strong> secara real-time. Demi menjaga privasi Anda, data yang diketik
+                        hanya tersimpan aman di dalam browser (Local Storage) dan <strong>tidak akan pernah dikirim ke
+                            server
+                            kami</strong>.
+                    </p>
+                </div>
+
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">1. Foto Profil Formal</h3>
+                        <p>
+                            Unggah foto terbaik Anda dengan latar belakang polos. Gunakan pakaian formal atau rapi untuk
+                            memberikan kesan pertama yang profesional di hadapan perekrut kerja.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">2. Identitas & Data Diri</h3>
+                        <p>
+                            Masukkan informasi dasar secara akurat mulai dari <strong>Nama Lengkap, Profesi/Jabatan, Tempat
+                                & Tanggal Lahir,
+                                hingga Kewarganegaraan</strong>. Pastikan nomor telepon (WhatsApp) dan email yang
+                            dicantumkan aktif agar
+                            perusahaan mudah menghubungi Anda untuk jadwal interview.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">3. Profil Profesional (Ringkasan
+                            Diri)</h3>
+                        <p>
+                            Bagian ini adalah "pancingan" utama bagi HRD. Jelaskan secara singkat siapa Anda, keahlian utama
+                            yang dikuasai,
+                            serta berapa lama pengalaman kerja Anda dalam membangun solusi atau menyelesaikan pekerjaan di
+                            bidang tersebut.
+                        </p>
+                    </div>
+                </div>
+
+                {{-- Tips Card --}}
+                <div
+                    class="bg-blue-50 dark:bg-blue-900/20 p-8 rounded-[2rem] border border-blue-100 dark:border-blue-800/50">
+                    <h3 class="font-bold text-blue-900 dark:text-blue-300 mb-4 flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        Tips Biar CV Dilirik HRD & Lolos ATS:
+                    </h3>
+                    <ul class="list-disc pl-5 space-y-3 text-sm text-blue-800/80 dark:text-blue-200/80">
+                        <li><strong>Singkat & Padat:</strong> Buat ringkasan profil profesional yang langsung pada sasaran
+                            tanpa bertele-tele.</li>
+                        <li><strong>Gunakan Kontak Aktif:</strong> Pastikan email profesional (misal: nama.anda@gmail.com)
+                            dan nomor WhatsApp selalu aktif.</li>
+                        <li><strong>Cek Kembali Data:</strong> Hindari salah ketik pada informasi tanggal lahir dan kontak
+                            penting Anda.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </article>
+    {{-- FAQ KHUSUS CV --}}
+    <section class="mt-20 border-t border-slate-100 dark:border-slate-800 pt-16 px-5">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-2xl font-black text-slate-900 dark:text-white mb-8 text-center">
+                Pertanyaan Seputar Pembuatan <span class="text-blue-600">CV Profesional</span>
+            </h2>
+
+            <div class="space-y-4" x-data="{ active: null }">
+
+                {{-- Item 1 --}}
+                <div class="rounded-3xl border border-slate-100 dark:border-slate-800 overflow-hidden">
+                    <button @click="active !== 1 ? active = 1 : active = null"
+                        class="flex items-center justify-between w-full p-6 text-left bg-slate-50 dark:bg-slate-900/50 hover:bg-white dark:hover:bg-slate-900 transition-all">
+                        <span class="font-bold text-slate-900 dark:text-white">Apakah format CV ini sudah ramah sistem
+                            ATS?</span>
+                        <svg class="w-5 h-5 transition-transform" :class="active === 1 ? 'rotate-180' : ''" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                            </path>
+                        </svg>
+                    </button>
+                    <div x-show="active === 1" x-collapse
+                        class="p-6 text-sm text-slate-600 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800">
+                        Ya. Tata letak dan struktur kode CV ini dirancang bersih agar mudah dibaca oleh sistem ATS
+                        (Applicant Tracking System) yang biasa digunakan perusahaan besar untuk menyaring kandidat.
+                    </div>
+                </div>
+
+                {{-- Item 2 --}}
+                <div class="rounded-3xl border border-slate-100 dark:border-slate-800 overflow-hidden">
+                    <button @click="active !== 2 ? active = 2 : active = null"
+                        class="flex items-center justify-between w-full p-6 text-left bg-slate-50 dark:bg-slate-900/50 hover:bg-white dark:hover:bg-slate-900 transition-all">
+                        <span class="font-bold text-slate-900 dark:text-white">Apakah saya harus mencantumkan foto dalam
+                            CV?</span>
+                        <svg class="w-5 h-5 transition-transform" :class="active === 2 ? 'rotate-180' : ''" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                            </path>
+                        </svg>
+                    </button>
+                    <div x-show="active === 2" x-collapse
+                        class="p-6 text-sm text-slate-600 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800">
+                        Pencantuman foto bersifat opsional tergantung pada kebijakan industri atau perusahaan yang dilamar.
+                        Di GaweDokumen, Anda bebas mengunggah foto profil formal atau mengkosongkannya jika melamar ke
+                        perusahaan internasional yang menerapkan kebijakan tanpa foto.
+                    </div>
+                </div>
+
+                {{-- Item 3 --}}
+                <div class="rounded-3xl border border-slate-100 dark:border-slate-800 overflow-hidden">
+                    <button @click="active !== 3 ? active = 3 : active = null"
+                        class="flex items-center justify-between w-full p-6 text-left bg-slate-50 dark:bg-slate-900/50 hover:bg-white dark:hover:bg-slate-900 transition-all">
+                        <span class="font-bold text-slate-900 dark:text-white">Bagaimana cara menulis profil profesional
+                            yang baik?</span>
+                        <svg class="w-5 h-5 transition-transform" :class="active === 3 ? 'rotate-180' : ''" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                            </path>
+                        </svg>
+                    </button>
+                    <div x-show="active === 3" x-collapse
+                        class="p-6 text-sm text-slate-600 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800">
+                        Tuliskan rangkuman singkat dalam 2-3 kalimat yang mencakup profesi utama Anda, keahlian spesial yang
+                        dikuasai, serta nilai tambah atau pengalaman kerja yang relevan dengan posisi yang sedang Anda
+                        incar.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
     @include('pekerja.tamplate.print_modal')
 
 @endsection
