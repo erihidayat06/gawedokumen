@@ -59,6 +59,8 @@
         }
     </script>
 
+    <meta name="monetag" content="8a48b441f0e8b383891995753ef0bb4d">
+
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
