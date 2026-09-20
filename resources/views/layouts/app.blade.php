@@ -60,7 +60,16 @@
     </script>
 
     <meta name="monetag" content="8a48b441f0e8b383891995753ef0bb4d">
-
+    <script>
+        (function(s) {
+            s.dataset.zone = '11846964', s.src = 'https://n6wxm.com/vignette.min.js'
+        })([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))
+    </script>
+    <script>
+        (function(s) {
+            s.dataset.zone = '11846965', s.src = 'https://nap5k.com/tag.min.js'
+        })([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))
+    </script>
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
